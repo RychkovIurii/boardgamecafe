@@ -18,8 +18,8 @@ dist-ssr
 
 # Local environment files
 *.local
-backend/.env
-frontend/cafe-front/.env
+backend/*.env
+frontend/cafe-front/*.env
 
 # Editor directories and files
 .vscode/*
