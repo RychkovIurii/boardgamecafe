@@ -1,51 +1,151 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const User = require('../models/User');
-const Booking = require('../models/Booking');
 const Game = require('../models/Game');
+const Booking = require('../models/Booking');
+const Payment = require('../models/Payment');
+const Table = require('../models/Table');
 
-dotenv.config();
+dotenv.config({ path: './back.env' });
 
-const seedDatabase = async () => {
+const connectDB = async () => {
     try {
-        // Connect to the database
-        await mongoose.connect(process.env.MONGO_URI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        });
-        console.log('Database connected.');
+        await mongoose.connect(process.env.MONGO_URI);
+        console.log('MongoDB Connected');
+    } catch (error) {
+        console.error(`Error: ${error.message}`);
+        process.exit(1);
+    }
+};
 
-        // Clear existing data
-        await User.deleteMany({});
-        await Booking.deleteMany({});
-        await Game.deleteMany({});
+const seedUsers = [
+    {
+        name: 'User',
+        email: 'user@example.com',
+        password: 'user',
+        phone: '1234567890',
+        role: 'user',
+    },
+    {
+        name: 'Admin',
+        email: 'admin@example.com',
+        password: 'admin',
+        phone: '0987654321',
+        role: 'admin',
+    },
+];
 
-        // Seed users (admins and regular users)
-        const users = await User.insertMany([
-            { name: 'Admin User', email: 'admin@example.com', role: 'admin', password: 'password123' },
-            { name: 'Regular User', email: 'user@example.com', role: 'user', password: 'password123' },
-        ]);
-        console.log(`${users.length} users seeded.`);
+const seedGames = [
+    {
+        title: 'Catan',
+        genre: 'Strategy',
+        minPlayers: 3,
+        maxPlayers: 4,
+        availability: true,
+        copies: 3,
+    },
+    {
+        title: 'Monopoly',
+        genre: 'Family',
+        minPlayers: 2,
+        maxPlayers: 6,
+        availability: true,
+        copies: 5,
+    },
+];
 
-        // Seed games
-        const games = await Game.insertMany([
-            { title: 'Catan', genre: 'Strategy', players: 4 },
-            { title: 'Chess', genre: 'Classic', players: 2 },
-        ]);
-        console.log(`${games.length} games seeded.`);
+const seedTables = [
+    {
+        number: 1,
+        capacity: 4,
+        location: 'Near window',
+    },
+    {
+        number: 2,
+        capacity: 6,
+        location: 'Center of the room',
+    },
+];
 
-        // Seed bookings
-        const bookings = await Booking.insertMany([
-            { name: 'Alice', date: new Date(), table: 1, gameId: games[0]._id, userId: users[1]._id },
-            { name: 'Bob', date: new Date(), table: 2, gameId: games[1]._id, userId: users[1]._id },
-        ]);
-        console.log(`${bookings.length} bookings seeded.`);
+const seedBookings = [
+    {
+        date: new Date(),
+        startTime: '16:00',
+        endTime: '18:00',
+        tableId: null, // This will be updated after tables are seeded
+        players: 3,
+        contactName: 'Charlie',
+        contactPhone: '1122334455',
+    },
+    {
+        date: new Date(),
+        startTime: '18:00',
+        endTime: '21:00',
+        tableId: null, // This will be updated after tables are seeded
+        players: 5,
+        userId: null, // This will be updated after users are seeded
+        gameId: null, // This will be updated after games are seeded
+    },
+];
+
+const seedPayments = [
+    {
+        bookingId: null, // This will be updated after bookings are seeded
+        amount: 50.00,
+        status: 'completed',
+        paymentMethod: 'credit_card',
+        transactionId: 'txn_1234567890',
+        stripePaymentIntentId: 'pi_1234567890',
+        stripeCustomerId: 'cus_1234567890',
+    },
+    {
+        bookingId: null, // This will be updated after bookings are seeded
+        amount: 75.00,
+        status: 'pending',
+        paymentMethod: 'paypal',
+        transactionId: 'txn_0987654321',
+        stripePaymentIntentId: 'pi_0987654321',
+        stripeCustomerId: 'cus_0987654321',
+    },
+];
+
+const importData = async () => {
+    try {
+        await connectDB();
+
+        await User.deleteMany();
+        await Game.deleteMany();
+        await Booking.deleteMany();
+        await Payment.deleteMany();
+        await Table.deleteMany();
+
+        const createdUsers = await User.insertMany(seedUsers);
+        const createdGames = await Game.insertMany(seedGames);
+        const createdTables = await Table.insertMany(seedTables);
+
+        seedBookings[0].userId = createdUsers[0]._id;
+        seedBookings[1].userId = createdUsers[1]._id;
+        seedBookings[0].gameId = createdGames[0]._id;
+        seedBookings[1].gameId = createdGames[1]._id;
+        seedBookings[0].tableId = createdTables[0]._id;
+        seedBookings[1].tableId = createdTables[1]._id;
+
+        const createdBookings = await Booking.insertMany(seedBookings);
+
+        seedPayments[0].bookingId = createdBookings[0]._id;
+        seedPayments[1].bookingId = createdBookings[1]._id;
+
+        await Payment.insertMany(seedPayments);
+
+        console.log('Data Imported!');
+        process.exit();
     } catch (error) {
         console.error('Error seeding the database:', error.message);
+        process.exit(1);
     } finally {
         mongoose.disconnect();
         console.log('Database disconnected.');
     }
 };
 
-seedDatabase();
+importData();
