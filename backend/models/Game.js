@@ -10,13 +10,24 @@ const gameSchema = new mongoose.Schema({
         type: String,
         trim: true,
     },
-    players: {
+    minPlayers: {
         type: Number,
-        min: [1, 'Number of players must be at least 1'],
+        required: [true, 'Minimum number of players is required'],
+        min: [1, 'Minimum number of players must be at least 1'],
+    },
+    maxPlayers: {
+        type: Number,
+        required: [true, 'Maximum number of players is required'],
+        min: [1, 'Maximum number of players must be at least 1'],
     },
     availability: {
         type: Boolean,
         default: true, // Indicates if the game is currently available
+    },
+    copies: {
+        type: Number,
+        required: true,
+        min: [1, 'There must be at least one copy of the game'],
     },
 }, {
     timestamps: true,
