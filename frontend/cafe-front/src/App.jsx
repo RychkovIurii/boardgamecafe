@@ -1,11 +1,9 @@
-import { useState } from 'react'
+import React from 'react';
 import {Route, Routes} from "react-router-dom";
-import Home from './routes/Home';
+import Home from '../routes/Home';
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <div className="App">
       <Routes>
