@@ -20,7 +20,7 @@
 	padding-right: 10px;
 	width: 100px;
 	height: 100px;
-	object-fit: cover;
+	/* object-fit: cover; */
 }
 
 .top {
