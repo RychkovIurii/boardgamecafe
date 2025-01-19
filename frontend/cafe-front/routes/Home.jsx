@@ -1,13 +1,13 @@
 import React from 'react';
 import heroImage from '../assets/hero_home.jpg';
 import Hero from '../components/Hero';
-/* import Navbar from '../components/Navbar'; */
+import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
 function Home() {
     return (
         <>
-            {/* <Navbar /> */}
+            <Navbar />
             <Hero
                 cName="hero"
                 heroImage={heroImage}
