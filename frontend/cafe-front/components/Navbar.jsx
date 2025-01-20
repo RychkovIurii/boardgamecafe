@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -28,6 +29,8 @@ const settings = [
 ];
 
 function Navbar() {
+  const { t, i18n } = useTranslation();
+  const [language, setLanguage] = React.useState(i18n.language);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -47,6 +50,11 @@ function Navbar() {
     setAnchorElUser(null);
   };
 
+  const updateLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+    setLanguage(lng);
+  };
+
   return (
     <AppBar position="static" color="white">
       <Container maxWidth="xl">
@@ -59,7 +67,7 @@ function Navbar() {
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
-              fontFamily: !'Avenir sans-serif',
+              fontFamily: 'Avenir sans-serif',
               fontWeight: 700,
               letterSpacing: '.3rem',
               color: 'black',
@@ -101,7 +109,7 @@ function Navbar() {
               {pages.map((page) => (
                 <MenuItem key={page.name} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">
-                    <Link to={page.path}>{page.name}</Link>
+                    <Link to={page.path}>{t(`navbar.${page.name}`)}</Link>
                   </Typography>
                 </MenuItem>
               ))}
@@ -135,12 +143,17 @@ function Navbar() {
                 component={Link}
                 to={page.path}
               >
-                {page.name}
+                {t(`navbar.${page.name}`)}
               </Button>
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
+          <Box sx={{ flexGrow: 0, display: 'flex', alignItems: 'center' }}>
+            <i className="fa-solid fa-globe"></i>
+            <select value={language} onChange={(e) => updateLanguage(e.target.value)} style={{ marginLeft: '10px', marginRight: '20px' }}>
+              <option value="en">EN</option>
+              <option value="fi">FI</option>
+            </select>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
@@ -165,7 +178,7 @@ function Navbar() {
               {settings.map((setting) => (
                 <MenuItem key={setting.name} onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">
-                    <Link to={setting.path}>{setting.name}</Link>
+                    <Link to={setting.path}>{t(`navbar.${setting.name}`)}</Link>
                   </Typography>
                 </MenuItem>
               ))}

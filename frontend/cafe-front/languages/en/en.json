@@ -1,0 +1,37 @@
+{
+	"navbar": {
+		"Games": "Games",
+		"Pricing": "Pricing",
+		"Events": "Events",
+		"Booking": "Booking",
+		"Profile": "Profile",
+		"My bookings": "My bookings",
+		"SignIn": "SignIn",
+		"Register": "Register",
+		"Logout": "Logout"
+	},
+	"hero": {
+		"Welcome to BoardGameCafe": "Welcome to BoardGameCafe",
+		"Enjoy the best board games with your friends and family.": "Enjoy the best board games with your friends and family.",
+		"Book Now": "Book Now",
+		"CafeCon Café Boardgame": "CafeCon Café Boardgame",
+		"Learn More": "Learn More",
+		"Our Game Collection": "Our Game Collection",
+		"Enjoy the best board games with us.": "Enjoy the best board games with us."
+	},
+	"footer": {
+		"Created by Varia Students": "© 2025 Created by Varia Students. All rights reserved.",
+		"Contact": "Contact",
+        "About": "About",
+        "Others": "Others",
+        "Call us": "Call us",
+        "Email us": "Email us",
+        "Careers": "Careers",
+        "About Us": "About Us",
+        "Staff": "Staff",
+        "Partners": "Partners",
+        "Privacy Policy": "Privacy Policy",
+        "License": "License",
+        "Terms of Service": "Terms of Service"
+	}
+}
