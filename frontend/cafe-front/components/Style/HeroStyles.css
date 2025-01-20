@@ -1,15 +1,17 @@
 .hero {
 	width: 100%;
-	height: 85vh;
+	height: 95vh;
 	position: relative;
 }
 
-/* .heroToStay,
-.heroToGo {
+.heroGames,
+.heroEvents {
 	width: 100%;
-	height: 85vh;
+	height: 80vh;
 	position: relative;
 }
+
+/* 
 
 .heroSignIn{
 	width: 100%;
@@ -35,7 +37,7 @@
 .imgClass {
 	width: 100%;
 	height: 100%;
-	object-fit: cover;
+	object-fit: cover
 }
 
 .hero-text {
