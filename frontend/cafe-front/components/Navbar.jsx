@@ -17,10 +17,15 @@ import AdbIcon from '@mui/icons-material/Adb';
 const pages = [
   { name: 'Games', path: '/games' },
   { name: 'Pricing', path: '/pricing' },
-  { name: 'Events', path: '/events' }
+  { name: 'Events', path: '/events' },
+  { name: 'Booking', path: '/bookings' }
 ];
 
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = [
+  { name: 'Profile', path: '/profile' },
+  { name: 'My bookings', path: '/account' },
+  { name: 'Login', path: '/login' }
+];
 
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -54,7 +59,7 @@ function Navbar() {
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
-              fontFamily: 'sans-serif',
+              fontFamily: !'Avenir sans-serif',
               fontWeight: 700,
               letterSpacing: '.3rem',
               color: 'black',
@@ -95,7 +100,9 @@ function Navbar() {
             >
               {pages.map((page) => (
                 <MenuItem key={page.name} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center"><Link to={page.path}>{page.name}</Link></Typography>
+                  <Typography textAlign="center">
+                    <Link to={page.path}>{page.name}</Link>
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -156,8 +163,10 @@ function Navbar() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                <MenuItem key={setting.name} onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">
+                    <Link to={setting.path}>{setting.name}</Link>
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
