@@ -3,21 +3,24 @@ import heroImage from '../assets/hero_events2.jpg';
 import Hero from '../components/Hero';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import CountdownTimer from '../components/CountdownTimer';
 
 function Events() {
+    const nextEventDate = '2025-02-02T16:00:00'; // Set the target date for the next event
+
     return (
         <>
             <Navbar />
             <Hero
                 cName="heroEvents"
                 heroImage={heroImage}
-                title="CafeCon Café Boardgame (here should be a timer what time for the next event CafeCon)"
-                text="Free* monthly gaming event in central Helsinki"
+                title="CafeCon Café Boardgame"
+                text={<CountdownTimer targetDate={nextEventDate} />}
                 linkText="Learn More"
                 linkClass="show"
                 url="/cafecon"
             />
-            <h1>Here we will have some cards with upcomming events?</h1>
+            <h1>Here we will have some cards with upcoming events?</h1>
             <Footer />
         </>
     );
