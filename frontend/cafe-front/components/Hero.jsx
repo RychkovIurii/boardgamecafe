@@ -11,7 +11,9 @@ function Hero(props) {
 
       <div className="hero-text">
         <h1>{t(`hero.${props.title}`)}</h1>
-        <p>{typeof props.text === 'string' ? t(`hero.${props.text}`) : props.text}</p>
+        <div className="hero-text-content">
+          {typeof props.text === 'string' ? t(`hero.${props.text}`) : props.text}
+        </div>
         <a href={props.url} className={props.linkClass}>
           {t(`hero.${props.linkText}`)}
         </a>
