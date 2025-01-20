@@ -3,7 +3,7 @@
     "Games": "Pelit",
     "Pricing": "Hinnoittelu",
     "Events": "Tapahtumat",
-    "Booking": "Varaus",
+    "Booking": "Pöytävaraus",
     "Profile": "Profiili",
     "My bookings": "Varaukseni",
     "SignIn": "Kirjaudu sisään",
@@ -33,5 +33,30 @@
     "Privacy Policy": "Tietosuojakäytäntö",
     "License": "Lisenssi",
     "Terms of Service": "Käyttöehdot"
-  }
+  },
+  "login": {
+		"title": "Kirjaudu sisään",
+		"emailLabel": "Sähköposti",
+		"emailPlaceholder": "Syötä sähköpostiosoitteesi",
+		"passwordLabel": "Salasana",
+		"passwordPlaceholder": "Syötä salasanasi",
+		"submitButton": "Kirjaudu sisään",
+		"registerButton": "Luo uusi tili",
+		"forgotPassword": "Unohditko salasanasi?",
+		"successMessage": "Sisäänkirjautuminen onnistui!",
+		"errorMessage": "Sisäänkirjautuminen epäonnistui. Yritä uudelleen."
+	},
+	"register": {
+		"title": "Rekisteröidy",
+		"nameLabel": "Nimi",
+		"namePlaceholder": "Syötä nimesi",
+		"emailLabel": "Sähköposti",
+		"emailPlaceholder": "Syötä sähköpostiosoitteesi",
+		"passwordLabel": "Salasana",
+		"passwordPlaceholder": "Syötä salasanasi",
+		"submitButton": "Rekisteröidy",
+		"loginButton": "Onko sinulla jo tili? Kirjaudu sisään",
+		"successMessage": "Rekisteröinti onnistui!",
+		"errorMessage": "Rekisteröinti epäonnistui. Yritä uudelleen."
+	}
 }

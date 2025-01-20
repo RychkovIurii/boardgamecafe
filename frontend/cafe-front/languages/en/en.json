@@ -33,5 +33,30 @@
         "Privacy Policy": "Privacy Policy",
         "License": "License",
         "Terms of Service": "Terms of Service"
+	},
+	"login": {
+		"title": "Sign In",
+		"emailLabel": "Email",
+		"emailPlaceholder": "Enter your email",
+		"passwordLabel": "Password",
+		"passwordPlaceholder": "Enter your password",
+		"submitButton": "Login",
+		"registerButton": "Create new account",
+		"forgotPassword": "Forgot Password?",
+		"successMessage": "Login successful!",
+		"errorMessage": "Login failed. Please try again."
+	},
+	"register": {
+		"title": "Register",
+		"nameLabel": "Name",
+		"namePlaceholder": "Enter your name",
+		"emailLabel": "Email",
+		"emailPlaceholder": "Enter your email",
+		"passwordLabel": "Password",
+		"passwordPlaceholder": "Enter your password",
+		"submitButton": "Register",
+		"loginButton": "Already have an account? Login",
+		"successMessage": "Registration successful!",
+		"errorMessage": "Registration failed. Please try again."
 	}
 }
