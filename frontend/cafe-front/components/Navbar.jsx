@@ -25,7 +25,7 @@ const pages = [
 const settings = [
   { name: 'Profile', path: '/profile' },
   { name: 'My bookings', path: '/account' },
-  { name: 'Login', path: '/login' }
+  { name: 'SignIn', path: '/sign-in' }
 ];
 
 function Navbar() {
