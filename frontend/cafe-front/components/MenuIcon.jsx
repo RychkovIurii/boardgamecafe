@@ -12,7 +12,7 @@ const MenuIcon = ({ activeId, setActiveId }) => {
                     <div
                         key={index}
                         onClick={() => setActiveId(index)} // Update activeId
-                        className={`flex flex-col items-center text-xs cursor-pointer hover:translate-y-[-10px] transition-all duration-500 ${activeId === index ? 'text-indigo-600 font-semibold' : ''
+                        className={`flex flex-col items-center cursor-pointer hover:translate-y-[-10px] transition-all duration-500 ${activeId === index ? 'text-indigo-600 font-semibold' : ''
                             }`}
                         style={{ width: '150px', marginTop: '5px', marginBottom: '5px' }} // Set a fixed width for each item
                     >
@@ -26,7 +26,7 @@ const MenuIcon = ({ activeId, setActiveId }) => {
                                 alt=""
                             />
                         </div>
-                        <p className={`${item.menuType === 'Own Brand' ? 'mt-4 text-sm' : 'mt-4 text-sm'}`}>
+                        <p className={`${item.menuType === 'Own Brand' ? 'mt-4 font-medium' : 'mt-4 font-medium'}`}>
                             {item.menuType}
                         </p>
                     </div>

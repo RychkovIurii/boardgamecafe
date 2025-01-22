@@ -8,6 +8,11 @@ import hotdrink from './hotdrink.png'
 import softdrink from './softdrink.png'
 import beer from './beer.png'
 import pizza from './pizza.png'
+import cashRegister_icon from './cashRegister_icon.svg'
+import circleInfo_icon from './circleInfo_icon.svg'
+import face_grin_stars_icon from './face_grin_stars_icon.svg'
+import location_dot_icon from './location_dot_icon.svg'
+
 
 
 export const assets = {
@@ -15,7 +20,8 @@ export const assets = {
     up_icon,
     down_icon,
     arrow_icon,
-    cross_icon
+    cross_icon,
+    face_grin_stars_icon
 }
 
 
@@ -99,4 +105,50 @@ export const menuData = [
             ]
         }
     }
+];
+
+export const steps = [
+    {
+        label: 'How to find us',
+        image: location_dot_icon,
+        details: {
+            process: {
+                step1: `Visit us at Eerikinkatu 14, 00100 Helsinki, right after the tunnel.`
+            },
+            marks: {
+                mark1: `Accessibility is limited due to stairs and narrow corridors. Our toilet facilities do not accommodate reduced mobility.`,
+                mark2: `Our cafe is allergy-free, so Pets are not allowed indoors, except guide dogs.`
+            },
+        },
+    },
+    {
+        label: 'Ordering process',
+        image: cashRegister_icon,
+        details: {
+            process: {
+                step1: `Head to the counter for guidance through the system.`,
+                step2: `First, pay the gaming fee at the cashier before heading to your table, even if your group has already arrived.`,
+                step3: `Feel free to ask about our menu.`
+            },
+            marks: {
+                mark1: 'Outside food and drinks are not allowed.',
+                mark2: `We hope you will use our extensive food and drink menu. We will update the list according to wishes.`,
+            },
+        },
+    },
+    {
+        label: 'Need Help?',
+        image: circleInfo_icon,
+        details: {
+            process: {
+                step1: `Our staff is here to help with games, drinks, and creating a fun experience. `,
+                step2: `If we have time, we can even give a short tutorial on the game or even play with your party if there's a player missing.`,
+
+            },
+            marks: {
+                mark1: 'Our establishment is a safe and fun place for everyone.',
+                mark2: `Our operations are based on trust. Treat the board games respectfully and return them properly.`,
+            },
+        },
+    },
 ];
