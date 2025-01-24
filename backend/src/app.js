@@ -5,7 +5,7 @@ const dotenv = require('dotenv');
 const routes = require('../routes');
 const cors = require('cors');
 
-dotenv.config();
+dotenv.config({ path: './back.env' });
 
 const app = express();
 
