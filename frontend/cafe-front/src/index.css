@@ -1,6 +1,6 @@
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-/*   line-height: 1.5;
+  /*   line-height: 1.5;
   font-weight: 400; */
 
   font-synthesis: none;
@@ -12,8 +12,8 @@
 
 body {
   margin: 0;
-/*   display: flex; */
-/*   min-width: 320px;
+  /*   display: flex; */
+  /*   min-width: 320px;
   min-height: 100vh; */
 }
 
@@ -22,5 +22,16 @@ body {
   :root {
     background-color: #ffffff;
   }
+}
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.active hr {
+  @apply block
+}
+
+::-webkit-scrollbar {
+  @apply hidden
 }
