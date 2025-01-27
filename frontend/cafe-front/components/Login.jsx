@@ -17,6 +17,8 @@ const Login = ({ onToggleForm }) => {
 		password: ''
 	});
 
+	const [error, setError] = useState('');
+
 	const handleChange = (e) => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	};
@@ -29,7 +31,7 @@ const Login = ({ onToggleForm }) => {
 			login(); // Update AuthContext state
 			navigate('/');
 		} catch (error) {
-			alert(t("login.errorMessage"));
+			setError(t("login.errorMessage"));
 		}
 	};
 
