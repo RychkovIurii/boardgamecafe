@@ -1,0 +1,36 @@
+.registration-section {
+	text-align: center;
+	margin: 20px 0;
+	padding: 20px;
+	background-color: #f9f9f9;
+	border-radius: 8px;
+	box-shadow: 0 4px 6px rgba(0, 0.2, 0, 0.2);
+}
+
+.registration-text {
+	font-size: 1.2rem;
+	margin-bottom: 10px;
+	color: black;
+}
+
+.primary {
+	padding: 12px 24px;
+	font-size: 1rem;
+	font-weight: bold;
+	color: white;
+	background-color: #333;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	text-transform: uppercase;
+	transition: background-color 0.3s, transform 0.2s;
+}
+
+.primary:hover {
+	background-color: #333;
+	transform: scale(1.05);
+}
+
+.primary:active {
+	transform: scale(0.95);
+}

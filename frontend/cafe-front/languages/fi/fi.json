@@ -1,0 +1,62 @@
+{
+  "navbar": {
+    "Games": "Pelit",
+    "Pricing": "Hinnoittelu",
+    "Events": "Tapahtumat",
+    "Booking": "Pöytävaraus",
+    "Profile": "Profiili",
+    "My bookings": "Varaukseni",
+    "SignIn": "Kirjaudu sisään",
+    "Register": "Rekisteröidy",
+    "Logout": "Kirjaudu ulos"
+  },
+  "hero": {
+    "Welcome to BoardGameCafe": "Tervetuloa BoardGameCafe",
+    "Enjoy the best board games with your friends and family.": "Nauti parhaista lautapeleistä ystäviesi ja perheesi kanssa.",
+    "Book Now": "Varaa nyt",
+    "CafeCon Café Boardgame": "CafeCon Café Boardgame",
+    "Learn More": "Lue lisää",
+    "Our Game Collection": "Pelivalikoimamme",
+    "Enjoy the best board games with us.": "Nauti parhaista lautapeleistä kanssamme."
+  },
+  "footer": {
+    "Created by Varia Students": "© 2025 Luonut Varia-opiskelijat. Kaikki oikeudet pidätetään.",
+    "Contact": "Yhteystiedot",
+    "About": "Tietoa",
+    "Others": "Muut",
+    "Call us": "Soita meille",
+    "Email us": "Lähetä sähköpostia",
+    "Careers": "Urat",
+    "About Us": "Tietoa meistä",
+    "Staff": "Henkilökunta",
+    "Partners": "Yhteistyökumppanit",
+    "Privacy Policy": "Tietosuojakäytäntö",
+    "License": "Lisenssi",
+    "Terms of Service": "Käyttöehdot"
+  },
+  "login": {
+		"title": "Kirjaudu sisään",
+		"emailLabel": "Sähköposti",
+		"emailPlaceholder": "Syötä sähköpostiosoitteesi",
+		"passwordLabel": "Salasana",
+		"passwordPlaceholder": "Syötä salasanasi",
+		"submitButton": "Kirjaudu sisään",
+		"registerButton": "Luo uusi tili",
+		"forgotPassword": "Unohditko salasanasi?",
+		"successMessage": "Sisäänkirjautuminen onnistui!",
+		"errorMessage": "Sisäänkirjautuminen epäonnistui. Yritä uudelleen."
+	},
+	"register": {
+		"title": "Rekisteröidy",
+		"nameLabel": "Nimi",
+		"namePlaceholder": "Syötä nimesi",
+		"emailLabel": "Sähköposti",
+		"emailPlaceholder": "Syötä sähköpostiosoitteesi",
+		"passwordLabel": "Salasana",
+		"passwordPlaceholder": "Syötä salasanasi",
+		"submitButton": "Rekisteröidy",
+		"loginButton": "Onko sinulla jo tili? Kirjaudu sisään",
+		"successMessage": "Rekisteröinti onnistui!",
+		"errorMessage": "Rekisteröinti epäonnistui. Yritä uudelleen."
+	}
+}
