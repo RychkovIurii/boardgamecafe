@@ -1,12 +1,12 @@
 import React from 'react'
-import { menuData } from '../assets/menu_icon_assets/assets'
+import { menuData } from '../assets/image_assets/assets'
 
 
 const MenuIcon = ({ activeId, setActiveId }) => {
     return (
         <div id="menuType" className="flex flex-col items-center gap-5 py-16 text-gray-800">
-            <h1 className="text-5xl font-medium">Find Our Menu</h1>
-            <p className="sm:w-1/3 text-center text-md">Need a snack or a drink? Even our own products?</p>
+            <h1 className="text-3xl md:text-5xl font-black text-yellow-500">Find Our Menu</h1>
+            <p className="pt-3 sm:pt-5 text-xl md:text-2xl font-semibold text-gray-700">Need a snack or a drink? Even our own products?</p>
             <div className="flex flex-wrap justify-center pt-6 w-full px-9">
                 {menuData.map((item, index) => (
                     <div

@@ -8,7 +8,6 @@ const FAQ = () => {
     return (
         <div>
             <Navbar />
-            <HeroJina />
             <HowItWorks />
             <Footer />
         </div>
