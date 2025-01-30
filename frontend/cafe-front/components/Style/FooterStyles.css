@@ -74,6 +74,11 @@
 	font-size: 1.1rem;
 }
 
+.bottom div div .awards {
+	display:flex;
+	flex-direction: row;
+}
+
 @media screen and (max-width: 850px) {
 	.footer {
 		padding: 4rem 2rem;
