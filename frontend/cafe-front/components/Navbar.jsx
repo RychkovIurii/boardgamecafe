@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -13,10 +15,22 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 
-const pages = ['Games', 'Pricing', 'Events'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const pages = [
+  { name: 'Games', path: '/games' },
+  { name: 'Pricing', path: '/pricing' },
+  { name: 'Events', path: '/events' },
+  { name: 'Booking', path: '/bookings' }
+];
+
+const settings = [
+  { name: 'Profile', path: '/profile' },
+  { name: 'My bookings', path: '/account' },
+  { name: 'SignIn', path: '/sign-in' }
+];
 
 function Navbar() {
+  const { t, i18n } = useTranslation();
+  const [language, setLanguage] = React.useState(i18n.language);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -36,6 +50,11 @@ function Navbar() {
     setAnchorElUser(null);
   };
 
+  const updateLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+    setLanguage(lng);
+  };
+
   return (
     <AppBar position="static" color="white">
       <Container maxWidth="xl">
@@ -48,7 +67,7 @@ function Navbar() {
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
-              fontFamily: 'sans-serif',
+              fontFamily: 'Avenir sans-serif',
               fontWeight: 700,
               letterSpacing: '.3rem',
               color: 'black',
@@ -88,8 +107,10 @@ function Navbar() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page.name} onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">
+                    <Link to={page.path}>{t(`navbar.${page.name}`)}</Link>
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -116,16 +137,23 @@ function Navbar() {
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, ml: 6 }}>
             {pages.map((page) => (
               <Button
-                key={page}
+                key={page.name}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'black', display: 'block', mr: 6 }}
+                component={Link}
+                to={page.path}
               >
-                {page}
+                {t(`navbar.${page.name}`)}
               </Button>
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
+          <Box sx={{ flexGrow: 0, display: 'flex', alignItems: 'center' }}>
+            <i className="fa-solid fa-globe"></i>
+            <select value={language} onChange={(e) => updateLanguage(e.target.value)} style={{ marginLeft: '10px', marginRight: '20px', border: 'none', outline: 'none', backgroundColor: 'transparent', cursor: 'pointer' }}>
+              <option value="en">EN</option>
+              <option value="fi">FI</option>
+            </select>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
@@ -148,8 +176,10 @@ function Navbar() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                <MenuItem key={setting.name} onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">
+                    <Link to={setting.path}>{t(`navbar.${setting.name}`)}</Link>
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>

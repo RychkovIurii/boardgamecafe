@@ -1,17 +1,19 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import logo from "../assets/logo3.png";
 import './Style/FooterStyles.css';
 import Award1 from "../assets/Award1.png"
 import Award2 from "../assets/Award2.png"
 
 export default function Footer() {
+    const { t } = useTranslation();
     return (
         <div className='footer'>
             <div className='top'>
                 <a className="footer-logo" href="/"><img src={logo} width={80} height={80} alt="logo" />BoardGameCafe</a>
-                <p>© 2024 Created by Varia Students. All rights reserved.</p>
+                <p>{t('footer.Created by Varia Students')}</p>
                 <div className='social-links'>
-                <a href='https://discord.gg/wwQGdKVrma'>
+                    <a href='https://discord.gg/wwQGdKVrma'>
                         <i className='fa-brands fa-discord'></i>
                     </a>
                     <a href='https://www.facebook.com/CafeBoardgameHelsinki'>
@@ -65,8 +67,27 @@ export default function Footer() {
 
                 </div>
             </div>
-        </div>
-    )
-}
 
-// in footer: FAQ, discord link, contact information (name, number, adress, etc), opening hours, awards, privacy policy, social media links.
+            <div className='bottom'>
+                <div>
+                    <h4>{t('footer.Contact')}</h4>
+                    <a href='/'>{t('footer.Call us')}</a>
+                    <a href='/'>{t('footer.Email us')}</a>
+                    <a href='/'>{t('footer.Careers')}</a>
+                </div>
+                <div>
+                    <h4>{t('footer.About')}</h4>
+                    <a href='/'>{t('footer.About Us')}</a>
+                    <a href='/'>{t('footer.Staff')}</a>
+                    <a href='/'>{t('footer.Partners')}</a>
+                </div>
+                <div>
+                    <h4>{t('footer.Others')}</h4>
+                    <a href='/'>{t('footer.Privacy Policy')}</a>
+                    <a href='/'>{t('footer.License')}</a>
+                    <a href='/'>{t('footer.Terms of Service')}</a>
+                </div>
+            </div>
+        </div>
+    );
+}
