@@ -61,31 +61,10 @@ export default function Footer() {
                 <div>
                     <h4>Awards</h4>
                     <div className="awards">
-                        <div><img src={Award1} height={90} alt="Award1" /></div>
-                        <div><img src={Award2} height={90} alt="Award2" /></div>
+                        <div><img src={Award1} height={50} alt="Award1" /></div>
+                        <div><img src={Award2} height={50} alt="Award2" /></div>
                     </div>
 
-                </div>
-            </div>
-
-            <div className='bottom'>
-                <div>
-                    <h4>{t('footer.Contact')}</h4>
-                    <a href='/'>{t('footer.Call us')}</a>
-                    <a href='/'>{t('footer.Email us')}</a>
-                    <a href='/'>{t('footer.Careers')}</a>
-                </div>
-                <div>
-                    <h4>{t('footer.About')}</h4>
-                    <a href='/'>{t('footer.About Us')}</a>
-                    <a href='/'>{t('footer.Staff')}</a>
-                    <a href='/'>{t('footer.Partners')}</a>
-                </div>
-                <div>
-                    <h4>{t('footer.Others')}</h4>
-                    <a href='/'>{t('footer.Privacy Policy')}</a>
-                    <a href='/'>{t('footer.License')}</a>
-                    <a href='/'>{t('footer.Terms of Service')}</a>
                 </div>
             </div>
         </div>
