@@ -60,8 +60,8 @@ export default function Footer() {
                 <div>
                     <h4>Awards</h4>
                     <div className="awards">
-                        <div><img src={Award1} height={90} alt="Award1" /></div>
-                        <div><img src={Award2} height={90} alt="Award2" /></div>
+                        <div><img src={Award1} height={50} alt="Award1" /></div>
+                        <div><img src={Award2} height={50} alt="Award2" /></div>
                     </div>
 
                 </div>
