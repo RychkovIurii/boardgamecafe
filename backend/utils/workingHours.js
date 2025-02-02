@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const { convertToHelsinkiTime, adjustEndTimeIfNeeded } = require('../utils/timeUtils');
 
 const WORKING_HOURS_FILE = path.join(__dirname, '../workingHours.txt');
 
@@ -25,48 +26,44 @@ const getWorkingHours = () => {
     return parseWorkingHours(data);
 };
 
-const isWithinWorkingHours = (day, startTime, endTime) => {
+const isWithinWorkingHours = (day, startTime, endTime, date) => {
     const workingHours = getWorkingHours();
     const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const dayName = daysOfWeek[day];
 
     const hours = workingHours[dayName];
 
-    if (hours.start === 'CLOSED' || hours.end === 'CLOSED') {
+    if (!hours || hours.start === 'CLOSED' || hours.end === 'CLOSED') {
         return false;
     }
 
-    const [startHour, startMinute] = hours.start.split(':').map(Number);
-    const [endHour, endMinute] = hours.end.split(':').map(Number);
+    const workingStart = convertToHelsinkiTime(date, hours.start);
+	console.log('Working Start:', workingStart.format());
+    let workingEnd = convertToHelsinkiTime(date, hours.end);
+    workingEnd = adjustEndTimeIfNeeded(workingStart, workingEnd);
+	console.log('Working End:', workingEnd.format());
 
-    const [bookingStartHour, bookingStartMinute] = startTime.split(':').map(Number);
-    const [bookingEndHour, bookingEndMinute] = endTime.split(':').map(Number);
+    const bookingStart = convertToHelsinkiTime(date, startTime);
+    let bookingEnd = convertToHelsinkiTime(date, endTime);
+    bookingEnd = adjustEndTimeIfNeeded(bookingStart, bookingEnd);
 
-    const start = new Date();
-    start.setHours(startHour, startMinute, 0, 0);
+    console.log('Working Hours:', hours);
+    console.log('Booking Start:', bookingStart.format());
+    console.log('Booking End:', bookingEnd.format());
 
-    const end = new Date();
-    end.setHours(endHour, endMinute, 0, 0);
-
-    const bookingStart = new Date();
-    bookingStart.setHours(bookingStartHour, bookingStartMinute, 0, 0);
-
-    const bookingEnd = new Date();
-    bookingEnd.setHours(bookingEndHour, bookingEndMinute, 0, 0);
-
-    // Check if booking times are within working hours
-    if (bookingStart < start || bookingEnd > end) {
+    if (bookingStart.isBefore(workingStart) || bookingEnd.isAfter(workingEnd)) {
+        console.log('Booking time is outside working hours');
         return false;
     }
 
-    // Check if booking times are in 30-minute intervals
-    if (bookingStartMinute % 30 !== 0 || bookingEndMinute % 30 !== 0) {
+    if (bookingStart.minute() % 30 !== 0 || bookingEnd.minute() % 30 !== 0) {
+        console.log('Booking time is not in 30-minute intervals');
         return false;
     }
 
-    // Check if booking duration is at least one hour
-    const duration = (bookingEnd - bookingStart) / (1000 * 60); // Duration in minutes
+    const duration = bookingEnd.diff(bookingStart, 'minutes');
     if (duration < 60 || duration % 30 !== 0) {
+        console.log('Booking duration is less than one hour or not in 30-minute intervals');
         return false;
     }
 
