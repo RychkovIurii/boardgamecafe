@@ -2,21 +2,14 @@ const express = require('express');
 const router = express.Router();
 const Booking = require('../models/Booking');
 const Table = require('../models/Table');
-const { authenticate, authorizeAdmin } = require('../middleware/auth');
+const { authenticate } = require('../middleware/auth');
 const { isWithinWorkingHours } = require('../utils/workingHours');
+const { convertToHelsinkiTime, adjustEndTimeIfNeeded } = require('../utils/timeUtils');
+const moment = require('moment');
 
 //Think how handle working hours
 
-// Fetch all bookings (Admin view) ONLY FOR ADMIN
-router.get('/all', authenticate, authorizeAdmin, async (req, res) => {
-    try {
-        const bookings = await Booking.find().populate('tableId').populate('gameId').populate('userId');
-        res.json(bookings);
-    } catch (error) {
-        console.error('Error fetching bookings:', error);
-        res.status(500).json({ message: 'Server error' });
-    }
-});
+
 
 // Fetch available tables. FOR ALL USERS
 router.get('/available', async (req, res) => {
@@ -44,35 +37,73 @@ router.get('/available', async (req, res) => {
 
 // Create a new booking. FOR ALL USERS
 router.post('/', async (req, res) => {
-    const { date, startTime, endTime, tableId, players, gameId, userId, contactName, contactPhone } = req.body;
+    let { date, startTime, endTime, tableId, players, gameId, userId, contactName, contactPhone } = req.body;
 
-	const bookingDate = new Date(date);
-    const day = bookingDate.getDay();
+    if (startTime === "24:00") startTime = "00:00";
+    if (endTime === "24:00") endTime = "00:00";
 
-    if (!isWithinWorkingHours(day, startTime, endTime)) {
-        return res.status(400).json({ message: 'Booking time must be within working hours and intervals' });
+    const bookingDate = convertToHelsinkiTime(date, "00:00").startOf('day'); // Ensure date is correct
+    const day = bookingDate.day();
+
+    if (!isWithinWorkingHours(day, startTime, endTime, date)) {
+        return res.status(400).json({ message: 'Booking time must be within working hours and 30-minute intervals.' });
     }
 
-    // Check if the requested booking time is available
+    let startDateTime = convertToHelsinkiTime(date, startTime);
+    let endDateTime = convertToHelsinkiTime(date, endTime);
+    endDateTime = adjustEndTimeIfNeeded(startDateTime, endDateTime);
+
+    console.log("Converted Start Time:", startDateTime.format());
+    console.log("Converted End Time:", endDateTime.format());
+
     const overlappingBookings = await Booking.find({
-        date,
-        tableId,
-        $or: [
-            { startTime: { $lt: endTime, $gte: startTime } },
-            { endTime: { $gt: startTime, $lte: endTime } },
-            { startTime: { $lte: startTime }, endTime: { $gte: endTime } }
-        ]
-    });
+		tableId, // ✅ Ensures conflicts are only checked for the same table
+		$or: [
+			// Case 1: Existing booking starts within the new booking period
+			{ 
+				date: bookingDate.toDate(), 
+				startTime: { $lt: endDateTime.format('HH:mm'), $gte: startDateTime.format('HH:mm') } 
+			},
+	
+			// Case 2: Existing booking ends within the new booking period
+			{ 
+				date: bookingDate.toDate(), 
+				endTime: { $gt: startDateTime.format('HH:mm'), $lte: endDateTime.format('HH:mm') } 
+			},
+	
+			// Case 3: Existing booking completely overlaps the new booking
+			{ 
+				date: bookingDate.toDate(), 
+				startTime: { $lte: startDateTime.format('HH:mm') }, 
+				endTime: { $gte: endDateTime.format('HH:mm') } 
+			},
+	
+			// Case 4: Handle previous day's bookings that span into this day
+			{
+				date: moment(bookingDate).subtract(1, 'day').toDate(), // Previous day
+				startTime: { $lt: endDateTime.format('HH:mm') }, // Started yesterday but overlaps today
+				endTime: { $gt: startDateTime.format('HH:mm') }  // Ends after the new start time
+			},
+	
+			// Case 5: Handle next day's bookings that started today and overlap past midnight
+			{
+				date: moment(bookingDate).add(1, 'day').toDate(), // Next day
+				startTime: { $lt: endDateTime.format('HH:mm') }, // Started today but overlaps into next day
+				endTime: { $gt: startDateTime.format('HH:mm') }  // Ends after the new start time
+			}
+		]
+	});
 
     if (overlappingBookings.length > 0) {
-        return res.status(400).json({ message: 'Requested booking time is not available' });
+        console.log('Conflicting bookings:', overlappingBookings);
+        return res.status(400).json({ message: 'Requested booking time is not available.' });
     }
 
     try {
         const newBooking = new Booking({
-            date,
-            startTime,
-            endTime,
+            date: bookingDate.toDate(),
+            startTime: startDateTime.format('HH:mm'),
+            endTime: endDateTime.format('HH:mm'),
             tableId,
             players,
             gameId,
