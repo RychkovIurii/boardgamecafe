@@ -26,7 +26,7 @@ const getWorkingHours = () => {
     return parseWorkingHours(data);
 };
 
-const isWithinWorkingHours = (day, startTime, endTime, date) => {
+const isWithinWorkingHours = (day, startTime, endTime) => {
     const workingHours = getWorkingHours();
     const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const dayName = daysOfWeek[day];
@@ -34,36 +34,22 @@ const isWithinWorkingHours = (day, startTime, endTime, date) => {
     const hours = workingHours[dayName];
 
     if (!hours || hours.start === 'CLOSED' || hours.end === 'CLOSED') {
+		console.log(`${dayName} is closed!`);
         return false;
     }
 
-    const workingStart = convertToHelsinkiTime(date, hours.start);
-	console.log('Working Start:', workingStart.format());
-    let workingEnd = convertToHelsinkiTime(date, hours.end);
+    const workingStart = convertToHelsinkiTime(startTime.format('YYYY-MM-DD'), hours.start);
+	//console.log('Working Start:', workingStart.format());
+    let workingEnd = convertToHelsinkiTime(startTime.format('YYYY-MM-DD'), hours.end);
     workingEnd = adjustEndTimeIfNeeded(workingStart, workingEnd);
-	console.log('Working End:', workingEnd.format());
-
-    const bookingStart = convertToHelsinkiTime(date, startTime);
-    let bookingEnd = convertToHelsinkiTime(date, endTime);
-    bookingEnd = adjustEndTimeIfNeeded(bookingStart, bookingEnd);
+/* 	console.log('Working End:', workingEnd.format());
 
     console.log('Working Hours:', hours);
-    console.log('Booking Start:', bookingStart.format());
-    console.log('Booking End:', bookingEnd.format());
+    console.log('Booking Start:', startTime.format());
+    console.log('Booking End:', endTime.format()); */
 
-    if (bookingStart.isBefore(workingStart) || bookingEnd.isAfter(workingEnd)) {
+    if (startTime.isBefore(workingStart) || endTime.isAfter(workingEnd)) {
         console.log('Booking time is outside working hours');
-        return false;
-    }
-
-    if (bookingStart.minute() % 30 !== 0 || bookingEnd.minute() % 30 !== 0) {
-        console.log('Booking time is not in 30-minute intervals');
-        return false;
-    }
-
-    const duration = bookingEnd.diff(bookingStart, 'minutes');
-    if (duration < 60 || duration % 30 !== 0) {
-        console.log('Booking duration is less than one hour or not in 30-minute intervals');
         return false;
     }
 

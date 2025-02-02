@@ -37,24 +37,35 @@ router.get('/available', async (req, res) => {
 
 // Create a new booking. FOR ALL USERS
 router.post('/', async (req, res) => {
-    let { date, startTime, endTime, tableId, players, gameId, userId, contactName, contactPhone } = req.body;
+    let { date, startTime, duration, tableId, players, gameId, userId, contactName, contactPhone } = req.body;
 
-    if (startTime === "24:00") startTime = "00:00";
-    if (endTime === "24:00") endTime = "00:00";
-
+    if (!duration || duration < 60 || duration % 30 !== 0) {
+        return res.status(400).json({ message: 'Booking duration must be at least 60 minutes and in 30-minute intervals.' });
+    }
+	
     const bookingDate = convertToHelsinkiTime(date, "00:00").startOf('day'); // Ensure date is correct
     const day = bookingDate.day();
 
-    if (!isWithinWorkingHours(day, startTime, endTime, date)) {
-        return res.status(400).json({ message: 'Booking time must be within working hours and 30-minute intervals.' });
+	const startDateTime = convertToHelsinkiTime(date, startTime);
+    const endDateTime = startDateTime.clone().add(duration, 'minutes');
+
+/* 	console.log("Converted Start Time:", startDateTime.format());
+    console.log("Converted End Time:", endDateTime.format()); */
+
+	// Ensure endTime is after startTime
+	if (endDateTime.isBefore(startDateTime)) {
+		return res.status(400).json({ message: 'End time must be after start time.' });
+	}
+
+	//Ensure last booking starts at 23:30 or earlier
+	const lastShiftTime = convertToHelsinkiTime(date, "23:30");
+    if (startDateTime.isAfter(lastShiftTime)) {
+        return res.status(400).json({ message: 'Last booking shift is at 23:30. Please choose an earlier start time.' });
     }
 
-    let startDateTime = convertToHelsinkiTime(date, startTime);
-    let endDateTime = convertToHelsinkiTime(date, endTime);
-    endDateTime = adjustEndTimeIfNeeded(startDateTime, endDateTime);
-
-    console.log("Converted Start Time:", startDateTime.format());
-    console.log("Converted End Time:", endDateTime.format());
+    if (!isWithinWorkingHours(day, startDateTime, endDateTime)) {
+        return res.status(400).json({ message: 'Booking time must be within working hours.' });
+    }
 
     const overlappingBookings = await Booking.find({
 		tableId, // ✅ Ensures conflicts are only checked for the same table
@@ -95,7 +106,7 @@ router.post('/', async (req, res) => {
 	});
 
     if (overlappingBookings.length > 0) {
-        console.log('Conflicting bookings:', overlappingBookings);
+        //console.log('Conflicting bookings:', overlappingBookings);
         return res.status(400).json({ message: 'Requested booking time is not available.' });
     }
 
