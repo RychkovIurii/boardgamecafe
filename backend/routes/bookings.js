@@ -87,20 +87,6 @@ router.post('/', async (req, res) => {
 				date: bookingDate.toDate(), 
 				startTime: { $lte: startDateTime.format('HH:mm') }, 
 				endTime: { $gte: endDateTime.format('HH:mm') } 
-			},
-	
-			// Case 4: Handle previous day's bookings that span into this day
-			{
-				date: moment(bookingDate).subtract(1, 'day').toDate(), // Previous day
-				startTime: { $lt: endDateTime.format('HH:mm') }, // Started yesterday but overlaps today
-				endTime: { $gt: startDateTime.format('HH:mm') }  // Ends after the new start time
-			},
-	
-			// Case 5: Handle next day's bookings that started today and overlap past midnight
-			{
-				date: moment(bookingDate).add(1, 'day').toDate(), // Next day
-				startTime: { $lt: endDateTime.format('HH:mm') }, // Started today but overlaps into next day
-				endTime: { $gt: startDateTime.format('HH:mm') }  // Ends after the new start time
 			}
 		]
 	});
