@@ -6,24 +6,12 @@ const bookingSchema = new mongoose.Schema({
         required: [true, 'Date is required'],
     },
     startTime: {
-        type: String,
+        type: Date,
         required: [true, 'Start time is required'],
-        validate: {
-            validator: function(v) {
-                return /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/.test(v);
-            },
-            message: props => `${props.value} is not a valid time format!`
-        }
     },
     endTime: {
-        type: String,
+        type: Date,
         required: [true, 'End time is required'],
-        validate: {
-            validator: function(v) {
-                return /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/.test(v);
-            },
-            message: props => `${props.value} is not a valid time format!`
-        }
     },
     tableId: {
         type: mongoose.Schema.Types.ObjectId,
