@@ -7,6 +7,7 @@ import Games from '../routes/Games';
 import Events from '../routes/Events';
 import SignIn from '../routes/SignIn';
 import './App.css'
+import Bookings from '../routes/Bookings';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path='/games' element={<Games/>}/>
         <Route path='/events' element={<Events/>}/>
         <Route path='/sign-in' element={<SignIn/>}/>
+        <Route path='/bookings' element={<Bookings />} />
       </Routes>
     </div>
   )
