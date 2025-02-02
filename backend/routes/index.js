@@ -2,9 +2,15 @@
 
 const express = require('express');
 const router = express.Router();
-const bookingRoutes = require('./bookings');
 
-// Mount the booking routes
+// Import all routes
+const bookingRoutes = require('./bookings');
+const userRoutes = require('./users');
+const adminRoutes = require('./admin');
+
+// Mount all routes
 router.use('/bookings', bookingRoutes);
+router.use('/users', userRoutes);
+router.use('/admin', adminRoutes);
 
 module.exports = router;

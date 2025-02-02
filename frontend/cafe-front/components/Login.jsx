@@ -26,10 +26,15 @@ const Login = ({ onToggleForm }) => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			await API.post('/users/login', formData);
+			const response = await API.post('/users/login', formData);
+			const { role } = response.data;
 			alert(t("login.successMessage"));
-			login(); // Update AuthContext state
-			navigate('/');
+			login(role);
+			if (role === 'admin') {
+				navigate('/admin');
+			} else {
+				navigate('/');
+			}
 		} catch (error) {
 			setError(t("login.errorMessage"));
 		}

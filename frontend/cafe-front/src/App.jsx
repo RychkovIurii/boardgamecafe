@@ -6,9 +6,19 @@ import FAQ from '../routes/FAQ';
 import Games from '../routes/Games';
 import Events from '../routes/Events';
 import SignIn from '../routes/SignIn';
+import AdminDashboard from '../routes/AdminDashboard';
+import { AuthContext } from '../context/AuthContext';
+import { Navigate } from 'react-router-dom';
+import { useContext } from 'react';
 import './App.css'
 
 function App() {
+
+	const { isAuthenticated } = useContext(AuthContext);
+	const AdminRoute = ({ element }) => {
+        return isAuthenticated ? element : <Navigate to="/sign-in" />;
+    };
+
   return (
     <div className="App">
       <Routes>
@@ -18,6 +28,7 @@ function App() {
         <Route path='/games' element={<Games/>}/>
         <Route path='/events' element={<Events/>}/>
         <Route path='/sign-in' element={<SignIn/>}/>
+		<Route path='/admin' element={<AdminRoute element={<AdminDashboard />} />} />
       </Routes>
     </div>
   )
