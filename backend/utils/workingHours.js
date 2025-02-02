@@ -26,6 +26,13 @@ const getWorkingHours = () => {
     return parseWorkingHours(data);
 };
 
+/**
+ * Checks if a booking time is within working hours.
+ * @param {number} day - The day of the week (0 = Sunday, 6 = Saturday).
+ * @param {moment.Moment} startTime - The booking start time.
+ * @param {moment.Moment} endTime - The booking end time.
+ * @returns {boolean} - True if booking is within working hours.
+ */
 const isWithinWorkingHours = (day, startTime, endTime) => {
     const workingHours = getWorkingHours();
     const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -39,14 +46,8 @@ const isWithinWorkingHours = (day, startTime, endTime) => {
     }
 
     const workingStart = convertToHelsinkiTime(startTime.format('YYYY-MM-DD'), hours.start);
-	//console.log('Working Start:', workingStart.format());
     let workingEnd = convertToHelsinkiTime(startTime.format('YYYY-MM-DD'), hours.end);
     workingEnd = adjustEndTimeIfNeeded(workingStart, workingEnd);
-/* 	console.log('Working End:', workingEnd.format());
-
-    console.log('Working Hours:', hours);
-    console.log('Booking Start:', startTime.format());
-    console.log('Booking End:', endTime.format()); */
 
     if (startTime.isBefore(workingStart) || endTime.isAfter(workingEnd)) {
         console.log('Booking time is outside working hours');
