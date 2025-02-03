@@ -21,7 +21,7 @@ export default function Bookings() {
             />
             <div>
                 <h1>Table Reservation</h1>
-                <img src={floorplan}></img>
+                {/* <img class="floorplan" src={floorplan}></img> */}
                 <BookingForm/>
             </div>
             <Footer />

@@ -11,7 +11,7 @@ export default function EventsCard(props) {
         <div className='cardBG'>
             <div className='cardContent'>
                 <h1>{props.eventTitle}</h1>
-                <img src={props.image}></img>
+                <img className='eventImg' src={props.image}></img>
                 <CountdownTimer />
                 <div>
                     {props.eventDate}
@@ -19,7 +19,9 @@ export default function EventsCard(props) {
                 <div className='descr'>
                     {props.eventDescription}
                 </div>
-                <button type='button' title='Learn more'>Learn more...</button>
+                <div className='button'>
+                    <button className='LearnMore' type='button' title='Learn more'>Learn more...</button>
+                </div>
             </div>
         </div>
     )
