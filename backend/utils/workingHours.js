@@ -45,9 +45,9 @@ const isWithinWorkingHours = (day, startTime, endTime) => {
         return false;
     }
 
-    const workingStart = convertToHelsinkiTime(startTime.format('YYYY-MM-DD'), hours.start);
-    let workingEnd = convertToHelsinkiTime(startTime.format('YYYY-MM-DD'), hours.end);
-    workingEnd = adjustEndTimeIfNeeded(workingStart, workingEnd);
+    const workingStart = convertToHelsinkiTime(startTime.format('YYYY-MM-DD'), hours.start).utc();
+    let workingEnd = convertToHelsinkiTime(startTime.format('YYYY-MM-DD'), hours.end)
+    workingEnd = adjustEndTimeIfNeeded(workingStart, workingEnd).utc();
 
     if (startTime.isBefore(workingStart) || endTime.isAfter(workingEnd)) {
         console.log('Booking time is outside working hours');
