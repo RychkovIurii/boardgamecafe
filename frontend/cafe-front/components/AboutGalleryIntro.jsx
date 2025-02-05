@@ -4,11 +4,11 @@ import { useState, useEffect } from "react";
 import { assets } from '../assets/image_assets/assets';
 function AboutGalleryIntro() {
 
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 900);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
     const [isTablet, setIsTablet] = useState(window.innerWidth < 1280);
 
     useEffect(() => {
-        const handleResize = () => setIsMobile(window.innerWidth < 800);
+        const handleResize = () => setIsMobile(window.innerWidth < 768);
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
     }, []);
@@ -34,14 +34,14 @@ function AboutGalleryIntro() {
                             <img
                                 alt="gallery"
                                 className="block h-full w-full rounded-lg 2xl:rounded-2xl object-cover object-center"
-                                src={assets.property_photo_4}
+                                src={assets.property_photo_10}
                             />
                         </div>
                         <div className="w-full lg:w-1/2 p-1 md:p-1">
                             <img
                                 alt="gallery"
                                 className="block h-full w-full rounded-lg 2xl:rounded-2xl object-cover object-center"
-                                src={assets.property_photo_10}
+                                src={assets.property_photo_4}
                             />
                         </div>
                         <div className="w-full lg:w-1/2 p-1 md:p-1">
@@ -83,7 +83,7 @@ function AboutGalleryIntro() {
                         </div>
                     </div>
                 </div>
-                <div className='flex flex-col justify-center gap-6 md:w-2/4 text-md text-gray-800' style={{
+                <div className={clsx('flex flex-col justify-center gap-6 md:w-2/4 text-md text-gray-800')} style={{
                     backgroundImage: isMobile ? "none" : `url(${assets.rotated_scroll})`,
                     backgroundSize: "100% 130%",
                     backgroundPosition: "center",
@@ -91,18 +91,18 @@ function AboutGalleryIntro() {
                     color: "black",
                 }}>
 
-                    <div className='justify-center pr-10 pl-10 mt-12'>
-                        <p className='pt-2'>
+                    < div className={clsx('justify-center pr-10 pl-10 mt-12', isMobile? 'm-5':'')}>
+                        <p className='pt-2 mr-4 ml-8'>
                             Founded in 2002, with over 300 games Café Boardgame has been a welcoming spot for board game lovers for over 20 years.
                         </p>
-                        <p className='pt-3'>Our friendly staff are always here to help you pick a game, explain the rules, or guide you through gameplay. </p>
-                        <p className='pt-3'>
+                        <p className='pt-2 mr-4 ml-8'>Our friendly staff are always here to help you pick a game, explain the rules, or guide you through gameplay. </p>
+                        <p className='pt-2 mr-4 ml-8'>
                             At Café Boardgame, you can enjoy great food, drinks, and games in a fun and relaxing space with friends, family, or colleagues.
                         </p>
                     </div>
 
-                    <div className='mb-12'>
-                        <h2 className="sm:text-2xl lg:text-3xl font-bold text-gray-800 mb-4">Opening Hours</h2>
+                    <div className={clsx('mb-12', isMobile? "bg-gray-200 pb-10":"")}>
+                        <h2 className={clsx(" sm:text-2xl lg:text-3xl font-bold text-gray-800 mb-4", isMobile? "bg-gray-200 pt-10": "pt-3")}>Opening Hours</h2>
                         <ul className="text-md font-semibold text-gray-800">
                             <li>Monday - Thursday 16:00 - 24:00 </li>
                             <li>Friday 16:00 - 02:00</li>
