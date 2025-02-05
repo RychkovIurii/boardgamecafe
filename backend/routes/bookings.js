@@ -43,19 +43,22 @@ router.post('/', async (req, res) => {
         return res.status(400).json({ message: validationResult.message });
     }
 
-    const { startDateTime, endDateTime } = validationResult;
+    const { startHelsinkiTime, endHelsinkiTime } = validationResult;
+	const startUTCtime = startHelsinkiTime.toDate();
+	const endUTCtime = endHelsinkiTime.toDate();
+
 
     // Check for overlapping bookings
-    const hasOverlap = await validateOverlappingBookings(tableId, startDateTime, endDateTime);
+    const hasOverlap = await validateOverlappingBookings(tableId, startUTCtime, endUTCtime);
     if (hasOverlap) {
         return res.status(400).json({ message: 'Requested booking time is not available.' });
     }
 
     try {
         const newBooking = new Booking({
-            date: startDateTime.toDate(),
-            startTime: startDateTime.toDate(),
-            endTime: endDateTime.toDate(),
+            date: startUTCtime,
+			startTime: startUTCtime,
+			endTime: endUTCtime,
             tableId,
             players,
             gameId,
