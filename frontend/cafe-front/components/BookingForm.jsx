@@ -2,109 +2,207 @@ import React from 'react'
 import { useState } from 'react';
 import './Style/BookingFormStyles.css';
 import floorplan from '../assets/floorplan.png'
+import axios from "axios"
 
 export default function BookingForm() {
-    const [inputs, setInputs] = useState({});
+    const [inputs, setInputs] = useState({
+        date: "",
+        startTime: "",
+        duration: "",
+        tableId: "",
+        players: "",
+        gameId: "",
+        userId: "",
+        contactName: "",
+        contactPhone: ""
+    });
 
-    const handleChange = (event) => {
-        const name = event.target.name;
-        const value = event.target.value;
-        setInputs(values => ({ ...values, [name]: value }))
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const [success, setSuccess] = useState(false);
+
+    const handleChange = (e) => {
+        setInputs({ ...inputs, [e.target.name]: e.target.value })
     }
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        console.log(inputs);
-        alert("Booking successful!")
+    const validateDuration = (duration) => {
+        const value = parseInt(duration, 10);
+        return value >= 60 && value % 30 === 0;
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        setError(null);
+        setSuccess(false);
+
+        // Validates duration and players
+        const parsedDuration = parseInt(inputs.duration, 10);
+        const parsedPlayers = parseInt(inputs.players, 10);
+
+        if (!validateDuration(parsedDuration)) {
+            setError("Duration must be at least 60 minutes and a multiple of 30 (e.g., 60, 90, 120).");
+            setLoading(false);
+            return;
+        }
+        if (isNaN(parsedPlayers) || parsedPlayers < 1) {
+            setError("Players must be at least 1.");
+            setLoading(false);
+            return;
+        }
+
+        // Construct start and end times
+        const startDateTime = new Date(`${inputs.date}T${inputs.startTime}`);
+        const endDateTime = new Date(startDateTime);
+        endDateTime.setMinutes(startDateTime.getMinutes() + parsedDuration);
+
+
+        const bookingData = {
+            date: startDateTime.toISOString(),
+            startTime: startDateTime.toISOString(),
+            endTime: endDateTime.toISOString(),
+            tableId: inputs.tableId,
+            players: parsedPlayers,
+            gameId: inputs.gameId || null,
+            userId: inputs.userId || null,
+            contactName: inputs.contactName,
+            contactPhone: inputs.contactPhone,
+            // id: window.crypto.randomUUID()
+        }
+
+        try {
+            const response = await axios.post("/bookings", bookingData);
+            setSuccess(true);
+            console.log("Booking created successfully:", response.data);
+            setFormData({
+                date: "",
+                startTime: "",
+                duration: "",
+                tableId: "",
+                players: "",
+                gameId: "",
+                userId: "",
+                contactName: "",
+                contactPhone: ""
+            });
+        }
+        catch (error) {
+            setError(error.response?.data?.message || "Error creating booking");
+        }
+        finally {
+            setLoading(false);
+        }
     }
 
     return (
         <div>
             <div className='backgroundBooking'>
                 <div>
-                    <form className='form'>
-                        <label>Name:
+                    <form className='form' onSubmit={handleSubmit}>
+                        <h2>Book a Table</h2>
+                        {error && <p style={{ color: "red" }}>{error}</p>}
+                        {success && <p style={{ color: "green" }}>Booking created successfully!</p>}
+                        <div className='formItem'>
+                            <label>Name: </label>
                             <input
                                 type='text'
-                                name="contact_name"
-                                value={inputs.contact_name || ""}
+                                name="contactName"
+                                value={inputs.contactName || ""}
                                 onChange={handleChange}
+                                required
                             />
-                        </label>
-                        <label>Phone Number:
+                        </div>
+                        <div className='formItem'>
+                            <label>Phone Number: </label>
                             <input
                                 type='text'
-                                name="contact_phone"
-                                value={inputs.contact_phone || ""}
+                                name="contactPhone"
+                                value={inputs.contactPhone || ""}
                                 onChange={handleChange}
+                                required
                             />
-                        </label>
-                        <label>Date:
+                        </div>
+                        <div className='formItem'>
+                            <label>Date: </label>
                             <input
                                 type='date'
                                 min={new Date().toJSON().slice(0, 10)}
-                                name="rez_date"
-                                value={inputs.rez_date || ""}
+                                name="date"
+                                value={inputs.date || ""}
                                 onChange={handleChange}
+                                required
                             />
-                        </label>
-                        <label>Start time:
+                        </div>
+                        <div className='formItem'>
+                            <label>Start time: </label>
                             <input
                                 type='time'
-                                name="start_time"
-                                value={inputs.start_time || ""}
+                                name="startTime"
+                                value={inputs.startTime || ""}
                                 onChange={handleChange}
+                                required
                             />
-                        </label>
-                        <label>End time:
+                        </div>
+                        <div>
+                            <label>Duration: </label>
                             <input
-                                type='time'
-                                name='end_time'
-                                value={inputs.end_time || ""}
+                                type='number'
+                                name='duration'
+                                value={inputs.duration || ""}
                                 onChange={handleChange}
+                                min="60" 
+                                step="30" 
+                                placeholder="Duration (minutes)" 
+                                required
                             />
-                        </label>
-                        <label>Table number*:
+
+                        </div>
+                        <div className='formItem'>
+                            <label>Table number*: </label>
                             <input
                                 type='number'
                                 min={1}
                                 max={12}
-                                name='table_num'
-                                value={inputs.table_num || ""}
+                                name='tableId'
+                                value={inputs.tableId || ""}
+                                placeholder="Table ID"
                                 onChange={handleChange}
+                                required
                             />
-                        </label>
-                        <label> People*:
+                        </div>
+                        <div className='formItem'>
+                            <label> People*: </label>
                             <input
                                 type='number'
                                 min={1}
-                                max={8}
-                                name='people_num'
-                                value={inputs.people_num || ""}
+                                max={10}
+                                name='players'
+                                value={inputs.players || ""}
                                 onChange={handleChange}
+                                placeholder="Number of Players" 
+                                required
                             />
-                        </label>
-                        <label>I wish to reserve a specific game*:
-                            <input
-                                type='text'
-                                name='game_rez'
-                                value={inputs.game_rez || ""}
-                                onChange={handleChange}
-                            />
-                        </label>
-                        <label>Other: (if you need an additional chair, it's a birthday, or you have other notes, please put them in this field)<br />
-                            <textarea
-                                name='other_rez'
-                                value={inputs.other_rez || ""}
-                                onChange={handleChange}>
-                            </textarea>
-                        </label>
-                        <input type='submit' onClick={handleSubmit} />
+                        </div>
+                        <label>I wish to reserve a specific game:</label>
+                        <input
+                            type='text'
+                            name='gameId'
+                            value={inputs.gameId || ""}
+                            onChange={handleChange}
+                            placeholder="Game (optional)" 
+                        />
+                        {/*                         <label>Other: (if you need an additional chair, it's a birthday, or you have other notes, please put them in this field)<br /></label>
+                        <textarea
+                            name='other_rez'
+                            value={inputs.other_rez || ""}
+                            onChange={handleChange}>
+                        </textarea> */}
+                        <button type='submit' className="submitButt"  disabled={loading}>{loading ? "Booking..." : "Book Now"}</button>
                     </form>
                 </div>
                 <img className="floorplann" src='../assets/floorplan.png' />
-            </div>
+            </div >
 
-        </div>
+        </div >
     )
 }
