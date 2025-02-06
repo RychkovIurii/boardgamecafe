@@ -1,0 +1,7 @@
+Monday: 16:00-24:00
+Tuesday: 16:00-24:00
+Wednesday: 16:00-24:00
+Thursday: 16:00-24:00
+Friday: 16:00-02:00
+Saturday: 14:00-02:00
+Sunday: Closed

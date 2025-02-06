@@ -6,29 +6,38 @@ export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
+	const [accessToken, setAccessToken] = useState(null);
 	const [isCheckingAuth, setIsCheckingAuth] = useState(true);
 	const navigate = useNavigate();
 
 	useEffect(() => {
 		const checkAuth = async () => {
 			try {
-				await API.get('/users/profile'); // Check if user is logged in
+				const response = await API.get('/users/profile', {
+					headers: { Authorization: `Bearer ${accessToken}` },
+				});
 				setIsAuthenticated(true);
-			} catch {
-				setIsAuthenticated(false);
+			} catch (error) {
+				if (error.response?.status === 401) {
+					setIsAuthenticated(false);
+				}
 			} finally {
-				setIsCheckingAuth(false); // Auth check complete
+				setIsCheckingAuth(false);
 			}
 		};
 
-		if (isCheckingAuth) checkAuth();
-	}, [isCheckingAuth]);
+		if (isCheckingAuth && accessToken) checkAuth();
+	}, [isCheckingAuth, accessToken]);
 
-	const login = () => setIsAuthenticated(true);
+	const login = (token) => {
+		setAccessToken(token);
+		setIsAuthenticated(true);
+	};
 
 	const logout = async () => {
 		try {
-			await API.post('/users/logout'); // Clear the token cookie
+			await API.post('/users/logout');
+			setAccessToken(null);
 			setIsAuthenticated(false);
 			alert('Logged out successfully!');
 			navigate('/');
