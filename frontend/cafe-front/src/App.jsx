@@ -6,6 +6,7 @@ import FAQ from '../routes/FAQ';
 import Games from '../routes/Games';
 import Events from '../routes/Events';
 import SignIn from '../routes/SignIn';
+import Contact from '../routes/Contact';
 import './App.css'
 import Bookings from '../routes/Bookings';
 
@@ -20,6 +21,7 @@ function App() {
         <Route path='/events' element={<Events/>}/>
         <Route path='/sign-in' element={<SignIn/>}/>
         <Route path='/bookings' element={<Bookings />} />
+        <Route path='/contact' element={<Contact/>}/>
       </Routes>
     </div>
   )
