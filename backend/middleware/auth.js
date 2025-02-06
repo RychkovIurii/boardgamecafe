@@ -40,7 +40,7 @@ const generateToken = (user) => {
 
 
 // Admin Authorization
-const authorizeAdmin = (req, res, next) => {
+const authorizeAdmin = (req, res, next) => { // Think. Security. Safety.
     if (!req.user || req.user.role !== 'admin') {
         return res.status(403).json({ message: 'Access denied, admin only' });
     }
