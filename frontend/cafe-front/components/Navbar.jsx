@@ -14,6 +14,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import cafeLogo from '../assets/logo1.png';
 
 const pages = [
   { name: 'Games', path: '/games' },
@@ -59,6 +60,7 @@ function Navbar() {
     <AppBar position="static" color="white">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
+          
           <Typography
             variant="h6"
             noWrap
@@ -74,7 +76,7 @@ function Navbar() {
               textDecoration: 'none',
             }}
           >
-            BoardGameCafe
+            <img src={cafeLogo} />
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
