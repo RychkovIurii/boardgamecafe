@@ -10,7 +10,7 @@ const moment = require('moment-timezone');
  * @returns {object} - Object containing validation result and message.
  */
 const validateBooking = (date, startTime, duration) => {
-    if (!duration || typeof duration !== 'number'|| duration < 60 || duration % 30 !== 0) {
+    if (!duration || /*typeof duration !== 'number'|| */duration < 60 || duration % 30 !== 0) {
         return { isValid: false, message: 'Booking duration must be at least 60 minutes and in 30-minute intervals.' };
     }
 

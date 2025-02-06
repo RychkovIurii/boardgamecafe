@@ -33,7 +33,8 @@ export default function Footer() {
                 </div>
                 <div className='bottom'>
                     <div>
-                        <h4>{t('footer.About')}</h4> //Change to Links
+                        <h4>{t('footer.About')}</h4> 
+                        {/* //Change to Links */}
                         <a href='/'>{t('footer.About Us')}</a>
                         <a href='/'>{t('footer.Careers')}</a>
                         <a href='/'>{t('footer.Partners')}</a>
@@ -49,7 +50,8 @@ export default function Footer() {
                         </ul>
                     </div>
                     <div>
-                        <h4>{t('footer.Contact')}</h4> //Contact us
+                        <h4>{t('footer.Contact')}</h4> 
+                        {/* //Contact us */}
                         <ul className="text-md leading-loose">
                             <li>+358 50 566 2613</li>
                             <li>info@cafeboardgame.fi</li>
