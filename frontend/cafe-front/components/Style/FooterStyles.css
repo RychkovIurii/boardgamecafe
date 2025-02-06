@@ -1,8 +1,20 @@
+.footerImg {
+	background-image: url('../../assets/footer-background.png');
+	background-size: 125% 100%;
+	background-repeat: no-repeat;
+	margin: 0 auto;
+	background-position: center;
+}
+
 .footer {
 	display: flex;
 	flex-direction: column;
-	width: 100%;
+	width: 85%;
 	padding: 2rem 2rem 2rem 2rem;
+	margin: 0 auto;
+	flex-wrap: wrap;
+	justify-content: center;
+	padding: 5%;
 }
 
 .footer-logo {
@@ -18,8 +30,7 @@
 
 .footer-logo img {
 	padding-right: 10px;
-	width: 100px;
-	height: 100px;
+	width: 150px;
 	/* object-fit: cover; */
 }
 
@@ -74,9 +85,10 @@
 	font-size: 1.1rem;
 }
 
-.bottom div div .awards {
-	display:flex;
+.awards img {
+	display: flex;
 	flex-direction: row;
+	max-width: 100px;
 }
 
 @media screen and (max-width: 850px) {
