@@ -1,13 +1,13 @@
 import React from 'react';
-import { steps } from '../assets/menu_icon_assets/assets';
-import { assets } from '../assets/menu_icon_assets/assets';
+import { steps } from '../assets/image_assets/assets';
+import { assets } from '../assets/image_assets/assets';
 
 
 
 const HowItWorks = () => {
     return (
-        <div className="py-16 p-4 max-w-4xl mx-auto dark:bg-gray-800">
-            <h2 className="text-4xl font-medium  dark:text-gray-100 mb-8 lg:text-5xl">
+        <div className="py-20 max-w-4xl mx-auto dark:bg-gray-800">
+            <h2 className="text-3xl font-black  text-yellow-500 mb-8  className='text-4xl md:text-5xl ">
                 How it works
             </h2>
 

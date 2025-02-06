@@ -2,8 +2,8 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import logo from "../assets/logo3.png";
 import './Style/FooterStyles.css';
-import Award1 from "../assets/Award1.png"
-import Award2 from "../assets/Award2.png"
+import Award1 from "../assets/Award1.png";
+import Award2 from "../assets/Award2.png";
 
 export default function Footer() {
     const { t } = useTranslation();
