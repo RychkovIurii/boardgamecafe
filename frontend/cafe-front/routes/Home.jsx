@@ -3,6 +3,7 @@ import heroImage from '../assets/hero_home.jpg';
 import Hero from '../components/Hero';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import About from '../components/About'
 
 function Home() {
     return (
@@ -17,6 +18,8 @@ function Home() {
                 linkClass="show"
                 url="/bookings"
             />
+
+            <About />
             <Footer />
         </>
     );

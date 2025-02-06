@@ -1,13 +1,13 @@
 import React from 'react'
-import { menuData } from '../assets/menu_icon_assets/assets'
+import { menuData } from '../assets/image_assets/assets'
 
 
 const MenuIcon = ({ activeId, setActiveId }) => {
     return (
-        <div id="menuType" className="flex flex-col items-center gap-5 py-16 text-gray-800">
-            <h1 className="text-5xl font-medium">Find Our Menu</h1>
-            <p className="sm:w-1/3 text-center text-md">Need a snack or a drink? Even our own products?</p>
-            <div className="flex flex-wrap justify-center pt-6 w-full px-9">
+        <div id="menuType" className="flex flex-col items-center gap-5 md:py-16 py-5 text-gray-800">
+            <h1 className="text-3xl md:text-5xl font-black text-yellow-500">Find Our Menu</h1>
+            <p className="pt-3 sm:pt-5 text-xl md:text-2xl font-semibold text-gray-700">Need a snack or a drink? Even our own products?</p>
+            <div className="grid grid-cols-3 md:grid-cols-6 place-items-center gap-2 pt-3 md:gap-3 md:pt-6">
                 {menuData.map((item, index) => (
                     <div
                         key={index}
@@ -26,7 +26,7 @@ const MenuIcon = ({ activeId, setActiveId }) => {
                                 alt=""
                             />
                         </div>
-                        <p className={`${item.menuType === 'Own Brand' ? 'mt-4 font-medium' : 'mt-4 font-medium'}`}>
+                        <p className={`${item.menuType === 'Own Brand' ? 'md:mt-4 font-medium' : 'mt-4 font-medium'}`}>
                             {item.menuType}
                         </p>
                     </div>

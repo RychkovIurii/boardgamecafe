@@ -14,7 +14,7 @@ const Pricing = () => {
     return (
         <div>
             <Navbar />
-            <HeroJina />
+
 
             <div>
                 <MenuIcon activeId={activeId} setActiveId={setActiveId} />

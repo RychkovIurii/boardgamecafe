@@ -12,7 +12,21 @@ import cashRegister_icon from './cashRegister_icon.svg'
 import circleInfo_icon from './circleInfo_icon.svg'
 import face_grin_stars_icon from './face_grin_stars_icon.svg'
 import location_dot_icon from './location_dot_icon.svg'
-
+import property_photo_1 from './property_photo_1.jpg'
+import property_photo_2 from './property_photo_2.jpg'
+import property_photo_3 from './property_photo_3.jpg'
+import property_photo_4 from './property_photo_4.jpeg'
+import property_photo_5 from './property_photo_5.jpg'
+import property_photo_6 from './property_photo_6.jpg'
+import property_photo_7 from './property_photo_7.jpg'
+import property_photo_8 from './property_photo_8.jpg'
+import property_photo_9 from './property_photo_9.jpeg'
+import property_photo_10 from './property_photo_10.jpeg'
+import property_photo_11 from './property_photo_11.jpeg'
+import property_photo_12 from './property_photo_12.jpeg'
+import drinks_photo_1 from './drinks_photo_1.jpg'
+import rotated_scroll from './rotated_scroll.png'
+import footer_background from '/assets/footer-background.png'
 
 
 export const assets = {
@@ -21,7 +35,24 @@ export const assets = {
     down_icon,
     arrow_icon,
     cross_icon,
-    face_grin_stars_icon
+    face_grin_stars_icon,
+    property_photo_1,
+    property_photo_2,
+    property_photo_3,
+    property_photo_4,
+    property_photo_5,
+    property_photo_6,
+    property_photo_7,
+    property_photo_8,
+    property_photo_9,
+    property_photo_10,
+    property_photo_11,
+    property_photo_12,
+    drinks_photo_1,
+    footer_background,
+    rotated_scroll
+
+
 }
 
 
