@@ -1,0 +1,56 @@
+.backgroundBooking {
+    display: inline-block;
+}
+
+.floorplann {
+    float: right;
+    z-index: -5;
+}
+
+.form {
+    display: inline-flex;
+    flex-direction: column;
+    text-align: left;
+    align-items: baseline;
+    width: 38%;
+    margin-right: -38%;
+    margin-top: 16%;
+    padding: 5%;
+    float: left;
+    z-index: 2;
+    position: relative;
+}
+
+.formItem {
+    display: flex;
+    flex-direction: row;
+    justify-content:space-evenly;
+}
+
+.form label {
+    font-weight: bold;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 2px
+}
+
+.form input {
+    border: 2px solid rgb(141, 89, 41);
+    margin: 2px;
+    padding: 2px;
+    font-weight: lighter;
+}
+
+.form textarea {
+    border: 2px solid rgb(141, 89, 41);
+    width: 100%;
+    font-weight: lighter;
+}
+
+.submitButt{
+    background-color: khaki;
+    padding: 16px;
+    border-radius: 5px;
+    text-align: center;
+    width: 150px;
+    height: 38px;
+}
