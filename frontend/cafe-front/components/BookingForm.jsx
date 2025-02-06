@@ -71,7 +71,7 @@ export default function BookingForm() {
         }
 
         try {
-            const response = await axios.post("/bookings", bookingData);
+            const response = await API.post('/bookings', bookingData);
             setSuccess(true);
             console.log("Booking created successfully:", response.data);
             setFormData({
