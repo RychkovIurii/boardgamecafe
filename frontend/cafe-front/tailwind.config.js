@@ -8,9 +8,14 @@ export default {
   ],
   theme: {
     extend: {
-      colors: { 'primary': '#566FFF' }
+      colors: {
+        'primary': '#566FFF',
+        brown: '#8B4513',  // Brown 색상
+        gold: '#FFD700',   // Gold 색상}
+        beige: '#DBD3D1'
+      },
     },
-  },
-  plugins: [],
-}
+    plugins: [],
+  }
 
+}
