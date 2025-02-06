@@ -6,13 +6,14 @@ import Award1 from "../assets/Award1.png"
 import Award2 from "../assets/Award2.png"
 
 export default function Footer() {
-    return (
+  const { t } = useTranslation();
+  return (
         <div className='footer'>
             <div className='top'>
                 <a className="footer-logo" href="/"><img src={logo} width={80} height={80} alt="logo" />BoardGameCafe</a>
-                <p>© 2024 Created by Varia Students. All rights reserved.</p>
+                <p>{t('footer.Created by Varia Students')}</p>
                 <div className='social-links'>
-                <a href='https://discord.gg/wwQGdKVrma'>
+                    <a href='https://discord.gg/wwQGdKVrma'>
                         <i className='fa-brands fa-discord'></i>
                     </a>
                     <a href='https://www.facebook.com/CafeBoardgameHelsinki'>
@@ -67,15 +68,6 @@ export default function Footer() {
                 </div>
             </div>
         </div>
-      </div>
-
-      <div className='bottom'>
-        <div>
-          <h4>{t('footer.Contact')}</h4>
-          <a href='/'>{t('footer.Call us')}</a>
-          <a href='/'>{t('footer.Email us')}</a>
-          <a href='/'>{t('footer.Careers')}</a>
-        </div>
         <div>
           <h4>{t('footer.About')}</h4>
           <a href='/'>{t('footer.About Us')}</a>
@@ -88,8 +80,8 @@ export default function Footer() {
           <a href='/'>{t('footer.License')}</a>
           <a href='/'>{t('footer.Terms of Service')}</a>
         </div>
-      </div>
-    </div>
+      </div >
+    </div >
   );
 }
 
