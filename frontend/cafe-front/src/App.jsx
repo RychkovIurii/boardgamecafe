@@ -10,6 +10,7 @@ import AdminDashboard from '../routes/AdminDashboard';
 import { AuthContext } from '../context/AuthContext';
 import { Navigate } from 'react-router-dom';
 import { useContext } from 'react';
+import Contact from '../routes/Contact';
 import './App.css'
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
         <Route path='/events' element={<Events/>}/>
         <Route path='/sign-in' element={<SignIn/>}/>
 		<Route path='/admin' element={<AdminRoute element={<AdminDashboard />} />} />
+        <Route path='/contact' element={<Contact/>}/>
       </Routes>
     </div>
   )
