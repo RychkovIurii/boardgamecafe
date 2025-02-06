@@ -1,8 +1,8 @@
 import React from 'react'
 import { useState } from 'react';
 import './Style/BookingFormStyles.css';
-import floorplan from '../assets/floorplan.png'
-import axios from "axios"
+import API from '../api/axios';
+import { duration } from '@mui/material';
 
 export default function BookingForm() {
     const [inputs, setInputs] = useState({
@@ -51,16 +51,10 @@ export default function BookingForm() {
             return;
         }
 
-        // Construct start and end times
-        const startDateTime = new Date(`${inputs.date}T${inputs.startTime}`);
-        const endDateTime = new Date(startDateTime);
-        endDateTime.setMinutes(startDateTime.getMinutes() + parsedDuration);
-
-
         const bookingData = {
-            date: startDateTime.toISOString(),
-            startTime: startDateTime.toISOString(),
-            endTime: endDateTime.toISOString(),
+            date: inputs.date,
+            startTime: inputs.startTime,
+            duration: parsedDuration,
             tableId: inputs.tableId,
             players: parsedPlayers,
             gameId: inputs.gameId || null,
@@ -72,6 +66,7 @@ export default function BookingForm() {
 
         try {
             const response = await API.post('/bookings', bookingData);
+            console.log(response)
             setSuccess(true);
             console.log("Booking created successfully:", response.data);
             setFormData({
