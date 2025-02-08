@@ -11,7 +11,7 @@ export default function Footer() {
         <div className='footerImg'>
             <div className='footer'>
                 <div className='top'>
-                    <a className="footer-logo" href="/"><img src={logo} width={80} height={80} alt="logo" />BoardGameCafe</a>
+                    <a className="footer-logo" href="/"><img src={logo} width={80} height={80} alt="logo" /></a>
                     <p>{t('footer.Created by Varia Students')}</p>
                     <div className='social-links'>
                         <a href='https://discord.gg/wwQGdKVrma'>

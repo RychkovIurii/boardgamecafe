@@ -1,20 +1,20 @@
 .footerImg {
-	background-image: url('../../assets/footer-background.png');
-	background-size: 125% 100%;
-	background-repeat: no-repeat;
-	margin: 0 auto;
-	background-position: center;
+	display: flex;
+	background-color: #F3F4F6;
 }
 
 .footer {
 	display: flex;
 	flex-direction: column;
-	width: 85%;
-	padding: 2rem 2rem 2rem 2rem;
+	background-image: url('../../assets/footer-background.png');
+	background-size: cover;
+	background-repeat: no-repeat;
 	margin: 0 auto;
+	background-position: center;
 	flex-wrap: wrap;
 	justify-content: center;
-	padding: 5%;
+	padding: 8%;
+	margin-bottom: 1rem;
 }
 
 .footer-logo {
@@ -24,7 +24,7 @@
 	text-decoration: none;
 	white-space: nowrap;
 	cursor: pointer;
-	color: black;
+	color: #333;
 	padding-right: 40px;
 }
 
@@ -40,6 +40,12 @@
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
+}
+
+.top p {
+	font-family: "Fontdiner Swanky", serif;
+	color: #333;
+	font-size: 1.0rem;
 }
 
 .social-links {
@@ -67,22 +73,27 @@
 }
 
 .bottom h4 {
+	font-family: "Fontdiner Swanky", serif;
+	color: #333;
 	font-size: 1.3rem;
 	padding: 1rem 0 1rem 0;
 }
 
 .bottom a {
+	font-family: "Fontdiner Swanky", serif;
 	text-decoration: none;
-	color: black;
+	color: #333;
 	padding-bottom: 0.4rem;
-	font-size: 1.1rem;
+	font-size: 1rem;
 }
 
 .bottom ul li {
+	font-family: "Fontdiner Swanky", serif;
+	font-weight: 200;
 	list-style: none;
-	color: black;
+	color: #333;
 	padding-bottom: 0.4rem;
-	font-size: 1.1rem;
+	font-size: 1rem;
 }
 
 .awards img {
