@@ -69,7 +69,7 @@ function Navbar() {
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
-              fontFamily: 'Avenir sans-serif',
+              fontFamily: "Fontdiner Swanky",
               fontWeight: 700,
               letterSpacing: '.3rem',
               color: 'black',
@@ -127,7 +127,7 @@ function Navbar() {
               mr: 2,
               display: { xs: 'flex', md: 'none' },
               flexGrow: 1,
-              fontFamily: 'monospace',
+              fontFamily: "Fontdiner Swanky",
               fontWeight: 700,
               letterSpacing: '.3rem',
               color: 'black',
@@ -141,7 +141,7 @@ function Navbar() {
               <Button
                 key={page.name}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'black', display: 'block', mr: 6 }}
+                sx={{ my: 2, color: 'black', display: 'block', mr: 6, fontFamily: 'Fontdiner Swanky', ":hover": { bgcolor: 'white' } }}
                 component={Link}
                 to={page.path}
               >
@@ -179,7 +179,7 @@ function Navbar() {
             >
               {settings.map((setting) => (
                 <MenuItem key={setting.name} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">
+                  <Typography textAlign="center" fontFamily={'Fontdiner Swanky'}>
                     <Link to={setting.path}>{t(`navbar.${setting.name}`)}</Link>
                   </Typography>
                 </MenuItem>
