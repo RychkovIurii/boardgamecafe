@@ -35,10 +35,12 @@ export default function Footer() {
                     <div>
                         <h4>{t('footer.About')}</h4> 
                         {/* //Change to Links */}
-                        <a href='/'>{t('footer.About Us')}</a>
-                        <a href='/'>{t('footer.Careers')}</a>
-                        <a href='/'>{t('footer.Partners')}</a>
-                        <a href='/'>{t('footer.Privacy Policy')}</a>
+                        <ul className="text-md leading-loose">
+                        <li><a href='/'>{t('footer.About Us')}</a></li>
+                        <li><a href='/'>{t('footer.Careers')}</a></li>
+                        <li><a href='/'>{t('footer.Partners')}</a></li>
+                        <li><a href='/'>{t('footer.Privacy Policy')}</a></li>
+                        </ul>
                     </div>
                     <div>
                         <h4>Opening Hours</h4>
@@ -63,6 +65,7 @@ export default function Footer() {
                         <h4>Awards</h4>
                         <div className="awards">
                             <div><img src={Award1} height={50} alt="Award1" /></div>
+                            <br></br>
                             <div><img src={Award2} height={50} alt="Award2" /></div>
                         </div>
                     </div>
