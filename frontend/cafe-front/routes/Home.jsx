@@ -13,7 +13,7 @@ function Home() {
                 cName="hero"
                 heroImage={heroImage}
                 title="Welcome to CAFÉ BOARDGAME"
-                text="Enjoy the best board games with your friends and family."
+                text="Enjoy the best board games with your friends and family"
                 linkText="Book Now"
                 linkClass="show"
                 url="/bookings"
