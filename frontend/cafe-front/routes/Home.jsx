@@ -1,4 +1,3 @@
-import React from 'react';
 import heroImage from '../assets/hero_home.jpg';
 import Hero from '../components/Hero';
 import Navbar from '../components/Navbar';
