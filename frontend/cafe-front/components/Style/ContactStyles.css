@@ -1,0 +1,152 @@
+.contact-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #DBD3D1;
+  }
+  
+  .contact-card {
+    display: flex;
+    background: #e6e6e6;
+    border-radius: 10px;
+    padding: 20px;
+    width: 98%;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  .contact-image {
+    width: 40%;
+    border-radius: 10px;
+  }
+  
+  .contact-info {
+    margin-left: 100px;
+    text-align: left; /* چپ‌چین کردن متن */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .contact-info h1 {
+    font-family: 'Awkward-english-google-font'; /* فونت Inter */
+    font-size: 48px; /* اندازه ۴۸ پیکسل */
+    font-weight: 800; /* Extra Bold */
+    color: #4f4f4f; /* رنگ متن */
+    margin-bottom: 10px; /* فاصله پایین */
+    
+  }
+  .contact-info h2 {
+    font-family: 'Roboto', sans-serif; /* فونت Roboto */
+    font-size: 22px; /* اندازه ۴۰ پیکسل */
+    font-weight: 500; /* Medium */
+    color: #767676; /* رنگ متن */
+    line-height: 120%; /* فاصله بین خطوط */
+    margin-bottom: 50px; 
+  }
+
+  .contact-info p {
+    font-family: 'Roboto', sans-serif; /* فونت Roboto */
+    font-size: 32px; /* اندازه ۴۰ پیکسل */
+    font-weight: 500; /* Medium */
+    color: #2c2c2c; /* رنگ متن */
+    line-height: 120%; /* فاصله بین خطوط */
+    margin-bottom: 10px; 
+    
+  }
+  
+  .map-container {
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .map-img{
+    width:100%;
+    border-radius: 10px;
+    
+  }
+
+
+
+  .isolate {
+    background-color: #f3e8e4; /* رنگ پس‌زمینه گرم‌تر */
+    padding: 6rem 1.5rem;
+    margin-bottom: 20px;
+    border-radius: 10px; 
+}
+
+.isolate h2 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #6b4226; /* رنگ قهوه‌ای گرم */
+}
+
+.isolate p {
+    font-size: 1.125rem;
+    color: #8a5a44; /* رنگ متن متناسب با تصویر */
+    margin-top: 0.5rem;
+}
+
+form {
+    margin-top: 4rem;
+    max-width: 40rem;
+    margin-left: auto;
+    margin-right: auto;
+    background: #ffffff; /* پس‌زمینه فرم */
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.sm\:col-span-2 {
+    grid-column: span 2;
+}
+
+label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #6b4226; /* رنگ قهوه‌ای گرم */
+    margin-bottom: 0.25rem;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 0.625rem;
+    font-size: 1rem;
+    border: 1px solid #d1b89f;
+    border-radius: 0.375rem;
+    background-color: #fffaf5;
+    color: #5a3825;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+}
+
+input::placeholder, textarea::placeholder {
+    color: #a78c72;
+}
+
+input:focus, textarea:focus {
+    border-color: #d17b4a; /* رنگ نارنجی متناسب با تم */
+    box-shadow: 0 0 5px rgba(209, 123, 74, 0.5);
+}
+
+textarea {
+    height: 100px;
+    resize: none;
+}
+
