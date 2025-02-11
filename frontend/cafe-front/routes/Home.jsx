@@ -1,4 +1,3 @@
-import React from 'react';
 import heroImage from '../assets/hero_home.jpg';
 import Hero from '../components/Hero';
 import Navbar from '../components/Navbar';
@@ -12,8 +11,8 @@ function Home() {
             <Hero
                 cName="hero"
                 heroImage={heroImage}
-                title="Welcome to BoardGameCafe"
-                text="Enjoy the best board games with your friends and family."
+                title="Welcome to CAFÉ BOARDGAME"
+                text="Enjoy the best board games with your friends and family"
                 linkText="Book Now"
                 linkClass="show"
                 url="/bookings"
