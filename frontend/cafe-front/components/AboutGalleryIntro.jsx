@@ -91,19 +91,19 @@ function AboutGalleryIntro() {
                     color: "black",
                 }}>
 
-                    < div className={clsx('justify-center pr-10 pl-10 mt-12', isMobile? 'm-5':'')}>
-                        <p className='pt-2 mr-4 ml-8'>
+                    < div className={clsx('justify-center pr-10 pl-10 mt-12 font-fontdiner', isMobile? 'm-5':'')}>
+                        <p className='pt-2 mr-4 ml-16 font-fontdiner text-gray-800'>
                             Founded in 2002, with over 300 games Café Boardgame has been a welcoming spot for board game lovers for over 20 years.
                         </p>
-                        <p className='pt-2 mr-4 ml-8'>Our friendly staff are always here to help you pick a game, explain the rules, or guide you through gameplay. </p>
-                        <p className='pt-2 mr-4 ml-8'>
+                        <p className='pt-2 mr-4 ml-14 font-fontdiner text-gray-800'>Our friendly staff are always here to help you pick a game, explain the rules, or guide you through gameplay. </p>
+                        <p className='pt-2 mr-4 ml-14 font-fontdiner text-gray-800'>
                             At Café Boardgame, you can enjoy great food, drinks, and games in a fun and relaxing space with friends, family, or colleagues.
                         </p>
                     </div>
 
-                    <div className={clsx('mb-12', isMobile? "bg-gray-200 pb-10":"")}>
-                        <h2 className={clsx(" sm:text-2xl lg:text-3xl font-bold text-gray-800 mb-4", isMobile? "bg-gray-200 pt-10": "pt-3")}>Opening Hours</h2>
-                        <ul className="text-md font-semibold text-gray-800">
+                    <div className={clsx('mb-12', isMobile ? "bg-gray-200 pb-10" : "", "font-fontdiner")}>
+                        <h2 className={clsx("sm:text-2xl lg:text-3xl font-bold text-gray-800 mb-4", isMobile ? "bg-gray-200 pt-10" : "pt-3", "font-fontdiner")}>Opening Hours</h2>
+                        <ul className="text-md font-semibold text-gray-800 font-fontdiner">
                             <li>Monday - Thursday 16:00 - 24:00 </li>
                             <li>Friday 16:00 - 02:00</li>
                             <li>Saturday 14:00 - 02:00 </li>

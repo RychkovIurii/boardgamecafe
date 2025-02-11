@@ -14,6 +14,9 @@ export default {
         gold: '#FFD700',   // Gold 색상}
         beige: '#DBD3D1'
       },
+      fontFamily: {
+        'fontdiner': ['Fontdiner Swanky', 'serif']
+      }
     },
     plugins: [],
   }
