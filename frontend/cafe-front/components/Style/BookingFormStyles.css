@@ -7,24 +7,30 @@
     z-index: -5;
 }
 
-.form {
-    display: inline-flex;
-    flex-direction: column;
+.stepperStyle {
+    width: 36%;
     text-align: left;
-    align-items: baseline;
-    width: 38%;
     margin-right: -38%;
-    margin-top: 16%;
-    padding: 5%;
+    margin-top: 22%;
+    padding-left: 3%;
     float: left;
     z-index: 2;
     position: relative;
 }
 
+.stepperStyle2 {
+    display: inline-flex;
+    flex-direction: column;
+    text-align: left;
+    align-items: baseline;
+    width: 36%;
+}
+
 .formItem {
     display: flex;
     flex-direction: row;
-    justify-content:space-evenly;
+    justify-content: space-between;
+    align-items: baseline;
 }
 
 .form label {
@@ -46,7 +52,7 @@
     font-weight: lighter;
 }
 
-.submitButt{
+.submitButt {
     background-color: khaki;
     padding: 16px;
     border-radius: 5px;

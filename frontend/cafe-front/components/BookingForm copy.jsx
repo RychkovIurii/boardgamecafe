@@ -10,6 +10,7 @@ import {
   Typography,
   Box,
   TextField,
+  StepContent
 } from '@mui/material';
 
 
@@ -35,7 +36,7 @@ function StepOne({ inputs, handleChange }) {
         />
       </div>
       <div className='formItem'>
-        <label>Phone Number: </label>
+        <label>Phone: </label>
         <input
           className='formInput'
           type='text'
@@ -68,7 +69,7 @@ function StepOne({ inputs, handleChange }) {
           required
         />
       </div>
-      <div>
+      <div className='formItem'>
         <label>Duration: </label>
         <input
           className='formInput'
@@ -87,7 +88,7 @@ function StepOne({ inputs, handleChange }) {
   );
 }
 
-function StepTwo({inputs, handleChange}) {
+function StepTwo({ inputs, handleChange }) {
   return (
     <Box>
       <Typography variant="h6" gutterBottom>
@@ -118,15 +119,14 @@ function StepTwo({inputs, handleChange}) {
   );
 }
 
-function StepThree({inputs, handleChange, handleSubmit}) {
+function StepThree({ inputs, handleChange, handleSubmit }) {
   return (
     <Box>
       <Typography variant="h6" gutterBottom>
-        Step 3: Review &amp; Submit
+        Step 3: Submit
       </Typography>
       <Typography variant="body1" gutterBottom>
-        Here, you can show a summary of all fields from previous steps, or simply
-        prompt the user to submit.
+        By submitting this form you agree to the Terms and Conditions of Cafe Boardgame.
       </Typography>
     </Box>
   );
@@ -178,49 +178,52 @@ export default function BookingForm() {
       case 1:
         return <StepTwo inputs={inputs} handleChange={handleChange} />;
       case 2:
-        return <StepThree inputs={inputs} handleChange={handleChange} handleSubmit={handleSubmit}/>;
+        return <StepThree inputs={inputs} handleChange={handleChange} handleSubmit={handleSubmit} />;
       default:
         return <Typography>Unknown step</Typography>;
     }
   };
 
   return (
-    <Box sx={{ width: '100%', maxWidth: 600, margin: '0 auto' }}>
-      <Stepper activeStep={activeStep} sx={{ marginBottom: 3 }}>
-        {steps.map((label, index) => (
-          <Step key={index}>
-            <StepLabel>{label}</StepLabel>
-          </Step>
-        ))}
-      </Stepper>
+    <>
+      <div className='backgroundBooking'>
+        <img className="floorplann" src='../assets/floorplan.png' />
+        <div className='stepperStyle'>
+          
+          <Box className='stepperStyle2' sx={{minWidth:'400px', maxWidth:'700px', margin: '0 auto'}} >
+            <Stepper activeStep={activeStep}  orientation='vertical'>
+              {steps.map((label, index) => (
+                <Step key={index}>
+                  <StepLabel>{label}</StepLabel>
+                  <StepContent>
+                    {renderStepContent(activeStep)}
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: 2}}>
+                      <Button
+                        disabled={activeStep === 0}
+                        onClick={handleBack}
+                        variant="contained"
+                      >
+                        Back
+                      </Button>
+                      {activeStep === steps.length - 1 ? (
+                        <Button onClick={handleSubmit} variant="contained" color="primary" >
+                          Submit
+                        </Button>
+                      ) : (
+                        <Button onClick={handleNext} variant="contained" color="primary" >
+                          Next
+                        </Button>
+                      )}
+                    </Box>
+                  </StepContent>
+                </Step>
+              ))}
+            </Stepper>
 
-      {activeStep === steps.length ? (
-        // Optional: You can show a completion screen or message here
-        <Typography variant="h5">All steps completed!</Typography>
-      ) : (
-        <>
-          {renderStepContent(activeStep)}
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: 2 }}>
-            <Button
-              disabled={activeStep === 0}
-              onClick={handleBack}
-              variant="contained"
-            >
-              Back
-            </Button>
-            {activeStep === steps.length - 1 ? (
-              <Button onClick={handleSubmit} variant="contained" color="primary">
-                Submit
-              </Button>
-            ) : (
-              <Button onClick={handleNext} variant="contained" color="primary">
-                Next
-              </Button>
-            )}
           </Box>
-        </>
-      )}
-    </Box>
+        </div>
+      </div>
+    </>
   );
 }
 
