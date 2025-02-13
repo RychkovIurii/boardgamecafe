@@ -15,7 +15,6 @@ import {
 
 
 /**
-  
  StepOne, StepTwo, and StepThree are separated for clarity.
  You can define them inline, in separate files, or as your project needs.*/
 function StepOne({ inputs, handleChange }) {
@@ -43,6 +42,20 @@ function StepOne({ inputs, handleChange }) {
           name="contactPhone"
           value={inputs.contactPhone || ""}
           onChange={handleChange}
+          required
+        />
+      </div>
+      <div className='formItem'>
+        <label> People*: </label>
+        <input
+        className='formInput'
+          type='number'
+          min={1}
+          max={10}
+          name='players'
+          value={inputs.players || ""}
+          onChange={handleChange}
+          placeholder="Number of Players"
           required
         />
       </div>
@@ -136,6 +149,9 @@ function StepThree({ inputs, handleChange, handleSubmit }) {
 
 export default function BookingForm() {
   const [activeStep, setActiveStep] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
   const [inputs, setInputs] = useState({
     date: "",
     startTime: "",
@@ -149,7 +165,7 @@ export default function BookingForm() {
   });
 
   // Define the labels for each step.
-  const steps = ['Personal Info', 'Table and Game Selection (Optional)', 'Review & Submit'];
+  const steps = ['Personal Info', 'Table and Game Selection (Optional)', 'Submit'];
 
   // Handle next step
   const handleNext = () => {
@@ -161,15 +177,70 @@ export default function BookingForm() {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  // Handle form submission or final step action
-  const handleSubmit = () => {
-    // e.g., call an API or finalize your form submission logic here
-    alert('Form submitted!');
-  };
 
   const handleChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value })
   }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+    setSuccess(false);
+
+    // Validates duration and players
+    const parsedPlayers = parseInt(inputs.players, 10);
+
+    /* if (!validateDuration(inputs.duration)) {
+      setError("Duration must be at least 60 minutes and a multiple of 30 (e.g., 60, 90, 120).");
+      setLoading(false);
+      return;
+    } */
+    if (isNaN(parsedPlayers) || parsedPlayers < 1) {
+      setError("Players must be at least 1.");
+      setLoading(false);
+      return;
+    }
+
+    const bookingData = {
+      date: inputs.date,
+      startTime: inputs.startTime,
+      duration: inputs.duration,
+      tableId: inputs.tableId,
+      players: parsedPlayers,
+      gameId: inputs.gameId || null,
+      userId: inputs.userId || null,
+      contactName: inputs.contactName,
+      contactPhone: inputs.contactPhone,
+      // id: window.crypto.randomUUID()
+    }
+
+    try {
+      const response = await API.post('/bookings', bookingData);
+      console.log(response)
+      setSuccess(true);
+      console.log("Booking created successfully:", response.data);
+      setBooking({
+        date: "",
+        startTime: "",
+        duration: "",
+        tableId: "",
+        players: "",
+        gameId: "",
+        userId: "",
+        contactName: "",
+        contactPhone: ""
+      });
+    }
+    catch (error) {
+      setError(error.response?.data?.message || "Error creating booking");
+      console.log(error)
+    }
+    finally {
+      setLoading(false);
+    }
+  }
+
   // Renders the content for each step
   const renderStepContent = (stepIndex) => {
     switch (stepIndex) {
@@ -189,15 +260,17 @@ export default function BookingForm() {
       <div className='backgroundBooking'>
         <img className="floorplann" src='../assets/floorplan.png' />
         <div className='stepperStyle'>
-          
-          <Box className='stepperStyle2' sx={{minWidth:'400px', maxWidth:'700px', margin: '0 auto'}} >
-            <Stepper activeStep={activeStep}  orientation='vertical'>
+
+          <Box className='stepperStyle2' sx={{ minWidth: '400px', maxWidth: '700px', margin: '0 auto' }} >
+            {error && <p style={{ color: "red" }}>{error}</p>}
+            {success && <p style={{ color: "green" }}>Booking created successfully!</p>}
+            <Stepper activeStep={activeStep} orientation='vertical'>
               {steps.map((label, index) => (
                 <Step key={index}>
                   <StepLabel>{label}</StepLabel>
                   <StepContent>
                     {renderStepContent(activeStep)}
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: 2}}>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: 2 }}>
                       <Button
                         disabled={activeStep === 0}
                         onClick={handleBack}
