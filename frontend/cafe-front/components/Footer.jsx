@@ -37,6 +37,7 @@ export default function Footer() {
                             {/* //Change to Links */}
                             <ul className="text-md leading-loose">
                             <li><a href='/'>{t('footer.About Us')}</a></li>
+                            <li><a href='/contact'>{t('footer.Contact')}</a></li>
                             <li><a href='/'>{t('footer.Careers')}</a></li>
                             <li><a href='/'>{t('footer.Partners')}</a></li>
                             <li><a href='/'>{t('footer.Privacy Policy')}</a></li>
