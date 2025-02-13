@@ -16,6 +16,7 @@
     float: left;
     z-index: 2;
     position: relative;
+    font-family: "Fontdiner Swanky";
 }
 
 .stepperStyle2 {
@@ -24,6 +25,7 @@
     text-align: left;
     align-items: baseline;
     width: 36%;
+    font-family: "Fontdiner Swanky";
 }
 
 .formItem {
@@ -31,6 +33,27 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: baseline;
+}
+
+.smallerText{
+    font-size: small;
+}
+
+.tables {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.table {
+    background-color: palegoldenrod;
+    border-radius: 50%;
+    font-size: small;
+    height: 25px;
+    width: 25px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 3px;
 }
 
 .form label {

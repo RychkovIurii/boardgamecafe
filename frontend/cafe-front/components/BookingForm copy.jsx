@@ -13,14 +13,151 @@ import {
   StepContent
 } from '@mui/material';
 
+const tables = [
+  {
+    "id": "1",
+    "seats": "2",
+    "location": "ground"
+  },
+  {
+    "id": "2",
+    "seats": "2",
+    "location": "ground"
+  },
+  {
+    "id": "3",
+    "seats": "",
+    "location": ""
+  },
+  {
+    "id": "4",
+    "seats": "",
+    "location": ""
+  },
+  {
+    "id": "5",
+    "seats": "",
+    "location": ""
+  },
+  {
+    "id": "6",
+    "seats": "",
+    "location": ""
+  },
+  {
+    "id": "7",
+    "seats": "",
+    "location": ""
+  },
+  {
+    "id": "8",
+    "seats": "",
+    "location": ""
+  },
+  {
+    "id": "9",
+    "seats": "",
+    "location": ""
+  },
+  {
+    "id": "10",
+    "seats": "",
+    "location": ""
+  },
+  {
+    "id": "11",
+    "seats": "",
+    "location": ""
+  },
+  {
+    "id": "12",
+    "seats": "",
+    "location": ""
+  },
+  {
+    "id": "13",
+    "seats": "",
+    "location": ""
+  },
+  {
+    "id": "14",
+    "seats": "",
+    "location": ""
+  },
+  {
+    "id": "15",
+    "seats": "",
+    "location": ""
+  },
+  {
+    "id": "16",
+    "seats": "",
+    "location": ""
+  },
+  {
+    "id": "17",
+    "seats": "",
+    "location": ""
+  },
+  {
+    "id": "18",
+    "seats": "",
+    "location": ""
+  },
+  {
+    "id": "19",
+    "seats": "",
+    "location": ""
+  },
+  {
+    "id": "20",
+    "seats": "",
+    "location": ""
+  },
+  {
+    "id": "21",
+    "seats": "",
+    "location": ""
+  },
+  {
+    "id": "22",
+    "seats": "",
+    "location": ""
+  },
+  {
+    "id": "23",
+    "seats": "",
+    "location": ""
+  },
+  {
+    "id": "24",
+    "seats": "",
+    "location": ""
+  },
+  {
+    "id": "25",
+    "seats": "",
+    "location": ""
+  },
+  {
+    "id": "26",
+    "seats": "",
+    "location": ""
+  },
+  {
+    "id": "27",
+    "seats": "",
+    "location": ""
+  }
+]
 
 /**
  StepOne, StepTwo, and StepThree are separated for clarity.
  You can define them inline, in separate files, or as your project needs.*/
 function StepOne({ inputs, handleChange }) {
   return (
-    <Box>
-      <Typography variant="h6" gutterBottom>
+    <Box sx={{ fontFamily: "Fontdiner Swanky" }}>
+      <Typography variant="h6" sx={{ fontFamily: "Fontdiner Swanky" }} gutterBottom>
         Step 1: Personal Info
       </Typography>
       <div className='formItem'>
@@ -48,7 +185,7 @@ function StepOne({ inputs, handleChange }) {
       <div className='formItem'>
         <label> People*: </label>
         <input
-        className='formInput'
+          className='formInput'
           type='number'
           min={1}
           max={10}
@@ -59,6 +196,7 @@ function StepOne({ inputs, handleChange }) {
           required
         />
       </div>
+      (If your group has more than 8 people, please contact us directly for your booking)
       <div className='formItem'>
         <label>Date: </label>
         <input
@@ -104,9 +242,12 @@ function StepOne({ inputs, handleChange }) {
 function StepTwo({ inputs, handleChange }) {
   return (
     <Box>
-      <Typography variant="h6" gutterBottom>
-        Step 2: Table and Game Selection (Optional)
+      <Typography variant="h6" sx={{ fontFamily: "Fontdiner Swanky" }} gutterBottom>
+        Step 2: Optional Requests
       </Typography>
+      <div className='smallerText'>
+        Here you can optionally request a specific table or game. You can skip this step if you have no specific items to request. Please keep in mind that the Cafe reserves the right to change tables as needed.
+      </div>
       <label>Table: </label>
       <input
         className='formInput'
@@ -119,7 +260,18 @@ function StepTwo({ inputs, handleChange }) {
         onChange={handleChange}
         required
       />
-      <br />
+      <div className='tables'>
+        <div className='table'>1</div>
+        <div className='table'>2</div>
+        <div className='table'>3</div>
+        <div className='table'>4</div>
+        <div className='table'>5</div>
+        <div className='table'>1</div>
+        <div className='table'>1</div>
+        <div className='table'>1</div>
+        <div className='table'>1</div>
+        <div className='table'>1</div>
+      </div>
       <label>Game: </label>
       <input
         className='formInput'
@@ -128,17 +280,25 @@ function StepTwo({ inputs, handleChange }) {
         value={inputs.gameId || ""}
         onChange={handleChange}
       />
+      <label>Other:</label>
+      <textarea className='formInput'
+        name='other_rez'
+        value={inputs.other_rez || ""}
+        onChange={handleChange}
+        placeholder="if you need an additional chair, it's a birthday, or you have other notes, please put them in this field."
+      >
+      </textarea>
     </Box>
   );
 }
 
 function StepThree({ inputs, handleChange, handleSubmit }) {
   return (
-    <Box>
-      <Typography variant="h6" gutterBottom>
+    <Box sx={{ fontFamily: "Fontdiner Swanky" }}>
+      <Typography sx={{ fontFamily: "Fontdiner Swanky" }} variant="h6" gutterBottom>
         Step 3: Submit
       </Typography>
-      <Typography variant="body1" gutterBottom>
+      <Typography sx={{ fontFamily: "Fontdiner Swanky" }} variant="body1" gutterBottom>
         By submitting this form you agree to the Terms and Conditions of Cafe Boardgame.
       </Typography>
     </Box>
@@ -165,7 +325,7 @@ export default function BookingForm() {
   });
 
   // Define the labels for each step.
-  const steps = ['Personal Info', 'Table and Game Selection (Optional)', 'Submit'];
+  const steps = ['Personal Info', 'Optional Requests', 'Submit'];
 
   // Handle next step
   const handleNext = () => {
@@ -261,16 +421,16 @@ export default function BookingForm() {
         <img className="floorplann" src='../assets/floorplan.png' />
         <div className='stepperStyle'>
 
-          <Box className='stepperStyle2' sx={{ minWidth: '400px', maxWidth: '700px', margin: '0 auto' }} >
+          <Box className='stepperStyle2' sx={{ minWidth: '400px', maxWidth: '700px', margin: '0 auto', fontFamily: "Fontdiner Swanky" }} >
             {error && <p style={{ color: "red" }}>{error}</p>}
             {success && <p style={{ color: "green" }}>Booking created successfully!</p>}
-            <Stepper activeStep={activeStep} orientation='vertical'>
+            <Stepper activeStep={activeStep} orientation='vertical' sx={{ fontFamily: "Fontdiner Swanky" }}>
               {steps.map((label, index) => (
-                <Step key={index}>
-                  <StepLabel>{label}</StepLabel>
-                  <StepContent>
+                <Step key={index} sx={{ fontFamily: "Fontdiner Swanky" }}>
+                  <StepLabel sx={{ fontFamily: "Fontdiner Swanky" }} >{label}</StepLabel>
+                  <StepContent sx={{ fontFamily: "Fontdiner Swanky" }} >
                     {renderStepContent(activeStep)}
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: 2 }}>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: 2, fontFamily: "Fontdiner Swanky" }}>
                       <Button
                         disabled={activeStep === 0}
                         onClick={handleBack}
