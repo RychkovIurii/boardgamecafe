@@ -1,32 +1,32 @@
 import React from 'react';
-import { menuData } from '../assets/menu_icon_assets/assets';
+import { menuData } from '../assets/image_assets/assets';
 
 const MenuAccordions = ({ activeId, setActiveId }) => {
     return (
-        <div className="w-full min-h-screen py-2 flex justify-center">
-            <div className="w-[900px] h-max shadow-lg border border-gray-200 rounded-xl overflow-hidden bg-white">
+        <div className="w-full min-h-screen flex justify-center">
+            <div className="w-[900px] h-max shadow-lg border-4 border-yellow-600 rounded-xl overflow-hidden bg-white">
                 {/* Header Section */}
-                <div className="flex flex-wrap justify-center px-6 py-5 gap-5 bg-gray-100">
+                {/* <div className="flex flex-wrap justify-center px-6 py-5 gap-5 bg-yellow-900">
                     {menuData.map((item, index) => (
                         <button
                             key={index}
                             onClick={() => setActiveId(index)} // Update activeId
                             className={`px-4 py-2 rounded-lg font-medium text-base whitespace-nowrap ${activeId === index
                                 ? 'bg-indigo-500 text-white'
-                                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                                : 'bg-amber-400 text-gray-700 hover:bg-gray-300'
                                 }`}
                         >
                             {item.menuType}
                         </button>
                     ))}
-                </div>
+                </div> */}
 
                 {/* Details Section */}
                 {menuData.map((item, index) => (
                     activeId === index && (
-                        <div key={index} className="px-6 py-5 bg-indigo-50 border-t border-gray-300">
+                        <div key={index} className="px-6 py-5 bg-yellow-900  border-yellow-600">
                             {/* Description */}
-                            <p className="mb-6  text-gray-700 leading-relaxed">{item.details.description}</p>
+                            <p className="mb-6  text-white leading-relaxed">{item.details.description}</p>
 
                             {/* Pricing or Other Items */}
                             {item.details.pricing && (

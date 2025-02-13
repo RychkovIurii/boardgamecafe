@@ -1,5 +1,5 @@
 import React from 'react'
-import { assets } from '../assets/menu_icon_assets/assets'
+import { assets } from '../assets/image_assets/assets'
 
 
 

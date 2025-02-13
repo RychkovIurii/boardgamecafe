@@ -1,5 +1,5 @@
 import React from 'react';
-import heroImage from '../assets/hero_games.jpg';
+import heroImage from '../assets/gamesHero.png';
 import Hero from '../components/Hero';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';

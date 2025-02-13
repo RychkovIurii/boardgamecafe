@@ -1,8 +1,25 @@
+.footerImg {
+	display: flex;
+	background-color: #F3F4F6;	
+	justify-content: center;
+}
+
+.footerBg {
+	display: flex;
+	background-image: url('../../assets/footer-background.png');
+	background-size: 100%;
+	background-repeat: no-repeat;
+	margin: 0;
+	background-position: center;
+	align-items: center;
+}
+
 .footer {
 	display: flex;
 	flex-direction: column;
-	width: 100%;
-	padding: 2rem 2rem 2rem 2rem;
+	flex-wrap: wrap;
+	justify-content: center;
+	margin: 14rem;
 }
 
 .footer-logo {
@@ -12,14 +29,13 @@
 	text-decoration: none;
 	white-space: nowrap;
 	cursor: pointer;
-	color: black;
+	color: #333;
 	padding-right: 40px;
 }
 
 .footer-logo img {
 	padding-right: 10px;
-	width: 100px;
-	height: 100px;
+	width: 150px;
 	/* object-fit: cover; */
 }
 
@@ -29,6 +45,12 @@
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
+}
+
+.top p {
+	font-family: "Fontdiner Swanky", serif;
+	color: #333;
+	font-size: 1.0rem;
 }
 
 .social-links {
@@ -56,22 +78,33 @@
 }
 
 .bottom h4 {
+	font-family: "Fontdiner Swanky", serif;
+	color: #333;
 	font-size: 1.3rem;
 	padding: 1rem 0 1rem 0;
 }
 
 .bottom a {
+	font-family: "Fontdiner Swanky", serif;
 	text-decoration: none;
-	color: black;
+	color: #333;
 	padding-bottom: 0.4rem;
-	font-size: 1.1rem;
+	font-size: 1rem;
 }
 
 .bottom ul li {
+	font-family: "Fontdiner Swanky", serif;
+	font-weight: 200;
 	list-style: none;
-	color: black;
+	color: #333;
 	padding-bottom: 0.4rem;
-	font-size: 1.1rem;
+	font-size: 1rem;
+}
+
+.awards img {
+	display: flex;
+	flex-direction: row;
+	max-width: 100px;
 }
 
 @media screen and (max-width: 850px) {

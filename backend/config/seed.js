@@ -5,6 +5,7 @@ const Game = require('../models/Game');
 const Booking = require('../models/Booking');
 const Payment = require('../models/Payment');
 const Table = require('../models/Table');
+const moment = require('moment-timezone');
 
 dotenv.config({ path: './back.env' });
 
@@ -70,17 +71,17 @@ const seedTables = [
 const seedBookings = [
     {
         date: new Date(),
-        startTime: '16:00',
-        endTime: '18:00',
+        startTime: moment.tz("2025-01-31 16:00", "Europe/Helsinki").toDate(),
+        endTime: moment.tz("2025-01-31 18:00", "Europe/Helsinki").toDate(),
         tableId: null, // This will be updated after tables are seeded
         players: 3,
         contactName: 'Charlie',
         contactPhone: '1122334455',
     },
     {
-        date: new Date(),
-        startTime: '18:00',
-        endTime: '21:00',
+        date: new Date("2025-02-07T10:33:30.922Z"),
+        startTime: moment.tz("2025-01-31 18:00", "Europe/Helsinki").toDate(),
+        endTime: moment.tz("2025-01-31 21:00", "Europe/Helsinki").toDate(),
         tableId: null, // This will be updated after tables are seeded
         players: 5,
         userId: null, // This will be updated after users are seeded
@@ -119,7 +120,7 @@ const importData = async () => {
         await Payment.deleteMany();
         await Table.deleteMany();
 
-        const createdUsers = await User.insertMany(seedUsers);
+        const createdUsers = await Promise.all(seedUsers.map(user => User.create(user)));
         const createdGames = await Game.insertMany(seedGames);
         const createdTables = await Table.insertMany(seedTables);
 
