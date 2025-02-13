@@ -26,7 +26,7 @@ function Contact() {
           <h1>Get in Touch!</h1>
           <h2>Have a question or just want to say hi? Feel free to reach out we’d love to hear from you!</h2>
           <p>📞 +358 50 566 2613</p>
-          <p>📧 info@boardgamecafe.fi</p>
+          <p>📧 info@cafeboardgame.fi</p>
           <p>📍 Eerikinkatu 14, 00100 Helsinki</p>
         </div>
       </div>
