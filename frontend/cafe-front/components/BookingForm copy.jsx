@@ -15,139 +15,139 @@ import {
 
 const tables = [
   {
-    "id": "1",
-    "seats": "2",
+    "id": 1,
+    "seats": 2,
     "location": "ground"
   },
   {
-    "id": "2",
-    "seats": "2",
+    "id": 2,
+    "seats": 2,
     "location": "ground"
   },
   {
-    "id": "3",
-    "seats": "",
-    "location": ""
+    "id": 3,
+    "seats": 6,
+    "location": "ground"
   },
   {
-    "id": "4",
-    "seats": "",
-    "location": ""
+    "id": 4,
+    "seats": 5,
+    "location": "ground"
   },
   {
-    "id": "5",
-    "seats": "",
-    "location": ""
+    "id": 5,
+    "seats": 5,
+    "location": "ground"
   },
   {
-    "id": "6",
-    "seats": "",
-    "location": ""
+    "id": 6,
+    "seats": 6,
+    "location": "ground"
   },
   {
-    "id": "7",
-    "seats": "",
-    "location": ""
+    "id": 7,
+    "seats": 8,
+    "location": "ground"
   },
   {
-    "id": "8",
-    "seats": "",
-    "location": ""
+    "id": 8,
+    "seats": 8,
+    "location": "ground"
   },
   {
-    "id": "9",
-    "seats": "",
-    "location": ""
+    "id": 9,
+    "seats": 2,
+    "location": "ground"
   },
   {
-    "id": "10",
-    "seats": "",
-    "location": ""
+    "id": 10,
+    "seats": 2,
+    "location": "ground"
   },
   {
-    "id": "11",
-    "seats": "",
-    "location": ""
+    "id": 11,
+    "seats": 2,
+    "location": "ground"
   },
   {
-    "id": "12",
-    "seats": "",
-    "location": ""
+    "id": 12,
+    "seats": 4,
+    "location": "upstairs"
   },
   {
-    "id": "13",
-    "seats": "",
-    "location": ""
+    "id": 13,
+    "seats": 4,
+    "location": "upstairs"
   },
   {
-    "id": "14",
-    "seats": "",
-    "location": ""
+    "id": 14,
+    "seats": 4,
+    "location": "upstairs"
   },
   {
-    "id": "15",
-    "seats": "",
-    "location": ""
+    "id": 15,
+    "seats": 4,
+    "location": "upstairs"
   },
   {
-    "id": "16",
-    "seats": "",
-    "location": ""
+    "id": 16,
+    "seats": 4,
+    "location": "upstairs"
   },
   {
-    "id": "17",
-    "seats": "",
-    "location": ""
+    "id": 17,
+    "seats": 10,
+    "location": "upstairs"
   },
   {
-    "id": "18",
-    "seats": "",
-    "location": ""
+    "id": 18,
+    "seats": 2,
+    "location": "upstairs"
   },
   {
-    "id": "19",
-    "seats": "",
-    "location": ""
+    "id": 19,
+    "seats": 4,
+    "location": "upstairs"
   },
   {
-    "id": "20",
-    "seats": "",
-    "location": ""
+    "id": 20,
+    "seats": 4,
+    "location": "upstairs"
   },
   {
-    "id": "21",
-    "seats": "",
-    "location": ""
+    "id": 21,
+    "seats": 4,
+    "location": "upstairs"
   },
   {
-    "id": "22",
-    "seats": "",
-    "location": ""
+    "id": 22,
+    "seats": 2,
+    "location": "upstairs"
   },
   {
-    "id": "23",
-    "seats": "",
-    "location": ""
+    "id": 23,
+    "seats": 8,
+    "location": "upstairs"
   },
   {
-    "id": "24",
-    "seats": "",
-    "location": ""
+    "id": 24,
+    "seats": 4,
+    "location": "terrace"
   },
   {
-    "id": "25",
-    "seats": "",
-    "location": ""
+    "id": 25,
+    "seats": 8,
+    "location": "terrace"
   },
   {
-    "id": "26",
-    "seats": "",
-    "location": ""
+    "id": 26,
+    "seats": 8,
+    "location": "terrace"
   },
   {
-    "id": "27",
-    "seats": "",
-    "location": ""
+    "id": 27,
+    "seats": 4,
+    "location": "terrace"
   }
 ]
 
@@ -261,16 +261,8 @@ function StepTwo({ inputs, handleChange }) {
         required
       />
       <div className='tables'>
-        <div className='table'>1</div>
-        <div className='table'>2</div>
-        <div className='table'>3</div>
-        <div className='table'>4</div>
-        <div className='table'>5</div>
-        <div className='table'>1</div>
-        <div className='table'>1</div>
-        <div className='table'>1</div>
-        <div className='table'>1</div>
-        <div className='table'>1</div>
+        {tables.map(tables => 
+        <div className='table' key={tables.id} value={tables.id} />)}
       </div>
       <label>Game: </label>
       <input
@@ -280,14 +272,14 @@ function StepTwo({ inputs, handleChange }) {
         value={inputs.gameId || ""}
         onChange={handleChange}
       />
-      <label>Other:</label>
+      {/* <label>Other:</label>
       <textarea className='formInput'
         name='other_rez'
         value={inputs.other_rez || ""}
         onChange={handleChange}
         placeholder="if you need an additional chair, it's a birthday, or you have other notes, please put them in this field."
       >
-      </textarea>
+      </textarea> */}
     </Box>
   );
 }
