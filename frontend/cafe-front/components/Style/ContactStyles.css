@@ -30,7 +30,6 @@
   }
   
   .contact-info h1 {
-    font-family: 'awkward english google-font'; /* فونت Inter */
     font-size: 48px; /* اندازه ۴۸ پیکسل */
     font-weight: 800; /* Extra Bold */
     color: #4f4f4f; /* رنگ متن */
@@ -38,7 +37,6 @@
     
   }
   .contact-info h2 {
-    font-family: 'Roboto', sans-serif; /* فونت Roboto */
     font-size: 22px; /* اندازه ۴۰ پیکسل */
     font-weight: 500; /* Medium */
     color: #767676; /* رنگ متن */
@@ -47,7 +45,6 @@
   }
 
   .contact-info p {
-    font-family: 'Roboto', sans-serif; /* فونت Roboto */
     font-size: 32px; /* اندازه ۴۰ پیکسل */
     font-weight: 500; /* Medium */
     color: #2c2c2c; /* رنگ متن */
