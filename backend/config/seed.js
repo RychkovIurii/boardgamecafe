@@ -131,7 +131,12 @@ const importData = async () => {
         seedBookings[0].tableId = createdTables[0]._id;
         seedBookings[1].tableId = createdTables[1]._id;
 
-        const createdBookings = await Booking.insertMany(seedBookings);
+        const updatedBookings = seedBookings.map((booking, index) => ({
+			...booking,
+			tableId: createdTables[index % createdTables.length]._id, // Assign tableIds properly
+		}));
+		
+		const createdBookings = await Booking.insertMany(updatedBookings);
 
         seedPayments[0].bookingId = createdBookings[0]._id;
         seedPayments[1].bookingId = createdBookings[1]._id;
