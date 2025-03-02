@@ -18,7 +18,6 @@ const authenticate = async (req, res, next) => {
             return res.status(401).json({ message: 'User not found' });
         }
 		req.user = user;
-		console.log('Authenticated User:', req.user);
         next();
     } catch (error) {
         if (error.name === 'TokenExpiredError') {

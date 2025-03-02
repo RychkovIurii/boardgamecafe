@@ -35,13 +35,22 @@ router.get('/available', async (req, res) => { //need to fix
 
 // Create a new booking. FOR ALL USERS
 router.post('/', async (req, res) => {
-    let { date, startTime, duration, tableId, players, gameId, userId, contactName, contactPhone } = req.body;
+    let { date, startTime, duration, tableNumber, players, gameId, userId, contactName, contactPhone } = req.body;
 
 	// Validate booking details
 	const validationResult = validateBooking(date, startTime, duration);
     if (!validationResult.isValid) {
         return res.status(400).json({ message: validationResult.message });
     }
+
+	if (!tableNumber || tableNumber < 1 || tableNumber > 26) {
+        return res.status(400).json({ message: 'Invalid table number' });
+    }
+	const table = await Table.findOne({ number: tableNumber });
+    if (!table) {
+        return res.status(400).json({ message: 'Table not found' });
+    }
+    const tableId = table._id;
 
     const { startHelsinkiTime, endHelsinkiTime } = validationResult;
 	const startUTCtime = startHelsinkiTime.toDate();
