@@ -154,7 +154,7 @@ const tables = [
 /**
  StepOne, StepTwo, and StepThree are separated for clarity.
  You can define them inline, in separate files, or as your project needs.*/
-function StepOne({ inputs, handleChange }) {
+function StepOne({ inputs, handleChange, handleFilterChange }) {
   return (
     <Box sx={{ fontFamily: "Fontdiner Swanky" }}>
       <Typography variant="h6" sx={{ fontFamily: "Fontdiner Swanky" }} gutterBottom>
@@ -191,7 +191,7 @@ function StepOne({ inputs, handleChange }) {
           max={10}
           name='players'
           value={inputs.players || ""}
-          onChange={handleChange}
+          onChange={(e) => { handleChange(e)}}
           placeholder="Number of Players"
           required
         />
@@ -239,7 +239,8 @@ function StepOne({ inputs, handleChange }) {
   );
 }
 
-function StepTwo({ inputs, handleChange }) {
+function StepTwo({ inputs, handleChange, tables, setInputs }) {
+  console.log(tables)
   return (
     <Box>
       <Typography variant="h6" sx={{ fontFamily: "Fontdiner Swanky" }} gutterBottom>
@@ -253,16 +254,15 @@ function StepTwo({ inputs, handleChange }) {
         className='formInput'
         type='number'
         min={1}
-        max={12}
-        name='tableId'
-        value={inputs.tableId || ""}
-        placeholder="Table ID"
+        max={26}
+        name='tableNumber'
+        value={inputs.tableNumber || ""}
+        placeholder="Table number"
         onChange={handleChange}
         required
       />
-      <div className='tables'>
-        {tables.map(tables => 
-        <div className='table' key={tables.id} value={tables.id} />)}
+      <div className='tables'>Suggested: 
+         {tables.map((table) => <div key={table.id} className='table' onClick={(e) => {setInputs({ ...inputs, tableNumber: table.id }); console.log(inputs)}}> {table.id}</div> )} 
       </div>
       <label>Game: </label>
       <input
@@ -304,17 +304,52 @@ export default function BookingForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
+  const [availability, setAvailability] = useState()
   const [inputs, setInputs] = useState({
     date: "",
     startTime: "",
     duration: "",
-    tableId: "",
+    tableNumber: "",
     players: "",
     gameId: "",
     userId: "",
     contactName: "",
     contactPhone: ""
   });
+  const [filteredTables, setFilteredTables] = useState([])
+
+
+
+  function checkAvailability(people) {
+    if (people <= 2) {
+      //table id can be 1, 2, 9, 10, 11, 18, 22
+      const filtered = tables.filter((tables) => tables.seats == 2)
+      setFilteredTables(filtered)
+    }
+    else if (people >= 2 && people <= 4) {
+      const filtered = tables.filter((tables) => tables.seats == 4)
+      setFilteredTables(filtered)
+    }
+    else if (people >= 4 && people <= 5) {
+      const filtered = tables.filter((tables) => tables.seats == 5)
+      setFilteredTables(filtered)
+    }
+    else if (people >= 5 && people <= 6) {
+      const filtered = tables.filter((tables) => tables.seats == 6)
+      setFilteredTables(filtered)
+    }
+    else if (people >= 6 && people <= 8) {
+      const filtered = tables.filter((tables) => tables.seats == 8)
+      setFilteredTables(filtered)
+    }
+    else if (people >= 8 && people <= 10) {
+      const filtered = tables.filter((tables) => tables.seats == 10)
+      setFilteredTables(filtered)
+    }
+    else {
+      return "There are no available tables able to seat your group, please call to check if there are ways to host your group."
+    }
+  }
 
   // Define the labels for each step.
   const steps = ['Personal Info', 'Optional Requests', 'Submit'];
@@ -322,6 +357,7 @@ export default function BookingForm() {
   // Handle next step
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    checkAvailability(inputs.players)
   };
 
   // Handle previous step
@@ -397,9 +433,9 @@ export default function BookingForm() {
   const renderStepContent = (stepIndex) => {
     switch (stepIndex) {
       case 0:
-        return <StepOne inputs={inputs} handleChange={handleChange} />;
+        return <StepOne inputs={inputs} handleChange={handleChange}/>;
       case 1:
-        return <StepTwo inputs={inputs} handleChange={handleChange} />;
+        return <StepTwo inputs={inputs} handleChange={handleChange} tables={filteredTables} setInputs={setInputs}/>;
       case 2:
         return <StepThree inputs={inputs} handleChange={handleChange} handleSubmit={handleSubmit} />;
       default:
