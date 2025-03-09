@@ -43,7 +43,7 @@ router.post('/', async (req, res) => {
         return res.status(400).json({ message: validationResult.message });
     }
 
-	if (!tableNumber || tableNumber < 1 || tableNumber > 26) {
+	if (!tableNumber || tableNumber < 1 || tableNumber > 27) {
         return res.status(400).json({ message: 'Invalid table number' });
     }
 	const table = await Table.findOne({ number: tableNumber });

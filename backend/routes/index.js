@@ -7,9 +7,11 @@ const router = express.Router();
 const bookingRoutes = require('./bookings');
 const userRoutes = require('./users');
 const adminRoutes = require('./admin');
+const tableRoutes = require('./tables');
 
 // Mount all routes
 router.use('/bookings', bookingRoutes);
+router.use('/tables', tableRoutes);
 router.use('/users', userRoutes);
 router.use('/admin', adminRoutes);
 
