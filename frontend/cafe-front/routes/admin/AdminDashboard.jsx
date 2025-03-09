@@ -110,37 +110,55 @@ const AdminDashboard = () => {
                 <option value="thisWeek">This Week</option>
             </select>
             <h2>Upcoming Bookings</h2>
-            <table>
+            <table style={{ border: '1px solid black', borderCollapse: 'collapse' }}>
                 <thead>
                     <tr>
-                        <th>Date</th>
-                        <th>Start Time</th>
-                        <th>End Time</th>
-                        <th>Table</th>
-                        <th>Game</th>
-                        <th>User</th>
-                        <th>Phone</th>
-                        <th>Players</th>
-                        <th>Actions</th>
+                        <th style={{ border: '1px solid black', padding: '8px' }}>Date</th>
+                        <th style={{ border: '1px solid black', padding: '8px' }}>Start Time</th>
+                        <th style={{ border: '1px solid black', padding: '8px' }}>End Time</th>
+                        <th style={{ border: '1px solid black', padding: '8px' }}>Table</th>
+                        <th style={{ border: '1px solid black', padding: '8px' }}>Game</th>
+                        <th style={{ border: '1px solid black', padding: '8px' }}>User</th>
+                        <th style={{ border: '1px solid black', padding: '8px' }}>Phone</th>
+                        <th style={{ border: '1px solid black', padding: '8px' }}>Players</th>
+						<th style={{ border: '1px solid black', padding: '8px' }}>Payment Status</th>
+                        <th style={{ border: '1px solid black', padding: '8px' }}> </th>
+						<th style={{ border: '1px solid black', padding: '8px' }}> </th>
+
                     </tr>
                 </thead>
                 <tbody>
                     {filteredBookings.map((booking) => (
                         <tr key={booking._id}>
-                            <td>{new Date(booking.date).toLocaleDateString()}</td>
-                            <td>{new Date(booking.startTime).toLocaleTimeString()}</td>
-                            <td>{new Date(booking.endTime).toLocaleTimeString()}</td>
-                            <td>{booking.tableId ? booking.tableId.number : 'No Table Assigned'}</td>
-                            <td>{booking.gameId ? booking.gameId.title : 'No Game Selected'}</td>
-                            <td>
+                            <td style={{ border: '1px solid black', padding: '8px' }}>{new Date(booking.date).toLocaleDateString()}</td>
+                            <td style={{ border: '1px solid black', padding: '8px' }}>{new Date(booking.startTime).toLocaleTimeString()}</td>
+                            <td style={{ border: '1px solid black', padding: '8px' }}>{new Date(booking.endTime).toLocaleTimeString()}</td>
+                            <td style={{ border: '1px solid black', padding: '8px' }}>{booking.tableId ? booking.tableId.number : 'No Table Assigned'}</td>
+                            <td style={{ border: '1px solid black', padding: '8px' }}>{booking.gameId ? booking.gameId.title : ' '}</td>
+                            <td style={{ border: '1px solid black', padding: '8px' }}>
                                 {booking.userId ? 
                                     <a href={`/admin/users/${booking.userId._id}`}>{booking.userId.name}</a> 
                                     : booking.contactName || 'Guest'}
                             </td>
-                            <td>{booking.userId ? booking.userId.phone : booking.contactPhone || 'No Phone'}</td>
-                            <td>{booking.players}</td>
-                            <td>
+                            <td style={{ border: '1px solid black', padding: '8px' }}>{booking.userId ? booking.userId.phone : booking.contactPhone || 'No Phone'}</td>
+                            <td style={{ border: '1px solid black', padding: '8px' }}>{booking.players}</td>
+							<td style={{
+								border: '1px solid black', 
+								padding: '8px', 
+								color: booking.paymentId?.status === 'completed' ? 'green' : 'red'
+							}}>
+								{booking.paymentId ? (
+									<>
+										<span>{booking.paymentId.status.toUpperCase()}</span>
+										<br />
+										<small>{booking.paymentId.paymentMethod} - ${booking.paymentId.amount}</small>
+									</>
+								) : 'No Payment'}
+							</td>
+                            <td style={{ border: '1px solid black', padding: '8px' }}>
                                 <button onClick={() => handleEdit(booking._id)}>Edit</button>
+							</td>
+							<td style={{ border: '1px solid black', padding: '8px' }}>
                                 <button onClick={() => handleDelete(booking._id)}>Delete</button>
                             </td>
                         </tr>

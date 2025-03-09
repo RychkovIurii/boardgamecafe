@@ -35,7 +35,7 @@ router.get('/available', async (req, res) => { //need to fix
 
 // Create a new booking. FOR ALL USERS
 router.post('/', async (req, res) => {
-    let { date, startTime, duration, tableNumber, players, gameId, userId, contactName, contactPhone } = req.body;
+    let { date, startTime, duration, tableNumber, players, gameId, userId, contactName, contactPhone, amount, paymentMethod } = req.body;
 
 	// Validate booking details
 	const validationResult = validateBooking(date, startTime, duration);
@@ -77,6 +77,22 @@ router.post('/', async (req, res) => {
         });
 
         const savedBooking = await newBooking.save();
+		let savedPayment = null;
+		if (amount && paymentMethod) { // ✅ Only create payment if details are provided
+			const newPayment = new Payment({
+				bookingId: savedBooking._id,
+				amount,
+				status: 'pending',
+				paymentMethod,
+			});
+			savedPayment = await newPayment.save();
+		}
+
+		// ✅ Only assign `paymentId` if a payment was created
+		if (savedPayment) {
+			savedBooking.paymentId = savedPayment._id;
+			await savedBooking.save();
+		}
         res.status(201).json(savedBooking);
     } catch (error) {
         console.error('Error creating booking:', error);

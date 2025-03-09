@@ -5,6 +5,7 @@ const Booking = require('../models/Booking');
 const Game = require('../models/Game');
 const Table = require('../models/Table');
 const User = require('../models/User');
+const Payment = require('../models/Payment');
 
 // Admin dashboard route
 router.get('/dashboard', authenticate, authorizeAdmin, (req, res) => {
@@ -21,6 +22,7 @@ router.get('/upcoming-bookings', authenticate, authorizeAdmin, async (req, res) 
 			.populate('tableId', 'number')
 			.populate('gameId', 'title')
 			.populate('userId', 'name email')
+			.populate({ path: 'paymentId', select: 'status amount paymentMethod' })
 			.sort({ date: 1, startTime: 1 });
 		console.log('Debugging Data:', JSON.stringify(upcomingBookings, null, 2));
         res.json(upcomingBookings);

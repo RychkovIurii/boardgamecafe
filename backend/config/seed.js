@@ -70,7 +70,7 @@ const seedTables = [
 
 const seedBookings = [
     {
-        date: new Date(),
+        date: new Date("2025-04-07T10:33:30.922Z"),
         startTime: moment.tz("2025-01-31 16:00", "Europe/Helsinki").toDate(),
         endTime: moment.tz("2025-01-31 18:00", "Europe/Helsinki").toDate(),
         tableId: null, // This will be updated after tables are seeded
@@ -79,7 +79,7 @@ const seedBookings = [
         contactPhone: '1122334455',
     },
     {
-        date: new Date("2025-02-07T10:33:30.922Z"),
+        date: new Date("2025-04-07T10:33:30.922Z"),
         startTime: moment.tz("2025-01-31 18:00", "Europe/Helsinki").toDate(),
         endTime: moment.tz("2025-01-31 21:00", "Europe/Helsinki").toDate(),
         tableId: null, // This will be updated after tables are seeded
@@ -138,10 +138,23 @@ const importData = async () => {
 		
 		const createdBookings = await Booking.insertMany(updatedBookings);
 
-        seedPayments[0].bookingId = createdBookings[0]._id;
-        seedPayments[1].bookingId = createdBookings[1]._id;
-
-        await Payment.insertMany(seedPayments);
+        const updatedPayments = seedPayments.map((payment, index) => {
+			if (createdBookings[index]) {
+				return { ...payment, bookingId: createdBookings[index]._id };
+			}
+			return null;
+		}).filter(Boolean);
+		
+		const createdPayments = updatedPayments.length > 0 ? await Payment.insertMany(updatedPayments) : [];
+		
+		createdBookings.forEach((booking, index) => {
+			const payment = createdPayments.find(p => p.bookingId.toString() === booking._id.toString());
+			if (payment) {
+				booking.paymentId = payment._id; // ✅ Assign paymentId
+			}
+		});
+		
+		await Promise.all(createdBookings.map(booking => Booking.findByIdAndUpdate(booking._id, { paymentId: booking.paymentId })));
 
         console.log('Data Imported!');
         process.exit();
