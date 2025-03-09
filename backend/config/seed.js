@@ -56,17 +56,35 @@ const seedGames = [
 ];
 
 const seedTables = [
-    {
-        number: 1,
-        capacity: 4,
-        location: 'Near window',
-    },
-    {
-        number: 2,
-        capacity: 6,
-        location: 'Center of the room',
-    },
+    { number: 1, capacity: 2, location: "ground" },
+    { number: 2, capacity: 2, location: "ground" },
+    { number: 3, capacity: 6, location: "ground" },
+    { number: 4, capacity: 5, location: "ground" },
+    { number: 5, capacity: 5, location: "ground" },
+    { number: 6, capacity: 6, location: "ground" },
+    { number: 7, capacity: 8, location: "ground" },
+    { number: 8, capacity: 8, location: "ground" },
+    { number: 9, capacity: 2, location: "ground" },
+    { number: 10, capacity: 2, location: "ground" },
+    { number: 11, capacity: 2, location: "ground" },
+    { number: 12, capacity: 4, location: "upstairs" },
+    { number: 13, capacity: 4, location: "upstairs" },
+    { number: 14, capacity: 4, location: "upstairs" },
+    { number: 15, capacity: 4, location: "upstairs" },
+    { number: 16, capacity: 4, location: "upstairs" },
+    { number: 17, capacity: 10, location: "upstairs" },
+    { number: 18, capacity: 2, location: "upstairs" },
+    { number: 19, capacity: 4, location: "upstairs" },
+    { number: 20, capacity: 4, location: "upstairs" },
+    { number: 21, capacity: 4, location: "upstairs" },
+    { number: 22, capacity: 2, location: "upstairs" },
+    { number: 23, capacity: 8, location: "upstairs" },
+    { number: 24, capacity: 4, location: "terrace" },
+    { number: 25, capacity: 8, location: "terrace" },
+    { number: 26, capacity: 8, location: "terrace" },
+    { number: 27, capacity: 4, location: "terrace" }
 ];
+
 
 const seedBookings = [
     {
