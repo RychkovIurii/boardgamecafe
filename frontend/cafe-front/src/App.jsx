@@ -14,6 +14,7 @@ import Contact from '../routes/Contact';
 import './App.css'
 import Bookings from '../routes/Bookings';
 
+
 function App() {
 
   const { isAuthenticated } = useContext(AuthContext);
@@ -33,6 +34,7 @@ function App() {
         <Route path='/bookings' element={<Bookings />} />
         <Route path='/admin' element={<AdminRoute element={<AdminDashboard />} />} />
         <Route path='/contact' element={<Contact />} />
+       
       </Routes>
     </div>
   )

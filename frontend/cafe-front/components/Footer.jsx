@@ -44,7 +44,7 @@ export default function Footer() {
                             </ul>
                         </div>
                         <div>
-                            <h4>Opening Hours</h4>
+                            <h4>{t('footer.Opening hours')}</h4>
                             <ul className="text-md leading-loose">
                                 <li>Monday - Thursday 16:00 - 24:00 </li>
                                 <li>Friday 16:00 - 02:00</li>

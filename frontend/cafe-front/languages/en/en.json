@@ -32,7 +32,8 @@
         "Partners": "Partners",
         "Privacy Policy": "Privacy Policy",
         "License": "License",
-        "Terms of Service": "Terms of Service"
+        "Terms of Service": "Terms of Service",
+		"Opening hours": "Opening hours"
 	},
 	"login": {
 		"title": "Sign In",
@@ -58,5 +59,18 @@
 		"loginButton": "Already have an account? Login",
 		"successMessage": "Registration successful!",
 		"errorMessage": "Registration failed. Please try again."
+	},
+	"contact": {
+		"heroTitle": "Get in Touch",
+		"heroText": "Have a question or just want to say hi? Feel free to reach out we’d love to hear from you!",
+		"formTitle": "Contact Us",
+		"formText": "Have any questions? Fill out the form below and we'll get back to you.",
+		"firstnameLable": "First Name",
+		"lastnameLable": "Last Name",
+		"emailLable": "Email",
+		"messageLable": "Message",
+		"sendmessageLable": "Send Message"
+		
+
 	}
 }
