@@ -2,9 +2,10 @@ import React from 'react'
 import { useState } from 'react';
 import './Style/BookingFormStyles.css';
 import API from '../api/axios';
-import { duration } from '@mui/material';
+
 
 export default function BookingForm() {
+
     const [inputs, setInputs] = useState({
         date: "",
         startTime: "",
@@ -16,6 +17,8 @@ export default function BookingForm() {
         contactName: "",
         contactPhone: ""
     });
+
+
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -69,7 +72,7 @@ export default function BookingForm() {
             console.log(response)
             setSuccess(true);
             console.log("Booking created successfully:", response.data);
-            setFormData({
+            setInputs({
                 date: "",
                 startTime: "",
                 duration: "",
@@ -94,7 +97,6 @@ export default function BookingForm() {
             <div className='backgroundBooking'>
                 <div>
                     <form className='form' onSubmit={handleSubmit}>
-                        <h2>Book a Table</h2>
                         {error && <p style={{ color: "red" }}>{error}</p>}
                         {success && <p style={{ color: "green" }}>Booking created successfully!</p>}
                         <div className='formItem'>
@@ -145,9 +147,9 @@ export default function BookingForm() {
                                 name='duration'
                                 value={inputs.duration || ""}
                                 onChange={handleChange}
-                                min="60" 
-                                step="30" 
-                                placeholder="Duration (minutes)" 
+                                min="60"
+                                step="30"
+                                placeholder="Duration (minutes)"
                                 required
                             />
 
@@ -174,7 +176,7 @@ export default function BookingForm() {
                                 name='players'
                                 value={inputs.players || ""}
                                 onChange={handleChange}
-                                placeholder="Number of Players" 
+                                placeholder="Number of Players"
                                 required
                             />
                         </div>
@@ -184,7 +186,7 @@ export default function BookingForm() {
                             name='gameId'
                             value={inputs.gameId || ""}
                             onChange={handleChange}
-                            placeholder="Game (optional)" 
+                            placeholder="Game (optional)"
                         />
                         {/*                         <label>Other: (if you need an additional chair, it's a birthday, or you have other notes, please put them in this field)<br /></label>
                         <textarea
@@ -192,7 +194,7 @@ export default function BookingForm() {
                             value={inputs.other_rez || ""}
                             onChange={handleChange}>
                         </textarea> */}
-                        <button type='submit' className="submitButt"  disabled={loading}>{loading ? "Booking..." : "Book Now"}</button>
+                        <button type='submit' className="submitButt" disabled={loading}>{loading ? "Booking..." : "Book Now"}</button>
                     </form>
                 </div>
                 <img className="floorplann" src='../assets/floorplan.png' />
