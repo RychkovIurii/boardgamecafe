@@ -3,7 +3,7 @@ import Hero from '../components/Hero';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 /* import floorplan from '../assets/floorplan.png' */
-import BookingForm from '../components/BookingForm';
+import BookingForm from '../components/BookingForm copy';
 
 export default function Bookings() {
     return (
