@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import API from '../../api/axios';
 import { useNavigate } from 'react-router-dom';
+import AdminNavbar from '../../components/admin/AdminNavbar';
 
 const AdminDashboard = () => {
     const [upcomingBookings, setUpcomingBookings] = useState([]);
@@ -86,6 +87,7 @@ const AdminDashboard = () => {
 
     return (
         <div>
+			<AdminNavbar />
             <h1>Admin Dashboard</h1>
             <input 
                 type="text" 

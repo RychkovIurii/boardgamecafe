@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -17,28 +17,37 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import cafeLogo from '../assets/logo1.png';
+import cafeLogo from '../../assets/logo1.png';
 
 const pages = [
-  { name: 'Games', path: '/games' },
-  { name: 'Pricing', path: '/pricing' },
-  { name: 'Events', path: '/events' },
-  { name: 'Booking', path: '/bookings' }
+  { name: 'Bookings', path: '/admin' },
+  { name: 'Events', path: '/edit-events' },
+  { name: 'Pricing', path: '/edit-pricing' },
+  { name: 'Tables', path: '/edit-tables' },
+  { name: 'Hours', path: '/edit-hours' }
+
 ];
 
 const settings = [
-  { name: 'Profile', path: '/profile' },
-  { name: 'My bookings', path: '/account' },
   { name: 'SignIn', path: '/sign-in' }
 ];
 
-function Navbar() {
+function AdminNavbar() {
   const { t, i18n } = useTranslation();
   const [language, setLanguage] = React.useState(i18n.language);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const { isAuthenticated, logout } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
+
+  const settings = isAuthenticated
+    ? [{ name: 'Logout', action: handleLogout }]
+    : [{ name: 'Sign In', path: '/sign-in' }];
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -61,15 +70,6 @@ function Navbar() {
     setLanguage(lng);
   };
 
-  const handleLogout = () => {
-    logout();
-    navigate('/');
-  };
-
-  const settings = isAuthenticated
-    ? [{ name: 'Logout', action: handleLogout }]
-    : [{ name: 'Sign In', path: '/sign-in' }];
-
   return (
     <AppBar position="static" color="white">
       <Container maxWidth="xl">
@@ -79,7 +79,7 @@ function Navbar() {
             variant="h6"
             noWrap
             component="a"
-            href="/"
+            href="/admin"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -206,4 +206,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default AdminNavbar;
