@@ -6,6 +6,7 @@ const Booking = require('../models/Booking');
 const Payment = require('../models/Payment');
 const Table = require('../models/Table');
 const Event = require('../models/Event');
+const { WorkingHours, SpecialHours } = require('../models/WorkingHours');
 const moment = require('moment-timezone');
 
 dotenv.config({ path: './back.env' });
@@ -149,6 +150,25 @@ const seedPayments = [
     },
 ];
 
+const parseTime = (time) => {
+    return time ? time : null; // Keep null for closed days
+};
+
+const workingHoursData = [
+    { day: 'Monday', openTime: parseTime('16:00'), closeTime: parseTime('24:00') },
+    { day: 'Tuesday', openTime: parseTime('16:00'), closeTime: parseTime('24:00') },
+    { day: 'Wednesday', openTime: parseTime('16:00'), closeTime: parseTime('24:00') },
+    { day: 'Thursday', openTime: parseTime('16:00'), closeTime: parseTime('24:00') },
+    { day: 'Friday', openTime: parseTime('16:00'), closeTime: parseTime('02:00') },
+    { day: 'Saturday', openTime: parseTime('14:00'), closeTime: parseTime('02:00') },
+    { day: 'Sunday', openTime: null, closeTime: null }, // Closed
+];
+
+const specialHoursData = [
+    { date: new Date('2025-12-25'), openTime: null, closeTime: null, reason: 'Christmas Holiday' },
+    { date: new Date('2025-12-31'), openTime: '18:00', closeTime: '03:00', reason: 'New Year’s Eve' }
+];
+
 const importData = async () => {
     try {
         await connectDB();
@@ -159,6 +179,8 @@ const importData = async () => {
         await Payment.deleteMany();
         await Table.deleteMany();
 		await Event.deleteMany();
+		await WorkingHours.deleteMany();
+		await SpecialHours.deleteMany();
 
         const createdUsers = await Promise.all(seedUsers.map(user => User.create(user)));
         const createdGames = await Game.insertMany(seedGames);
@@ -196,8 +218,10 @@ const importData = async () => {
 		
 		await Promise.all(createdBookings.map(booking => Booking.findByIdAndUpdate(booking._id, { paymentId: booking.paymentId })));
 
-		const createdEvents = await Event.insertMany(seedEvents);
-		console.log(`${createdEvents.length} events added`);
+		await Event.insertMany(seedEvents);
+		await WorkingHours.insertMany(workingHoursData);
+		await SpecialHours.insertMany(specialHoursData);
+		
 
         console.log('Data Imported!');
         process.exit();
