@@ -14,7 +14,7 @@ import Contact from '../routes/Contact';
 import './App.css'
 import Bookings from '../routes/Bookings';
 import Service from '../routes/Service';
-// import ServiceType from '../routes/ServiceType';
+import ServiceProduct from '../routes/ServiceProduct';
 
 function App() {
 
@@ -36,7 +36,7 @@ function App() {
         <Route path='/admin' element={<AdminRoute element={<AdminDashboard />} />} />
         <Route path='/contact' element={<Contact />} />
         <Route path='/service' element={<Service />} />
-        {/* <Route path='/serviceType/:serviceId' element={<ServiceType />} /> */}
+        <Route path='/ServiceProduct/:serviceId' element={<ServiceProduct />} />
       </Routes>
     </div>
   )
