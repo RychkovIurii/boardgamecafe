@@ -7,7 +7,7 @@ const MenuIcon = ({ activeId, setActiveId }) => {
         <div id="menuType" className="flex flex-col items-center gap-5 md:py-16 py-5 text-gray-800">
             <h1 className="text-3xl md:text-5xl font-black text-yellow-500">Find Our Menu</h1>
             <p className="pt-3 sm:pt-5 text-xl md:text-2xl font-semibold text-gray-700">Need a snack or a drink? Even our own products?</p>
-            <div className="grid grid-cols-3 md:grid-cols-6 place-items-center gap-2 pt-3 md:gap-3 md:pt-6">
+            <div className="flex flex-cols-3 md:flex-cols-6 place-items-center gap-2 pt-3 md:gap-3 md:pt-6">
                 {menuData.map((item, index) => (
                     <div
                         key={index}
