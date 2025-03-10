@@ -17,8 +17,9 @@ import EditBooking from '../routes/admin/EditBooking';
 
 function App() {
 	
-  const { isAuthenticated } = useContext(AuthContext);
+  const { isAuthenticated, isCheckingAuth } = useContext(AuthContext);
   const AdminRoute = ({ element }) => {
+    if (isCheckingAuth) return <div>Loading...</div>;
     return isAuthenticated ? element : <Navigate to="/sign-in" />;
   };
 
