@@ -1,49 +1,52 @@
 import React from 'react'
 import AboutGalleryIntro from './AboutGalleryIntro'
 import { useNavigate } from 'react-router-dom'
+import { aboutMenu } from '../assets/image_assets/assets';
+import Title from './Title'
+
 
 const About = () => {
 
     const navigate = useNavigate()
 
-    const AboutData = [
-        { title: "How it works:", text: "Easily find our café, understand the ordering process, and get all the key details.", link: "/faq" },
-        { title: "Menu:", text: "Explore our gaming fees and enjoy delicious food & drinks!", link: "/pricing" },
-        { title: "Service:", text: "Let our friendly staff assist you for the best board game experience." }]
+
 
     return (
         <div>
             <div className='bg-gray-100 pt-10 pb-10'>
                 <div className='pt-20'>
                     <h1 className='text-3xl md:text-5xl font-black text-yellow-500 '> ABOUT CAFÉ BOARDGAME</h1>
-                    <p className='pt-5 m-3 sm:pt-10 text-xl md:text-2xl font-semibold text-gray-700'> Welcome to Café Boardgame, <span className='hidden sm:inline-block'>a one-of-a-kind space </span> located in the heart of Helsinki!</p>
+                    <p className='pt-5 m-3 sm:pt-10 text-xl md:text-2xl font-semibold text-gray-700'> Welcome to Café Boardgame, the heart of gaming culture in Helsinki!</p>
                 </div>
-
-
 
                 <AboutGalleryIntro />
 
-                <div className='text-2xl md:text-3xl mt-20 my-4'>
-                    <p className='pt-10 text-3xl font-semibold text-gray-700' >
-                        Expore more about Café Boardgame
-                    </p>
+                <div className='mt-20'>
+                    <div className='text-center pt-10 py-8 text-3xl'>
+                        <Title text1={'Expore more'} text2={'about Café Boardgame'} />
+                    </div>
                 </div>
 
-
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 w-full sm:w-2/3 mx-auto pt-10 mb-20">
-                    {AboutData.map((item, index) => (
-        <div
-            key={index}
-            onClick={() => { if (item.link) navigate(item.link); scrollTo(0, 0); }}
-            className="bg-amber-400 border-4 border-yellow-600 py-10 sm:py-5 hover:bg-primary hover:text-white transition-all duration-300 text-gray-800 cursor-pointer min-h-[200px] h-full flex flex-col justify-start text-center"
-        >
-            <div className="flex flex-col justify-center h-full gap-3">
-                <p className="text-2xl font-bold text-gray-800">{item.title}</p>
-                <p>{item.text}</p>
-            </div>
-        </div>
-    ))}
-</div>
+                {/* AboutMenu */}
+                <div className="flex flex-col sm:flex-row sm:gap-10 w-full mx-auto items-center justify-center text-gray-800 ">
+                    {aboutMenu.map((item, index) => (
+                        <div
+                            key={index}
+                            onClick={() => { if (item.link) navigate(item.link); window.scrollTo(0, 0); }}
+                            className="relative cursor-pointer h-[250px] flex flex-col justify-end text-center bg-cover bg-center hover:scale-105 transition-transform duration-300"
+                        >
+                            <div className='relative'>
+                                <img src={item.img} alt={item.title} />
+                                <div className='absolute inset-0 bg-black bg-opacity-70 rounded-3xl flex items-center justify-center text-white cursor-pointer opacity-0 hover:opacity-100 transition-opacity duration-300 '>
+                                    <p className='text-base'>{item.text}</p></div>
+                            </div>
+                            {/* 텍스트 */}
+                            <div className=" text-gray-600">
+                                <p className="text-2xl font-bold pt-3 bg-slate-100 p-1 inline-block">{item.title}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
 
             </div>
         </div>
