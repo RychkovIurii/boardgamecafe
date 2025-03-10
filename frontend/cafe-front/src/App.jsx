@@ -16,7 +16,7 @@ import Bookings from '../routes/Bookings';
 import EditBooking from '../routes/admin/EditBooking';
 
 function App() {
-
+	
   const { isAuthenticated } = useContext(AuthContext);
   const AdminRoute = ({ element }) => {
     return isAuthenticated ? element : <Navigate to="/sign-in" />;
@@ -33,11 +33,11 @@ function App() {
         <Route path='/sign-in' element={<SignIn />} />
         <Route path='/bookings' element={<Bookings />} />
         <Route path='/admin' element={<AdminRoute element={<AdminDashboard />} />} />
-		<Route path="/admin/edit-booking/:id" element={<AdminRoute element={<EditBooking />} />} />
+        <Route path="/admin/edit-booking/:id" element={<AdminRoute element={<EditBooking />} />} />
         <Route path='/contact' element={<Contact />} />
       </Routes>
     </div>
   )
 }
 
-export default App
+export default App;

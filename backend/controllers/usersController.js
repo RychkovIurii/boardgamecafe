@@ -18,10 +18,12 @@ const loginUser = async (req, res) => {
         }
 
         const token = generateToken(user);
-        res.cookie('token', token, { 
+        res.cookie('accessToken', token, { 
             httpOnly: true, 
             secure: true, 
-            sameSite: 'Strict' 
+            sameSite: 'Strict',
+			path: '/',
+			maxAge: 3600000
         });
 
         res.json({ message: 'Login successful', role: user.role });
@@ -70,7 +72,7 @@ const updateUserPhone = async (req, res) => {
 };
 
 module.exports = {
-    loginUser,
-    registerUser,
+	loginUser,
+	registerUser,
 	updateUserPhone
 };

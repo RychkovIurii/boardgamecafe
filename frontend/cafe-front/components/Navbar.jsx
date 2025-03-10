@@ -26,18 +26,12 @@ const pages = [
   { name: 'Booking', path: '/bookings' }
 ];
 
-const settings = [
-  { name: 'Profile', path: '/profile' },
-  { name: 'My bookings', path: '/account' },
-  { name: 'SignIn', path: '/sign-in' }
-];
-
 function Navbar() {
   const { t, i18n } = useTranslation();
   const [language, setLanguage] = React.useState(i18n.language);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const { isAuthenticated, logout } = useContext(AuthContext);
+  const { isAuthenticated, isCheckingAuth, logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
@@ -66,9 +60,15 @@ function Navbar() {
     navigate('/');
   };
 
+  if (isCheckingAuth) return null; // or loading spinner
+
   const settings = isAuthenticated
-    ? [{ name: 'Logout', action: handleLogout }]
-    : [{ name: 'Sign In', path: '/sign-in' }];
+    ? [
+        { name: 'Profile', path: '/profile' },
+        { name: 'My bookings', path: '/account' },
+        { name: 'Logout', action: handleLogout }
+      ]
+    : [{ name: 'SignIn', path: '/sign-in' }];
 
   return (
     <AppBar position="static" color="white">
@@ -194,7 +194,7 @@ function Navbar() {
               {settings.map((setting, index) => (
                 <MenuItem key={index} onClick={setting.action || handleCloseUserMenu}>
                   <Typography textAlign="center" fontFamily={'Fontdiner Swanky'}>
-                    <Link to={setting.path}>{t(`navbar.${setting.name}`)}</Link>
+                    {setting.path ? <Link to={setting.path}>{t(`navbar.${setting.name}`)}</Link> : t(`navbar.${setting.name}`)}
                   </Typography>
                 </MenuItem>
               ))}
