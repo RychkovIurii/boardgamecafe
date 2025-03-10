@@ -46,10 +46,10 @@ export default function Footer() {
                         <div>
                             <h4>{t('footer.Opening hours')}</h4>
                             <ul className="text-md leading-loose">
-                                <li>Monday - Thursday 16:00 - 24:00 </li>
-                                <li>Friday 16:00 - 02:00</li>
-                                <li>Saturday 14:00 - 02:00 </li>
-                                <li>Sunday Closed</li>
+                                <li>{t('footer.Weekdays')} 16:00 - 24:00 </li>
+                                <li>{t('footer.Friday')} 16:00 - 02:00</li>
+                                <li>{t('footer.Saturday')} 14:00 - 02:00 </li>
+                                <li>{t('footer.Sunday-Close')}</li>
                             </ul>
                         </div>
                         <div>

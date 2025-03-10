@@ -33,7 +33,11 @@
     "Privacy Policy": "Tietosuojakäytäntö",
     "License": "Lisenssi",
     "Terms of Service": "Käyttöehdot",
-    "Opening hours": "Aukioloajat"
+    "Opening hours": "Aukioloajat",
+    "Weekdays": "Maanantai - Torstai",
+    "Friday": "Perjantai",
+    "Saturday": "Lauantai",
+    "Sunday-Close": "Sunnuntai Sulkeutuu"
   },
   "login": {
 		"title": "Kirjaudu sisään",

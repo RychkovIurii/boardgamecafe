@@ -33,7 +33,11 @@
         "Privacy Policy": "Privacy Policy",
         "License": "License",
         "Terms of Service": "Terms of Service",
-		"Opening hours": "Opening hours"
+		"Opening hours": "Opening hours",
+		"Weekdays": "Monday - Thursday",
+		"Friday": "Friday",
+		"Saturday": "Saturday",
+		"Sunday-Close": "Sunday Close"
 	},
 	"login": {
 		"title": "Sign In",
