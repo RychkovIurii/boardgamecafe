@@ -22,8 +22,8 @@ afterAll(async () => {
 describe('validateOverlappingBookings', () => {
     test('rejects overlapping booking', async () => {
         const tableId = "679b55131b5b9256a1458cf4";
-        const startUTCtime = new Date("2025-02-07T16:00:00Z");
-        const endUTCtime = new Date("2025-02-07T17:00:00Z");
+        const startUTCtime = new Date("2025-03-21T16:00:00Z");
+        const endUTCtime = new Date("2025-03-21T17:00:00Z");
 
         await Booking.create({
             tableId,
@@ -41,14 +41,14 @@ describe('validateOverlappingBookings', () => {
 
     test('allows non-overlapping booking', async () => {
         const tableId = "679b55131b5b9256a1458cf4";
-        const startUTCtime = new Date("2025-02-07T18:00:00Z");
-        const endUTCtime = new Date("2025-02-07T19:00:00Z");
+        const startUTCtime = new Date("2025-03-21T18:00:00Z");
+        const endUTCtime = new Date("2025-03-21T19:00:00Z");
 
         await Booking.create({
             tableId,
-            date: new Date("2025-02-07T16:00:00Z"),
-            startTime: new Date("2025-02-07T16:00:00Z"),
-            endTime: new Date("2025-02-07T18:00:00Z"),
+            date: new Date("2025-03-21T16:00:00Z"),
+            startTime: new Date("2025-03-21T16:00:00Z"),
+            endTime: new Date("2025-03-21T18:00:00Z"),
             players: 4,
             contactName: "John Doe",
             contactPhone: "123-456-7890"
@@ -60,14 +60,14 @@ describe('validateOverlappingBookings', () => {
 
     test('allows non-overlapping booking with different times', async () => {
         const tableId = "679b55131b5b9256a1458cf4";
-        const startUTCtime = new Date("2025-02-07T19:00:00Z");
-        const endUTCtime = new Date("2025-02-07T20:00:00Z");
+        const startUTCtime = new Date("2025-03-21T19:00:00Z");
+        const endUTCtime = new Date("2025-03-21T20:00:00Z");
 
         await Booking.create({
             tableId,
-            date: new Date("2025-02-07T16:00:00Z"),
-            startTime: new Date("2025-02-07T16:00:00Z"),
-            endTime: new Date("2025-02-07T17:00:00Z"),
+            date: new Date("2025-03-21T16:00:00Z"),
+            startTime: new Date("2025-03-21T16:00:00Z"),
+            endTime: new Date("2025-03-21T17:00:00Z"),
             players: 4,
             contactName: "John Doe",
             contactPhone: "123-456-7890"
@@ -79,14 +79,14 @@ describe('validateOverlappingBookings', () => {
 
     test('rejects overlapping booking with different times', async () => {
         const tableId = "679b55131b5b9256a1458cf4";
-        const startUTCtime = new Date("2025-02-21T19:00:00Z");
-        const endUTCtime = new Date("2025-02-21T23:00:00Z");
+        const startUTCtime = new Date("2025-03-21T19:00:00Z");
+        const endUTCtime = new Date("2025-03-21T23:00:00Z");
 
         await Booking.create({
             tableId,
-            date: new Date("2025-02-21T20:00:00Z"),
-            startTime: new Date("2025-02-21T20:00:00Z"),
-            endTime: new Date("2025-02-21T21:00:00Z"),
+            date: new Date("2025-03-21T20:00:00Z"),
+            startTime: new Date("2025-03-21T20:00:00Z"),
+            endTime: new Date("2025-03-21T21:00:00Z"),
             players: 4,
             contactName: "John Doe",
             contactPhone: "123-456-7890"

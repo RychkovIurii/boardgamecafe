@@ -14,7 +14,7 @@ describe('validateBooking', () => {
     });
 
     test('rejects empty start time', () => {
-        const date = "2025-03-07";
+        const date = "2025-03-21";
         const startTime = "";
         const duration = 60;
 
@@ -24,7 +24,7 @@ describe('validateBooking', () => {
     });
 
     test('rejects empty duration', () => {
-        const date = "2025-03-07";
+        const date = "2025-03-21";
         const startTime = "18:00";
         const duration = null;
 
@@ -34,7 +34,7 @@ describe('validateBooking', () => {
     });
 
     test('rejects duration less than 60 minutes', () => {
-        const date = "2025-03-07";
+        const date = "2025-03-21";
         const startTime = "18:00";
         const duration = 30;
 
@@ -44,7 +44,7 @@ describe('validateBooking', () => {
     });
 
     test('rejects duration not multiple of 30 minutes', () => {
-        const date = "2025-03-07";
+        const date = "2025-03-21";
         const startTime = "18:00";
         const duration = 45;
 
@@ -74,7 +74,7 @@ describe('validateBooking', () => {
     });
 
     test('rejects booking starting after 23:30', () => {
-        const date = "2025-03-07";
+        const date = "2025-03-21";
         const startTime = "23:35";
         const duration = 60;
 
