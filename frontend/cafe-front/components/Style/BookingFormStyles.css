@@ -7,24 +7,58 @@
     z-index: -5;
 }
 
-.form {
+.stepperStyle {
+    width: 36%;
+    text-align: left;
+    margin-right: -38%;
+    margin-top: 22%;
+    padding-left: 3%;
+    float: left;
+    z-index: 2;
+    position: relative;
+    font-family: "Fontdiner Swanky";
+}
+
+.stepperStyle2 {
     display: inline-flex;
     flex-direction: column;
     text-align: left;
     align-items: baseline;
-    width: 38%;
-    margin-right: -38%;
-    margin-top: 16%;
-    padding: 5%;
-    float: left;
-    z-index: 2;
-    position: relative;
+    width: 36%;
+    font-family: "Fontdiner Swanky";
 }
 
 .formItem {
     display: flex;
     flex-direction: row;
-    justify-content:space-evenly;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.smallerText{
+    font-size: small;
+}
+
+.tables {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 5px;
+    padding: 3px;
+    align-content: space-between;
+    cursor: pointer;
+}
+
+.table {
+    background-color: palegoldenrod;
+    border-radius: 50%;
+    font-size: small;
+    height: 25px;
+    width: 25px;
+    margin: 3px;
+    text-align: center;
+    padding: 3px;
 }
 
 .form label {
@@ -33,7 +67,7 @@
     padding: 2px
 }
 
-.form input {
+.formInput {
     border: 2px solid rgb(141, 89, 41);
     margin: 2px;
     padding: 2px;
@@ -46,7 +80,7 @@
     font-weight: lighter;
 }
 
-.submitButt{
+.submitButt {
     background-color: khaki;
     padding: 16px;
     border-radius: 5px;
