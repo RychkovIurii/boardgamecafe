@@ -7,7 +7,7 @@ import { assets } from '../assets/image_assets/assets';
 const HowItWorks = () => {
     return (
         <div className="py-20 max-w-4xl mx-auto dark:bg-gray-800">
-            <h2 className="text-3xl font-black  text-yellow-500 mb-8  className='text-4xl md:text-5xl ">
+            <h2 className="text-4xl md:text-5xl font-black text-yellow-500 mb-10">
                 How it works
             </h2>
 

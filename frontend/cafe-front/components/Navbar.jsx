@@ -20,7 +20,8 @@ const pages = [
   { name: 'Games', path: '/games' },
   { name: 'Pricing', path: '/pricing' },
   { name: 'Events', path: '/events' },
-  { name: 'Booking', path: '/bookings' }
+  { name: 'Booking', path: '/bookings' },
+  { name: 'Service', path: '/service' },
 ];
 
 const settings = [
