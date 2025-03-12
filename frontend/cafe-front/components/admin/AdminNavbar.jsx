@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -17,23 +17,33 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import cafeLogo from '../assets/logo1.png';
+import cafeLogo from '../../assets/logo1.png';
 
 const pages = [
-  { name: 'Games', path: '/games' },
-  { name: 'Pricing', path: '/pricing' },
-  { name: 'Events', path: '/events' },
-  { name: 'Booking', path: '/bookings' },
-  { name: 'Service', path: '/service' },
+  { name: 'Bookings', path: '/admin' },
+  { name: 'Events', path: '/edit-events' },
+  { name: 'Pricing', path: '/edit-pricing' },
+  { name: 'Tables', path: '/edit-tables' },
+  { name: 'Hours', path: '/edit-hours' }
+
 ];
 
-function Navbar() {
+function AdminNavbar() {
   const { t, i18n } = useTranslation();
   const [language, setLanguage] = React.useState(i18n.language);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const { isAuthenticated, isCheckingAuth, logout } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
+
+  const settings = isAuthenticated
+    ? [{ name: 'Logout', action: handleLogout }]
+    : [{ name: 'Sign In', path: '/sign-in' }];
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -56,20 +66,7 @@ function Navbar() {
     setLanguage(lng);
   };
 
-  const handleLogout = () => {
-    logout();
-    navigate('/');
-  };
-
-  if (isCheckingAuth) return null; // or loading spinner
-
-  const settings = isAuthenticated
-    ? [
-        { name: 'Profile', path: '/profile' },
-        { name: 'My bookings', path: '/account' },
-        { name: 'Logout', action: handleLogout }
-      ]
-    : [{ name: 'SignIn', path: '/sign-in' }];
+  if (isCheckingAuth) return null;
 
   return (
     <AppBar position="static" color="white">
@@ -80,7 +77,7 @@ function Navbar() {
             variant="h6"
             noWrap
             component="a"
-            href="/"
+            href="/admin"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -126,7 +123,7 @@ function Navbar() {
               {pages.map((page) => (
                 <MenuItem key={page.name} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">
-                    <Link to={page.path}>{t(`navbar.${page.name}`)}</Link>
+                    <Link to={page.path}>{t(`admin_navbar.${page.name}`)}</Link>
                   </Typography>
                 </MenuItem>
               ))}
@@ -160,7 +157,7 @@ function Navbar() {
                 component={Link}
                 to={page.path}
               >
-                {t(`navbar.${page.name}`)}
+                {t(`admin_navbar.${page.name}`)}
               </Button>
             ))}
           </Box>
@@ -195,7 +192,7 @@ function Navbar() {
               {settings.map((setting, index) => (
                 <MenuItem key={index} onClick={setting.action || handleCloseUserMenu}>
                   <Typography textAlign="center" fontFamily={'Fontdiner Swanky'}>
-                    {setting.path ? <Link to={setting.path}>{t(`navbar.${setting.name}`)}</Link> : t(`navbar.${setting.name}`)}
+                   {setting.path ? <Link to={setting.path}>{t(`admin_navbar.${setting.name}`)}</Link> : t(`admin_navbar.${setting.name}`)}
                   </Typography>
                 </MenuItem>
               ))}
@@ -207,4 +204,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default AdminNavbar;

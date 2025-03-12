@@ -59,5 +59,15 @@
 		"loginButton": "Already have an account? Login",
 		"successMessage": "Registration successful!",
 		"errorMessage": "Registration failed. Please try again."
+	},
+	"admin_navbar": {
+		"Games": "Games",
+		"Pricing": "Pricing",
+		"Events": "Events",
+		"Bookings": "Bookings",
+		"Tables": "Tables",
+		"Hours": "Hours",
+		"SignIn": "SignIn",
+		"Logout": "Logout"
 	}
 }

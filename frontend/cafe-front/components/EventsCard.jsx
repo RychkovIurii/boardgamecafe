@@ -29,7 +29,7 @@ export default function EventsCard(props) {
             <div className='cardContent'>
                 <h1>{props.eventTitle}</h1>
                 <img className='eventImg' src={props.image}></img>
-                <CountdownTimer />
+                {/* <CountdownTimer targetDate={props.eventDate}/> */}
                 <div>
                     {props.eventDate}
                 </div>

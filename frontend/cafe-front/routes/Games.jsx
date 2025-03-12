@@ -1,5 +1,5 @@
 import React from 'react';
-import heroImage from '../assets/gamesHero.png';
+import heroImage from '../assets/hero_booking.png';
 import Hero from '../components/Hero';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -8,8 +8,8 @@ function Games() {
     return (
         <>
             <Navbar />
-            <Hero
-                cName="heroGames"
+			<Hero
+                cName="hero"
                 heroImage={heroImage}
                 title="Our Game Collection"
                 text="Enjoy the best board games with us."

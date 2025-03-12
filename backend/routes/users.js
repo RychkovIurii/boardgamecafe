@@ -11,10 +11,15 @@ router.post('/login', loginUser);
 router.post('/register', registerUser);
 
 // Logout route
-router.get('/logout', (req, res) => {
-	res.clearCookie('token');
+router.post('/logout', (req, res) => {
+	res.clearCookie('accessToken', {
+	  path: '/',
+	  sameSite: 'Strict',
+	  secure: true,
+	  httpOnly: true
+	});
 	res.json({ message: 'User logged out' });
-});
+  });
 
 // Update phone route
 router.put('/phone', authenticate, updateUserPhone);
@@ -27,9 +32,9 @@ router.get('/profile', authenticate, async (req, res) => {
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
-        res.json({ name: user.name, email: user.email, role: user.role });
+        res.json(user);
     } catch (error) {
-        console.error('Error fetching profile:', error);
+        console.error('Error fetching user profile:', error);
         res.status(500).json({ message: 'Server error' });
     }
 });
