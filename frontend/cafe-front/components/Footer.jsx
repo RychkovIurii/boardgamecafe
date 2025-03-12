@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import logo from "../assets/logo1.png";
 import './Style/FooterStyles.css';
 import Award1 from "../assets/Award1.png";
@@ -11,7 +12,7 @@ export default function Footer() {
             <div className='footerBg'>
                 <div className='footer'>
                     <div className='top'>
-                        <a className="footer-logo" href="/"><img src={logo} width={80} height={80} alt="logo" /></a>
+                        <Link className="footer-logo" to="/"><img src={logo} width={80} height={80} alt="logo" /></Link>
                         <p>{t('footer.Created by Varia Students')}</p>
                         <div className='social-links'>
                             <a href='https://discord.gg/wwQGdKVrma'>
@@ -34,13 +35,12 @@ export default function Footer() {
                     <div className='bottom'>
                         <div>
                             <h4>{t('footer.About')}</h4> 
-                            {/* //Change to Links */}
                             <ul className="text-md leading-loose">
-                            <li><a href='/'>{t('footer.About Us')}</a></li>
-                            <li><a href='/contact'>{t('footer.Contact')}</a></li>
-                            <li><a href='/'>{t('footer.Careers')}</a></li>
-                            <li><a href='/'>{t('footer.Partners')}</a></li>
-                            <li><a href='/'>{t('footer.Privacy Policy')}</a></li>
+                                <li><Link to='/'>{t('footer.About Us')}</Link></li>
+                                <li><Link to='/contact'>{t('footer.Contact')}</Link></li>
+                                <li><Link to='/'>{t('footer.Careers')}</Link></li>
+                                <li><Link to='/'>{t('footer.Partners')}</Link></li>
+                                <li><Link to='/'>{t('footer.Privacy Policy')}</Link></li>
                             </ul>
                         </div>
                         <div>
@@ -54,7 +54,6 @@ export default function Footer() {
                         </div>
                         <div>
                             <h4>{t('footer.Contact')}</h4> 
-                            {/* //Contact us */}
                             <ul className="text-md leading-loose">
                                 <li>+358 50 566 2613</li>
                                 <li>info@cafeboardgame.fi</li>
@@ -76,24 +75,3 @@ export default function Footer() {
         </div>
     );
 }
-
-
-{/* <div className='bottom'>
-<div>
-  <h4>{t('footer.Contact')}</h4>
-  <a href='/'>{t('footer.Call us')}</a>
-  <a href='/'>{t('footer.Email us')}</a>
-  <a href='/'>{t('footer.Careers')}</a>
-</div>
-<div>
-  <h4>{t('footer.About')}</h4>
-  <a href='/'>{t('footer.About Us')}</a>
-  <a href='/'>{t('footer.Staff')}</a>
-  <a href='/'>{t('footer.Partners')}</a>
-</div>
-<div>
-  <h4>{t('footer.Others')}</h4>
-  <a href='/'>{t('footer.Privacy Policy')}</a>
-  <a href='/'>{t('footer.License')}</a>
-  <a href='/'>{t('footer.Terms of Service')}</a>
-</div> */}

@@ -44,8 +44,8 @@ function Games() {
     return (
         <>
             <Navbar />
-            <Hero
-                cName="heroGames"
+			<Hero
+                cName="hero"
                 heroImage={heroImage}
                 title="Our Game Collection"
                 text="Enjoy the best board games with us."

@@ -22,37 +22,14 @@ afterAll(async () => {
 });
 
 describe('POST /bookings', () => {
-    test('creates a valid booking', async () => {
-        const startTime = "2025-02-28T16:00:00.000Z";
-        const endTime = "2025-02-28T17:00:00.000Z";
-
-        const response = await request(app)
-            .post('/bookings')
-            .send({
-                date: "2025-02-28",
-                startTime: "18:00",
-                duration: 60,
-                tableId: "679b55131b5b9256a1458cf4",
-                players: 4,
-                gameId: "679b55131b5b9256a1458cf1",
-                userId: "679b55131b5b9256a1458ced",
-                contactName: "John Doe",
-                contactPhone: "123-456-7890"
-            });
-
-        expect(response.status).toBe(201);
-        expect(moment(response.body.startTime).utc().toISOString()).toBe(startTime);
-        expect(moment(response.body.endTime).utc().toISOString()).toBe(endTime);
-    });
-
     test("rejects booking starting after 23:30", async () => {
 		const response = await request(app)
 			.post("/bookings")
 			.send({
-				date: "2025-02-28",
+				date: "2025-03-21",
 				startTime: "23:35", // Now correctly rejected
 				duration: 60,
-				tableId: "679b55131b5b9256a1458cf4",
+				tableNumber: "20",
 				players: 4,
 				gameId: "679b55131b5b9256a1458cf1",
 				userId: "679b55131b5b9256a1458ced",

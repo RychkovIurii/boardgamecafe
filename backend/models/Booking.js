@@ -43,6 +43,11 @@ const bookingSchema = new mongoose.Schema({
         required: function() { return !this.userId; }, // Required if userId is not provided
         trim: true,
     },
+	paymentId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Payment',
+		required: false,
+    },
 }, {
     timestamps: true,
 });

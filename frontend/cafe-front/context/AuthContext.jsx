@@ -5,53 +5,63 @@ import API from '../api/axios';
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-	const [isAuthenticated, setIsAuthenticated] = useState(false);
-	const [accessToken, setAccessToken] = useState(null);
-	const [isCheckingAuth, setIsCheckingAuth] = useState(true);
-	const navigate = useNavigate();
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [isCheckingAuth, setIsCheckingAuth] = useState(true);
+    const navigate = useNavigate();
 
 	useEffect(() => {
 		const checkAuth = async () => {
 			try {
-				const response = await API.get('/users/profile', {
-					headers: { Authorization: `Bearer ${accessToken}` },
-				});
-				setIsAuthenticated(true);
+			  // Check if token exists before making request
+			  const token = localStorage.getItem('accessToken');
+			  if (!token) {
+				  setIsAuthenticated(false);
+				  setIsCheckingAuth(false);
+				  return;
+			  }
+  
+			  // Send request if token is present
+			  const response = await API.get('/users/profile', {
+				  headers: { Authorization: `Bearer ${token}` }
+			  });
+			  setIsAuthenticated(true);
 			} catch (error) {
-				if (error.response?.status === 401) {
-					setIsAuthenticated(false);
-				}
+			  if (error.response && error.response.status === 401) {
+				  console.warn("User is not logged in.");
+			  } else {
+				  console.error("Auth check failed:", error);
+			  }
+			  setIsAuthenticated(false);
 			} finally {
-				setIsCheckingAuth(false);
+			  setIsCheckingAuth(false);
 			}
-		};
+		  };
+		
+		checkAuth();
+	  }, []);
 
-		if (isCheckingAuth && accessToken) checkAuth();
-	}, [isCheckingAuth, accessToken]);
-
-	const login = (token) => {
-		setAccessToken(token);
+    const login = (token) => {
+		localStorage.setItem('accessToken', token);
 		setIsAuthenticated(true);
-	};
+	  };
 
-	const logout = async () => {
-		try {
-			await API.post('/users/logout');
-			setAccessToken(null);
-			setIsAuthenticated(false);
-			alert('Logged out successfully!');
-			navigate('/');
-			
-		} catch (error) {
-			console.error('Error logging out:', error.message);
-		}
-	};
+    const logout = async () => {
+        try {
+            await API.post('/users/logout');
+			localStorage.removeItem('accessToken');
+            setIsAuthenticated(false);
+            alert('Logged out successfully!');
+            navigate('/');
+        } catch (error) {
+            console.error('Error logging out:', error.message);
+        }
+    };
 
-	return (
-		<AuthContext.Provider value={{ isAuthenticated, login, logout, isCheckingAuth }}>
-			{children}
-		</AuthContext.Provider>
-	);
+    return (
+        <AuthContext.Provider value={{ isAuthenticated, login, logout, isCheckingAuth }}>
+            {children}
+        </AuthContext.Provider>
+    );
 };
 
 export default AuthProvider;
