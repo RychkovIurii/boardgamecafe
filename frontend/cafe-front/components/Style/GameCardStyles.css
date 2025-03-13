@@ -37,5 +37,11 @@
     overflow: scroll;
     text-align: center;
     padding: 8px;
-    font-size: 1vw;
+    font-size: 0.8vw;
+}
+
+.pagination{
+    display: flex;
+    justify-content: center;
+    margin: auto;
 }

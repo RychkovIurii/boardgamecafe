@@ -6,12 +6,20 @@ import Footer from '../components/Footer';
 import { useEffect } from 'react';
 import GameCard from '../components/GameCard';
 import '../components/Style/GameCardStyles.css'
-/* import usePagination from '@mui/material/usePagination';
-import Stack from '@mui/material/Stack'; */
+import Paginate from '../components/Pagination';
 
 
 function Games() {
     const [gamesInfo, setGamesInfo] = useState([])
+    const [currentPage, setCurrentPage] = useState(1)
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+    const gamesPerPage = 30
+
+    const indexOfLastGame = currentPage *gamesPerPage;
+    const indexOfFirstGame = indexOfLastGame - gamesPerPage;
+
+    const currentGames = gamesInfo.slice(indexOfFirstGame, indexOfLastGame)
+
     useEffect(() => {
         fetch("https://boardgamegeek.com/xmlapi2/collection?username=Cafebg")
             .then((response) => response.text())
@@ -34,17 +42,16 @@ function Games() {
                         thumbnail: thumb ? thumb.textContent.trim() : "",
                         year: year ? year.textContent : ""
                     };
-
                 });
                 setGamesInfo(itemArray);
-            })
-    }, []);
 
+            })
+    }, [paginate]);
 
     return (
         <>
             <Navbar />
-			<Hero
+            <Hero
                 cName="hero"
                 heroImage={heroImage}
                 title="Our Game Collection"
@@ -54,13 +61,15 @@ function Games() {
                 url="/bookings"
             />
             <h1>The Collection of Games in Cafe Boardgame:</h1>
-            
+
             <div className='gameGen'>
-                {gamesInfo.map(gamesInfo =>
-                    <GameCard key={gamesInfo.id} gamesInfo={gamesInfo} />
+                {currentGames.map((gamesInfo, id) =>
+                    <GameCard key={id} gamesInfo={gamesInfo} />
                 )}
             </div>
-
+            <div className='pagination'>
+            <Paginate gamesPerPage={gamesPerPage} totalGames={gamesInfo.length} paginate={paginate} />
+            </div>
             <Footer />
         </>
     );

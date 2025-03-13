@@ -1,7 +1,6 @@
 import React from 'react'
 import '../components/Style/GameCardStyles.css'
 
-
 export default function GameCard({ gamesInfo }) {
     return (
 
