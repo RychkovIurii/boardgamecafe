@@ -51,6 +51,8 @@
 		"title": "Rekisteröidy",
 		"nameLabel": "Nimi",
 		"namePlaceholder": "Syötä nimesi",
+		"phoneLabel": "Puhelin",
+		"phonePlaceholder": "Syötä puhelinnumerosi",
 		"emailLabel": "Sähköposti",
 		"emailPlaceholder": "Syötä sähköpostiosoitteesi",
 		"passwordLabel": "Salasana",
