@@ -36,30 +36,51 @@
     "Terms of Service": "Käyttöehdot"
   },
   "login": {
-		"title": "Kirjaudu sisään",
-		"emailLabel": "Sähköposti",
-		"emailPlaceholder": "Syötä sähköpostiosoitteesi",
-		"passwordLabel": "Salasana",
-		"passwordPlaceholder": "Syötä salasanasi",
-		"submitButton": "Kirjaudu sisään",
-		"registerButton": "Luo uusi tili",
-		"forgotPassword": "Unohditko salasanasi?",
-		"successMessage": "Sisäänkirjautuminen onnistui!",
-		"errorMessage": "Sisäänkirjautuminen epäonnistui. Yritä uudelleen."
-	},
-	"register": {
-		"title": "Rekisteröidy",
-		"nameLabel": "Nimi",
-		"namePlaceholder": "Syötä nimesi",
-		"phoneLabel": "Puhelin",
-		"phonePlaceholder": "Syötä puhelinnumerosi",
-		"emailLabel": "Sähköposti",
-		"emailPlaceholder": "Syötä sähköpostiosoitteesi",
-		"passwordLabel": "Salasana",
-		"passwordPlaceholder": "Syötä salasanasi",
-		"submitButton": "Rekisteröidy",
-		"loginButton": "Onko sinulla jo tili? Kirjaudu sisään",
-		"successMessage": "Rekisteröinti onnistui!",
-		"errorMessage": "Rekisteröinti epäonnistui. Yritä uudelleen."
-	}
+    "title": "Kirjaudu sisään",
+    "emailLabel": "Sähköposti",
+    "emailPlaceholder": "Syötä sähköpostiosoitteesi",
+    "passwordLabel": "Salasana",
+    "passwordPlaceholder": "Syötä salasanasi",
+    "submitButton": "Kirjaudu sisään",
+    "registerButton": "Luo uusi tili",
+    "forgotPassword": "Unohditko salasanasi?",
+    "successMessage": "Sisäänkirjautuminen onnistui!",
+    "errorMessage": "Sisäänkirjautuminen epäonnistui. Yritä uudelleen."
+  },
+  "register": {
+    "title": "Rekisteröidy",
+    "nameLabel": "Nimi",
+    "namePlaceholder": "Syötä nimesi",
+    "phoneLabel": "Puhelin",
+    "phonePlaceholder": "Syötä puhelinnumerosi",
+    "emailLabel": "Sähköposti",
+    "emailPlaceholder": "Syötä sähköpostiosoitteesi",
+    "passwordLabel": "Salasana",
+    "passwordPlaceholder": "Syötä salasanasi",
+    "submitButton": "Rekisteröidy",
+    "loginButton": "Onko sinulla jo tili? Kirjaudu sisään",
+    "successMessage": "Rekisteröinti onnistui!",
+    "errorMessage": "Rekisteröinti epäonnistui. Yritä uudelleen."
+  },
+  "admin_navbar": {
+    "Games": "Pelit",
+    "Pricing": "Hinnoittelu",
+    "Events": "Tapahtumat",
+    "Bookings": "Varaukset",
+    "Tables": "Pöydät",
+    "Hours": "Tunnit",
+    "SignIn": "Kirjaudu sisään",
+    "Logout": "Kirjaudu ulos"
+  },
+  "editEvents": {
+    "title": "Muokkaa tapahtumia",
+    "titlePlaceholder": "Syötä tapahtuman otsikko",
+    "descriptionPlaceholder": "Syötä tapahtuman kuvaus",
+    "datePlaceholder": "Syötä tapahtuman päivämäärä",
+    "imagePlaceholder": "Syötä tapahtuman kuvan URL",
+    "submitButton": "Luo tapahtuma",
+    "updateButton": "Päivitä tapahtuma",
+    "editButton": "Muokkaa",
+    "existingEvents": "Olemassa olevat tapahtumat"
+  }
 }
