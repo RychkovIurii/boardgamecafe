@@ -21,7 +21,7 @@ const Register = ({ onToggleForm }) => {
 		});
 	};
 
-	const handleSubmit = async (e) => {
+	const handleSubmit = async (e) => { // We need do phone validation!
 		e.preventDefault();
 		try {
 			const response = await API.post('/users/register', formData);
