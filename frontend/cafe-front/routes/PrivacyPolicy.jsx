@@ -9,7 +9,7 @@ function PrivacyPolicy() {
     return (
         <>
             <Navbar />
-            <div className="container">
+    <div className="container">
       <h1>{t(`privacyPolicy.title`)}</h1>
       <h2>{t(`privacyPolicy.statement`)}</h2>
       <p>
