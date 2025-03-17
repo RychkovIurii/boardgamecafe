@@ -23,13 +23,14 @@
   
   .contact-info {
     margin-left: 100px;
-    text-align: left; /* چپ‌چین کردن متن */
+    text-align: left; 
     display: flex;
     flex-direction: column;
     justify-content: center;
   }
   
   .contact-info h1 {
+    
     font-size: 48px; /* اندازه ۴۸ پیکسل */
     font-weight: 800; /* Extra Bold */
     color: #4f4f4f; /* رنگ متن */

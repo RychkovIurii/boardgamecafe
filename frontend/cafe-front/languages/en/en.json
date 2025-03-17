@@ -74,7 +74,48 @@
 		"emailLable": "Email",
 		"messageLable": "Message",
 		"sendmessageLable": "Send Message"
-		
+	},
+	"privacyPolicy": {
+		"title": "Privacy Policy",
+		"statement": "Café Boardgame Oy Privacy Statement",
+		"statementP": "According to the General Data Protection Regulation, the personal data controller of a register is obligated to inform the register’s data subjects in a clear manner.",
+		"controller": "1. Personal Data Controller",
+		"company": "Café Boardgame Oy",
+		"contact_info": "Contact Information:",
+		"inquiries": "Contact information in matters related to personal data files:",
+		"dataSubjects": "2. Data Subjects",
+		"dataSubjectsDesc": "Persons included in the register customers.",
+		"purpose": "3. Purpose of Use of Personal Data",
+		"purposes": [
+			"- Customer relationship management",
+			"- Processing of pre-determined purchases",
+			"- Informing about services",
+			"- Common information channels"],
+		"recordedData": "4. Personal Data Recorded",
+		"recordedDataP": "The customer register contains:",
+		"dataList": [
+			"- Name",
+			"- Address",
+			"- Email",
+			"- Phone Number",
+			"- Customer Information",
+			"- Purchased products/services"],
+		"rights": "5. Data Subject's Rights",
+		"rightsP": "Customers have the right to access, rectify, delete, and object to their data processing.",
+		"sources": "6. Data Sources",
+		"sourcesP": "Collected from customers via forms, emails, and online sources.",
+		"disclosure": "7. Data Disclosure",
+		"disclosureP": "Not disclosed for marketing purposes outside Café Boardgame Oy.",
+		"duration": "8. Data Processing Duration",
+		"durationP": "Personal data is processed as long as necessary for the customer relationship.",
+		"processors": "9. Personal Data Processors",
+		"processorsP": "Employees and third-party services process data securely.",
+		"transfer": "10. Data Transfers Outside the EU",
+		"transferP": "No data is transferred outside the EU or EEA.",
+		"decisionMaking": "11. Automated Decision Making",
+		"decisionMakingP": "No automatic decision-making or profiling is done."	
+	
+
 
 	}
 }

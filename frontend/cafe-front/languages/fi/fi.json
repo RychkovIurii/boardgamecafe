@@ -74,7 +74,46 @@
     "emailLable": "Sähköposti",
     "messageLable": "Viesti",
     "sendmessageLable": "Lähetä Viesti"
-  
-    
-  }
+  },
+  "privacyPolicy": {
+    "title": "Tietosuojakäytäntö",
+    "statement": "Café Boardgame Oy:n tietosuojalausunto",
+    "statementP": "Yleisen tietosuoja asetuksen mukaan rekisterinpitäjän on velvollisuus tiedottaa rekisteröidyille selkeällä tavalla.",
+    "controller": "1. Henkilötietojen hallitsija",
+    "company": "Café Boardgame Oy",
+    "contact_info": "Yhteystiedot:",
+    "inquiries": "Yhteystiedot henkilötietoihin liittyvissä asioissa:",
+		"dataSubjects": "2. Rekisteröidyt henkilöt",
+    "dataSubjectsDesc": "Rekisteriin kuuluvat henkilöt asiakkaat.",
+    "purpose": "3. Henkilötietojen käyttötarkoitus",
+    "purposes": [
+      "- Asiakassuhteiden hallinta",
+      "- Ennalta määritettyjen ostojen käsittely",
+      "- Palveluista tiedottaminen",
+      "- Yhteiset viestintäkanavat" ],
+    "recordedData": "4. Rekisteröidyt tiedot",
+    "recordedDataP": "Asiakasrekisteri sisältää:",
+    "dataList": [
+      "- Nimi",
+      "- Osoite",
+      "- Sähköposti",
+      "- Puhelinnumero",
+      "- Asiakastiedot",
+      "- Ostetut tuotteet/palvelut"],
+    "rights": "5. Rekisteröityjen oikeudet",
+    "rightsP": "Asiakkaalla on oikeus päästä käsiksi tietoihinsa, oikaista, poistaa ja vastustaa tietojensa käsittelyä.",
+    "sources": "6. Tietolähteet",
+    "sourcesP": "Kerätty asiakkailta lomakkeiden, sähköpostien ja verkkolähteiden kautta.",
+    "disclosure": "7. Tietojen luovutus",
+    "disclosureP": "Ei julkistettu markkinointitarkoituksiin Café Boardgame Oy:n ulkopuolella.",
+    "duration": "8. Tietojen käsittelyaika",
+    "durationP": "Henkilötietoja käsitellään niin kauan kuin se on asiakassuhteen kannalta tarpeellista.",
+    "processors": "9. Henkilötietojen käsittelijät",
+    "processorsP": "Työntekijät ja kolmannen osapuolen palvelut käsittelevät tietoja turvallisesti.",
+    "transfer": "10. Tietojen siirto EU:n ulkopuolelle",
+    "transferP": "Tietoja ei siirretä EU:n tai ETA:n ulkopuolelle.",
+    "decisionMaking": "11. Automaattinen päätöksenteko",
+    "decisionMakingP": "Automaattista päätöksentekoa tai profilointia ei tehdä."
+
+	}
 }

@@ -11,8 +11,9 @@ import { AuthContext } from '../context/AuthContext';
 import { Navigate } from 'react-router-dom';
 import { useContext } from 'react';
 import Contact from '../routes/Contact';
-import './App.css'
+import './App.css';
 import Bookings from '../routes/Bookings';
+import PrivacyPolicy from '../routes/PrivacyPolicy';
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
         <Route path='/bookings' element={<Bookings />} />
         <Route path='/admin' element={<AdminRoute element={<AdminDashboard />} />} />
         <Route path='/contact' element={<Contact />} />
+        <Route path='/privacy-policy' element={<PrivacyPolicy />} />
        
       </Routes>
     </div>
