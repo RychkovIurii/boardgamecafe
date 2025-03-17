@@ -56,6 +56,8 @@
 		"title": "Register",
 		"nameLabel": "Name",
 		"namePlaceholder": "Enter your name",
+		"phoneLabel": "Phone",
+		"phonePlaceholder": "Enter your phone",
 		"emailLabel": "Email",
 		"emailPlaceholder": "Enter your email",
 		"passwordLabel": "Password",
@@ -130,5 +132,16 @@
 		"Title": "Find our service",
 		"serviceP": "Our goal is to make Helsinki the heart of gaming culture and to provide an accessible meeting place for everyone interested in games. Cafe Boardgame is a four-story gaming culture hub, combining a restaurant, café, bar, events, training, and meeting services.",
 		"button": "contact us"
+	},
+	"editEvents": {
+		"title": "Edit Events",
+		"titlePlaceholder": "Enter event title",
+		"descriptionPlaceholder": "Enter event description",
+		"datePlaceholder": "Enter event date",
+		"imagePlaceholder": "Enter event image URL",
+		"submitButton": "Create Event",
+		"updateButton": "Update Event",
+		"editButton": "Edit",
+		"existingEvents": "Existing Events"
 	}
 }

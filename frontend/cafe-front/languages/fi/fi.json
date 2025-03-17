@@ -52,19 +52,21 @@
 		"successMessage": "Sisäänkirjautuminen onnistui!",
 		"errorMessage": "Sisäänkirjautuminen epäonnistui. Yritä uudelleen."
 	},
-	"register": {
-		"title": "Rekisteröidy",
-		"nameLabel": "Nimi",
-		"namePlaceholder": "Syötä nimesi",
-		"emailLabel": "Sähköposti",
-		"emailPlaceholder": "Syötä sähköpostiosoitteesi",
-		"passwordLabel": "Salasana",
-		"passwordPlaceholder": "Syötä salasanasi",
-		"submitButton": "Rekisteröidy",
-		"loginButton": "Onko sinulla jo tili? Kirjaudu sisään",
-		"successMessage": "Rekisteröinti onnistui!",
-		"errorMessage": "Rekisteröinti epäonnistui. Yritä uudelleen."
-	},
+  "register": {
+    "title": "Rekisteröidy",
+    "nameLabel": "Nimi",
+    "namePlaceholder": "Syötä nimesi",
+    "phoneLabel": "Puhelin",
+    "phonePlaceholder": "Syötä puhelinnumerosi",
+    "emailLabel": "Sähköposti",
+    "emailPlaceholder": "Syötä sähköpostiosoitteesi",
+    "passwordLabel": "Salasana",
+    "passwordPlaceholder": "Syötä salasanasi",
+    "submitButton": "Rekisteröidy",
+    "loginButton": "Onko sinulla jo tili? Kirjaudu sisään",
+    "successMessage": "Rekisteröinti onnistui!",
+    "errorMessage": "Rekisteröinti epäonnistui. Yritä uudelleen."
+  },
   "contact": {
 		"heroTitle": "Pysy yhteydessä!",
     "heroText": "Onko sinulla kysyttävää tai haluatko vain tervehtiä? Ota rohkeasti yhteyttä, kuulemme mielellämme sinusta!",
@@ -120,5 +122,26 @@
 		"Title": "Löydä palvelumme",
     "serviceP": "Tavoitteenamme on tehdä Helsingistä pelikulttuurin sydän ja tarjota esteetön kohtaamispaikka kaikille pelistä kiinnostuneille. Cafe Boardgame on nelikerroksinen pelikulttuurin keskus, jossa yhdistyvät ravintola, kahvila, baari, tapahtumat, koulutus ja kokouspalvelut.",
     "button": "Ota yhteyttä"
-	}
+  },
+  "admin_navbar": {
+    "Games": "Pelit",
+    "Pricing": "Hinnoittelu",
+    "Events": "Tapahtumat",
+    "Bookings": "Varaukset",
+    "Tables": "Pöydät",
+    "Hours": "Tunnit",
+    "SignIn": "Kirjaudu sisään",
+    "Logout": "Kirjaudu ulos"
+  },
+  "editEvents": {
+    "title": "Muokkaa tapahtumia",
+    "titlePlaceholder": "Syötä tapahtuman otsikko",
+    "descriptionPlaceholder": "Syötä tapahtuman kuvaus",
+    "datePlaceholder": "Syötä tapahtuman päivämäärä",
+    "imagePlaceholder": "Syötä tapahtuman kuvan URL",
+    "submitButton": "Luo tapahtuma",
+    "updateButton": "Päivitä tapahtuma",
+    "editButton": "Muokkaa",
+    "existingEvents": "Olemassa olevat tapahtumat"
+  }
 }
