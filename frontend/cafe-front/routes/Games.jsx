@@ -60,7 +60,7 @@ function Games() {
                 linkClass="show"
                 url="/bookings"
             />
-            <h1>The Collection of Games in Cafe Boardgame:</h1>
+            <h1 style={{marginTop: '30px'}}>The Collection of Games in Cafe Boardgame:</h1>
 
             <div className='gameGen'>
                 {currentGames.map((gamesInfo, id) =>
