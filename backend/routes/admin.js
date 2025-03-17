@@ -16,15 +16,12 @@ router.get('/dashboard', authenticate, authorizeAdmin, (req, res) => {
 router.get('/upcoming-bookings', authenticate, authorizeAdmin, async (req, res) => {
     try {
         const today = new Date();
-		console.log('Current Date:', today); // Debugging log
-
 		const upcomingBookings = await Booking.find({ date: { $gte: today } })
 			.populate('tableId', 'number')
 			.populate('gameId', 'title')
 			.populate('userId', 'name email')
 			.populate({ path: 'paymentId', select: 'status amount paymentMethod' })
 			.sort({ date: 1, startTime: 1 });
-		console.log('Debugging Data:', JSON.stringify(upcomingBookings, null, 2));
         res.json(upcomingBookings);
     } catch (error) {
         console.error('Error fetching upcoming bookings:', error);

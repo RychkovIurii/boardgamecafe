@@ -6,9 +6,6 @@ const { authenticate } = require('../middleware/auth');
 const { validateBooking } = require('../utils/bookingValidation');
 const { validateOverlappingBookings } = require('../utils/validateOverlappingBookings');
 
-
-
-
 // Fetch available tables. FOR ALL USERS
 router.get('/available', async (req, res) => { //need to fix
     const { date, startTime, endTime } = req.query;
