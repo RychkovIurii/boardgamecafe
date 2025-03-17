@@ -4,6 +4,7 @@
 		"Pricing": "Pricing",
 		"Events": "Events",
 		"Booking": "Booking",
+		"Service": "Service",
 		"Profile": "Profile",
 		"My bookings": "My bookings",
 		"SignIn": "SignIn",
@@ -114,8 +115,15 @@
 		"transferP": "No data is transferred outside the EU or EEA.",
 		"decisionMaking": "11. Automated Decision Making",
 		"decisionMakingP": "No automatic decision-making or profiling is done."	
-	
-
-
+	},
+	"admin_navbar": {
+		"Games": "Games",
+		"Pricing": "Pricing",
+		"Events": "Events",
+		"Bookings": "Bookings",
+		"Tables": "Tables",
+		"Hours": "Hours",
+		"SignIn": "SignIn",
+		"Logout": "Logout"
 	}
 }

@@ -2,6 +2,7 @@ import React from 'react'
 import clsx from "clsx";
 import { useState, useEffect } from "react";
 import { assets } from '../assets/image_assets/assets';
+
 function AboutGalleryIntro() {
 
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -78,7 +79,7 @@ function AboutGalleryIntro() {
                             <img
                                 alt="gallery"
                                 className="block h-full w-full rounded-lg 2xl:rounded-2xl object-cover object-center"
-                                src={assets.property_photo_2}
+                                src={assets.property_photo_13}
                             />
                         </div>
                     </div>
@@ -93,7 +94,7 @@ function AboutGalleryIntro() {
 
                     < div className={clsx('justify-center pr-10 pl-10 mt-12 font-fontdiner', isMobile? 'm-5':'')}>
                         <p className='pt-2 mr-4 ml-16 font-fontdiner text-gray-800'>
-                            Founded in 2002, with over 300 games Café Boardgame has been a welcoming spot for board game lovers for over 20 years.
+                            Founded in 2021, with over 500 games Café Boardgame has been a welcoming spot for board games and and role-playing games lovers.
                         </p>
                         <p className='pt-2 mr-4 ml-14 font-fontdiner text-gray-800'>Our friendly staff are always here to help you pick a game, explain the rules, or guide you through gameplay. </p>
                         <p className='pt-2 mr-4 ml-14 font-fontdiner text-gray-800'>

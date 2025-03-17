@@ -6,7 +6,7 @@ import FAQ from '../routes/FAQ';
 import Games from '../routes/Games';
 import Events from '../routes/Events';
 import SignIn from '../routes/SignIn';
-import AdminDashboard from '../routes/AdminDashboard';
+import AdminDashboard from '../routes/admin/AdminDashboard';
 import { AuthContext } from '../context/AuthContext';
 import { Navigate } from 'react-router-dom';
 import { useContext } from 'react';
@@ -14,12 +14,15 @@ import Contact from '../routes/Contact';
 import './App.css';
 import Bookings from '../routes/Bookings';
 import PrivacyPolicy from '../routes/PrivacyPolicy';
-
+import EditBooking from '../routes/admin/EditBooking';
+import Service from '../routes/Service';
+import ServiceProduct from '../routes/ServiceProduct';
 
 function App() {
-
-  const { isAuthenticated } = useContext(AuthContext);
+	
+  const { isAuthenticated, isCheckingAuth } = useContext(AuthContext);
   const AdminRoute = ({ element }) => {
+    if (isCheckingAuth) return <div>Loading...</div>;
     return isAuthenticated ? element : <Navigate to="/sign-in" />;
   };
 
@@ -34,12 +37,14 @@ function App() {
         <Route path='/sign-in' element={<SignIn />} />
         <Route path='/bookings' element={<Bookings />} />
         <Route path='/admin' element={<AdminRoute element={<AdminDashboard />} />} />
+        <Route path="/admin/edit-booking/:id" element={<AdminRoute element={<EditBooking />} />} />
         <Route path='/contact' element={<Contact />} />
         <Route path='/privacy-policy' element={<PrivacyPolicy />} />
-       
+        <Route path='/service' element={<Service />} />
+        <Route path='/ServiceProduct/:serviceId' element={<ServiceProduct />} />
       </Routes>
     </div>
   )
 }
 
-export default App
+export default App;

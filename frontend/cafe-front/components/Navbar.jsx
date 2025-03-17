@@ -1,6 +1,9 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -20,13 +23,8 @@ const pages = [
   { name: 'Games', path: '/games' },
   { name: 'Pricing', path: '/pricing' },
   { name: 'Events', path: '/events' },
-  { name: 'Booking', path: '/bookings' }
-];
-
-const settings = [
-  { name: 'Profile', path: '/profile' },
-  { name: 'My bookings', path: '/account' },
-  { name: 'SignIn', path: '/sign-in' }
+  { name: 'Booking', path: '/bookings' },
+  { name: 'Service', path: '/service' },
 ];
 
 function Navbar() {
@@ -34,6 +32,8 @@ function Navbar() {
   const [language, setLanguage] = React.useState(i18n.language);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const { isAuthenticated, isCheckingAuth, logout } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -55,6 +55,21 @@ function Navbar() {
     i18n.changeLanguage(lng);
     setLanguage(lng);
   };
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
+
+  if (isCheckingAuth) return null; // or loading spinner
+
+  const settings = isAuthenticated
+    ? [
+        { name: 'Profile', path: '/profile' },
+        { name: 'My bookings', path: '/account' },
+        { name: 'Logout', action: handleLogout }
+      ]
+    : [{ name: 'SignIn', path: '/sign-in' }];
 
   return (
     <AppBar position="static" color="white">
@@ -177,10 +192,10 @@ function Navbar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting.name} onClick={handleCloseUserMenu}>
+              {settings.map((setting, index) => (
+                <MenuItem key={index} onClick={setting.action || handleCloseUserMenu}>
                   <Typography textAlign="center" fontFamily={'Fontdiner Swanky'}>
-                    <Link to={setting.path}>{t(`navbar.${setting.name}`)}</Link>
+                    {setting.path ? <Link to={setting.path}>{t(`navbar.${setting.name}`)}</Link> : t(`navbar.${setting.name}`)}
                   </Typography>
                 </MenuItem>
               ))}

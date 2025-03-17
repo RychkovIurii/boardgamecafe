@@ -10,7 +10,7 @@ export default function BookingForm() {
         date: "",
         startTime: "",
         duration: "",
-        tableId: "",
+        tableNumber: "",
         players: "",
         gameId: "",
         userId: "",
@@ -58,7 +58,7 @@ export default function BookingForm() {
             date: inputs.date,
             startTime: inputs.startTime,
             duration: parsedDuration,
-            tableId: inputs.tableId,
+            tableNumber: inputs.tableNumber,
             players: parsedPlayers,
             gameId: inputs.gameId || null,
             userId: inputs.userId || null,
@@ -76,7 +76,7 @@ export default function BookingForm() {
                 date: "",
                 startTime: "",
                 duration: "",
-                tableId: "",
+                tableNumber: "",
                 players: "",
                 gameId: "",
                 userId: "",
@@ -160,9 +160,9 @@ export default function BookingForm() {
                                 type='number'
                                 min={1}
                                 max={12}
-                                name='tableId'
-                                value={inputs.tableId || ""}
-                                placeholder="Table ID"
+                                name='tableNumber'
+                                value={inputs.tableNumber || ""}
+                                placeholder="Table Number"
                                 onChange={handleChange}
                                 required
                             />

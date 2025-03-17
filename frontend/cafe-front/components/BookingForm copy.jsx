@@ -1,5 +1,5 @@
-import React from 'react'
-import { useState } from 'react';
+import React , { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Style/BookingFormStyles.css';
 import API from '../api/axios';
 import {
@@ -9,147 +9,146 @@ import {
   Button,
   Typography,
   Box,
-  TextField,
   StepContent
 } from '@mui/material';
 
-const tables = [
-  {
-    "id": 1,
-    "seats": 2,
-    "location": "ground"
-  },
-  {
-    "id": 2,
-    "seats": 2,
-    "location": "ground"
-  },
-  {
-    "id": 3,
-    "seats": 6,
-    "location": "ground"
-  },
-  {
-    "id": 4,
-    "seats": 5,
-    "location": "ground"
-  },
-  {
-    "id": 5,
-    "seats": 5,
-    "location": "ground"
-  },
-  {
-    "id": 6,
-    "seats": 6,
-    "location": "ground"
-  },
-  {
-    "id": 7,
-    "seats": 8,
-    "location": "ground"
-  },
-  {
-    "id": 8,
-    "seats": 8,
-    "location": "ground"
-  },
-  {
-    "id": 9,
-    "seats": 2,
-    "location": "ground"
-  },
-  {
-    "id": 10,
-    "seats": 2,
-    "location": "ground"
-  },
-  {
-    "id": 11,
-    "seats": 2,
-    "location": "ground"
-  },
-  {
-    "id": 12,
-    "seats": 4,
-    "location": "upstairs"
-  },
-  {
-    "id": 13,
-    "seats": 4,
-    "location": "upstairs"
-  },
-  {
-    "id": 14,
-    "seats": 4,
-    "location": "upstairs"
-  },
-  {
-    "id": 15,
-    "seats": 4,
-    "location": "upstairs"
-  },
-  {
-    "id": 16,
-    "seats": 4,
-    "location": "upstairs"
-  },
-  {
-    "id": 17,
-    "seats": 10,
-    "location": "upstairs"
-  },
-  {
-    "id": 18,
-    "seats": 2,
-    "location": "upstairs"
-  },
-  {
-    "id": 19,
-    "seats": 4,
-    "location": "upstairs"
-  },
-  {
-    "id": 20,
-    "seats": 4,
-    "location": "upstairs"
-  },
-  {
-    "id": 21,
-    "seats": 4,
-    "location": "upstairs"
-  },
-  {
-    "id": 22,
-    "seats": 2,
-    "location": "upstairs"
-  },
-  {
-    "id": 23,
-    "seats": 8,
-    "location": "upstairs"
-  },
-  {
-    "id": 24,
-    "seats": 4,
-    "location": "terrace"
-  },
-  {
-    "id": 25,
-    "seats": 8,
-    "location": "terrace"
-  },
-  {
-    "id": 26,
-    "seats": 8,
-    "location": "terrace"
-  },
-  {
-    "id": 27,
-    "seats": 4,
-    "location": "terrace"
-  }
-]
+/* const tables = [
+	{
+	  "id": 1,
+	  "seats": 2,
+	  "location": "ground"
+	},
+	{
+	  "id": 2,
+	  "seats": 2,
+	  "location": "ground"
+	},
+	{
+	  "id": 3,
+	  "seats": 6,
+	  "location": "ground"
+	},
+	{
+	  "id": 4,
+	  "seats": 5,
+	  "location": "ground"
+	},
+	{
+	  "id": 5,
+	  "seats": 5,
+	  "location": "ground"
+	},
+	{
+	  "id": 6,
+	  "seats": 6,
+	  "location": "ground"
+	},
+	{
+	  "id": 7,
+	  "seats": 8,
+	  "location": "ground"
+	},
+	{
+	  "id": 8,
+	  "seats": 8,
+	  "location": "ground"
+	},
+	{
+	  "id": 9,
+	  "seats": 2,
+	  "location": "ground"
+	},
+	{
+	  "id": 10,
+	  "seats": 2,
+	  "location": "ground"
+	},
+	{
+	  "id": 11,
+	  "seats": 2,
+	  "location": "ground"
+	},
+	{
+	  "id": 12,
+	  "seats": 4,
+	  "location": "upstairs"
+	},
+	{
+	  "id": 13,
+	  "seats": 4,
+	  "location": "upstairs"
+	},
+	{
+	  "id": 14,
+	  "seats": 4,
+	  "location": "upstairs"
+	},
+	{
+	  "id": 15,
+	  "seats": 4,
+	  "location": "upstairs"
+	},
+	{
+	  "id": 16,
+	  "seats": 4,
+	  "location": "upstairs"
+	},
+	{
+	  "id": 17,
+	  "seats": 10,
+	  "location": "upstairs"
+	},
+	{
+	  "id": 18,
+	  "seats": 2,
+	  "location": "upstairs"
+	},
+	{
+	  "id": 19,
+	  "seats": 4,
+	  "location": "upstairs"
+	},
+	{
+	  "id": 20,
+	  "seats": 4,
+	  "location": "upstairs"
+	},
+	{
+	  "id": 21,
+	  "seats": 4,
+	  "location": "upstairs"
+	},
+	{
+	  "id": 22,
+	  "seats": 2,
+	  "location": "upstairs"
+	},
+	{
+	  "id": 23,
+	  "seats": 8,
+	  "location": "upstairs"
+	},
+	{
+	  "id": 24,
+	  "seats": 4,
+	  "location": "terrace"
+	},
+	{
+	  "id": 25,
+	  "seats": 8,
+	  "location": "terrace"
+	},
+	{
+	  "id": 26,
+	  "seats": 8,
+	  "location": "terrace"
+	},
+	{
+	  "id": 27,
+	  "seats": 4,
+	  "location": "terrace"
+	}
+  ] */
 
 /**
  StepOne, StepTwo, and StepThree are separated for clarity.
@@ -262,7 +261,7 @@ function StepTwo({ inputs, handleChange, tables, setInputs }) {
         required
       />
       <div className='tables'>Suggested: 
-         {tables.map((table) => <div key={table.id} className='table' onClick={(e) => {setInputs({ ...inputs, tableNumber: table.id }); console.log(inputs)}}> {table.id}</div> )} 
+         {tables.map((table) => <div key={table.number} className='table' onClick={(e) => {setInputs({ ...inputs, tableNumber: table.number }); console.log(inputs)}}> {table.number}</div> )} 
       </div>
       <label>Game: </label>
       <input
@@ -300,11 +299,14 @@ function StepThree({ inputs, handleChange, handleSubmit }) {
 
 
 export default function BookingForm() {
+  const [tables, setTables] = useState([]);
   const [activeStep, setActiveStep] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
-  const [availability, setAvailability] = useState()
+  const [availability, setAvailability] = useState();
+  const [filteredTables, setFilteredTables] = useState([]);
+  const navigate = useNavigate();
   const [inputs, setInputs] = useState({
     date: "",
     startTime: "",
@@ -316,11 +318,20 @@ export default function BookingForm() {
     contactName: "",
     contactPhone: ""
   });
-  const [filteredTables, setFilteredTables] = useState([])
 
+  useEffect(() => {
+    const fetchTables = async () => {
+      try {
+        const response = await API.get('/tables');
+        setTables(response.data);
+      } catch (error) {
+        console.error('Error fetching tables:', error);
+      }
+    };
+    fetchTables();
+  }, []);
 
-
-  function checkAvailability(people) {
+/*   function checkAvailability(people) {
     if (people <= 2) {
       //table id can be 1, 2, 9, 10, 11, 18, 22
       const filtered = tables.filter((tables) => tables.seats == 2)
@@ -349,6 +360,23 @@ export default function BookingForm() {
     else {
       return "There are no available tables able to seat your group, please call to check if there are ways to host your group."
     }
+  } */
+
+  function checkAvailability(people) {
+	if (people < 1) {
+	  return "Invalid number of players.";
+	}
+  
+	const seatCapacities = [2, 4, 5, 6, 8, 10]; // ✅ Define allowed seat counts
+	const seatLimit = seatCapacities.find(capacity => people <= capacity); // ✅ Find the smallest matching capacity
+  
+	if (!seatLimit) {
+	  return "There are no available tables able to seat your group, please call to check if there are ways to host your group.";
+	}
+  
+	// ✅ Filter tables that match the found `seatLimit`
+	const filtered = tables.filter(table => table.capacity === seatLimit);
+	setFilteredTables(filtered);
   }
 
   // Define the labels for each step.
@@ -394,7 +422,7 @@ export default function BookingForm() {
       date: inputs.date,
       startTime: inputs.startTime,
       duration: inputs.duration,
-      tableId: inputs.tableId,
+      tableNumber: inputs.tableNumber,
       players: parsedPlayers,
       gameId: inputs.gameId || null,
       userId: inputs.userId || null,
@@ -407,12 +435,15 @@ export default function BookingForm() {
       const response = await API.post('/bookings', bookingData);
       console.log(response)
       setSuccess(true);
-      console.log("Booking created successfully:", response.data);
-      setBooking({
+      alert("Booking created successfully!");
+	  setTimeout(() => {
+        navigate('/');
+      }, 2000);
+      setInputs({
         date: "",
         startTime: "",
         duration: "",
-        tableId: "",
+        tableNumber: "",
         players: "",
         gameId: "",
         userId: "",
