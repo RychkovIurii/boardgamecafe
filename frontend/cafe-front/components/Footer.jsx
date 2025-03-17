@@ -40,7 +40,7 @@ export default function Footer() {
                                 <li><Link to='/contact'>{t('footer.Contact')}</Link></li>
                                 <li><Link to='/'>{t('footer.Careers')}</Link></li>
                                 <li><Link to='/'>{t('footer.Partners')}</Link></li>
-                                <li><Link to='/'>{t('footer.Privacy Policy')}</Link></li>
+                                <li><Link to='/privacy-policy'>{t('footer.Privacy Policy')}</Link></li>
                             </ul>
                         </div>
                         <div>
