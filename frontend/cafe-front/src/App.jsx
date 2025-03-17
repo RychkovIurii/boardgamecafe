@@ -15,6 +15,7 @@ import './App.css'
 import Bookings from '../routes/Bookings';
 import EditBooking from '../routes/admin/EditBooking';
 import EditEvents from '../routes/admin/EditEvents';
+import EditPricing from '../routes/admin/EditPricing';
 import Service from '../routes/Service';
 import ServiceProduct from '../routes/ServiceProduct';
 
@@ -38,6 +39,7 @@ function App() {
         <Route path='/bookings' element={<Bookings />} />
         <Route path='/admin' element={<AdminRoute element={<AdminDashboard />} />} />
 		<Route path='/admin/edit-events' element={<AdminRoute element={<EditEvents />} />} />
+		<Route path='/admin/edit-pricing' element={<AdminRoute element={<EditPricing />} />} />
         <Route path="/admin/edit-booking/:id" element={<AdminRoute element={<EditBooking />} />} />
         <Route path='/contact' element={<Contact />} />
         <Route path='/service' element={<Service />} />
