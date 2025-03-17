@@ -102,77 +102,77 @@ const ManageMenuItems = () => {
         }
     };
 
-    return (
-        <div>
-            <AdminNavbar />
-            <h1>Manage Menu Items</h1>
-            <form onSubmit={selectedMenuItemId ? handleUpdateMenuItem : handleAddMenuItem}>
-                <input
-                    type="text"
-                    name="menuType"
-                    placeholder="Menu Type"
-                    value={newMenuItem.menuType}
-                    onChange={handleChange}
-                    required
-                />
-                <input
-                    type="text"
-                    name="image"
-                    placeholder="Image Path"
-                    value={newMenuItem.image}
-                    onChange={handleChange}
-                    required
-                />
-                <textarea
-                    name="description"
-                    placeholder="Description"
-                    value={newMenuItem.details.description}
-                    onChange={(e) => setNewMenuItem({
-                        ...newMenuItem,
-                        details: { ...newMenuItem.details, description: e.target.value }
-                    })}
-                />
-                {newMenuItem.details.pricing.map((pricingItem, index) => (
-                    <div key={index}>
-                        <input
-                            type="text"
-                            name="item"
-                            placeholder="Item"
-                            value={pricingItem.item}
-                            onChange={(e) => handleDetailsChange(e, index)}
-                            required
-                        />
-                        <input
-                            type="text"
-                            name="options"
-                            placeholder="Options (comma separated)"
-                            value={pricingItem.options.join(', ')}
-                            onChange={(e) => handleDetailsChange(e, index)}
-                        />
-                        <input
-                            type="text"
-                            name="price"
-                            placeholder="Price"
-                            value={pricingItem.price}
-                            onChange={(e) => handleDetailsChange(e, index)}
-                            required
-                        />
-                    </div>
-                ))}
-                <button type="submit">{selectedMenuItemId ? 'Update Menu Item' : 'Add Menu Item'}</button>
-            </form>
-            <h2>Existing Menu Items</h2>
-            <ul>
-                {menuItems.map(item => (
-                    <li key={item._id}>
-                        {item.menuType} - {item.details.description}
-                        <button onClick={() => handleEditMenuItem(item)}>Edit</button>
-                        <button onClick={() => handleDeleteMenuItem(item._id)}>Delete</button>
-                    </li>
-                ))}
-            </ul>
-        </div>
-    );
+	return (
+		<div>
+			<AdminNavbar />
+			<h1 style={{ marginTop: '30px' }}>Manage Menu Items</h1>
+			<form onSubmit={selectedMenuItemId ? handleUpdateMenuItem : handleAddMenuItem}>
+				<input
+					type="text"
+					name="menuType"
+					placeholder="Menu Type"
+					value={newMenuItem.menuType}
+					onChange={handleChange}
+					required
+				/>
+				<input
+					type="text"
+					name="image"
+					placeholder="Image Path"
+					value={newMenuItem.image}
+					onChange={handleChange}
+					required
+				/>
+				<textarea
+					name="description"
+					placeholder="Description"
+					value={newMenuItem.details.description}
+					onChange={(e) => setNewMenuItem({
+						...newMenuItem,
+						details: { ...newMenuItem.details, description: e.target.value }
+					})}
+				/>
+				{newMenuItem.details.pricing.map((pricingItem, index) => (
+					<div key={index}>
+						<input
+							type="text"
+							name="item"
+							placeholder="Item"
+							value={pricingItem.item}
+							onChange={(e) => handleDetailsChange(e, index)}
+							required
+						/>
+						<input
+							type="text"
+							name="options"
+							placeholder="Options (comma separated)"
+							value={pricingItem.options.join(', ')}
+							onChange={(e) => handleDetailsChange(e, index)}
+						/>
+						<input
+							type="text"
+							name="price"
+							placeholder="Price"
+							value={pricingItem.price}
+							onChange={(e) => handleDetailsChange(e, index)}
+							required
+						/>
+					</div>
+				))}
+				<button type="submit">{selectedMenuItemId ? 'Update Menu Item' : 'Add Menu Item'}</button>
+			</form>
+			<h2 style={{ marginTop: '30px' }}>Existing Menu Items</h2>
+			<ul style={{ textAlign: 'left' }}>
+				{menuItems.map(item => (
+					<li key={item._id}>
+						{item.menuType} - {item.details.description}
+						<button onClick={() => handleEditMenuItem(item)}>Edit</button>
+						<button onClick={() => handleDeleteMenuItem(item._id)}>Delete</button>
+					</li>
+				))}
+			</ul>
+		</div>
+	);
 };
 
 export default ManageMenuItems;
