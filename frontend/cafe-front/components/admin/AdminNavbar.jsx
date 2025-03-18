@@ -21,10 +21,10 @@ import cafeLogo from '../../assets/logo1.png';
 
 const pages = [
   { name: 'Bookings', path: '/admin' },
-  { name: 'Events', path: '/edit-events' },
-  { name: 'Pricing', path: '/edit-pricing' },
-  { name: 'Tables', path: '/edit-tables' },
-  { name: 'Hours', path: '/edit-hours' }
+  { name: 'Events', path: '/admin/edit-events' },
+  { name: 'Pricing', path: '/admin/edit-pricing' },
+  { name: 'Tables', path: '/admin/edit-tables' },
+  { name: 'Hours', path: '/admin/edit-hours' }
 
 ];
 

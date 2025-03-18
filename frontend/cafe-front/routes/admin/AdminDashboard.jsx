@@ -88,7 +88,7 @@ const AdminDashboard = () => {
     return (
         <div>
 			<AdminNavbar />
-            <h1>Admin Dashboard</h1>
+            <h1 style={{ marginTop: '30px' }}>Admin Dashboard</h1>
             <input 
                 type="text" 
                 placeholder="Search by user, table, or game" 
