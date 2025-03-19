@@ -22,7 +22,7 @@ import property_photo_11 from './property_photo_11.jpeg'
 import property_photo_13 from './property_photo_13.jpeg'
 import drinks_photo_1 from './drinks_photo_1.jpg'
 import rotated_scroll from './rotated_scroll.png'
-import footer_background from '/assets/footer-background.png'
+import footer_background from '../footer-background.png'
 import chest_box_close from './chest_box_close.png'
 import rolling_dices from './rolling_dices.svg'
 import p_S1_1 from './property_S1_1.jpg'
@@ -70,7 +70,7 @@ export const assets = {
 
 }
 
-
+/* 
 export const menuData = [
     {
         menuType: 'Gaming Fee',
@@ -152,6 +152,7 @@ export const menuData = [
         }
     }
 ];
+ */
 
 export const steps = [
     {

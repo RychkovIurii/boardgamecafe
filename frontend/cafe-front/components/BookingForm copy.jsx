@@ -253,7 +253,7 @@ function StepTwo({ inputs, handleChange, tables, setInputs }) {
         className='formInput'
         type='number'
         min={1}
-        max={26}
+        max={50}
         name='tableNumber'
         value={inputs.tableNumber || ""}
         placeholder="Table number"

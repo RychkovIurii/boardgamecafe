@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest",
     "start": "node src/server.js",
-    "seed": "node config/seed.js"
+    "seed": "node config/seed.js",
+	"seedMenu": "node config/seedMenu.js"
   },
   "keywords": [],
   "author": "",
