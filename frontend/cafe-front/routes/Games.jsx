@@ -11,14 +11,17 @@ import Paginate from '../components/Pagination';
 
 function Games() {
     const [gamesInfo, setGamesInfo] = useState([])
+    const [filteredGames, setFilteredGames] = useState([])
     const [currentPage, setCurrentPage] = useState(1)
+    const [searchFilter, setSearchFilter] = useState("")
+    
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
     const gamesPerPage = 30
 
-    const indexOfLastGame = currentPage *gamesPerPage;
+    const indexOfLastGame = currentPage * gamesPerPage;
     const indexOfFirstGame = indexOfLastGame - gamesPerPage;
 
-    const currentGames = gamesInfo.slice(indexOfFirstGame, indexOfLastGame)
+    const currentGames = filteredGames.slice(indexOfFirstGame, indexOfLastGame)
 
     useEffect(() => {
         fetch("https://boardgamegeek.com/xmlapi2/collection?username=Cafebg")
@@ -44,9 +47,19 @@ function Games() {
                     };
                 });
                 setGamesInfo(itemArray);
+                setFilteredGames(itemArray)
 
             })
-    }, [paginate]);
+    }, []);
+
+    const FilterGames = (e) => {
+        const filtered =
+            gamesInfo &&
+            gamesInfo.filter((item) => {
+            return item.title.toLowerCase().includes(e.toLowerCase());
+          });
+          setFilteredGames(filtered);
+      };
 
     return (
         <>
@@ -62,13 +75,22 @@ function Games() {
             />
             <h1 style={{marginTop: '30px'}}>The Collection of Games in Cafe Boardgame:</h1>
 
+            <input
+            type="search"
+            placeholder="Search"
+            value={searchFilter}
+            onChange={(e) => {
+              setSearchFilter(e.target.value);
+              FilterGames(e.target.value);
+            }}/>
+
             <div className='gameGen'>
                 {currentGames.map((gamesInfo, id) =>
                     <GameCard key={id} gamesInfo={gamesInfo} />
                 )}
             </div>
             <div className='pagination'>
-            <Paginate gamesPerPage={gamesPerPage} totalGames={gamesInfo.length} paginate={paginate} />
+                <Paginate gamesPerPage={gamesPerPage} totalGames={filteredGames.length} paginate={paginate} />
             </div>
             <Footer />
         </>

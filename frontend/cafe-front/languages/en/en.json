@@ -51,6 +51,8 @@
 		"title": "Register",
 		"nameLabel": "Name",
 		"namePlaceholder": "Enter your name",
+		"phoneLabel": "Phone",
+		"phonePlaceholder": "Enter your phone",
 		"emailLabel": "Email",
 		"emailPlaceholder": "Enter your email",
 		"passwordLabel": "Password",
@@ -69,5 +71,16 @@
 		"Hours": "Hours",
 		"SignIn": "SignIn",
 		"Logout": "Logout"
+	},
+	"editEvents": {
+		"title": "Edit Events",
+		"titlePlaceholder": "Enter event title",
+		"descriptionPlaceholder": "Enter event description",
+		"datePlaceholder": "Enter event date",
+		"imagePlaceholder": "Enter event image URL",
+		"submitButton": "Create Event",
+		"updateButton": "Update Event",
+		"editButton": "Edit",
+		"existingEvents": "Existing Events"
 	}
 }

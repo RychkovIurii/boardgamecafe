@@ -1,7 +1,22 @@
-import React from 'react';
-import { menuData } from '../assets/image_assets/assets';
+import React, { useState, useEffect } from 'react';
+import API from '../api/axios';
 
 const MenuAccordions = ({ activeId, setActiveId }) => {
+	const [menuData, setMenuData] = useState([]);
+
+    useEffect(() => {
+        const fetchMenuData = async () => {
+            try {
+                const response = await API.get('/prices');
+				setMenuData(response.data);
+            } catch (error) {
+                console.error('Error fetching menu data:', error);
+            }
+        };
+
+        fetchMenuData();
+    }, []);
+
     return (
         <div className="w-full min-h-screen flex justify-center">
             <div className="w-[900px] h-max shadow-lg border-4 border-yellow-600 rounded-xl overflow-hidden bg-white">

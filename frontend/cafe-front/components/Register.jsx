@@ -9,6 +9,7 @@ const Register = ({ onToggleForm }) => {
 	const navigate = useNavigate();
 	const [formData, setFormData] = useState({
 		username: '',
+		phone: '',
 		email: '',
 		password: ''
 	});
@@ -20,14 +21,14 @@ const Register = ({ onToggleForm }) => {
 		});
 	};
 
-	const handleSubmit = async (e) => {
+	const handleSubmit = async (e) => { // We need do phone validation!
 		e.preventDefault();
 		try {
 			const response = await API.post('/users/register', formData);
 			alert(t("register.successMessage"));
 			console.log('Registration successful:', response.data);
 
-			navigate('/login');
+			navigate('/sign-in');
 		} catch (error) {
 			alert(t("register.errorMessage"));
 			console.error('Error registering:', error);
@@ -45,6 +46,17 @@ const Register = ({ onToggleForm }) => {
 						name="name"
 						placeholder={t("register.namePlaceholder")}
 						value={formData.name}
+						onChange={handleChange}
+						required
+					/>
+				</div>
+				<div className="input-group">
+					<label>{t("register.phoneLabel")}</label>
+					<input
+						type="text"
+						name="phone"
+						placeholder={t("register.phonePlaceholder")}
+						value={formData.phone}
 						onChange={handleChange}
 						required
 					/>
