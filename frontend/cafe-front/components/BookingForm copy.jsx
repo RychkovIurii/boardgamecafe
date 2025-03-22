@@ -13,144 +13,6 @@ import {
   StepContent
 } from '@mui/material';
 
-/* const tables = [
-	{
-	  "id": 1,
-	  "seats": 2,
-	  "location": "ground"
-	},
-	{
-	  "id": 2,
-	  "seats": 2,
-	  "location": "ground"
-	},
-	{
-	  "id": 3,
-	  "seats": 6,
-	  "location": "ground"
-	},
-	{
-	  "id": 4,
-	  "seats": 5,
-	  "location": "ground"
-	},
-	{
-	  "id": 5,
-	  "seats": 5,
-	  "location": "ground"
-	},
-	{
-	  "id": 6,
-	  "seats": 6,
-	  "location": "ground"
-	},
-	{
-	  "id": 7,
-	  "seats": 8,
-	  "location": "ground"
-	},
-	{
-	  "id": 8,
-	  "seats": 8,
-	  "location": "ground"
-	},
-	{
-	  "id": 9,
-	  "seats": 2,
-	  "location": "ground"
-	},
-	{
-	  "id": 10,
-	  "seats": 2,
-	  "location": "ground"
-	},
-	{
-	  "id": 11,
-	  "seats": 2,
-	  "location": "ground"
-	},
-	{
-	  "id": 12,
-	  "seats": 4,
-	  "location": "upstairs"
-	},
-	{
-	  "id": 13,
-	  "seats": 4,
-	  "location": "upstairs"
-	},
-	{
-	  "id": 14,
-	  "seats": 4,
-	  "location": "upstairs"
-	},
-	{
-	  "id": 15,
-	  "seats": 4,
-	  "location": "upstairs"
-	},
-	{
-	  "id": 16,
-	  "seats": 4,
-	  "location": "upstairs"
-	},
-	{
-	  "id": 17,
-	  "seats": 10,
-	  "location": "upstairs"
-	},
-	{
-	  "id": 18,
-	  "seats": 2,
-	  "location": "upstairs"
-	},
-	{
-	  "id": 19,
-	  "seats": 4,
-	  "location": "upstairs"
-	},
-	{
-	  "id": 20,
-	  "seats": 4,
-	  "location": "upstairs"
-	},
-	{
-	  "id": 21,
-	  "seats": 4,
-	  "location": "upstairs"
-	},
-	{
-	  "id": 22,
-	  "seats": 2,
-	  "location": "upstairs"
-	},
-	{
-	  "id": 23,
-	  "seats": 8,
-	  "location": "upstairs"
-	},
-	{
-	  "id": 24,
-	  "seats": 4,
-	  "location": "terrace"
-	},
-	{
-	  "id": 25,
-	  "seats": 8,
-	  "location": "terrace"
-	},
-	{
-	  "id": 26,
-	  "seats": 8,
-	  "location": "terrace"
-	},
-	{
-	  "id": 27,
-	  "seats": 4,
-	  "location": "terrace"
-	}
-  ] */
-
 /**
  StepOne, StepTwo, and StepThree are separated for clarity.
  You can define them inline, in separate files, or as your project needs.*/
@@ -306,6 +168,7 @@ export default function BookingForm() {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
   const [availability, setAvailability] = useState();
+  const [bookingId, setBookingId] = useState(null);
   const [filteredTables, setFilteredTables] = useState([]);
   const navigate = useNavigate();
   const [inputs, setInputs] = useState({
@@ -331,37 +194,6 @@ export default function BookingForm() {
     };
     fetchTables();
   }, []);
-
-/*   function checkAvailability(people) {
-    if (people <= 2) {
-      //table id can be 1, 2, 9, 10, 11, 18, 22
-      const filtered = tables.filter((tables) => tables.seats == 2)
-      setFilteredTables(filtered)
-    }
-    else if (people >= 2 && people <= 4) {
-      const filtered = tables.filter((tables) => tables.seats == 4)
-      setFilteredTables(filtered)
-    }
-    else if (people >= 4 && people <= 5) {
-      const filtered = tables.filter((tables) => tables.seats == 5)
-      setFilteredTables(filtered)
-    }
-    else if (people >= 5 && people <= 6) {
-      const filtered = tables.filter((tables) => tables.seats == 6)
-      setFilteredTables(filtered)
-    }
-    else if (people >= 6 && people <= 8) {
-      const filtered = tables.filter((tables) => tables.seats == 8)
-      setFilteredTables(filtered)
-    }
-    else if (people >= 8 && people <= 10) {
-      const filtered = tables.filter((tables) => tables.seats == 10)
-      setFilteredTables(filtered)
-    }
-    else {
-      return "There are no available tables able to seat your group, please call to check if there are ways to host your group."
-    }
-  } */
 
   function checkAvailability(people) {
 	if (people < 1) {
@@ -434,8 +266,9 @@ export default function BookingForm() {
 
     try {
       const response = await API.post('/bookings', bookingData);
-      console.log(response)
       setSuccess(true);
+	  const createdBookingId = response.data._id;
+	  setBookingId(createdBookingId);
       setInputs({
         date: "",
         startTime: "",
@@ -451,10 +284,16 @@ export default function BookingForm() {
 		icon: 'success',
 		title: 'Booking Confirmed!',
 		text: 'Thank you! Your table is now reserved.',
+		showDenyButton: true,
 		confirmButtonText: 'Go to Home',
-	  }).then(() => {
-		navigate('/');
-	  });
+		denyButtonText: 'Pay Now (Optional)',
+		}).then((result) => {
+			if (result.isConfirmed) {
+				navigate('/');
+			} else if (result.isDenied && createdBookingId) {
+				navigate(`/checkout?bookingId=${createdBookingId}`);
+			}
+		});
     }
     catch (error) {
       setError(error.response?.data?.message || "Error creating booking");
