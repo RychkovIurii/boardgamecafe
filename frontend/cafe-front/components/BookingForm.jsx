@@ -212,7 +212,7 @@ export default function BookingForm() {
   }
 
   // Define the labels for each step.
-  const steps = ['Personal Info', 'Optional Requests', 'Submit'];
+  const steps = ['Personal Info', 'Table and Game', 'Submit'];
 
   // Handle next step
   const handleNext = () => {
