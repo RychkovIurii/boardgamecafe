@@ -80,7 +80,7 @@ const AdminDashboard = () => {
 		// Check the search filter
 		const matchesSearch = booking.userId?.name?.toLowerCase().includes(search.toLowerCase()) ||
 			booking.tableId?.number?.toString().includes(search) ||
-			booking.gameId?.title?.toLowerCase().includes(search.toLowerCase());
+			booking.game?.toLowerCase().includes(search.toLowerCase());
 	
 		// Convert booking date to a Date object for comparisons
 		const bookingDate = new Date(booking.date);
@@ -161,7 +161,7 @@ const AdminDashboard = () => {
                             <td style={{ border: '1px solid black', padding: '8px' }}>{new Date(booking.startTime).toLocaleTimeString()}</td>
                             <td style={{ border: '1px solid black', padding: '8px' }}>{new Date(booking.endTime).toLocaleTimeString()}</td>
                             <td style={{ border: '1px solid black', padding: '8px' }}>{booking.tableId ? booking.tableId.number : 'No Table Assigned'}</td>
-                            <td style={{ border: '1px solid black', padding: '8px' }}>{booking.gameId ? booking.gameId.title : ' '}</td>
+                            <td style={{ border: '1px solid black', padding: '8px' }}>{booking.game || ' '}</td>
                             <td style={{ border: '1px solid black', padding: '8px' }}>
                                 {booking.userId ? 
                                     <a href={`/admin/users/${booking.userId._id}`}>{booking.userId.name}</a> 

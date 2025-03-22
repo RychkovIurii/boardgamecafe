@@ -32,7 +32,7 @@ router.get('/available', async (req, res) => { //need to fix
 
 // Create a new booking. FOR ALL USERS
 router.post('/', async (req, res) => {
-    let { date, startTime, duration, tableNumber, players, gameId, userId, contactName, contactPhone, amount, paymentMethod } = req.body;
+    let { date, startTime, duration, tableNumber, players, game, userId, contactName, contactPhone, amount, paymentMethod } = req.body;
 
 	// Validate booking details
 	const validationResult = validateBooking(date, startTime, duration);
@@ -67,7 +67,7 @@ router.post('/', async (req, res) => {
 			endTime: endUTCtime,
             tableId,
             players,
-            gameId,
+            game,
             userId,
             contactName,
             contactPhone
@@ -100,7 +100,7 @@ router.post('/', async (req, res) => {
 // Fetch own bookings (Authorized user) ONLY FOR AUTHORIZED USERS
 router.get('/my-bookings', authenticate, async (req, res) => {
     try {
-        const bookings = await Booking.find({ userId: req.user._id }).populate('tableId').populate('gameId').populate('userId');
+        const bookings = await Booking.find({ userId: req.user._id }).populate('tableId').populate('userId');
         res.json(bookings);
     } catch (error) {
         console.error('Error fetching bookings:', error);
@@ -110,7 +110,7 @@ router.get('/my-bookings', authenticate, async (req, res) => {
 
 // Update a booking (Authorized user) ONLY FOR AUTHORIZED USERS
 router.put('/my-bookings/:id', authenticate, async (req, res) => {
-    const { date, startTime, duration, tableId, players, gameId, contactName, contactPhone } = req.body;
+    const { date, startTime, duration, tableId, players, game, contactName, contactPhone } = req.body;
 
     const validationResult = validateBooking(date, startTime, duration);
     if (!validationResult.isValid) {
@@ -141,7 +141,7 @@ router.put('/my-bookings/:id', authenticate, async (req, res) => {
 		booking.endTime = endDateTime.toDate();
         booking.tableId = tableId;
         booking.players = players;
-        booking.gameId = gameId;
+        booking.game = game;
         booking.contactName = contactName;
         booking.contactPhone = contactPhone;
 

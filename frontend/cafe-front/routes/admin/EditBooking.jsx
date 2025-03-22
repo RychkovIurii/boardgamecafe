@@ -8,7 +8,6 @@ const EditBooking = () => {
     const navigate = useNavigate();
     const [booking, setBooking] = useState(null);
     const [tables, setTables] = useState([]);
-    const [games, setGames] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -35,11 +34,9 @@ const EditBooking = () => {
             try {
                 const bookingResponse = await API.get(`/admin/bookings/${id}`);
                 const tablesResponse = await API.get('/admin/tables');
-                const gamesResponse = await API.get('/admin/games');
 
                 setBooking(bookingResponse.data);
                 setTables(tablesResponse.data);
-                setGames(gamesResponse.data);
             } catch (error) {
                 console.error('Error fetching booking data:', error);
                 setError('Failed to load data');
@@ -150,16 +147,12 @@ const EditBooking = () => {
 				</select>
 
                 <label>Game:</label>
-                <select 
-                    value={booking.gameId || ''} 
-                    onChange={(e) => setBooking({ ...booking, gameId: e.target.value })}
-                >
-                    {games.map(game => (
-                        <option key={game._id} value={game._id}>
-                            {game.title}
-                        </option>
-                    ))}
-                </select>
+                <input
+					className="formInput"
+					type="text"
+					value={booking.game || ''}
+					onChange={(e) => setBooking({ ...booking, game: e.target.value })}
+				/>
 
                 <label>Players:</label>
                 <input 

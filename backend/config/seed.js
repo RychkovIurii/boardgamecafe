@@ -38,25 +38,6 @@ const seedUsers = [
     },
 ];
 
-const seedGames = [
-    {
-        title: 'Catan',
-        genre: 'Strategy',
-        minPlayers: 3,
-        maxPlayers: 4,
-        availability: true,
-        copies: 3,
-    },
-    {
-        title: 'Monopoly',
-        genre: 'Family',
-        minPlayers: 2,
-        maxPlayers: 6,
-        availability: true,
-        copies: 5,
-    },
-];
-
 const seedTables = [
     { number: 1, capacity: 2, location: "ground" },
     { number: 2, capacity: 2, location: "ground" },
@@ -125,7 +106,7 @@ const seedBookings = [
         tableId: null, // This will be updated after tables are seeded
         players: 5,
         userId: null, // This will be updated after users are seeded
-        gameId: null, // This will be updated after games are seeded
+        game: 'Monopoly',
     },
 ];
 
@@ -134,7 +115,7 @@ const seedPayments = [
         bookingId: null, // This will be updated after bookings are seeded
         amount: 50.00,
         status: 'completed',
-        paymentMethod: 'credit_card',
+        paymentMethod: 'card',
         transactionId: 'txn_1234567890',
         stripePaymentIntentId: 'pi_1234567890',
         stripeCustomerId: 'cus_1234567890',
@@ -143,7 +124,7 @@ const seedPayments = [
         bookingId: null, // This will be updated after bookings are seeded
         amount: 75.00,
         status: 'pending',
-        paymentMethod: 'paypal',
+        paymentMethod: 'eps',
         transactionId: 'txn_0987654321',
         stripePaymentIntentId: 'pi_0987654321',
         stripeCustomerId: 'cus_0987654321',
@@ -183,13 +164,10 @@ const importData = async () => {
 		await SpecialHours.deleteMany();
 
         const createdUsers = await Promise.all(seedUsers.map(user => User.create(user)));
-        const createdGames = await Game.insertMany(seedGames);
         const createdTables = await Table.insertMany(seedTables);
 
         seedBookings[0].userId = createdUsers[0]._id;
         seedBookings[1].userId = createdUsers[1]._id;
-        seedBookings[0].gameId = createdGames[0]._id;
-        seedBookings[1].gameId = createdGames[1]._id;
         seedBookings[0].tableId = createdTables[0]._id;
         seedBookings[1].tableId = createdTables[1]._id;
 
