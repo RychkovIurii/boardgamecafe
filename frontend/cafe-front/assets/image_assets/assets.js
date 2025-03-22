@@ -206,7 +206,7 @@ export const aboutMenu = [
     { title: "Service", text: "Let our friendly staff assist you for the best board game experience.", link: "/service", img: chest_box_close }]
 
 export const serviceMenu = [
-    { _id: "S-food", title: "RESTAURANT/CAFE/BAR", detail: " A well-equipped kitchen prepares delicious treats for all players, and private rooms offer a touch of luxury for those looking for a special experience.", img: [p_S1_1, p_S1_2, p_S1_3, p_S1_4, p_S1_5, p_S1_6, p_S1_7, p_S1_8] },
-    { _id: "S-private", title: "PRIVATE ROOMS", detail: "Celebrate your birthday, family reunion or any other private event. We offer semi-private and private rooms. Seats up to 12 guests.", img: [p_S2_1, p_S2_2, p_S2_3, p_S2_4] },
-    { _id: "S-coprate_event", title: "CORPORATE EVENTs", detail: "We provide excellent facilities for corporate events, including meetings, team-building days, and recreational events. Ready-made packages include murder mystery lunches, role-playing dinners, private karaoke nights, and '90s discos with a dedicated DJ.", img: [p_S3_1, p_S3_2, p_S3_3, p_S3_4] },
-    { _id: "S-community", title: "COMMUNITY", detail: "Discord channel has over 1,500 active members, and games are often hosted by Finnish game developers.", img: [p_S4_1, p_S4_2, p_S4_3] }]
+    { _id: "s-food", title: "RESTAURANT/CAFE/BAR", detail: " A well-equipped kitchen prepares delicious treats for all players, and private rooms offer a touch of luxury for those looking for a special experience.", img: [p_S1_1, p_S1_2, p_S1_3, p_S1_4, p_S1_5, p_S1_6, p_S1_7, p_S1_8] },
+    { _id: "s-private", title: "PRIVATE ROOMS", detail: "Celebrate your birthday, family reunion or any other private event. We offer semi-private and private rooms. Seats up to 12 guests.", img: [p_S2_1, p_S2_2, p_S2_3, p_S2_4] },
+    { _id: "s-coprate_event", title: "CORPORATE EVENTs", detail: "We provide excellent facilities for corporate events, including meetings, team-building days, and recreational events. Ready-made packages include murder mystery lunches, role-playing dinners, private karaoke nights, and '90s discos with a dedicated DJ.", img: [p_S3_1, p_S3_2, p_S3_3, p_S3_4] },
+    { _id: "s-community", title: "COMMUNITY", detail: "Discord channel has over 1,500 active members, and games are often hosted by Finnish game developers.", img: [p_S4_1, p_S4_2, p_S4_3] }]
