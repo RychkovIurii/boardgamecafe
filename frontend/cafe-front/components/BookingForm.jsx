@@ -105,10 +105,10 @@ function StepTwo({ inputs, handleChange, tables, setInputs }) {
   return (
     <Box>
       <Typography variant="h6" sx={{ fontFamily: "Fontdiner Swanky" }} gutterBottom>
-        Step 2: Optional Requests
+        Step 2: Table and Game
       </Typography>
       <div className='smallerText'>
-        Here you can optionally request a specific table or game. You can skip this step if you have no specific items to request. Please keep in mind that the Cafe reserves the right to change tables as needed.
+		You can request a game or table. Table is required, but we might adjust it if needed.
       </div>
       <label>Table: </label>
       <input
@@ -216,8 +216,34 @@ export default function BookingForm() {
 
   // Handle next step
   const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    checkAvailability(inputs.players)
+	if (activeStep === 0) {
+	  // Step 1 validation
+	  const { contactName, contactPhone, players, date, startTime, duration } = inputs;
+	  if (!contactName || !contactPhone || !players || !date || !startTime || !duration) {
+		Swal.fire({
+		  icon: 'warning',
+		  title: 'Incomplete Information',
+		  text: 'Please fill in all required fields before continuing.',
+		});
+		return;
+	  }
+	}
+  
+	if (activeStep === 1) {
+	  // Step 2 validation
+	  if (!inputs.tableNumber) {
+		Swal.fire({
+		  icon: 'warning',
+		  title: 'Table Required',
+		  text: 'Please select or enter a table number before continuing.',
+		});
+		return;
+	  }
+	}
+  
+	// Everything is valid
+	setActiveStep((prevActiveStep) => prevActiveStep + 1);
+	checkAvailability(inputs.players);
   };
 
   // Handle previous step
@@ -295,9 +321,17 @@ export default function BookingForm() {
 		});
     }
     catch (error) {
-      setError(error.response?.data?.message || "Error creating booking");
-      console.log(error)
-    }
+		const errorMessage = error.response?.data?.message || "Error creating booking";
+	  
+		await Swal.fire({
+		  icon: 'error',
+		  title: 'Booking Failed',
+		  text: errorMessage,
+		  confirmButtonText: 'OK'
+		});
+	  
+		console.error(error);
+	  }
     finally {
       setLoading(false);
     }

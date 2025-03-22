@@ -83,7 +83,6 @@ const EditBooking = () => {
             startTime: startDate.toISOString(),
             endTime: endDate.toISOString()
         };
-		console.log("Updating booking with:", updatedBooking);
 
         try {
             await API.put(`/admin/bookings/${id}`, updatedBooking);
@@ -135,7 +134,6 @@ const EditBooking = () => {
 				<select
 				value={booking.tableId ? booking.tableId.toString() : ''}
 				onChange={(e) => {
-					console.log("New table id:", e.target.value);
 					setBooking({ ...booking, tableId: e.target.value });
 				}}
 				>
