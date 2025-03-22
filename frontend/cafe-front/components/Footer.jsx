@@ -40,16 +40,16 @@ export default function Footer() {
                                 <li><Link to='/contact'>{t('footer.Contact')}</Link></li>
                                 <li><Link to='/'>{t('footer.Careers')}</Link></li>
                                 <li><Link to='/'>{t('footer.Partners')}</Link></li>
-                                <li><Link to='/'>{t('footer.Privacy Policy')}</Link></li>
+                                <li><Link to='/privacy-policy'>{t('footer.Privacy Policy')}</Link></li>
                             </ul>
                         </div>
                         <div>
-                            <h4>Opening Hours</h4>
+                            <h4>{t('footer.Opening hours')}</h4>
                             <ul className="text-md leading-loose">
-                                <li>Monday - Thursday 16:00 - 24:00 </li>
-                                <li>Friday 16:00 - 02:00</li>
-                                <li>Saturday 14:00 - 02:00 </li>
-                                <li>Sunday Closed</li>
+                                <li>{t('footer.Weekdays')} 16:00 - 24:00 </li>
+                                <li>{t('footer.Friday')} 16:00 - 02:00</li>
+                                <li>{t('footer.Saturday')} 14:00 - 02:00 </li>
+                                <li>{t('footer.Sunday-Close')}</li>
                             </ul>
                         </div>
                         <div>

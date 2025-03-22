@@ -11,8 +11,9 @@ import { AuthContext } from '../context/AuthContext';
 import { Navigate } from 'react-router-dom';
 import { useContext } from 'react';
 import Contact from '../routes/Contact';
-import './App.css'
+import './App.css';
 import Bookings from '../routes/Bookings';
+import PrivacyPolicy from '../routes/PrivacyPolicy';
 import EditBooking from '../routes/admin/EditBooking';
 import EditEvents from '../routes/admin/EditEvents';
 import EditTables from '../routes/admin/EditTables';
@@ -47,6 +48,7 @@ function App() {
 		<Route path='/admin/edit-tables' element={<AdminRoute element={<EditTables />} />} />
         <Route path="/admin/edit-booking/:id" element={<AdminRoute element={<EditBooking />} />} />
         <Route path='/contact' element={<Contact />} />
+        <Route path='/privacy-policy' element={<PrivacyPolicy />} />
         <Route path='/service' element={<Service />} />
         <Route path='/ServiceProduct/:serviceId' element={<ServiceProduct />} />
       </Routes>
