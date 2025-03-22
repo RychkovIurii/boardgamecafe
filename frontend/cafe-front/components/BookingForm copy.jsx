@@ -1,6 +1,7 @@
 import React , { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Style/BookingFormStyles.css';
+import Swal from 'sweetalert2';
 import API from '../api/axios';
 import {
   Stepper,
@@ -435,10 +436,6 @@ export default function BookingForm() {
       const response = await API.post('/bookings', bookingData);
       console.log(response)
       setSuccess(true);
-      alert("Booking created successfully!");
-	  setTimeout(() => {
-        navigate('/');
-      }, 2000);
       setInputs({
         date: "",
         startTime: "",
@@ -450,6 +447,14 @@ export default function BookingForm() {
         contactName: "",
         contactPhone: ""
       });
+	  Swal.fire({
+		icon: 'success',
+		title: 'Booking Confirmed!',
+		text: 'Thank you! Your table is now reserved.',
+		confirmButtonText: 'Go to Home',
+	  }).then(() => {
+		navigate('/');
+	  });
     }
     catch (error) {
       setError(error.response?.data?.message || "Error creating booking");
