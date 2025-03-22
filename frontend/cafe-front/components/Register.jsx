@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import API from '../api/axios';
 import { useTranslation } from 'react-i18next';
 import './Style/RegisterStyles.css';
+import Swal from 'sweetalert2';
 
 const Register = ({ onToggleForm }) => {
 	const { t } = useTranslation();
@@ -25,13 +26,20 @@ const Register = ({ onToggleForm }) => {
 		e.preventDefault();
 		try {
 			const response = await API.post('/users/register', formData);
-			alert(t("register.successMessage"));
-			console.log('Registration successful:', response.data);
-
+			await Swal.fire({
+				icon: 'success',
+				title: t("register.successTitle"),
+				text: t("register.successMessage"),
+				confirmButtonText: t("register.confirmButton")
+			});
 			navigate('/sign-in');
 		} catch (error) {
-			alert(t("register.errorMessage"));
-			console.error('Error registering:', error);
+			await Swal.fire({
+				icon: 'error',
+				title: t("register.errorTitle"),
+				text: t("register.errorMessage"),
+				confirmButtonText: t("register.confirmButton")
+			});
 		}
 	};
 

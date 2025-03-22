@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import API from '../../api/axios';
 import { useNavigate } from 'react-router-dom';
 import AdminNavbar from '../../components/admin/AdminNavbar';
+import Swal from 'sweetalert2';
 
 const AdminDashboard = () => {
     const [upcomingBookings, setUpcomingBookings] = useState([]);
@@ -40,16 +41,40 @@ const AdminDashboard = () => {
     };
 
     const handleDelete = async (id) => {
-        if (window.confirm('Are you sure you want to delete this booking?')) {
-            try {
-                await API.delete(`/admin/bookings/${id}`);
-                setUpcomingBookings(prev => prev.filter(booking => booking._id !== id));
-            } catch (error) {
-                console.error('Error deleting booking:', error);
-                alert('Failed to delete booking');
-            }
-        }
-    };
+		try {
+			const result = await Swal.fire({
+				title: 'Are you sure?',
+				text: 'This booking will be permanently deleted.',
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#d33',
+				cancelButtonColor: '#3085d6',
+				confirmButtonText: 'Yes, delete it!',
+				cancelButtonText: 'Cancel'
+			});
+	
+			if (!result.isConfirmed) return;
+	
+			await API.delete(`/admin/bookings/${id}`);
+			setUpcomingBookings(prev => prev.filter(booking => booking._id !== id));
+	
+			await Swal.fire({
+				icon: 'success',
+				title: 'Deleted!',
+				text: 'The booking has been deleted.',
+				timer: 1500,
+				showConfirmButton: false
+			});
+		} catch (error) {
+			console.error('Error deleting booking:', error);
+	
+			await Swal.fire({
+				icon: 'error',
+				title: 'Delete Failed',
+				text: 'Something went wrong while deleting the booking.'
+			});
+		}
+	};
 
     const filteredBookings = upcomingBookings.filter(booking => {
 		// Check the search filter
