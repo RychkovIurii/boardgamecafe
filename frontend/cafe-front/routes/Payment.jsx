@@ -5,6 +5,7 @@ import {
   EmbeddedCheckout
 } from '@stripe/react-stripe-js';
 import { Navigate, useNavigate } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import API from '../api/axios';
 import Swal from 'sweetalert2';
 
@@ -12,10 +13,13 @@ import Swal from 'sweetalert2';
 const stripePromise = loadStripe(import.meta.env.VITE_APP_STRIPE_PUBLIC_KEY);
 
 export const CheckoutForm = () => {
+	const [searchParams] = useSearchParams();
+	const bookingId = searchParams.get("bookingId");
 	const fetchClientSecret = useCallback(() => {
-	  return API.post("payment/create-checkout-session")
-		.then((res) => res.data.clientSecret);
-	}, []);
+	  return API.post("payment/create-checkout-session", {
+		bookingId
+	}).then((res) => res.data.clientSecret);
+	}, [bookingId]);
 
   const options = { fetchClientSecret };
 
