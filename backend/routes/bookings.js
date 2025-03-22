@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Booking = require('../models/Booking');
 const Table = require('../models/Table');
+const Payment = require('../models/Payment');
 const { authenticate } = require('../middleware/auth');
 const { validateBooking } = require('../utils/bookingValidation');
 const { validateOverlappingBookings } = require('../utils/validateOverlappingBookings');
@@ -35,12 +36,12 @@ router.post('/', async (req, res) => {
     let { date, startTime, duration, tableNumber, players, game, userId, contactName, contactPhone, amount, paymentMethod } = req.body;
 
 	// Validate booking details
-	const validationResult = validateBooking(date, startTime, duration);
+	const validationResult = await validateBooking(date, startTime, duration);
     if (!validationResult.isValid) {
         return res.status(400).json({ message: validationResult.message });
     }
 
-	if (!tableNumber || tableNumber < 1 || tableNumber > 27) {
+	if (!tableNumber || tableNumber < 1 || tableNumber > 50) {
         return res.status(400).json({ message: 'Invalid table number' });
     }
 	const table = await Table.findOne({ number: tableNumber });
@@ -112,7 +113,7 @@ router.get('/my-bookings', authenticate, async (req, res) => {
 router.put('/my-bookings/:id', authenticate, async (req, res) => {
     const { date, startTime, duration, tableId, players, game, contactName, contactPhone } = req.body;
 
-    const validationResult = validateBooking(date, startTime, duration);
+    const validationResult = await validateBooking(date, startTime, duration);
     if (!validationResult.isValid) {
         return res.status(400).json({ message: validationResult.message });
     }
