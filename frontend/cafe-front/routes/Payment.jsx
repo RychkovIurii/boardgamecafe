@@ -4,8 +4,10 @@ import {
   EmbeddedCheckoutProvider,
   EmbeddedCheckout
 } from '@stripe/react-stripe-js';
-import { Navigate } from "react-router-dom";
-import API from '../api/axios'; 
+import { Navigate, useNavigate } from 'react-router-dom';
+import API from '../api/axios';
+import Swal from 'sweetalert2';
+
 
 const stripePromise = loadStripe(import.meta.env.VITE_APP_STRIPE_PUBLIC_KEY);
 
@@ -32,6 +34,7 @@ export const CheckoutForm = () => {
 export const Return = () => {
   const [status, setStatus] = useState(null);
   const [customerEmail, setCustomerEmail] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const queryString = window.location.search;
@@ -45,21 +48,21 @@ export const Return = () => {
       });
   }, []);
 
-  if (status === 'open') {
-    return (
-      <Navigate to="/checkout" />
-    );
-  }
+  useEffect(() => {
+    if (status === 'complete') {
+      Swal.fire({
+        icon: 'success',
+        title: 'Payment Complete!',
+        text: `A confirmation email was sent to ${customerEmail}.`,
+        confirmButtonText: 'Return to Home',
+      }).then(() => {
+        navigate('/');
+      });
+    }
+  }, [status, customerEmail, navigate]);
 
-  if (status === 'complete') {
-    return (
-      <section id="success">
-        <p>
-          A confirmation email will be sent to {customerEmail}.
-          If you have any questions, please email <a href="mailto:orders@example.com">orders@example.com</a>.
-        </p>
-      </section>
-    );
+  if (status === 'open') {
+    return <Navigate to="/checkout" />;
   }
 
   return null;
