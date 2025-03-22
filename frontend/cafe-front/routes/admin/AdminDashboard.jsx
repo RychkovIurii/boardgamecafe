@@ -79,6 +79,9 @@ const AdminDashboard = () => {
     const filteredBookings = upcomingBookings.filter(booking => {
 		// Check the search filter
 		const matchesSearch = booking.userId?.name?.toLowerCase().includes(search.toLowerCase()) ||
+			booking.contactName?.toLowerCase().includes(search.toLowerCase()) ||
+			booking.userId?.phone?.toLowerCase().includes(search.toLowerCase()) ||
+			booking.contactPhone?.toLowerCase().includes(search.toLowerCase()) ||
 			booking.tableId?.number?.toString().includes(search) ||
 			booking.game?.toLowerCase().includes(search.toLowerCase());
 	
@@ -116,7 +119,7 @@ const AdminDashboard = () => {
             <h1 style={{ marginTop: '30px' }}>Admin Dashboard</h1>
             <input 
                 type="text" 
-                placeholder="Search by user, table, or game" 
+                placeholder="Search by user, phone, table, or game" 
                 value={search} 
                 onChange={(e) => setSearch(e.target.value)}
             />
