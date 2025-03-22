@@ -7,7 +7,7 @@
     "test": "jest",
     "start": "node src/server.js",
     "seed": "node config/seed.js",
-	"seedMenu": "node config/seedMenu.js"
+    "seedMenu": "node config/seedMenu.js"
   },
   "keywords": [],
   "author": "",
@@ -19,7 +19,8 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.9.4"
+    "mongoose": "^8.9.4",
+    "stripe": "^17.7.0"
   },
   "devDependencies": {
     "jest": "^29.7.0",

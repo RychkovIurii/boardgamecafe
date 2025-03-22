@@ -10,6 +10,7 @@ const adminRoutes = require('./admin');
 const tableRoutes = require('./tables');
 const eventRoutes = require('./events');
 const pricesRoutes = require('./prices');
+const paymentRoutes = require('./payment');
 
 // Mount all routes
 router.use('/bookings', bookingRoutes);
@@ -18,5 +19,6 @@ router.use('/users', userRoutes);
 router.use('/admin', adminRoutes);
 router.use('/events', eventRoutes);
 router.use('/prices', pricesRoutes);
+router.use('/payment', paymentRoutes);
 
 module.exports = router;
