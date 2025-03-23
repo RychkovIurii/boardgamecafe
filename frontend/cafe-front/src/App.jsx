@@ -20,9 +20,10 @@ import EditTables from '../routes/admin/EditTables';
 import EditPricing from '../routes/admin/EditPricing';
 import Service from '../routes/Service';
 import ServiceProduct from '../routes/ServiceProduct';
+import Profile from '../routes/Profile';
 
 function App() {
-	
+
   const { isAuthenticated, isCheckingAuth } = useContext(AuthContext);
   const AdminRoute = ({ element }) => {
     if (isCheckingAuth) return <div>Loading...</div>;
@@ -47,7 +48,8 @@ function App() {
         <Route path='/contact' element={<Contact />} />
         <Route path='/privacy-policy' element={<PrivacyPolicy />} />
         <Route path='/service' element={<Service />} />
-        <Route path='/ServiceProduct/:serviceId' element={<ServiceProduct />} />
+        <Route path='/service-product/:serviceId' element={<ServiceProduct />} />
+        <Route path='/profile' element={<Profile />} />
       </Routes>
     </div>
   )
