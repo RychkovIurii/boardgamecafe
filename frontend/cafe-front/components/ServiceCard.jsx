@@ -1,11 +1,12 @@
 import React from 'react'
 
 import { serviceMenu } from '../assets/image_assets/assets';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 function ServiceCard() {
 
     const navigate = useNavigate()
+    const location = useLocation();
 
     return (
         <div className="py-20 max-w-4xl mx-auto dark:bg-gray-800">
@@ -19,16 +20,22 @@ function ServiceCard() {
             {/* ServiceMenu */}
             <div className='w-full grid grid-cols-5 gap-4 pt-5 gap-y-6 px-3 sm:px-0'>
                 {serviceMenu.map((item, index) => (
-                    <div key={index} onClick={() => { navigate(`/ServiceProduct/${item._id}`); scrollTo(0, 0) }} className='border border-yellow-800 rounded-xl 
+                    <div key={index} onClick={() => { navigate(`/service-product/${item._id}`); scrollTo(0, 0) }} className='border border-yellow-800 rounded-xl 
                 overflow-hidden cursor-pointer hover:translate-y-[-10px] transition-all duration-500'>
-                        <img className='w-full h-[250px] object-cover bg-blue-50' src={item.img[0]} alt="service_menu"  />
+                        <img className='w-full h-[250px] object-cover bg-blue-50' src={item.img[0]} alt="service_menu" />
                         <div className='p-3'>
                             <p className='text-gray-900 text-lg font-medium'>{item.title}</p>
                         </div>
+
                     </div>
+
                 ))}
             </div>
-            <button onClick={() => { navigate(`/contact`); scroll(0, 0) }} className='bg-amber-200 text-gray-600 text-2xl px-12 py=3 rounded-full mt-10'>contact us</button>
+
+            { }
+            <button onClick={() => {
+                navigate('/contact'); scroll(0, 0)
+            }} className='bg-amber-200 text-gray-600 text-2xl px-12 py-3 rounded-full mt-10'>contact us</button >
 
 
         </div>
