@@ -36,6 +36,15 @@ const validateBooking = async (date, startTime, duration) => {
 		return { isValid: false, message: "Invalid starttime format. Use HH:mm." };
 	}
 
+	const minutes = startHelsinkiTime.minutes();
+	if (minutes !== 0 && minutes !== 30) {
+		return {
+			isValid: false,
+			message: 'Start time must be on the hour or half-hour (e.g. 14:00 or 14:30).'
+		};
+	}
+
+
 	// Check if the booking is in the past
 	if (startHelsinkiTime.isBefore(now)) {
 		return { isValid: false, message: "Booking cannot be in the past." };
