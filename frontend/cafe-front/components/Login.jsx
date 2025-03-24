@@ -4,9 +4,7 @@ import API from '../api/axios';
 import { useTranslation } from 'react-i18next';
 import { AuthContext } from '../context/AuthContext';
 import './Style/LoginStyles.css';
-
-//Think about implenting mui alert
-//https://mui.com/components/alert/
+import Swal from 'sweetalert2';
 
 const Login = ({ onToggleForm }) => {
 	const { t } = useTranslation();
@@ -17,8 +15,6 @@ const Login = ({ onToggleForm }) => {
 		password: ''
 	});
 
-	const [error, setError] = useState('');
-
 	const handleChange = (e) => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	};
@@ -28,7 +24,12 @@ const Login = ({ onToggleForm }) => {
 		try {
 			const response = await API.post('/users/login', formData);
 			const { role } = response.data;
-			alert(t("login.successMessage"));
+			await Swal.fire({
+				icon: 'success',
+				title: t("login.successTitle"),
+				text: t("login.successMessage"),
+				confirmButtonText: t("login.confirmButton")
+			  });
 			login(role);
 			if (role === 'admin') {
 				navigate('/admin');
@@ -36,8 +37,13 @@ const Login = ({ onToggleForm }) => {
 				navigate('/');
 			}
 		} catch (error) {
-			setError(t("login.errorMessage"));
-		}
+			await Swal.fire({
+				icon: 'error',
+				title: t("login.errorTitle"),
+				text: t("login.errorMessage"),
+				confirmButtonText: t("login.confirmButton")
+				});
+			}
 	};
 
 	return (

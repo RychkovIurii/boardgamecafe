@@ -31,7 +31,7 @@ describe('POST /bookings', () => {
 				duration: 60,
 				tableNumber: "20",
 				players: 4,
-				gameId: "679b55131b5b9256a1458cf1",
+				game: "679b55131b5b9256a1458cf1",
 				userId: "679b55131b5b9256a1458ced",
 				contactName: "John Doe",
 				contactPhone: "123-456-7890",

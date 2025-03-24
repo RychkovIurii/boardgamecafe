@@ -1,6 +1,8 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import API from '../api/axios';
+import Swal from 'sweetalert2';
+import { useTranslation } from 'react-i18next';
 
 export const AuthContext = createContext();
 
@@ -8,6 +10,7 @@ const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [isCheckingAuth, setIsCheckingAuth] = useState(true);
     const navigate = useNavigate();
+	const { t } = useTranslation();
 
 	useEffect(() => {
 		const checkAuth = async () => {
@@ -50,8 +53,13 @@ const AuthProvider = ({ children }) => {
             await API.post('/users/logout');
 			localStorage.removeItem('accessToken');
             setIsAuthenticated(false);
-            alert('Logged out successfully!');
-            navigate('/');
+            await Swal.fire({
+				icon: 'success',
+				title: t('logout.successTitle'),
+				text: t('logout.successMessage'),
+				confirmButtonText: t('logout.confirmButton')
+			});
+			navigate('/');
         } catch (error) {
             console.error('Error logging out:', error.message);
         }
