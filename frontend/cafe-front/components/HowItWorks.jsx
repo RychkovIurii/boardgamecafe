@@ -1,10 +1,12 @@
 import React from 'react';
 import { steps } from '../assets/image_assets/assets';
 import { assets } from '../assets/image_assets/assets';
+import { useTranslation } from 'react-i18next';
 
 
 
 const HowItWorks = () => {
+	const { t } = useTranslation();
     return (
         <div className="py-20 max-w-4xl mx-auto dark:bg-gray-800">
             <h2 className="text-4xl md:text-5xl font-black text-yellow-500 mb-10">
@@ -28,19 +30,19 @@ const HowItWorks = () => {
 
                     {/* Step Content */}
                     <div className="pt-1 pb-10 text-left">
-                        <p className="mb-2 text-xl font-bold text-gray-900 dark:text-slate-300">{item.label}</p>
-                        <p className="text-gray-600 dark:text-slate-400">{item.details.process.step1}</p>
+                        <p className="mb-2 text-xl font-bold text-gray-900 dark:text-slate-300">{t(item.label)}</p>
+                        <p className="text-gray-600 dark:text-slate-400">{t(item.details.process.step1)}</p>
                         {item.details.process.step2 && (
-                            <p className="mt-2 text-gray-600 dark:text-slate-400">{item.details.process.step2}</p>
+                            <p className="mt-2 text-gray-600 dark:text-slate-400">{t(item.details.process.step2)}</p>
                         )}
                         {item.details.process.step3 && (
-                            <p className="mt-2 text-gray-600 dark:text-slate-400">{item.details.process.step3}</p>
+                            <p className="mt-2 text-gray-600 dark:text-slate-400">{t(item.details.process.step3)}</p>
                         )}
 
                         {item.details.marks && (
                             <div className="mt-2">
-                                <p className="mt-2 text-gray-600 dark:text-slate-400">{item.details.marks.mark1}</p>
-                                <p className="mt-2 text-gray-600 dark:text-slate-400">{item.details.marks.mark2}</p>
+                                <p className="mt-2 text-gray-600 dark:text-slate-400">{t(item.details.marks.mark1)}</p>
+                                <p className="mt-2 text-gray-600 dark:text-slate-400">{t(item.details.marks.mark2)}</p>
                             </div>
                         )}
                     </div>

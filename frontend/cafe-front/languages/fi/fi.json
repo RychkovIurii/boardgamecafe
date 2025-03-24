@@ -67,6 +67,43 @@
     "successMessage": "Rekisteröinti onnistui!",
     "errorMessage": "Rekisteröinti epäonnistui. Yritä uudelleen."
   },
+  "home": {
+	"steps": {
+		"How to find us": "Kuinka löytää meidät",
+		"Ordering process": "Tilausprosessi",
+		"Need Help?": "Tarvitsetko apua?",
+		"Visit us at": "Vieraile osoitteessa Eerikinkatu 14, 00100 Helsinki, heti tunnelin jälkeen.",
+		"Accessibility": "Esteettömyys on rajallista portaiden ja kapeiden käytävien vuoksi. WC-tilamme eivät ole esteettömiä.",
+		"Pets": "Kahvila on allergiavapaa, joten lemmikit eivät ole sallittuja sisätiloissa, opaskoiria lukuun ottamatta.",
+		"Go to counter": "Mene tiskille saadaksesi opastusta järjestelmään.",
+		"Pay first": "Maksa ensin pelimaksu kassalla ennen pöytään siirtymistä, vaikka ryhmäsi olisi jo saapunut.",
+		"Ask menu": "Kysy rohkeasti ruokalistastamme.",
+		"No outside food": "Omien ruokien ja juomien tuonti ei ole sallittua.",
+		"Use our menu": "Toivomme, että käytät kattavaa ruoka- ja juomalistaamme. Päivitämme listaa toiveiden mukaan.",
+		"Staff help": "Henkilökuntamme auttaa peleissä, juomissa ja hauskan kokemuksen luomisessa.",
+		"Tutorial offer": "Jos aikaa riittää, voimme antaa lyhyen peliopastuksen tai jopa pelata kanssasi, jos ryhmästäsi puuttuu pelaaja.",
+		"Safe place": "Toimintamme on turvallista ja hauskaa kaikille.",
+		"Respect games": "Toimintamme perustuu luottamukseen. Käsittele lautapelejä kunnioittavasti ja palauta ne asianmukaisesti."
+	},
+	"aboutMenu": {
+		"How it works": "Näin se toimii",
+		"Understand process": "Ymmärrä tilausprosessi ja kaikki olennaiset yksityiskohdat.",
+		"Menu": "Ruokalista",
+		"Explore pricing": "Tutustu pelimaksuihin ja herkullisiin ruokiin ja juomiin!",
+		"Service": "Palvelu",
+		"Staff help": "Ystävällinen henkilökuntamme auttaa sinua parhaaseen pelikokemukseen."
+	},
+	"serviceMenu": {
+		"RESTAURANT/CAFE/BAR": "RAVINTOLA/KAHVILA/BAARI",
+		"Restaurant detail": "Hyvin varusteltu keittiö valmistaa herkkuja kaikille pelaajille, ja yksityiset huoneet tarjoavat ylellisyyttä erikoistilanteisiin.",
+		"PRIVATE ROOMS": "YKSITYISET HUONEET",
+		"Private detail": "Juhli syntymäpäivää, perhejuhlia tai muita yksityistilaisuuksia. Tarjoamme puoliyksityisiä ja yksityisiä huoneita jopa 12 hengelle.",
+		"CORPORATE EVENTS": "YRITYSTAPAHTUMAT",
+		"Corporate detail": "Tarjoamme erinomaiset tilat kokouksille, tiimipäiville ja virkistystapahtumille. Valmiit paketit sisältävät murhamysteerilounaita, roolipelillisiä illallisia, yksityisiä karaoketilaisuuksia ja 90-luvun diskoja DJ:n johdolla.",
+		"COMMUNITY": "YHTEISÖ",
+		"Community detail": "Discord-kanavallamme on yli 1500 aktiivista jäsentä ja pelejä isännöivät usein suomalaiset pelikehittäjät."
+	}
+	},
   "contact": {
 		"heroTitle": "Pysy yhteydessä!",
     "heroText": "Onko sinulla kysyttävää tai haluatko vain tervehtiä? Ota rohkeasti yhteyttä, kuulemme mielellämme sinusta!",

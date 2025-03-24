@@ -1,13 +1,12 @@
 import React from 'react'
-
+import { useTranslation } from 'react-i18next';
 import { serviceMenu } from '../assets/image_assets/assets';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 function ServiceCard() {
-
     const navigate = useNavigate()
     const location = useLocation();
-
+	const { t } = useTranslation();
     return (
         <div className="py-20 max-w-4xl mx-auto dark:bg-gray-800">
             <h2 className="text-4xl md:text-5xl font-black text-yellow-500 mb-10">
@@ -24,7 +23,7 @@ function ServiceCard() {
                 overflow-hidden cursor-pointer hover:translate-y-[-10px] transition-all duration-500'>
                         <img className='w-full h-[250px] object-cover bg-blue-50' src={item.img[0]} alt="service_menu" />
                         <div className='p-3'>
-                            <p className='text-gray-900 text-lg font-medium'>{item.title}</p>
+                            <p className='text-gray-900 text-lg font-medium'>{t(item.title)}</p>
                         </div>
 
                     </div>

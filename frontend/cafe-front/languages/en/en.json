@@ -78,6 +78,43 @@
 		"errorMessage": "Registration failed. Please try again.",
 		"confirmButton": "Continue"
 	},
+	"home": {
+		"steps": {
+			"How to find us": "How to find us",
+			"Ordering process": "Ordering process",
+			"Need Help?": "Need Help?",
+			"Visit us at": "Visit us at Eerikinkatu 14, 00100 Helsinki, right after the tunnel.",
+			"Accessibility": "Accessibility is limited due to stairs and narrow corridors. Our toilet facilities do not accommodate reduced mobility.",
+			"Pets": "Our cafe is allergy-free, so Pets are not allowed indoors, except guide dogs.",
+			"Go to counter": "Head to the counter for guidance through the system.",
+			"Pay first": "First, pay the gaming fee at the cashier before heading to your table, even if your group has already arrived.",
+			"Ask menu": "Feel free to ask about our menu.",
+			"No outside food": "Outside food and drinks are not allowed.",
+			"Use our menu": "We hope you will use our extensive food and drink menu. We will update the list according to wishes.",
+			"Staff help": "Our staff is here to help with games, drinks, and creating a fun experience.",
+			"Tutorial offer": "If we have time, we can even give a short tutorial on the game or even play with your party if there's a player missing.",
+			"Safe place": "Our establishment is a safe and fun place for everyone.",
+			"Respect games": "Our operations are based on trust. Treat the board games respectfully and return them properly."
+		},
+		"aboutMenu": {
+			"How it works": "How it works",
+			"Understand process": "Understand the ordering process and get all the key details.",
+			"Menu": "Menu",
+			"Explore pricing": "Explore our gaming fees and enjoy delicious food & drinks!",
+			"Service": "Service",
+			"Staff help": "Let our friendly staff assist you for the best board game experience."
+		},
+		"serviceMenu": {
+			"RESTAURANT/CAFE/BAR": "RESTAURANT/CAFE/BAR",
+			"Restaurant detail": "A well-equipped kitchen prepares delicious treats for all players, and private rooms offer a touch of luxury for those looking for a special experience.",
+			"PRIVATE ROOMS": "PRIVATE ROOMS",
+			"Private detail": "Celebrate your birthday, family reunion or any other private event. We offer semi-private and private rooms. Seats up to 12 guests.",
+			"CORPORATE EVENTS": "CORPORATE EVENTS",
+			"Corporate detail": "We provide excellent facilities for corporate events, including meetings, team-building days, and recreational events. Ready-made packages include murder mystery lunches, role-playing dinners, private karaoke nights, and '90s discos with a dedicated DJ.",
+			"COMMUNITY": "COMMUNITY",
+			"Community detail": "Discord channel has over 1,500 active members, and games are often hosted by Finnish game developers."
+		}
+	},
 	"contact": {
 		"heroTitle": "Get in Touch!",
 		"heroText": "Have a question or just want to say hi? Feel free to reach out we’d love to hear from you!",
