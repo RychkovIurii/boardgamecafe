@@ -9,7 +9,7 @@ const Register = ({ onToggleForm }) => {
 	const { t } = useTranslation();
 	const navigate = useNavigate();
 	const [formData, setFormData] = useState({
-		username: '',
+		name: '',
 		phone: '',
 		email: '',
 		password: ''
