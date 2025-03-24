@@ -4,7 +4,7 @@
 		"Pricing": "Hinnoittelu",
 		"Events": "Tapahtumat",
 		"Booking": "Pöytävaraus",
-		"Service": "Palvelu",
+		"Service": "Palvelut",
 		"Profile": "Profiili",
 		"My bookings": "Varaukseni",
 		"SignIn": "Kirjaudu sisään",
@@ -37,7 +37,7 @@
 		"Weekdays": "Maanantai - Torstai",
 		"Friday": "Perjantai",
 		"Saturday": "Lauantai",
-		"Sunday-Close": "Sunnuntai Sulkeutuu",
+		"Sunday-Close": "Sunnuntai suljettu",
 		"awards": "Palkinnot"
 	},
 	"login": {
@@ -90,7 +90,7 @@
 			"Understand process": "Ymmärrä tilausprosessi ja kaikki olennaiset yksityiskohdat.",
 			"Menu": "Ruokalista",
 			"Explore pricing": "Tutustu pelimaksuihin ja herkullisiin ruokiin ja juomiin!",
-			"Service": "Palvelu",
+			"Service": "Palvelut",
 			"Staff help": "Ystävällinen henkilökuntamme auttaa sinua parhaaseen pelikokemukseen."
 		},
 		"serviceMenu": {

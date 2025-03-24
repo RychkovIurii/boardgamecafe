@@ -4,7 +4,7 @@
 		"Pricing": "Pricing",
 		"Events": "Events",
 		"Booking": "Booking",
-		"Service": "Service",
+		"Service": "Services",
 		"Profile": "Profile",
 		"My bookings": "My bookings",
 		"SignIn": "SignIn",
@@ -37,7 +37,7 @@
 		"Weekdays": "Monday - Thursday",
 		"Friday": "Friday",
 		"Saturday": "Saturday",
-		"Sunday-Close": "Sunday Close",
+		"Sunday-Close": "Sunday Closed",
 		"awards": "Awards"
 	},
 	"login": {
@@ -101,7 +101,7 @@
 			"Understand process": "Understand the ordering process and get all the key details.",
 			"Menu": "Menu",
 			"Explore pricing": "Explore our gaming fees and enjoy delicious food & drinks!",
-			"Service": "Service",
+			"Service": "Services",
 			"Staff help": "Let our friendly staff assist you for the best board game experience."
 		},
 		"serviceMenu": {
