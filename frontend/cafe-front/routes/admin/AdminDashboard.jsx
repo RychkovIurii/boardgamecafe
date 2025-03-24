@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import API from '../../api/axios';
 import { useNavigate } from 'react-router-dom';
 import AdminNavbar from '../../components/admin/AdminNavbar';
+import Swal from 'sweetalert2';
 
 const AdminDashboard = () => {
     const [upcomingBookings, setUpcomingBookings] = useState([]);
@@ -40,22 +41,49 @@ const AdminDashboard = () => {
     };
 
     const handleDelete = async (id) => {
-        if (window.confirm('Are you sure you want to delete this booking?')) {
-            try {
-                await API.delete(`/admin/bookings/${id}`);
-                setUpcomingBookings(prev => prev.filter(booking => booking._id !== id));
-            } catch (error) {
-                console.error('Error deleting booking:', error);
-                alert('Failed to delete booking');
-            }
-        }
-    };
+		try {
+			const result = await Swal.fire({
+				title: 'Are you sure?',
+				text: 'This booking will be permanently deleted.',
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#d33',
+				cancelButtonColor: '#3085d6',
+				confirmButtonText: 'Yes, delete it!',
+				cancelButtonText: 'Cancel'
+			});
+	
+			if (!result.isConfirmed) return;
+	
+			await API.delete(`/admin/bookings/${id}`);
+			setUpcomingBookings(prev => prev.filter(booking => booking._id !== id));
+	
+			await Swal.fire({
+				icon: 'success',
+				title: 'Deleted!',
+				text: 'The booking has been deleted.',
+				timer: 1500,
+				showConfirmButton: false
+			});
+		} catch (error) {
+			console.error('Error deleting booking:', error);
+	
+			await Swal.fire({
+				icon: 'error',
+				title: 'Delete Failed',
+				text: 'Something went wrong while deleting the booking.'
+			});
+		}
+	};
 
     const filteredBookings = upcomingBookings.filter(booking => {
 		// Check the search filter
 		const matchesSearch = booking.userId?.name?.toLowerCase().includes(search.toLowerCase()) ||
+			booking.contactName?.toLowerCase().includes(search.toLowerCase()) ||
+			booking.userId?.phone?.toLowerCase().includes(search.toLowerCase()) ||
+			booking.contactPhone?.toLowerCase().includes(search.toLowerCase()) ||
 			booking.tableId?.number?.toString().includes(search) ||
-			booking.gameId?.title?.toLowerCase().includes(search.toLowerCase());
+			booking.game?.toLowerCase().includes(search.toLowerCase());
 	
 		// Convert booking date to a Date object for comparisons
 		const bookingDate = new Date(booking.date);
@@ -91,7 +119,7 @@ const AdminDashboard = () => {
             <h1 style={{ marginTop: '30px' }}>Admin Dashboard</h1>
             <input 
                 type="text" 
-                placeholder="Search by user, table, or game" 
+                placeholder="Search by user, phone, table, or game" 
                 value={search} 
                 onChange={(e) => setSearch(e.target.value)}
             />
@@ -136,7 +164,7 @@ const AdminDashboard = () => {
                             <td style={{ border: '1px solid black', padding: '8px' }}>{new Date(booking.startTime).toLocaleTimeString()}</td>
                             <td style={{ border: '1px solid black', padding: '8px' }}>{new Date(booking.endTime).toLocaleTimeString()}</td>
                             <td style={{ border: '1px solid black', padding: '8px' }}>{booking.tableId ? booking.tableId.number : 'No Table Assigned'}</td>
-                            <td style={{ border: '1px solid black', padding: '8px' }}>{booking.gameId ? booking.gameId.title : ' '}</td>
+                            <td style={{ border: '1px solid black', padding: '8px' }}>{booking.game || ' '}</td>
                             <td style={{ border: '1px solid black', padding: '8px' }}>
                                 {booking.userId ? 
                                     <a href={`/admin/users/${booking.userId._id}`}>{booking.userId.name}</a> 

@@ -1,29 +1,26 @@
-const fs = require('fs');
-const path = require('path');
 const { convertToHelsinkiTime, adjustEndTimeIfNeeded } = require('../utils/timeUtils');
+const { WorkingHours, SpecialHours } = require('../models/WorkingHours');
+const moment = require('moment-timezone');
 
-const WORKING_HOURS_FILE = path.join(__dirname, '../workingHours.txt');
+const getWorkingHours = async () => {
+	try {
+		const hoursFromDb = await WorkingHours.find({});
+		
+		const workingHours = {};
 
-const parseWorkingHours = (data) => {
-    const lines = data.split('\n').filter(line => line.trim() !== '');
-    const workingHours = {};
+		hoursFromDb.forEach(({ day, openTime, closeTime }) => {
+			if (!openTime || !closeTime) {
+				workingHours[day] = { start: 'CLOSED', end: 'CLOSED' };
+			} else {
+				workingHours[day] = { start: openTime, end: closeTime };
+			}
+		});
 
-    lines.forEach(line => {
-        const [day, hours] = line.split(': ');
-        if (hours === 'Closed') {
-            workingHours[day] = { start: 'CLOSED', end: 'CLOSED' };
-        } else {
-            const [start, end] = hours.split('-');
-            workingHours[day] = { start, end };
-        }
-    });
-
-    return workingHours;
-};
-
-const getWorkingHours = () => {
-    const data = fs.readFileSync(WORKING_HOURS_FILE, 'utf-8');
-    return parseWorkingHours(data);
+		return workingHours;
+	} catch (err) {
+		console.error('Failed to fetch working hours from DB:', err);
+		throw err;
+	}
 };
 
 /**
@@ -33,28 +30,45 @@ const getWorkingHours = () => {
  * @param {moment.Moment} endTime - The booking end time.
  * @returns {boolean} - True if booking is within working hours.
  */
-const isWithinWorkingHours = (day, startTime, endTime) => {
-    const workingHours = getWorkingHours();
+const isWithinWorkingHours = async (date, day, startTime, endTime) => {
+    const workingHours = await getWorkingHours();
     const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const dayName = daysOfWeek[day];
 
-    const hours = workingHours[dayName];
+	const normalizedDate = new Date(date.clone().startOf('day').format('YYYY-MM-DD'));
+	const special = await SpecialHours.findOne({ date: normalizedDate });
+	let hours;
+	let reason = null;
+	if (special) {
+		hours = {
+			start: special.openTime || 'CLOSED',
+			end: special.closeTime || 'CLOSED'
+		};
+		reason = special.reason;
+	} else {
+		hours = workingHours[dayName];
+	}
 
     if (!hours || hours.start === 'CLOSED' || hours.end === 'CLOSED') {
-		console.log(`${dayName} is closed!`);
-        return false;
+		return {
+			valid: false,
+			message: reason
+				? `${dayName} is closed: ${reason}.`
+				: `${dayName} is closed.`
+		};
+    }
+	const workingStart = convertToHelsinkiTime(startTime.format('YYYY-MM-DD'), hours.start);
+	let workingEnd = convertToHelsinkiTime(startTime.format('YYYY-MM-DD'), hours.end);
+	workingEnd = adjustEndTimeIfNeeded(workingStart, workingEnd);
+
+	if (startTime.isBefore(workingStart) || endTime.isAfter(workingEnd)) {
+		return {
+			valid: false,
+			message: `Booking must be between ${hours.start} and ${hours.end} on ${dayName}.`
+		};
     }
 
-    const workingStart = convertToHelsinkiTime(startTime.format('YYYY-MM-DD'), hours.start).utc();
-    let workingEnd = convertToHelsinkiTime(startTime.format('YYYY-MM-DD'), hours.end)
-    workingEnd = adjustEndTimeIfNeeded(workingStart, workingEnd).utc();
-
-    if (startTime.isBefore(workingStart) || endTime.isAfter(workingEnd)) {
-        console.log('Booking time is outside working hours');
-        return false;
-    }
-
-    return true;
+    return { valid: true };
 };
 
 module.exports = { isWithinWorkingHours };

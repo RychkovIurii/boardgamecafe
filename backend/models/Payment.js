@@ -17,7 +17,7 @@ const paymentSchema = new mongoose.Schema({
     },
     paymentMethod: {
         type: String,
-        enum: ['credit_card', 'paypal', 'cash'],
+        enum: ['card', 'bancontact', 'eps', 'klarna'],
         required: [true, 'Payment method is required'],
     },
     transactionId: {

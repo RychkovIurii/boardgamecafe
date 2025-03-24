@@ -18,7 +18,6 @@ router.get('/upcoming-bookings', authenticate, authorizeAdmin, async (req, res) 
         const today = new Date();
 		const upcomingBookings = await Booking.find({ date: { $gte: today } })
 			.populate('tableId', 'number')
-			.populate('gameId', 'title')
 			.populate('userId', 'name email')
 			.populate({ path: 'paymentId', select: 'status amount paymentMethod' })
 			.sort({ date: 1, startTime: 1 });
@@ -42,7 +41,7 @@ router.get('/tables', authenticate, authorizeAdmin, async (req, res) => {
 // Fetch all bookings (Admin view) ONLY FOR ADMIN
 router.get('/all-bookings', authenticate, authorizeAdmin, async (req, res) => {
 	try {
-		const bookings = await Booking.find().populate('tableId').populate('gameId').populate('userId');
+		const bookings = await Booking.find().populate('tableId').populate('userId');
 		res.json(bookings);
 	} catch (error) {
 		console.error('Error fetching bookings:', error);
@@ -54,7 +53,6 @@ router.get('/bookings/:id', authenticate, authorizeAdmin, async (req, res) => {
     try {
         const booking = await Booking.findById(req.params.id)
             .populate('tableId', 'number')
-            .populate('gameId', 'title')
             .populate('userId', 'name email phone');
 
         if (!booking) {

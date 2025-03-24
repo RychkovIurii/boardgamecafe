@@ -73,7 +73,7 @@ function Games() {
                 linkClass="show"
                 url="/bookings"
             />
-            <h1 style={{marginTop: '30px'}}>The Collection of Games in Cafe Boardgame:</h1>
+            <h1 style={{ margin: '30px' }}>The Collection of Games in Cafe Boardgame:</h1>
 
             <input
             type="search"

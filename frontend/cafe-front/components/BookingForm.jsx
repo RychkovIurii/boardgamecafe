@@ -1,6 +1,7 @@
 import React , { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Style/BookingFormStyles.css';
+import Swal from 'sweetalert2';
 import API from '../api/axios';
 import {
   Stepper,
@@ -101,14 +102,13 @@ function StepOne({ inputs, handleChange, handleFilterChange }) {
 }
 
 function StepTwo({ inputs, handleChange, tables, setInputs }) {
-  console.log(tables)
   return (
     <Box>
       <Typography variant="h6" sx={{ fontFamily: "Fontdiner Swanky" }} gutterBottom>
-        Step 2: Optional Requests
+        Step 2: Table and Game
       </Typography>
       <div className='smallerText'>
-        Here you can optionally request a specific table or game. You can skip this step if you have no specific items to request. Please keep in mind that the Cafe reserves the right to change tables as needed.
+		You can request a game or table. Table is required, but we might adjust it if needed.
       </div>
       <label>Table: </label>
       <input
@@ -123,14 +123,14 @@ function StepTwo({ inputs, handleChange, tables, setInputs }) {
         required
       />
       <div className='tables'>Suggested: 
-         {tables.map((table) => <div key={table.number} className='table' onClick={(e) => {setInputs({ ...inputs, tableNumber: table.number }); console.log(inputs)}}> {table.number}</div> )} 
+         {tables.map((table) => <div key={table.number} className='table' onClick={(e) => {setInputs({ ...inputs, tableNumber: table.number });}}> {table.number}</div> )} 
       </div>
       <label>Game: </label>
       <input
         className='formInput'
         type='text'
-        name="gameId"
-        value={inputs.gameId || ""}
+        name="game"
+        value={inputs.game || ""}
         onChange={handleChange}
       />
       {/* <label>Other:</label>
@@ -167,6 +167,7 @@ export default function BookingForm() {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
   const [availability, setAvailability] = useState();
+  const [bookingId, setBookingId] = useState(null);
   const [filteredTables, setFilteredTables] = useState([]);
   const navigate = useNavigate();
   const [inputs, setInputs] = useState({
@@ -175,7 +176,7 @@ export default function BookingForm() {
     duration: "",
     tableNumber: "",
     players: "",
-    gameId: "",
+    game: "",
     userId: "",
     contactName: "",
     contactPhone: ""
@@ -211,12 +212,38 @@ export default function BookingForm() {
   }
 
   // Define the labels for each step.
-  const steps = ['Personal Info', 'Optional Requests', 'Submit'];
+  const steps = ['Personal Info', 'Table and Game', 'Submit'];
 
   // Handle next step
   const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    checkAvailability(inputs.players)
+	if (activeStep === 0) {
+	  // Step 1 validation
+	  const { contactName, contactPhone, players, date, startTime, duration } = inputs;
+	  if (!contactName || !contactPhone || !players || !date || !startTime || !duration) {
+		Swal.fire({
+		  icon: 'warning',
+		  title: 'Incomplete Information',
+		  text: 'Please fill in all required fields before continuing.',
+		});
+		return;
+	  }
+	}
+  
+	if (activeStep === 1) {
+	  // Step 2 validation
+	  if (!inputs.tableNumber) {
+		Swal.fire({
+		  icon: 'warning',
+		  title: 'Table Required',
+		  text: 'Please select or enter a table number before continuing.',
+		});
+		return;
+	  }
+	}
+  
+	// Everything is valid
+	setActiveStep((prevActiveStep) => prevActiveStep + 1);
+	checkAvailability(inputs.players);
   };
 
   // Handle previous step
@@ -255,7 +282,7 @@ export default function BookingForm() {
       duration: inputs.duration,
       tableNumber: inputs.tableNumber,
       players: parsedPlayers,
-      gameId: inputs.gameId || null,
+      game: inputs.game || null,
       userId: inputs.userId || null,
       contactName: inputs.contactName,
       contactPhone: inputs.contactPhone,
@@ -264,28 +291,47 @@ export default function BookingForm() {
 
     try {
       const response = await API.post('/bookings', bookingData);
-      console.log(response)
       setSuccess(true);
-      alert("Booking created successfully!");
-	  setTimeout(() => {
-        navigate('/');
-      }, 2000);
+	  const createdBookingId = response.data._id;
+	  setBookingId(createdBookingId);
       setInputs({
         date: "",
         startTime: "",
         duration: "",
         tableNumber: "",
         players: "",
-        gameId: "",
+        game: "",
         userId: "",
         contactName: "",
         contactPhone: ""
       });
+	  Swal.fire({
+		icon: 'success',
+		title: 'Booking Confirmed!',
+		text: 'Thank you! Your table is now reserved.',
+		showDenyButton: true,
+		confirmButtonText: 'Go to Home',
+		denyButtonText: 'Pay Now (Optional)',
+		}).then((result) => {
+			if (result.isConfirmed) {
+				navigate('/');
+			} else if (result.isDenied && createdBookingId) {
+				navigate(`/checkout?bookingId=${createdBookingId}`);
+			}
+		});
     }
     catch (error) {
-      setError(error.response?.data?.message || "Error creating booking");
-      console.log(error)
-    }
+		const errorMessage = error.response?.data?.message || "Error creating booking";
+	  
+		await Swal.fire({
+		  icon: 'error',
+		  title: 'Booking Failed',
+		  text: errorMessage,
+		  confirmButtonText: 'OK'
+		});
+	  
+		console.error(error);
+	  }
     finally {
       setLoading(false);
     }

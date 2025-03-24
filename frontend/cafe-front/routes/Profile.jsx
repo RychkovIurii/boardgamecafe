@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import API from '../api/axios'
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import Swal from 'sweetalert2';
 
 
 const Profile = () => {
@@ -29,9 +30,28 @@ const Profile = () => {
 
     const handleUpdate = async (e) => {
         e.preventDefault();
+		// Validate phone number format.
+		const cleaned = phone.replace(/\s+/g, '');
+		const isValid =
+		  (/^(\+358|0)\d{6,11}$/).test(cleaned) && !/[^\d+]/.test(phone);
+	  
+		if (!isValid) {
+		  await Swal.fire({
+			icon: 'warning',
+			title: 'Invalid Phone Number',
+			text: 'Please enter a valid Finnish phone number starting with +358 or 0.',
+			confirmButtonText: 'OK'
+		  });
+		  return;
+		}
         try {
-            await API.put('/users/phone', { phone });
-            alert('Phone number updated successfully');
+            await API.put('/users/phone', { phone: cleaned });
+            await Swal.fire({
+				icon: 'success',
+				title: 'Updated!',
+				text: 'Phone number updated successfully.',
+				confirmButtonText: 'OK'
+			  });
 
             //Fetch the latest data again after the update
             const response = await API.get('/users/profile');
@@ -40,7 +60,12 @@ const Profile = () => {
             setIsEdit(false);
         } catch (error) {
             console.error('Error updating phone number:', error);
-            alert('Failed to update phone number');
+            await Swal.fire({
+				icon: 'error',
+				title: 'Update Failed',
+				text: 'Failed to update phone number.',
+				confirmButtonText: 'OK'
+			  });
         }
     };
 

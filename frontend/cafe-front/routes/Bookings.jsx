@@ -1,7 +1,7 @@
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 /* import floorplan from '../assets/floorplan.png' */
-import BookingForm from '../components/BookingForm copy';
+import BookingForm from '../components/BookingForm';
 
 export default function Bookings() {
 	return (

@@ -18,8 +18,10 @@ import EditBooking from '../routes/admin/EditBooking';
 import EditEvents from '../routes/admin/EditEvents';
 import EditTables from '../routes/admin/EditTables';
 import EditPricing from '../routes/admin/EditPricing';
+import EditHours from '../routes/admin/EditHours';
 import Service from '../routes/Service';
 import ServiceProduct from '../routes/ServiceProduct';
+import { CheckoutForm, Return } from '../routes/Payment';
 import Profile from '../routes/Profile';
 
 function App() {
@@ -40,11 +42,14 @@ function App() {
         <Route path='/events' element={<Events />} />
         <Route path='/sign-in' element={<SignIn />} />
         <Route path='/bookings' element={<Bookings />} />
+		<Route path="/checkout" element={<CheckoutForm />} />
+        <Route path="/return" element={<Return />} />
         <Route path='/admin' element={<AdminRoute element={<AdminDashboard />} />} />
 		<Route path='/admin/edit-events' element={<AdminRoute element={<EditEvents />} />} />
 		<Route path='/admin/edit-pricing' element={<AdminRoute element={<EditPricing />} />} />
 		<Route path='/admin/edit-tables' element={<AdminRoute element={<EditTables />} />} />
         <Route path="/admin/edit-booking/:id" element={<AdminRoute element={<EditBooking />} />} />
+		<Route path="/admin/edit-hours" element={<AdminRoute element={<EditHours />} />} />
         <Route path='/contact' element={<Contact />} />
         <Route path='/privacy-policy' element={<PrivacyPolicy />} />
         <Route path='/service' element={<Service />} />

@@ -9,7 +9,7 @@ const moment = require('moment-timezone');
  * @param {number} duration - The booking duration in minutes.
  * @returns {object} - Object containing validation result and message.
  */
-const validateBooking = (date, startTime, duration) => {
+const validateBooking = async (date, startTime, duration) => {
     if (!duration || /*typeof duration !== 'number'|| */duration < 60 || duration % 30 !== 0) {
         return { isValid: false, message: 'Booking duration must be at least 60 minutes and in 30-minute intervals.' };
     }
@@ -36,6 +36,15 @@ const validateBooking = (date, startTime, duration) => {
 		return { isValid: false, message: "Invalid starttime format. Use HH:mm." };
 	}
 
+	const minutes = startHelsinkiTime.minutes();
+	if (minutes !== 0 && minutes !== 30) {
+		return {
+			isValid: false,
+			message: 'Start time must be on the hour or half-hour (e.g. 14:00 or 14:30).'
+		};
+	}
+
+
 	// Check if the booking is in the past
 	if (startHelsinkiTime.isBefore(now)) {
 		return { isValid: false, message: "Booking cannot be in the past." };
@@ -48,8 +57,9 @@ const validateBooking = (date, startTime, duration) => {
         return { isValid: false, message: 'Last booking shift is at 23:30. Please choose an earlier start time.' };
     }
 
-    if (!isWithinWorkingHours(day, startHelsinkiTime, endHelsinkiTime)) {
-        return { isValid: false, message: 'Booking time must be within working hours.' };
+	const withinHours = await isWithinWorkingHours(bookingDate, day, startHelsinkiTime, endHelsinkiTime);
+    if (!withinHours.valid) {
+        return { isValid: false, message: withinHours.message };
     }
 
     return { isValid: true, startHelsinkiTime, endHelsinkiTime };
