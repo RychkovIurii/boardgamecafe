@@ -1,4 +1,5 @@
-import React , { useState, useEffect } from 'react';
+import React , { useState, useEffect, useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import './Style/BookingFormStyles.css';
 import Swal from 'sweetalert2';
@@ -161,6 +162,7 @@ function StepThree({ inputs, handleChange, handleSubmit }) {
 
 
 export default function BookingForm() {
+  const { isAuthenticated, user } = useContext(AuthContext);
   const [tables, setTables] = useState([]);
   const [activeStep, setActiveStep] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -193,6 +195,16 @@ export default function BookingForm() {
     };
     fetchTables();
   }, []);
+
+  useEffect(() => {
+	if (isAuthenticated && user) {
+	  setInputs(prev => ({
+		...prev,
+		contactName: prev.contactName || user.name || '',
+		contactPhone: prev.contactPhone || user.phone || ''
+	  }));
+	}
+  }, [isAuthenticated, user]);
 
   function checkAvailability(people) {
 	if (people < 1) {
@@ -283,7 +295,7 @@ export default function BookingForm() {
       tableNumber: inputs.tableNumber,
       players: parsedPlayers,
       game: inputs.game || null,
-      userId: inputs.userId || null,
+      userId: isAuthenticated && user ? user._id : null,
       contactName: inputs.contactName,
       contactPhone: inputs.contactPhone,
       // id: window.crypto.randomUUID()
