@@ -12,18 +12,20 @@ import {
   Box,
   StepContent
 } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 /**
  StepOne, StepTwo, and StepThree are separated for clarity.
  You can define them inline, in separate files, or as your project needs.*/
-function StepOne({ inputs, handleChange, handleFilterChange }) {
+ function StepOne({ inputs, handleChange, handleFilterChange }) {
+  const { t } = useTranslation();
   return (
     <Box sx={{ fontFamily: "Fontdiner Swanky" }}>
       <Typography variant="h6" sx={{ fontFamily: "Fontdiner Swanky" }} gutterBottom>
-        Step 1: Personal Info
+      {t(`bookingFormCopy.step1`)}
       </Typography>
       <div className='formItem'>
-        <label>Name: </label>
+        <label>{t(`bookingFormCopy.step1Name`)}</label>
         <input
           className='formInput'
           type='text'
@@ -34,7 +36,7 @@ function StepOne({ inputs, handleChange, handleFilterChange }) {
         />
       </div>
       <div className='formItem'>
-        <label>Phone: </label>
+        <label>{t(`bookingFormCopy.step1Phone`)}</label>
         <input
           className='formInput'
           type='text'
@@ -45,7 +47,7 @@ function StepOne({ inputs, handleChange, handleFilterChange }) {
         />
       </div>
       <div className='formItem'>
-        <label> People*: </label>
+        <label>{t(`bookingFormCopy.step1People`)} </label>
         <input
           className='formInput'
           type='number'
@@ -54,13 +56,13 @@ function StepOne({ inputs, handleChange, handleFilterChange }) {
           name='players'
           value={inputs.players || ""}
           onChange={(e) => { handleChange(e)}}
-          placeholder="Number of Players"
+          placeholder={t(`bookingFormCopy.step1Number`)}
           required
         />
       </div>
-      (If your group has more than 8 people, please contact us directly for your booking)
+      {t(`bookingFormCopy.step1Text`)}
       <div className='formItem'>
-        <label>Date: </label>
+        <label>{t(`bookingFormCopy.step1Date`)} </label>
         <input
           className='formInput'
           type='date'
@@ -72,7 +74,7 @@ function StepOne({ inputs, handleChange, handleFilterChange }) {
         />
       </div>
       <div className='formItem'>
-        <label>Start time: </label>
+        <label>{t(`bookingFormCopy.step1Time`)} </label>
         <input
           className='formInput'
           type='time'
@@ -83,7 +85,7 @@ function StepOne({ inputs, handleChange, handleFilterChange }) {
         />
       </div>
       <div className='formItem'>
-        <label>Duration: </label>
+        <label>{t(`bookingFormCopy.step1Duration`)} </label>
         <input
           className='formInput'
           type='number'
@@ -92,7 +94,7 @@ function StepOne({ inputs, handleChange, handleFilterChange }) {
           onChange={handleChange}
           min={60}
           step={30}
-          placeholder="Duration (minutes)"
+          placeholder={t(`bookingFormCopy.step1DurationI`)}
           required
         />
 
@@ -102,15 +104,16 @@ function StepOne({ inputs, handleChange, handleFilterChange }) {
 }
 
 function StepTwo({ inputs, handleChange, tables, setInputs }) {
+  const { t } = useTranslation();
   return (
     <Box>
       <Typography variant="h6" sx={{ fontFamily: "Fontdiner Swanky" }} gutterBottom>
-        Step 2: Table and Game
+      {t(`bookingFormCopy.step2`)}
       </Typography>
       <div className='smallerText'>
-		You can request a game or table. Table is required, but we might adjust it if needed.
+      {t(`bookingFormCopy.step2Text`)}
       </div>
-      <label>Table: </label>
+      <label>{t(`bookingFormCopy.step2Table`)} </label>
       <input
         className='formInput'
         type='number'
@@ -118,14 +121,14 @@ function StepTwo({ inputs, handleChange, tables, setInputs }) {
         max={50}
         name='tableNumber'
         value={inputs.tableNumber || ""}
-        placeholder="Table number"
+        placeholder={t(`bookingFormCopy.step2TableNum`)} 
         onChange={handleChange}
         required
       />
-      <div className='tables'>Suggested: 
+      <div className='tables'>{t(`bookingFormCopy.step2Suggested`)} 
          {tables.map((table) => <div key={table.number} className='table' onClick={(e) => {setInputs({ ...inputs, tableNumber: table.number });}}> {table.number}</div> )} 
       </div>
-      <label>Game: </label>
+      <label>{t(`bookingFormCopy.step2Game`)} </label>
       <input
         className='formInput'
         type='text'
@@ -146,13 +149,14 @@ function StepTwo({ inputs, handleChange, tables, setInputs }) {
 }
 
 function StepThree({ inputs, handleChange, handleSubmit }) {
+  const { t } = useTranslation();
   return (
     <Box sx={{ fontFamily: "Fontdiner Swanky" }}>
       <Typography sx={{ fontFamily: "Fontdiner Swanky" }} variant="h6" gutterBottom>
-        Step 3: Submit
+      {t(`bookingFormCopy.step3`)}
       </Typography>
       <Typography sx={{ fontFamily: "Fontdiner Swanky" }} variant="body1" gutterBottom>
-        By submitting this form you agree to the Terms and Conditions of Cafe Boardgame.
+      {t(`bookingFormCopy.step3Submit`)}
       </Typography>
     </Box>
   );
@@ -195,16 +199,19 @@ export default function BookingForm() {
   }, []);
 
   function checkAvailability(people) {
-	if (people < 1) {
-	  return "Invalid number of players.";
-	}
+    const { t } = useTranslation();
+    if (people < 1) {
+      const message = t(`bookingFormCopy.availabilityPeople`);
+      return message;
+    }
   
-	const seatCapacities = [2, 4, 5, 6, 8, 10]; // ✅ Define allowed seat counts
-	const seatLimit = seatCapacities.find(capacity => people <= capacity); // ✅ Find the smallest matching capacity
-  
-	if (!seatLimit) {
-	  return "There are no available tables able to seat your group, please call to check if there are ways to host your group.";
-	}
+    const seatCapacities = [2, 4, 5, 6, 8, 10]; // ✅ Define allowed seat counts
+    const seatLimit = seatCapacities.find(capacity => people <= capacity); // ✅ Find the smallest matching capacity
+    
+    if (!seatLimit) {
+      const message1 = t(`bookingFormCopy.availabilityText`)
+      return message1;
+    }
   
 	// ✅ Filter tables that match the found `seatLimit`
 	const filtered = tables.filter(table => table.capacity === seatLimit);
