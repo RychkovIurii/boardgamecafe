@@ -3,13 +3,15 @@ import API from '../api/axios'
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Swal from 'sweetalert2';
+import { useTranslation } from 'react-i18next';
 
 
 const Profile = () => {
 
     const [userData, setUserData] = useState({})
     const [phone, setPhone] = useState('');
-    const [isEdit, setIsEdit] = useState(false)
+    const [isEdit, setIsEdit] = useState(false);
+	const { t } = useTranslation();
 
 
 
@@ -33,13 +35,13 @@ const Profile = () => {
 		// Validate phone number format.
 		const cleaned = phone.replace(/\s+/g, '');
 		const isValid =
-		  (/^(\+358|0)\d{6,11}$/).test(cleaned) && !/[^\d+]/.test(phone);
+		  (/^(\+3|0)\d{6,11}$/).test(cleaned) && !/[^\d+]/.test(phone);
 	  
 		if (!isValid) {
 		  await Swal.fire({
 			icon: 'warning',
-			title: 'Invalid Phone Number',
-			text: 'Please enter a valid Finnish phone number starting with +358 or 0.',
+			title: t('alerts.invalidPhoneTitle'),
+			text: t('alerts.invalidPhoneText'),
 			confirmButtonText: 'OK'
 		  });
 		  return;
@@ -48,8 +50,8 @@ const Profile = () => {
             await API.put('/users/phone', { phone: cleaned });
             await Swal.fire({
 				icon: 'success',
-				title: 'Updated!',
-				text: 'Phone number updated successfully.',
+				title: t('alerts.updateSuccessTitle'),
+				text: t('alerts.updateSuccessText'),
 				confirmButtonText: 'OK'
 			  });
 
@@ -62,8 +64,8 @@ const Profile = () => {
             console.error('Error updating phone number:', error);
             await Swal.fire({
 				icon: 'error',
-				title: 'Update Failed',
-				text: 'Failed to update phone number.',
+				title: t('alerts.updateErrorTitle'),
+				text: t('alerts.updateErrorText'),
 				confirmButtonText: 'OK'
 			  });
         }

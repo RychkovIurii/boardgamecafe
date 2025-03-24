@@ -241,8 +241,8 @@ export default function BookingForm() {
 	  if (!contactName || !contactPhone || !players || !date || !startTime || !duration) {
 		Swal.fire({
 		  icon: 'warning',
-		  title: 'Incomplete Information',
-		  text: 'Please fill in all required fields before continuing.',
+		  title: t('alerts.incompleteTitle'),
+		  text: t('alerts.incompleteText'),
 		});
 		return;
 	  }
@@ -253,8 +253,8 @@ export default function BookingForm() {
 	  if (!inputs.tableNumber) {
 		Swal.fire({
 		  icon: 'warning',
-		  title: 'Table Required',
-		  text: 'Please select or enter a table number before continuing.',
+		  title: t('alerts.tableTitle'),
+		  text: t('alerts.tableText'),
 		});
 		return;
 	  }
@@ -326,11 +326,11 @@ export default function BookingForm() {
       });
 	  Swal.fire({
 		icon: 'success',
-		title: 'Booking Confirmed!',
-		text: 'Thank you! Your table is now reserved.',
+		title: t('alerts.bookingSuccessTitle'),
+		text: t('alerts.bookingSuccessText'),
 		showDenyButton: true,
-		confirmButtonText: 'Go to Home',
-		denyButtonText: 'Pay Now (Optional)',
+		confirmButtonText: t('alerts.goHome'),
+		denyButtonText: t('alerts.payNow'),
 		}).then((result) => {
 			if (result.isConfirmed) {
 				navigate('/');
@@ -344,7 +344,7 @@ export default function BookingForm() {
 	  
 		await Swal.fire({
 		  icon: 'error',
-		  title: 'Booking Failed',
+		  title: t('alerts.bookingErrorTitle'),
 		  text: errorMessage,
 		  confirmButtonText: 'OK'
 		});

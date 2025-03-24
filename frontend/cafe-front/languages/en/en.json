@@ -116,6 +116,26 @@
 			"Community detail": "Discord channel has over 1,500 active members, and games are often hosted by Finnish game developers."
 		}
 	},
+	"alerts": {
+		"incompleteTitle": "Incomplete Information",
+		"incompleteText": "Please fill in all required fields before continuing.",
+		"tableTitle": "Table Required",
+		"tableText": "Please select or enter a table number before continuing.",
+		"bookingSuccessTitle": "Booking Confirmed!",
+		"bookingSuccessText": "Thank you! Your table is now reserved.",
+		"bookingErrorTitle": "Booking Failed",
+		"bookingErrorText": "Error creating booking.",
+		"invalidPhoneTitle": "Invalid Phone Number",
+		"invalidPhoneText": "Please enter a valid phone number starting with +3 or 0.",
+		"updateSuccessTitle": "Updated!",
+		"updateSuccessText": "Phone number updated successfully.",
+		"updateErrorTitle": "Update Failed",
+		"updateErrorText": "Failed to update phone number.",
+		"paymentSuccessTitle": "Payment Complete!",
+		"paymentSuccessText": "A confirmation email was sent to",
+		"goHome": "Go to Home",
+		"payNow": "Pay Now (Optional)"
+		},
 	"contact": {
 		"heroTitle": "Get in Touch!",
 		"heroText": "Have a question or just want to say hi? Feel free to reach out we’d love to hear from you!",
@@ -199,6 +219,10 @@
 		"GalleryIntroTitle1": "Expore more",
 		"GalleryIntroTitle2": "about Café Boardgame"
 	},
+	"gamesPage": {
+		"searchPlaceholder": "Search",
+		"collectionHeader": "The Collection of Games in Cafe Boardgame:"
+	},
 	"HowItWorks": {
 		"title": "How It Works"
 	},
@@ -225,10 +249,17 @@
 		"availabilityPeople": "Invalid number of players.",
 		"availabilityText": "There are no available tables able to seat your group, please call to check if there are ways to host your group.",
 		"bookingSuccessfully": "Booking created successfully!",
-		"back": "BACK"
-
+		"back": "BACK",
+		"tableReservation": "Table Reservation"
 	},
-	"aboutGalleryIntro": {
-
+	"aboutIntro": {
+		"intro1": "Founded in 2021, with over 500 games Café Boardgame has been a welcoming spot for board games and role-playing games lovers.",
+		"intro2": "Our friendly staff are always here to help you pick a game, explain the rules, or guide you through gameplay.",
+		"intro3": "At Café Boardgame, you can enjoy great food, drinks, and games in a fun and relaxing space with friends, family, or colleagues.",
+		"openingTitle": "Opening Hours",
+		"monThu": "Monday - Thursday 16:00 - 24:00",
+		"friday": "Friday 16:00 - 02:00",
+		"saturday": "Saturday 14:00 - 02:00",
+		"sunday": "Sunday Closed"
 	}
 }
