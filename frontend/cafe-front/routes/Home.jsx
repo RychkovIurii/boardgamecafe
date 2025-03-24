@@ -11,9 +11,9 @@ function Home() {
             <Hero
                 cName="hero"
                 heroImage={heroImage}
-                title="Welcome to CAFÉ BOARDGAME"
-                text="Enjoy the best board games with your friends and family"
-                linkText="Book Now"
+                title="Welcome to CAFÉ BOARDGAME" //Change here
+                text="Enjoy the best board games with your friends and family" //Change here
+                linkText="Book Now" //Change here
                 linkClass="show"
                 url="/bookings"
             />

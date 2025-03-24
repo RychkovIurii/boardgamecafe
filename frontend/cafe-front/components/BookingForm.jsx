@@ -174,6 +174,7 @@ export default function BookingForm() {
   const [bookingId, setBookingId] = useState(null);
   const [filteredTables, setFilteredTables] = useState([]);
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [inputs, setInputs] = useState({
     date: "",
     startTime: "",
@@ -199,7 +200,6 @@ export default function BookingForm() {
   }, []);
 
   function checkAvailability(people) {
-    const { t } = useTranslation();
     if (people < 1) {
       const message = t(`bookingFormCopy.availabilityPeople`);
       return message;
@@ -387,7 +387,7 @@ export default function BookingForm() {
                         </Button>
                       ) : (
                         <Button onClick={handleNext} variant="contained" color="primary" >
-                          Next
+                          Next{/*Change here*/}
                         </Button>
                       )}
                     </Box>
