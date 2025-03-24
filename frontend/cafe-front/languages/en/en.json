@@ -50,7 +50,15 @@
 		"registerButton": "Create new account",
 		"forgotPassword": "Forgot Password?",
 		"successMessage": "Login successful!",
-		"errorMessage": "Login failed. Please try again."
+		"errorMessage": "Login failed. Please try again.",
+		"successTitle": "Welcome!",
+		"confirmButton": "Continue",
+		"errorTitle": "Oops!"
+	},
+	"logout": {
+		"successTitle": "Logged out",
+		"successMessage": "You have been successfully logged out.",
+		"confirmButton": "OK"
 	},
 	"register": {
 		"title": "Register",
@@ -64,8 +72,11 @@
 		"passwordPlaceholder": "Enter your password",
 		"submitButton": "Register",
 		"loginButton": "Already have an account? Login",
-		"successMessage": "Registration successful!",
-		"errorMessage": "Registration failed. Please try again."
+		"successTitle": "Registration Successful!",
+		"successMessage": "Your account has been created.",
+		"errorTitle": "Oops!",
+		"errorMessage": "Registration failed. Please try again.",
+		"confirmButton": "Continue"
 	},
 	"contact": {
 		"heroTitle": "Get in Touch!",

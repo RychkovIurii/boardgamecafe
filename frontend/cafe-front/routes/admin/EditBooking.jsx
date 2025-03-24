@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import API from '../../api/axios';
+import Swal from 'sweetalert2';
 
 const EditBooking = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const [booking, setBooking] = useState(null);
     const [tables, setTables] = useState([]);
-    const [games, setGames] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -34,11 +34,9 @@ const EditBooking = () => {
             try {
                 const bookingResponse = await API.get(`/admin/bookings/${id}`);
                 const tablesResponse = await API.get('/admin/tables');
-                const gamesResponse = await API.get('/admin/games');
 
                 setBooking(bookingResponse.data);
                 setTables(tablesResponse.data);
-                setGames(gamesResponse.data);
             } catch (error) {
                 console.error('Error fetching booking data:', error);
                 setError('Failed to load data');
@@ -54,9 +52,13 @@ const EditBooking = () => {
         
         // Validate that date, startTime, and endTime are provided
         if (!booking.date || !booking.startTime || !booking.endTime) {
-            alert("Please provide a valid date, start time, and end time.");
-            return;
-        }
+			await Swal.fire({
+				icon: 'warning',
+				title: 'Missing Information',
+				text: 'Please provide a valid date, start time, and end time.',
+			});
+			return;
+		}
 
         // Always extract HH:mm from the stored time values.
         const startTimeStr = formatTime(booking.startTime);
@@ -68,24 +70,35 @@ const EditBooking = () => {
 
         // Check that the combined dates are valid
         if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
-            alert("Invalid date or time format.");
-            return;
-        }
+			await Swal.fire({
+				icon: 'error',
+				title: 'Invalid Date or Time',
+				text: 'Please enter a valid date and time format.',
+			});
+			return;
+		}
 
         const updatedBooking = {
             ...booking,
             startTime: startDate.toISOString(),
             endTime: endDate.toISOString()
         };
-		console.log("Updating booking with:", updatedBooking);
 
         try {
             await API.put(`/admin/bookings/${id}`, updatedBooking);
-            alert('Booking updated successfully');
+            await Swal.fire({
+				icon: 'success',
+				title: 'Booking Updated',
+				text: 'The booking has been successfully updated.',
+				confirmButtonText: 'OK'
+			});
             navigate('/admin');
         } catch (error) {
-            console.error('Error updating booking:', error);
-            alert('Failed to update booking');
+            await Swal.fire({
+				icon: 'error',
+				title: 'Update Failed',
+				text: 'Something went wrong while updating the booking.',
+			});
         }
     };
 
@@ -121,7 +134,6 @@ const EditBooking = () => {
 				<select
 				value={booking.tableId ? booking.tableId.toString() : ''}
 				onChange={(e) => {
-					console.log("New table id:", e.target.value);
 					setBooking({ ...booking, tableId: e.target.value });
 				}}
 				>
@@ -133,16 +145,12 @@ const EditBooking = () => {
 				</select>
 
                 <label>Game:</label>
-                <select 
-                    value={booking.gameId || ''} 
-                    onChange={(e) => setBooking({ ...booking, gameId: e.target.value })}
-                >
-                    {games.map(game => (
-                        <option key={game._id} value={game._id}>
-                            {game.title}
-                        </option>
-                    ))}
-                </select>
+                <input
+					className="formInput"
+					type="text"
+					value={booking.game || ''}
+					onChange={(e) => setBooking({ ...booking, game: e.target.value })}
+				/>
 
                 <label>Players:</label>
                 <input 

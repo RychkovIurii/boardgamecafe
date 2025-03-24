@@ -23,11 +23,11 @@ const bookingSchema = new mongoose.Schema({
         required: [true, 'Number of players is required'],
         min: [1, 'Number of players must be at least 1'],
     },
-    gameId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Game', // References the Game model
-        required: false,
-    },
+    game: {
+		type: String,
+		required: false,
+		trim: true,
+	},
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User', // References the User model
