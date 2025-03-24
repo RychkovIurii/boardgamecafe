@@ -181,6 +181,18 @@
 		"serviceP": "Tavoitteenamme on tehdä Helsingistä pelikulttuurin sydän ja tarjota esteetön kohtaamispaikka kaikille pelistä kiinnostuneille. Cafe Boardgame on nelikerroksinen pelikulttuurin keskus, jossa yhdistyvät ravintola, kahvila, baari, tapahtumat, koulutus ja kokouspalvelut.",
 		"button": "Ota yhteyttä"
 	},
+	"menu": {
+		"title": "Tutustu menuumme",
+		"subtitle": "Tarvitsetko välipalaa tai juomaa? Tai ehkä omaa tuotettamme?",
+		"types": {
+			"Cold Drinks": "Kylmät juomat",
+			"Hot Drinks": "Lämpimät juomat",
+			"Beers & Ciders": "Oluet ja siiderit",
+			"Own Brand": "Oma tuote",
+			"Gaming Fee": "Pelaamismaksu",
+			"Food": "Ruoka"
+		}
+	},
 	"admin_navbar": {
 		"Games": "Pelit",
 		"Pricing": "Hinnoittelu",
