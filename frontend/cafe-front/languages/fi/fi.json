@@ -38,7 +38,8 @@
     "Weekdays": "Maanantai - Torstai",
     "Friday": "Perjantai",
     "Saturday": "Lauantai",
-    "Sunday-Close": "Sunnuntai Sulkeutuu"
+    "Sunday-Close": "Sunnuntai Sulkeutuu",
+    "awards": "Palkinnot"
   },
   "login": {
 		"title": "Kirjaudu sisään",
@@ -143,5 +144,43 @@
     "updateButton": "Päivitä tapahtuma",
     "editButton": "Muokkaa",
     "existingEvents": "Olemassa olevat tapahtumat"
-  }
+  },
+  "about": {
+		"title": "TIETOJA CAFÉ BOARDGAME",
+		"aboutP": "Tervetuloa Café BoardGameen, pelikulttuurin sydämeen Helsingissä!",
+    "GalleryIntroTitle1": "Tutki lisää",
+    "GalleryIntroTitle2": "Café Boardgamesta"
+	},
+  "HowItWorks": {
+    "title": "Kuinka Se Toimii"
+	},
+  "bookingFormCopy": {
+    "step1": "Vaihe 1: Henkilötiedot",
+    "step1Name": "Nimi:",
+    "step1Phone": "Puhelin:",
+    "step1People": "Henkilömäärä*:",
+    "step1Number": "Pelaajien Määrä:",
+    "step1Text": "(Jos ryhmässäsi on enemmän kuin 8 henkilöä, ota yhteyttä suoraan varauksen tekemiseksi)",
+    "step1Date": "Päivämäärä:",
+    "step1Time": "Aloitusaika:",
+    "step1Duration": "Kesto:",
+    "step1DurationI": "Kesto (minuutit):",
+    "step2": "Vaihe 2: Valinnaiset pyynnöt",
+    "step2Text": "Täällä voit halutessasi pyytää tietyn pöydän tai pelin. Voit ohittaa tämän vaiheen, jos sinulla ei ole tiettyjä pyydettäviä tuotteita. Huomioithan, että kahvila pidättää oikeuden pöytien vaihtoon tarpeen mukaan.",
+    "step2Table": "Pöytä:",
+    "step2TableNum": "Pöytänumero",
+    "step2Suggested": "Ehdotettu:",
+    "step2Game": "Peli:",
+    "step3": "Vaihe 3: Lähetä",
+    "step3Submit": "Lähettämällä tämän lomakkeen hyväksyt Cafe Boardgamen säännöt ja ehdot.",
+    "errorMessage": "Virhe pöytien haussa:",
+    "availabilityPeople": "Virheellinen pelaajamäärä.",
+    "availabilityText": "Ei ole saatavilla olevia pöytiä, jotka voisivat majoittaa ryhmänne. Ottakaa yhteyttä puhelimitse tarkistaaksenne, onko muita tapoja isännöidä ryhmäänne.",
+    "bookingSuccessfully": "Varaus luotu onnistuneesti!",
+    "back": "TAKAISIN"
+    
+    
+		
+	}
+
 }

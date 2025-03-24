@@ -62,7 +62,7 @@ export default function Footer() {
                             </ul>
                         </div>
                         <div>
-                            <h4>Awards</h4>
+                            <h4>{t('footer.awards')}</h4>
                             <div className="awards">
                                 <div><img src={Award1} height={50} alt="Award1" /></div>
                                 <br></br>
