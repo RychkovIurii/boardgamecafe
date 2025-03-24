@@ -10,7 +10,7 @@ const HowItWorks = () => {
     return (
         <div className="py-20 max-w-4xl mx-auto dark:bg-gray-800">
             <h2 className="text-4xl md:text-5xl font-black text-yellow-500 mb-10">
-                How it works
+            {t(`HowItWorks.title`)}
             </h2>
 
             {steps.map((item, index) => (

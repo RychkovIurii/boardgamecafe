@@ -67,9 +67,9 @@ function Games() {
             <Hero
                 cName="hero"
                 heroImage={heroImage}
-                title="Our Game Collection"
-                text="Enjoy the best board games with us."
-                linkText="Book Now"
+                title="Our Game Collection" //Change here
+                text="Enjoy the best board games with us." //Change here
+                linkText="Book Now" //Change here
                 linkClass="show"
                 url="/bookings"
             />
@@ -77,7 +77,7 @@ function Games() {
 
             <input
             type="search"
-            placeholder="Search"
+            placeholder="Search" //Change here
             value={searchFilter}
             onChange={(e) => {
               setSearchFilter(e.target.value);

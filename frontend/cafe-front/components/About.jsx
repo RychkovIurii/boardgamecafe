@@ -13,15 +13,15 @@ const About = () => {
         <div>
             <div className='bg-gray-100 pt-10 pb-10'>
                 <div className='pt-20'>
-                    <h1 className='text-3xl md:text-5xl font-black text-yellow-500 '> ABOUT CAFÉ BOARDGAME</h1>
-                    <p className='pt-5 m-3 sm:pt-10 text-xl md:text-2xl font-semibold text-gray-700'> Welcome to Café Boardgame, the heart of gaming culture in Helsinki!</p>
+                    <h1 className='text-3xl md:text-5xl font-black text-yellow-500 '>{t(`about.title`)}</h1>
+                    <p className='pt-5 m-3 sm:pt-10 text-xl md:text-2xl font-semibold text-gray-700'>{t(`about.aboutP`)}</p>
                 </div>
 
                 <AboutGalleryIntro />
 
                 <div className='mt-20'>
                     <div className='text-center pt-10 py-8 text-3xl'>
-                        <Title text1={'Expore more'} text2={'about Café Boardgame'} />
+                        <Title text1={t(`about.GalleryIntroTitle1`)} text2={t(`about.GalleryIntroTitle2`)} />
                     </div>
                 </div>
 

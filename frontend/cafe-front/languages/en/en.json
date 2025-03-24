@@ -38,7 +38,8 @@
 		"Weekdays": "Monday - Thursday",
 		"Friday": "Friday",
 		"Saturday": "Saturday",
-		"Sunday-Close": "Sunday Close"
+		"Sunday-Close": "Sunday Close",
+		"awards": "Awards"
 	},
 	"login": {
 		"title": "Sign In",
@@ -176,6 +177,11 @@
 		"SignIn": "SignIn",
 		"Logout": "Logout"
 	},
+	"service": {
+		"Title": "Find our service",
+		"serviceP": "Our goal is to make Helsinki the heart of gaming culture and to provide an accessible meeting place for everyone interested in games. Cafe Boardgame is a four-story gaming culture hub, combining a restaurant, café, bar, events, training, and meeting services.",
+		"button": "contact us"
+	},
 	"editEvents": {
 		"title": "Edit Events",
 		"titlePlaceholder": "Enter event title",
@@ -186,5 +192,43 @@
 		"updateButton": "Update Event",
 		"editButton": "Edit",
 		"existingEvents": "Existing Events"
+	},
+	"about": {
+		"title": "ABOUT CAFÉ BOARDGAME",
+		"aboutP": "Welcome to Café Boardgame, the heart of gaming culture in Helsinki!",
+		"GalleryIntroTitle1": "Expore more",
+		"GalleryIntroTitle2": "about Café Boardgame"
+	},
+	"HowItWorks": {
+		"title": "How It Works"
+	},
+	"bookingForm": {
+		"step1": "Step 1: Personal Info",
+		"step1Name": "Name:",
+		"step1Phone": "Phone:",
+		"step1People": "People*:",
+		"step1Number": "Number of Players:",
+		"step1Text": "(If your group has more than 8 people, please contact us directly for your booking)",
+		"step1Date": "Date:",
+		"step1Time": "Start time:",
+		"step1Duration": "Duration:",
+		"step1DurationI": "Duration (minutes):",
+		"step2": "Step 2: Optional Requests",
+		"step2Text": "Here you can optionally request a specific table or game. You can skip this step if you have no specific items to request. Please keep in mind that the Cafe reserves the right to change tables as needed.",
+		"step2Table": "Table:",
+		"step2TableNum": "Table number",
+		"step2Suggested": "Suggested:",
+		"step2Game": "Game:",
+		"step3": "Step 3: Submit",
+		"step3Submit": "By submitting this form you agree to the Terms and Conditions of Cafe Boardgame.",
+		"errorMessage": "Error fetching tables:",
+		"availabilityPeople": "Invalid number of players.",
+		"availabilityText": "There are no available tables able to seat your group, please call to check if there are ways to host your group.",
+		"bookingSuccessfully": "Booking created successfully!",
+		"back": "BACK"
+
+	},
+	"aboutGalleryIntro": {
+
 	}
 }
