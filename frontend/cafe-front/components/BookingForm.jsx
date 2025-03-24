@@ -22,10 +22,10 @@ import { useTranslation } from 'react-i18next';
   return (
     <Box sx={{ fontFamily: "Fontdiner Swanky" }}>
       <Typography variant="h6" sx={{ fontFamily: "Fontdiner Swanky" }} gutterBottom>
-      {t(`bookingFormCopy.step1`)}
+      {t(`bookingForm.step1`)}
       </Typography>
       <div className='formItem'>
-        <label>{t(`bookingFormCopy.step1Name`)}</label>
+        <label>{t(`bookingForm.step1Name`)}</label>
         <input
           className='formInput'
           type='text'
@@ -36,7 +36,7 @@ import { useTranslation } from 'react-i18next';
         />
       </div>
       <div className='formItem'>
-        <label>{t(`bookingFormCopy.step1Phone`)}</label>
+        <label>{t(`bookingForm.step1Phone`)}</label>
         <input
           className='formInput'
           type='text'
@@ -47,7 +47,7 @@ import { useTranslation } from 'react-i18next';
         />
       </div>
       <div className='formItem'>
-        <label>{t(`bookingFormCopy.step1People`)} </label>
+        <label>{t(`bookingForm.step1People`)} </label>
         <input
           className='formInput'
           type='number'
@@ -56,13 +56,13 @@ import { useTranslation } from 'react-i18next';
           name='players'
           value={inputs.players || ""}
           onChange={(e) => { handleChange(e)}}
-          placeholder={t(`bookingFormCopy.step1Number`)}
+          placeholder={t(`bookingForm.step1Number`)}
           required
         />
       </div>
-      {t(`bookingFormCopy.step1Text`)}
+      {t(`bookingForm.step1Text`)}
       <div className='formItem'>
-        <label>{t(`bookingFormCopy.step1Date`)} </label>
+        <label>{t(`bookingForm.step1Date`)} </label>
         <input
           className='formInput'
           type='date'
@@ -74,7 +74,7 @@ import { useTranslation } from 'react-i18next';
         />
       </div>
       <div className='formItem'>
-        <label>{t(`bookingFormCopy.step1Time`)} </label>
+        <label>{t(`bookingForm.step1Time`)} </label>
         <input
           className='formInput'
           type='time'
@@ -85,7 +85,7 @@ import { useTranslation } from 'react-i18next';
         />
       </div>
       <div className='formItem'>
-        <label>{t(`bookingFormCopy.step1Duration`)} </label>
+        <label>{t(`bookingForm.step1Duration`)} </label>
         <input
           className='formInput'
           type='number'
@@ -94,7 +94,7 @@ import { useTranslation } from 'react-i18next';
           onChange={handleChange}
           min={60}
           step={30}
-          placeholder={t(`bookingFormCopy.step1DurationI`)}
+          placeholder={t(`bookingForm.step1DurationI`)}
           required
         />
 
@@ -108,12 +108,12 @@ function StepTwo({ inputs, handleChange, tables, setInputs }) {
   return (
     <Box>
       <Typography variant="h6" sx={{ fontFamily: "Fontdiner Swanky" }} gutterBottom>
-      {t(`bookingFormCopy.step2`)}
+      {t(`bookingForm.step2`)}
       </Typography>
       <div className='smallerText'>
-      {t(`bookingFormCopy.step2Text`)}
+      {t(`bookingForm.step2Text`)}
       </div>
-      <label>{t(`bookingFormCopy.step2Table`)} </label>
+      <label>{t(`bookingForm.step2Table`)} </label>
       <input
         className='formInput'
         type='number'
@@ -121,14 +121,14 @@ function StepTwo({ inputs, handleChange, tables, setInputs }) {
         max={50}
         name='tableNumber'
         value={inputs.tableNumber || ""}
-        placeholder={t(`bookingFormCopy.step2TableNum`)} 
+        placeholder={t(`bookingForm.step2TableNum`)} 
         onChange={handleChange}
         required
       />
-      <div className='tables'>{t(`bookingFormCopy.step2Suggested`)} 
+      <div className='tables'>{t(`bookingForm.step2Suggested`)} 
          {tables.map((table) => <div key={table.number} className='table' onClick={(e) => {setInputs({ ...inputs, tableNumber: table.number });}}> {table.number}</div> )} 
       </div>
-      <label>{t(`bookingFormCopy.step2Game`)} </label>
+      <label>{t(`bookingForm.step2Game`)} </label>
       <input
         className='formInput'
         type='text'
@@ -153,10 +153,10 @@ function StepThree({ inputs, handleChange, handleSubmit }) {
   return (
     <Box sx={{ fontFamily: "Fontdiner Swanky" }}>
       <Typography sx={{ fontFamily: "Fontdiner Swanky" }} variant="h6" gutterBottom>
-      {t(`bookingFormCopy.step3`)}
+      {t(`bookingForm.step3`)}
       </Typography>
       <Typography sx={{ fontFamily: "Fontdiner Swanky" }} variant="body1" gutterBottom>
-      {t(`bookingFormCopy.step3Submit`)}
+      {t(`bookingForm.step3Submit`)}
       </Typography>
     </Box>
   );
@@ -201,7 +201,7 @@ export default function BookingForm() {
 
   function checkAvailability(people) {
     if (people < 1) {
-      const message = t(`bookingFormCopy.availabilityPeople`);
+      const message = t(`bookingForm.availabilityPeople`);
       return message;
     }
   
@@ -209,7 +209,7 @@ export default function BookingForm() {
     const seatLimit = seatCapacities.find(capacity => people <= capacity); // ✅ Find the smallest matching capacity
     
     if (!seatLimit) {
-      const message1 = t(`bookingFormCopy.availabilityText`)
+      const message1 = t(`bookingForm.availabilityText`)
       return message1;
     }
   
@@ -387,7 +387,7 @@ export default function BookingForm() {
                         </Button>
                       ) : (
                         <Button onClick={handleNext} variant="contained" color="primary" >
-                          Next{/*Change here*/}
+                          Next{/*Change here!*/}
                         </Button>
                       )}
                     </Box>

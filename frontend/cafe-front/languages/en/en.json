@@ -165,7 +165,7 @@
 	"HowItWorks": {
 		"title": "How It Works"
 	},
-	"bookingFormCopy": {
+	"bookingForm": {
 		"step1": "Step 1: Personal Info",
 		"step1Name": "Name:",
 		"step1Phone": "Phone:",
@@ -189,6 +189,9 @@
 		"availabilityText": "There are no available tables able to seat your group, please call to check if there are ways to host your group.",
 		"bookingSuccessfully": "Booking created successfully!",
 		"back": "BACK"
+
+	},
+	"aboutGalleryIntro": {
 
 	}
 }

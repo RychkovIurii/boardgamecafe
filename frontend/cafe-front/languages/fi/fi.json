@@ -154,7 +154,7 @@
   "HowItWorks": {
     "title": "Kuinka Se Toimii"
 	},
-  "bookingFormCopy": {
+  "bookingForm": {
     "step1": "Vaihe 1: Henkilötiedot",
     "step1Name": "Nimi:",
     "step1Phone": "Puhelin:",
@@ -178,7 +178,6 @@
     "availabilityText": "Ei ole saatavilla olevia pöytiä, jotka voisivat majoittaa ryhmänne. Ottakaa yhteyttä puhelimitse tarkistaaksenne, onko muita tapoja isännöidä ryhmäänne.",
     "bookingSuccessfully": "Varaus luotu onnistuneesti!",
     "back": "TAKAISIN"
-    
     
 		
 	}
