@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import "../components/Style/ContactStyles.css";
@@ -7,8 +8,7 @@ import "../components/Style/ContactStyles.css";
 
 
 function Contact() {
-  
-
+    const { t } = useTranslation();
     return (
         <>
             <Navbar />
@@ -23,8 +23,8 @@ function Contact() {
           className="contact-image"
         />
         <div className="contact-info">
-          <h1>Get in Touch!</h1>
-          <h2>Have a question or just want to say hi? Feel free to reach out we’d love to hear from you!</h2>
+          <h1>{t(`contact.heroTitle`)}</h1>
+          <h2>{t(`contact.heroText`)}</h2>
           <p>📞 +358 50 566 2613</p>
           <p>📧 info@cafeboardgame.fi</p>
           <p>📍 Eerikinkatu 14, 00100 Helsinki</p>
@@ -38,17 +38,17 @@ function Contact() {
          <div className="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
                         <div className="mx-auto max-w-2xl text-center">
                             <h2 className="text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
-                                Contact Us
+                            {t(`contact.formTitle`)}
                             </h2>
                             <p className="mt-2 text-lg text-gray-600">
-                                Have any questions? Fill out the form below and we'll get back to you.
+                            {t(`contact.formText`)}
                             </p>
                         </div>
                         <form action="#" method="POST" className="mx-auto mt-16 max-w-xl sm:mt-20">
                             <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
                                 <div>
                                     <label htmlFor="first-name" className="block text-sm font-semibold text-gray-900">
-                                        First Name
+                                    {t(`contact.firstnameLable`)}
                                     </label>
                                     <input
                                         type="text"
@@ -61,7 +61,7 @@ function Contact() {
 
                                 <div>
                                     <label htmlFor="last-name" className="block text-sm font-semibold text-gray-900">
-                                        Last Name
+                                    {t(`contact.lastnameLable`)}
                                     </label>
                                     <input
                                         type="text"
@@ -74,7 +74,7 @@ function Contact() {
 
                                 <div className="sm:col-span-2">
                                     <label htmlFor="email" className="block text-sm font-semibold text-gray-900">
-                                        Email
+                                    {t(`contact.emailLable`)}
                                     </label>
                                     <input
                                         type="email"
@@ -87,7 +87,7 @@ function Contact() {
 
                                 <div className="sm:col-span-2">
                                     <label htmlFor="message" className="block text-sm font-semibold text-gray-900">
-                                        Message
+                                    {t(`contact.messageLable`)}
                                     </label>
                                     <textarea
                                         name="message"
@@ -116,7 +116,7 @@ function Contact() {
         onMouseEnter={(e) => (e.target.style.backgroundColor = "#6b4226")}
         onMouseLeave={(e) => (e.target.style.backgroundColor = "#8b5a2b")}
     >
-        Send Message
+        {t(`contact.sendmessageLable`)}
     </button>
 </div>
                         </form>
