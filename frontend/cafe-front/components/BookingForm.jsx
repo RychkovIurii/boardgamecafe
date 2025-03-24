@@ -231,7 +231,11 @@ export default function BookingForm() {
   }
 
   // Define the labels for each step.
-  const steps = ['Personal Info', 'Table and Game', 'Submit'];
+  const steps = [
+	t('bookingForm.stepLabel1'),
+	t('bookingForm.stepLabel2'),
+	t('bookingForm.stepLabel3')
+  ];
 
   // Handle next step
   const handleNext = () => {
@@ -391,15 +395,15 @@ export default function BookingForm() {
                         onClick={handleBack}
                         variant="contained"
                       >
-                        Back
+                        {t('bookingForm.back')}
                       </Button>
                       {activeStep === steps.length - 1 ? (
                         <Button onClick={handleSubmit} variant="contained" color="primary" >
-                          Submit
+                          {t('bookingForm.submit')}
                         </Button>
                       ) : (
                         <Button onClick={handleNext} variant="contained" color="primary" >
-                          Next{/*Change here!*/}
+                          {t('bookingForm.next')}
                         </Button>
                       )}
                     </Box>

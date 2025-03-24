@@ -261,7 +261,12 @@
 		"availabilityPeople": "Invalid number of players.",
 		"availabilityText": "There are no available tables able to seat your group, please call to check if there are ways to host your group.",
 		"bookingSuccessfully": "Booking created successfully!",
-		"back": "BACK",
+		"stepLabel1": "Personal Info",
+		"stepLabel2": "Table and Game",
+		"stepLabel3": "Submit",
+		"next": "Next",
+		"back": "Back",
+		"submit": "Submit",
 		"tableReservation": "Table Reservation"
 	},
 	"aboutIntro": {

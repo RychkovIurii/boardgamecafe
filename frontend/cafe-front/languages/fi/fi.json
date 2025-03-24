@@ -250,7 +250,12 @@
 		"availabilityPeople": "Virheellinen pelaajamäärä.",
 		"availabilityText": "Ei ole saatavilla olevia pöytiä, jotka voisivat majoittaa ryhmänne. Ottakaa yhteyttä puhelimitse tarkistaaksenne, onko muita tapoja isännöidä ryhmäänne.",
 		"bookingSuccessfully": "Varaus luotu onnistuneesti!",
-		"back": "TAKAISIN",
+		"stepLabel1": "Henkilötiedot",
+		"stepLabel2": "Pöytä ja peli",
+		"stepLabel3": "Lähetä",
+		"next": "Seuraava",
+		"back": "Takaisin",
+		"submit": "Lähetä",
 		"tableReservation": "Pöytävaraus"
 		},
 	"aboutIntro": {
