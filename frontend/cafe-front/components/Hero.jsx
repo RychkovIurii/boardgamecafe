@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import "./Style/HeroStyles.css";
 
 function Hero(props) {
@@ -18,9 +19,9 @@ function Hero(props) {
             </div>
           )}
           {linkText && url && (
-            <a href={url} className={linkClass}>
-              {t(`hero.${linkText}`)}
-            </a>
+			<Link to={url} className={linkClass}>
+				{t(`hero.${linkText}`)}
+			</Link>
           )}
         </div>
       )}

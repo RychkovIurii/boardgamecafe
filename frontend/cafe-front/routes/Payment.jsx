@@ -8,6 +8,7 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import { useSearchParams } from 'react-router-dom';
 import API from '../api/axios';
 import Swal from 'sweetalert2';
+import { useTranslation } from 'react-i18next';
 
 
 const stripePromise = loadStripe(import.meta.env.VITE_APP_STRIPE_PUBLIC_KEY);
@@ -15,6 +16,7 @@ const stripePromise = loadStripe(import.meta.env.VITE_APP_STRIPE_PUBLIC_KEY);
 export const CheckoutForm = () => {
 	const [searchParams] = useSearchParams();
 	const bookingId = searchParams.get("bookingId");
+	const { t } = useTranslation();
 	const fetchClientSecret = useCallback(() => {
 	  return API.post("payment/create-checkout-session", {
 		bookingId
@@ -56,9 +58,9 @@ export const Return = () => {
     if (status === 'complete') {
       Swal.fire({
         icon: 'success',
-        title: 'Payment Complete!',
-        text: `A confirmation email was sent to ${customerEmail}.`,
-        confirmButtonText: 'Return to Home',
+        title: t('alerts.paymentSuccessTitle'),
+		text: `${t('alerts.paymentSuccessText')} ${customerEmail}.`,
+        confirmButtonText: t('alerts.goHome'),
       }).then(() => {
         navigate('/');
       });

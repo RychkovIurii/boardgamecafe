@@ -41,11 +41,11 @@ function Events() {
 		  heroImage={heroImage}
 		  title="CafeCon Café Boardgame"
 		  text={<CountdownTimer targetDate={nextEventDate} />}
-		  linkText="Learn More"
+		  linkText="Learn More" //Change here
 		  linkClass="show"
 		  url="/cafecon"
 		/>
-		<h1>Upcoming Events</h1>
+		<h1>Upcoming Events{/*Change here*/}</h1>
 		<div className='cardGen'>
 		  {events.map(event => (
 			<EventsCard 
