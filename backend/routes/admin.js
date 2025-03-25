@@ -7,11 +7,6 @@ const Table = require('../models/Table');
 const User = require('../models/User');
 const Payment = require('../models/Payment');
 
-// Admin dashboard route
-router.get('/dashboard', authenticate, authorizeAdmin, (req, res) => {
-    res.json({ message: 'Welcome to the admin dashboard' });
-});
-
 // Fetch all upcoming-bookings (Admin view) ONLY FOR ADMIN
 router.get('/upcoming-bookings', authenticate, authorizeAdmin, async (req, res) => {
     try {
@@ -28,6 +23,7 @@ router.get('/upcoming-bookings', authenticate, authorizeAdmin, async (req, res) 
     }
 });
 
+// Fetch all tables (Admin view) ONLY FOR ADMIN
 router.get('/tables', authenticate, authorizeAdmin, async (req, res) => {
     try {
         const tables = await Table.find().sort({ number: 1 });
@@ -85,7 +81,7 @@ router.put('/bookings/:id', authenticate, authorizeAdmin, async (req, res) => {
     }
 });
 
-
+//We don't use it for now
 router.get('/games', authenticate, authorizeAdmin, async (req, res) => {
     try {
         const games = await Game.find().sort({ title: 1 });

@@ -8,27 +8,39 @@ const { validateBooking } = require('../utils/bookingValidation');
 const { validateOverlappingBookings } = require('../utils/validateOverlappingBookings');
 
 // Fetch available tables. FOR ALL USERS
-router.get('/available', async (req, res) => { //need to fix
-    const { date, startTime, endTime } = req.query;
-
-    try {
-        const bookedTables = await Booking.find({
-            date,
-            $or: [ // Check if booking overlaps with existing bookings
-                { startTime: { $lt: endTime, $gte: startTime } },
-                { endTime: { $gt: startTime, $lte: endTime } },
-                { startTime: { $lte: startTime }, endTime: { $gte: endTime } }
-            ]
-        }).select('tableId');
-
-        const bookedTableIds = bookedTables.map(booking => booking.tableId);
-        const availableTables = await Table.find({ _id: { $nin: bookedTableIds } });
-
-        res.json(availableTables);
-    } catch (error) {
-        console.error('Error fetching available tables:', error);
-        res.status(500).json({ message: 'Server error' });
+router.get('/suggested-tables', async (req, res) => {
+	const { date, start, duration } = req.query;
+	
+	if (!date || !startTime || !duration) {
+	  return res.status(400).json({ message: 'Missing required query parameters: date, startTime, endTime' });
+	}
+	const validationResult = await validateBooking(date, start, duration);
+    if (!validationResult.isValid) {
+        return res.status(400).json({ message: validationResult.message });
     }
+
+	const { startTime, endTime } = validationResult;
+  
+	try {
+	  // Find bookings that overlap with the requested time interval.
+	  const bookedTables = await Booking.find({
+		date,
+		$or: [
+		  { startTime: { $lt: endTime, $gte: startTime } },
+		  { endTime: { $gt: startTime, $lte: endTime } },
+		  { startTime: { $lte: startTime }, endTime: { $gte: endTime } }
+		]
+	  }).select('tableId');
+  
+	  const bookedTableIds = bookedTables.map(booking => booking.tableId);
+	  const suggestedTables = await Table.find({ _id: { $nin: bookedTableIds } })
+      .sort({ number: 1 });
+  
+	  res.json(suggestedTables);
+	} catch (error) {
+	  console.error('Error fetching available tables:', error);
+	  res.status(500).json({ message: 'Server error' });
+	}
 });
 
 // Create a new booking. FOR ALL USERS
