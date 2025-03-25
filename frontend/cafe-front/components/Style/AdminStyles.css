@@ -1,0 +1,38 @@
+.edits {
+    text-align: left;
+    align-content: space-between;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    margin: 20px;
+    border-color: darkgrey;
+}
+
+.menu_items{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 4px;
+    border-color: darkgrey
+}
+
+.descr_type {
+    display: flex;
+    flex-basis: 80%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: large;
+}
+
+.edit_but{
+    border-radius: 5px;
+    background-color: green;
+    padding: 12px;
+    flex-shrink: 0;
+}
+
+.del_but{
+    border-radius: 5px;
+    background-color: red;
+    padding: 12px;
+    flex-shrink: 1;
+}
