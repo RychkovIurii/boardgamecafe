@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import API from '../../api/axios';
 import AdminNavbar from '../../components/admin/AdminNavbar';
+import '../../components/Style/AdminStyles.css'
 
 const ManageMenuItems = () => {
     const [menuItems, setMenuItems] = useState([]);
@@ -162,12 +163,12 @@ const ManageMenuItems = () => {
 				<button type="submit">{selectedMenuItemId ? 'Update Menu Item' : 'Add Menu Item'}</button>
 			</form>
 			<h2 style={{ marginTop: '30px' }}>Existing Menu Items</h2>
-			<ul style={{ textAlign: 'left' }}>
+			<ul className='edits'>
 				{menuItems.map(item => (
-					<li key={item._id}>
-						{item.menuType} - {item.details.description}
-						<button onClick={() => handleEditMenuItem(item)}>Edit</button>
-						<button onClick={() => handleDeleteMenuItem(item._id)}>Delete</button>
+					<li  className='menu_items' key={item._id}>
+						<div className='descr_type'>{item.menuType} - {item.details.description}</div>
+						<button className='edit_but' onClick={() => handleEditMenuItem(item)}>Edit</button>
+						<button className='del_but' onClick={() => handleDeleteMenuItem(item._id)}>Delete</button>
 					</li>
 				))}
 			</ul>
