@@ -24,7 +24,7 @@ const HowItWorks = () => {
 
                         </div>
                         {/* Line connecting the steps */}
-                        <div class="h-full w-0.5 bg-gray-300 dark:bg-slate-500"></div>
+                        <div className="h-full w-0.5 bg-gray-300 dark:bg-slate-500"></div>
 
                     </div>
 

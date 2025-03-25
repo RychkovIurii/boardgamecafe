@@ -16,7 +16,6 @@ const stripePromise = loadStripe(import.meta.env.VITE_APP_STRIPE_PUBLIC_KEY);
 export const CheckoutForm = () => {
 	const [searchParams] = useSearchParams();
 	const bookingId = searchParams.get("bookingId");
-	const { t } = useTranslation();
 	const fetchClientSecret = useCallback(() => {
 	  return API.post("payment/create-checkout-session", {
 		bookingId
@@ -40,6 +39,7 @@ export const CheckoutForm = () => {
 export const Return = () => {
   const [status, setStatus] = useState(null);
   const [customerEmail, setCustomerEmail] = useState('');
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   useEffect(() => {
