@@ -7,13 +7,15 @@ import { useEffect } from 'react';
 import GameCard from '../components/GameCard';
 import '../components/Style/GameCardStyles.css'
 import Paginate from '../components/Pagination';
+import { useTranslation } from 'react-i18next';
 
 
 function Games() {
     const [gamesInfo, setGamesInfo] = useState([])
     const [filteredGames, setFilteredGames] = useState([])
     const [currentPage, setCurrentPage] = useState(1)
-    const [searchFilter, setSearchFilter] = useState("")
+    const [searchFilter, setSearchFilter] = useState("");
+	const { t } = useTranslation();
     
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
     const gamesPerPage = 30
@@ -67,17 +69,17 @@ function Games() {
             <Hero
                 cName="hero"
                 heroImage={heroImage}
-                title="Our Game Collection"
-                text="Enjoy the best board games with us."
-                linkText="Book Now"
+                title={t("Our Game Collection", { keySeparator: false })}
+				text={t("Enjoy the best board games with us.", { keySeparator: false })}
+				linkText={t("Book Now", { keySeparator: false })}
                 linkClass="show"
                 url="/bookings"
             />
-            <h1 style={{ margin: '30px' }}>The Collection of Games in Cafe Boardgame:</h1>
+            <h1 style={{ margin: '30px' }}>{t("gamesPage.collectionHeader")}</h1>
 
             <input
             type="search"
-            placeholder="Search"
+            placeholder={t("gamesPage.searchPlaceholder")}
             value={searchFilter}
             onChange={(e) => {
               setSearchFilter(e.target.value);

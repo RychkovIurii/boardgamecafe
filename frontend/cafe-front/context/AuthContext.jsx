@@ -9,6 +9,7 @@ export const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [isCheckingAuth, setIsCheckingAuth] = useState(true);
+	const [user, setUser] = useState(null);
     const navigate = useNavigate();
 	const { t } = useTranslation();
 
@@ -28,6 +29,7 @@ const AuthProvider = ({ children }) => {
 				  headers: { Authorization: `Bearer ${token}` }
 			  });
 			  setIsAuthenticated(true);
+			  setUser(response.data);
 			} catch (error) {
 			  if (error.response && error.response.status === 401) {
 				  console.warn("User is not logged in.");
@@ -66,7 +68,7 @@ const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, login, logout, isCheckingAuth }}>
+        <AuthContext.Provider value={{ isAuthenticated, login, logout, isCheckingAuth, user }}>
             {children}
         </AuthContext.Provider>
     );
