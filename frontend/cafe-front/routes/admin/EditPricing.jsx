@@ -165,7 +165,7 @@ const ManageMenuItems = () => {
 			<h2 style={{ marginTop: '30px' }}>Existing Menu Items</h2>
 			<ul className='edits'>
 				{menuItems.map(item => (
-					<li  className='menu_items' key={item._id}>
+					<li  className='items' key={item._id}>
 						<div className='descr_type'>{item.menuType} - {item.details.description}</div>
 						<button className='edit_but' onClick={() => handleEditMenuItem(item)}>Edit</button>
 						<button className='del_but' onClick={() => handleDeleteMenuItem(item._id)}>Delete</button>
