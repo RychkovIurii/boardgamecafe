@@ -23,14 +23,14 @@ const Login = ({ onToggleForm }) => {
 		e.preventDefault();
 		try {
 			const response = await API.post('/users/login', formData);
-			const { role } = response.data;
+			const { token, role } = response.data;
 			await Swal.fire({
 				icon: 'success',
 				title: t("login.successTitle"),
 				text: t("login.successMessage"),
 				confirmButtonText: t("login.confirmButton")
-			  });
-			login(role);
+			});
+			login(token);
 			if (role === 'admin') {
 				navigate('/admin');
 			} else {
@@ -42,8 +42,13 @@ const Login = ({ onToggleForm }) => {
 				title: t("login.errorTitle"),
 				text: t("login.errorMessage"),
 				confirmButtonText: t("login.confirmButton")
-				});
-			}
+			}); await Swal.fire({
+				icon: 'error',
+				title: t("login.errorTitle"),
+				text: t("login.errorMessage"),
+				confirmButtonText: t("login.confirmButton")
+			});
+		}
 	};
 
 	return (
