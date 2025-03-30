@@ -14,6 +14,36 @@ const Register = ({ onToggleForm }) => {
 		email: '',
 		password: ''
 	});
+	// Validate form fields using custom logic.
+	const validateFormData = (data) => {
+		const { name, phone, email, password } = data;
+	
+		// Name validation: at least 2 characters.
+		if (name.trim().length < 2) {
+		  return t('register.validation.name'); // e.g., "Name must be at least 2 characters long."
+		}
+	
+		// Phone validation using your provided logic.
+		const cleaned = phone.replace(/\s+/g, '');
+		const isValidPhone =
+		  (/^(\+3|0)\d{6,11}$/).test(cleaned) && !/[^\d+]/.test(phone);
+		if (!isValidPhone) {
+		  return t('register.validation.phone'); // e.g., "Please enter a valid phone number."
+		}
+	
+		// Email validation: basic email regex.
+		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		if (!emailRegex.test(email)) {
+		  return t('register.validation.email'); // e.g., "Please enter a valid email address."
+		}
+	
+		// Password validation: at least 6 characters.
+		if (password.length < 6) {
+		  return t('register.validation.password'); // e.g., "Password must be at least 6 characters long."
+		}
+	
+		return null;
+	  };	
 
 	const handleChange = (e) => {
 		setFormData({
@@ -24,6 +54,18 @@ const Register = ({ onToggleForm }) => {
 
 	const handleSubmit = async (e) => { // We need do phone validation!
 		e.preventDefault();
+		// Run validations.
+		const validationError = validateFormData(formData);
+		if (validationError) {
+		  await Swal.fire({
+			icon: 'warning',
+			title: t("register.validationErrorTitle"),
+			text: validationError,
+			confirmButtonText: t("register.confirmButton")
+		  });
+		  return;
+		}
+
 		try {
 			const response = await API.post('/users/register', formData);
 			await Swal.fire({
@@ -32,7 +74,7 @@ const Register = ({ onToggleForm }) => {
 				text: t("register.successMessage"),
 				confirmButtonText: t("register.confirmButton")
 			});
-			navigate('/sign-in');
+			onToggleForm();
 		} catch (error) {
 			await Swal.fire({
 				icon: 'error',

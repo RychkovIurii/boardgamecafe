@@ -65,8 +65,15 @@
 		"submitButton": "Rekisteröidy",
 		"loginButton": "Onko sinulla jo tili? Kirjaudu sisään",
 		"successMessage": "Rekisteröinti onnistui!",
-		"errorMessage": "Rekisteröinti epäonnistui. Yritä uudelleen."
-	},
+		"errorMessage": "Rekisteröinti epäonnistui. Yritä uudelleen.",
+		"validationErrorTitle": "Validointivirhe",
+		"validation": {
+			"name": "Nimen tulee olla vähintään 2 merkkiä pitkä.",
+			"phone": "Syötä kelvollinen puhelinnumero. Sen tulee alkaa +3:lla tai 0:lla ja sen jälkeen olla 6–11 numeroa.",
+			"email": "Syötä kelvollinen sähköpostiosoite.",
+			"password": "Salasanan tulee olla vähintään 6 merkkiä pitkä."
+			}
+		},
 	"home": {
 		"steps": {
 			"How to find us": "Kuinka löytää meidät",
