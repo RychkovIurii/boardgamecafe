@@ -1,4 +1,6 @@
 const { query } = require('express-validator');
+const { param } = require('express-validator');
+const mongoose = require('mongoose');
 
 exports.suggestedTablesValidation = [
 	query('date')
@@ -15,4 +17,10 @@ exports.suggestedTablesValidation = [
 		.trim()
 		.notEmpty().withMessage('Duration is required')
 		.isInt({ min: 1, max: 240 }).withMessage('Duration must be between 1 and 240 minutes'),
+];
+
+exports.deleteBookingValidation = [
+	param('id')
+		.custom(value => mongoose.Types.ObjectId.isValid(value))
+		.withMessage('Invalid booking ID'),
 ];

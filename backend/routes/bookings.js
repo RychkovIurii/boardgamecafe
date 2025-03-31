@@ -7,6 +7,9 @@ const { authenticate } = require('../middleware/auth');
 const { validateBooking } = require('../utils/bookingValidation');
 const { validateOverlappingBookings } = require('../utils/validateOverlappingBookings');
 const { suggestedTablesValidation } = require('../utils/bookingValidationExtra');
+const { deleteBookingValidation } = require('../utils/bookingValidationExtra');
+const { createBookingValidation } = require('../utils/bookingValidationPost');
+const { updateBookingValidation } = require('../utils/bookingValidationPut');
 const validateInputs = require('../middleware/validateInputs');
 
 // Fetch available tables. FOR ALL USERS
@@ -46,7 +49,7 @@ router.get('/suggested-tables', suggestedTablesValidation, validateInputs, async
 });
 
 // Create a new booking. FOR ALL USERS
-router.post('/', async (req, res) => {
+router.post('/', createBookingValidation, validateInputs, async (req, res) => {
     let { date, startTime, duration, tableNumber, players, game, userId, contactName, contactPhone, amount, paymentMethod } = req.body;
 
 	// Validate booking details
@@ -124,7 +127,7 @@ router.get('/my-bookings', authenticate, async (req, res) => {
 });
 
 // Update a booking (Authorized user) ONLY FOR AUTHORIZED USERS
-router.put('/my-bookings/:id', authenticate, async (req, res) => {
+router.put('/my-bookings/:id', authenticate, updateBookingValidation, validateInputs, async (req, res) => {
     const { date, startTime, duration, tableId, players, game, contactName, contactPhone } = req.body;
 
     const validationResult = await validateBooking(date, startTime, duration);
@@ -169,7 +172,7 @@ router.put('/my-bookings/:id', authenticate, async (req, res) => {
 });
 
 // Delete a booking (Authorized user) ONLY FOR AUTHORIZED USERS
-router.delete('/my-bookings/:id', authenticate, async (req, res) => {
+router.delete('/my-bookings/:id', authenticate, deleteBookingValidation, validateInputs, async (req, res) => {
     try {
         const booking = await Booking.findById(req.params.id);
 
