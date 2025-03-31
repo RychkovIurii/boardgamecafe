@@ -6,10 +6,12 @@ const Payment = require('../models/Payment');
 const { authenticate } = require('../middleware/auth');
 const { validateBooking } = require('../utils/bookingValidation');
 const { validateOverlappingBookings } = require('../utils/validateOverlappingBookings');
+const { suggestedTablesValidation } = require('../utils/bookingValidationExtra');
+const validateInputs = require('../middleware/validateInputs');
 
 // Fetch available tables. FOR ALL USERS
-router.get('/suggested-tables', async (req, res) => {
-	const { date, start, duration } = req.query;
+router.get('/suggested-tables', suggestedTablesValidation, validateInputs, async (req, res) => {
+	const { date, start: startTime, duration } = req.query;
 	
 	if (!date || !startTime || !duration) {
 	  return res.status(400).json({ message: 'Missing required query parameters: date, startTime, endTime' });
@@ -19,16 +21,16 @@ router.get('/suggested-tables', async (req, res) => {
         return res.status(400).json({ message: validationResult.message });
     }
 
-	const { startTime, endTime } = validationResult;
+	const { startTime: startUTC, endTime: endUTC } = validationResult;
   
 	try {
 	  // Find bookings that overlap with the requested time interval.
 	  const bookedTables = await Booking.find({
 		date,
 		$or: [
-		  { startTime: { $lt: endTime, $gte: startTime } },
-		  { endTime: { $gt: startTime, $lte: endTime } },
-		  { startTime: { $lte: startTime }, endTime: { $gte: endTime } }
+		  { startTime: { $lt: endUTC, $gte: startUTC } },
+		  { endTime: { $gt: startUTC, $lte: endUTC } },
+		  { startTime: { $lte: startUTC }, endTime: { $gte: endUTC } }
 		]
 	  }).select('tableId');
   
