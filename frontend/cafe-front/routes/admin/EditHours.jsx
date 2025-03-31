@@ -98,11 +98,11 @@ const EditHours = () => {
         <input type="time" name="closeTime" value={workingForm.closeTime} onChange={handleWorkingChange} />
         <button type="submit">{selectedWorkingId ? 'Update' : 'Add'}</button>
       </form>
-      <ul>
+      <ul className='edits_close'>
         {workingHours.map(hour => (
-          <li key={hour._id}>
+          <li className='items' key={hour._id}>
             {hour.day}: {hour.openTime || 'Closed'} - {hour.closeTime || 'Closed'}
-            <button onClick={() => handleWorkingEdit(hour)}>Edit</button>
+            <button className='edit_but' onClick={() => handleWorkingEdit(hour)}>Edit</button>
           </li>
         ))}
       </ul>
@@ -115,11 +115,11 @@ const EditHours = () => {
         <input type="text" name="reason" placeholder="Reason (e.g. Christmas)" value={specialForm.reason} onChange={handleSpecialChange} />
         <button type="submit">{selectedSpecialId ? 'Update' : 'Add'}</button>
       </form>
-      <ul>
+      <ul className='edits_close'>
         {specialHours.map(hour => (
-          <li key={hour._id}>
+          <li className='items' key={hour._id}>
             {hour.date?.slice(0, 10)}: {hour.openTime || 'Closed'} - {hour.closeTime || 'Closed'} {hour.reason && `(${hour.reason})`}
-            <button onClick={() => handleSpecialEdit(hour)}>Edit</button>
+            <button className='edit_but' onClick={() => handleSpecialEdit(hour)}>Edit</button>
           </li>
         ))}
       </ul>

@@ -4,9 +4,8 @@ const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+
 dotenv.config({ path: './back.env' });
-
-
 const routes = require('../routes');
 const app = express();
 app.use(cookieParser());

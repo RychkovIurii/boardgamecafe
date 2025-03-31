@@ -1,0 +1,56 @@
+.edits {
+    text-align: center;
+    align-content: space-between;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    margin: 0 auto;
+    border-color: darkgrey;
+    width: 80%;
+}
+
+.edits_close {
+    text-align: center;
+    align-content: space-between;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    margin: 0 auto;
+    border-color: darkgrey;
+    max-width: 650px;
+}
+
+.items{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 4px;
+    border-color: darkgrey
+}
+
+.descr_type {
+    display: flex;
+    text-align: left;
+    flex-basis: 80%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: large;
+}
+
+.edit_but{
+    border-radius: 5px;
+    background-color: green;
+    padding: 12px;
+    flex-shrink: 0;
+}
+
+.del_but{
+    border-radius: 5px;
+    background-color: red;
+    padding: 12px;
+    flex-shrink: 1;
+}
+
+.spacer{
+    margin-bottom: 20px;
+    background-color: #F3F4F6;
+}

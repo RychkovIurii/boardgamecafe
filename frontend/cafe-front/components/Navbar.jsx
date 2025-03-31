@@ -75,24 +75,23 @@ function Navbar() {
     <AppBar position="static" color="white">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: "Fontdiner Swanky",
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'black',
-              textDecoration: 'none',
-            }}
-          >
-            <img src={cafeLogo} />
-          </Typography>
+          
+			<Link to="/" style={{ textDecoration: 'none' }}>
+				<Typography
+					variant="h6"
+					noWrap
+					sx={{
+					mr: 2,
+					display: { xs: 'none', md: 'flex' },
+					fontFamily: "Fontdiner Swanky",
+					fontWeight: 700,
+					letterSpacing: '.3rem',
+					color: 'black',
+					}}
+				>
+					<img src={cafeLogo} alt="Cafe Boardgame Logo" style={{ paddingBottom: '1rem' }} />
+				</Typography>
+			</Link>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton

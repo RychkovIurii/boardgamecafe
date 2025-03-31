@@ -38,7 +38,6 @@ export default function Footer() {
                             <ul className="text-md leading-loose">
                                 <li><Link to='/'>{t('footer.About Us')}</Link></li>
                                 <li><Link to='/contact'>{t('footer.Contact')}</Link></li>
-                                <li><Link to='/'>{t('footer.Careers')}</Link></li>
                                 <li><Link to='/'>{t('footer.Partners')}</Link></li>
                                 <li><Link to='/privacy-policy'>{t('footer.Privacy Policy')}</Link></li>
                             </ul>
@@ -62,7 +61,7 @@ export default function Footer() {
                             </ul>
                         </div>
                         <div>
-                            <h4>Awards</h4>
+                            <h4>{t('footer.awards')}</h4>
                             <div className="awards">
                                 <div><img src={Award1} height={50} alt="Award1" /></div>
                                 <br></br>
