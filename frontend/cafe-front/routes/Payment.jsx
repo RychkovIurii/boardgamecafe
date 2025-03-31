@@ -41,7 +41,6 @@ export const Return = () => {
   const [customerEmail, setCustomerEmail] = useState('');
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { t } = useTranslation();
 
   useEffect(() => {
     const queryString = window.location.search;
