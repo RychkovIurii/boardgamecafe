@@ -13,13 +13,27 @@ function Events() {
 	const [events, setEvents] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
-	const nextEventDate = '2025-04-02T16:00:00';
+	const [nextCafeconDate, setNextCafeconDate] = useState(null);
   
 	useEffect(() => {
 	  const fetchEvents = async () => {
 		try {
-		  const response = await API.get('/events');
-		  setEvents(response.data);
+			const response = await API.get('/events');
+			const allEvents = response.data;
+			setEvents(allEvents);
+
+			// 🧠 Find the next CAFECON event
+			const now = new Date();
+			const upcomingCafecon = allEvents
+				.filter(event =>
+					event.title?.toLowerCase().includes('cafecon') &&
+					new Date(event.date) > now
+				)
+				.sort((a, b) => new Date(a.date) - new Date(b.date))[0];
+
+			if (upcomingCafecon) {
+				setNextCafeconDate(upcomingCafecon.date);
+			}
 		} catch (err) {
 		  setError(err.message);
 		} finally {
@@ -40,7 +54,7 @@ function Events() {
 		  cName="heroEvents"
 		  heroImage={heroImage}
 		  title="CafeCon Café Boardgame"
-		  text={<CountdownTimer targetDate={nextEventDate} />}
+		  text={nextCafeconDate ? <CountdownTimer targetDate={nextCafeconDate} /> : 'No upcoming CafeCon events'}
 		  linkText="Learn More" //Change here
 		  linkClass="show"
 		  url="/cafecon"
