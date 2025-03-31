@@ -52,24 +52,24 @@ router.get('/suggested-tables', suggestedTablesValidation, validateInputs, async
 router.post('/', createBookingValidation, validateInputs, async (req, res) => {
     let { date, startTime, duration, tableNumber, players, game, userId, contactName, contactPhone, amount, paymentMethod } = req.body;
 
-	// Validate booking details
-	const validationResult = await validateBooking(date, startTime, duration);
+    // Validate booking details
+    const validationResult = await validateBooking(date, startTime, duration);
     if (!validationResult.isValid) {
         return res.status(400).json({ message: validationResult.message });
     }
 
-	if (!tableNumber || tableNumber < 1 || tableNumber > 50) {
+    if (!tableNumber || tableNumber < 1 || tableNumber > 50) {
         return res.status(400).json({ message: 'Invalid table number' });
     }
-	const table = await Table.findOne({ number: tableNumber });
+    const table = await Table.findOne({ number: tableNumber });
     if (!table) {
         return res.status(400).json({ message: 'Table not found' });
     }
     const tableId = table._id;
 
     const { startHelsinkiTime, endHelsinkiTime } = validationResult;
-	const startUTCtime = startHelsinkiTime.toDate();
-	const endUTCtime = endHelsinkiTime.toDate();
+    const startUTCtime = startHelsinkiTime.toDate();
+    const endUTCtime = endHelsinkiTime.toDate();
 
 
     // Check for overlapping bookings
@@ -81,8 +81,8 @@ router.post('/', createBookingValidation, validateInputs, async (req, res) => {
     try {
         const newBooking = new Booking({
             date: startUTCtime,
-			startTime: startUTCtime,
-			endTime: endUTCtime,
+            startTime: startUTCtime,
+            endTime: endUTCtime,
             tableId,
             players,
             game,
@@ -92,22 +92,22 @@ router.post('/', createBookingValidation, validateInputs, async (req, res) => {
         });
 
         const savedBooking = await newBooking.save();
-		let savedPayment = null;
-		if (amount && paymentMethod) { // ✅ Only create payment if details are provided
-			const newPayment = new Payment({
-				bookingId: savedBooking._id,
-				amount,
-				status: 'pending',
-				paymentMethod,
-			});
-			savedPayment = await newPayment.save();
-		}
+        let savedPayment = null;
+        if (amount && paymentMethod) { // ✅ Only create payment if details are provided
+            const newPayment = new Payment({
+                bookingId: savedBooking._id,
+                amount,
+                status: 'pending',
+                paymentMethod,
+            });
+            savedPayment = await newPayment.save();
+        }
 
-		// ✅ Only assign `paymentId` if a payment was created
-		if (savedPayment) {
-			savedBooking.paymentId = savedPayment._id;
-			await savedBooking.save();
-		}
+        // ✅ Only assign `paymentId` if a payment was created
+        if (savedPayment) {
+            savedBooking.paymentId = savedPayment._id;
+            await savedBooking.save();
+        }
         res.status(201).json(savedBooking);
     } catch (error) {
         console.error('Error creating booking:', error);
@@ -135,7 +135,7 @@ router.put('/my-bookings/:id', authenticate, updateBookingValidation, validateIn
         return res.status(400).json({ message: validationResult.message });
     }
 
-	const { startDateTime, endDateTime } = validationResult;
+    const { startDateTime, endDateTime } = validationResult;
 
     // Check if the requested booking time is available (excluding the current booking)
     const hasOverlap = await validateOverlappingBookings(tableId, startDateTime, endDateTime, req.params.id);
@@ -155,8 +155,8 @@ router.put('/my-bookings/:id', authenticate, updateBookingValidation, validateIn
         }
 
         booking.date = startDateTime.toDate();
-		booking.startTime = startDateTime.toDate();
-		booking.endTime = endDateTime.toDate();
+        booking.startTime = startDateTime.toDate();
+        booking.endTime = endDateTime.toDate();
         booking.tableId = tableId;
         booking.players = players;
         booking.game = game;
@@ -184,7 +184,7 @@ router.delete('/my-bookings/:id', authenticate, deleteBookingValidation, validat
             return res.status(403).json({ message: 'Unauthorized to cancel this booking' });
         }
 
-        await booking.remove();
+        await booking.deleteOne({ _id: req.params.id });
         res.json({ message: 'Booking canceled' });
     } catch (error) {
         console.error('Error canceling booking:', error);

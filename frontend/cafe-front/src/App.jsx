@@ -52,6 +52,7 @@ function App() {
 		  <Route path='/service' element={<Service />} />
 		  <Route path='/service-product/:serviceId' element={<ServiceProduct />} />
 		  <Route path='/profile' element={<Profile />} />
+		  <Route path='/account' element={<MyBookings />} />
   
 		  {/* Admin routes */}
 		  <Route path='/admin' element={<AdminRoute element={<AdminDashboard />} />} />

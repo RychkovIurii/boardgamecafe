@@ -40,8 +40,8 @@ const Login = ({ onToggleForm }) => {
 				title: t("login.errorTitle"),
 				text: t("login.errorMessage"),
 				confirmButtonText: t("login.confirmButton")
-				});
-			}
+			});
+		}
 	};
 
 	return (
