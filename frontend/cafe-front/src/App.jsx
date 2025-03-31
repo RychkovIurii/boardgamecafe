@@ -15,6 +15,7 @@ import PrivacyPolicy from '../routes/PrivacyPolicy';
 import Service from '../routes/Service';
 import ServiceProduct from '../routes/ServiceProduct';
 import Profile from '../routes/Profile';
+import MyBookings from '../routes/MyBookings';
 import { CheckoutForm, Return } from '../routes/Payment';
 
 // --- Admin Routes ---
