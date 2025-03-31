@@ -110,12 +110,12 @@ const EditTables = () => {
                 <button type="submit">{selectedTableId ? 'Update Table' : 'Add Table'}</button>
             </form>
             <h2 style={{ marginTop: '30px' }}>Existing Tables</h2>
-            <ul>
+            <ul className='edits_close'>
                 {tables.map(table => (
-                    <li key={table._id}>
-                        Table {table.number} - Capacity: {table.capacity} - Location: {table.location} - {table.availability ? 'Available' : 'Unavailable'}
-                        <button onClick={() => handleEdit(table)}>Edit</button>
-                        <button onClick={() => handleDelete(table._id)}>Delete</button>
+                    <li className='items' key={table._id}>
+                        <div className='descr_type'>Table {table.number} - Capacity: {table.capacity} - Location: {table.location} - {table.availability ? 'Available' : 'Unavailable'}</div>
+                        <button className='edit_but' onClick={() => handleEdit(table)}>Edit</button>
+                        <button className='del_but' onClick={() => handleDelete(table._id)}>Delete</button>
                     </li>
                 ))}
             </ul>
