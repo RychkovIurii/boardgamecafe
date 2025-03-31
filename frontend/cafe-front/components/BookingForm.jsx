@@ -22,7 +22,7 @@ import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 /**
  StepOne, StepTwo, and StepThree are separated for clarity.
  You can define them inline, in separate files, or as your project needs.*/
-function StepOne({ inputs, handleChange, handleFilterChange }) {
+function StepOne({ inputs, handleChange, handleFilterChange, handleTimeChange }) {
   const { t } = useTranslation();
   const [value, setValue] = React.useState(dayjs('2022-04-17T16:00'));
 
@@ -89,7 +89,7 @@ function StepOne({ inputs, handleChange, handleFilterChange }) {
             timeSteps={{ minutes: 30 }}
             minutesStep={30}
             value={inputs.startTime}
-            onChange={handleChange}
+            onChange={handleTimeChange}
             ampm={false}
             required
           />
@@ -297,7 +297,9 @@ export default function BookingForm() {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-
+  const handleTimeChange = (value) => {
+	setInputs({ ...inputs, startTime: value });
+  };
 
   const handleChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value })
