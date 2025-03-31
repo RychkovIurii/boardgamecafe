@@ -9,7 +9,8 @@
 		"My bookings": "My bookings",
 		"SignIn": "SignIn",
 		"Register": "Register",
-		"Logout": "Logout"
+		"Logout": "Logout",
+		"AdminDashboard": "Admin Dashboard"
 	},
 	"hero": {
 		"Welcome to CAFÉ BOARDGAME": "Welcome to CAFÉ BOARDGAME",
@@ -201,7 +202,8 @@
 		"Tables": "Tables",
 		"Hours": "Hours",
 		"SignIn": "SignIn",
-		"Logout": "Logout"
+		"Logout": "Logout",
+		"UserView": "User View"
 	},
 	"service": {
 		"Title": "Find our service",
@@ -284,5 +286,8 @@
 		"friday": "Friday 16:00 - 02:00",
 		"saturday": "Saturday 14:00 - 02:00",
 		"sunday": "Sunday Closed"
+	},
+	"events": {
+		"upcomingEvents": "Upcoming Events"
 	}
 }

@@ -9,7 +9,8 @@
 		"My bookings": "Varaukseni",
 		"SignIn": "Kirjaudu sisään",
 		"Register": "Rekisteröidy",
-		"Logout": "Kirjaudu ulos"
+		"Logout": "Kirjaudu ulos",
+		"AdminDashboard": "Hallintapaneeli"
 	},
 	"hero": {
 		"Welcome to CAFÉ BOARDGAME": "Tervetuloa CAFÉ BOARDGAME",
@@ -207,7 +208,8 @@
 		"Tables": "Pöydät",
 		"Hours": "Tunnit",
 		"SignIn": "Kirjaudu sisään",
-		"Logout": "Kirjaudu ulos"
+		"Logout": "Kirjaudu ulos",
+		"UserView": "Käyttäjänäkymä"
 	},
 	"editEvents": {
 		"title": "Muokkaa tapahtumia",
@@ -273,5 +275,8 @@
 		"friday": "Perjantai 16:00 - 02:00",
 		"saturday": "Lauantai 14:00 - 02:00",
 		"sunday": "Sunnuntai suljettu"
+	},
+	"events": {
+		"upcomingEvents": "Tulevat tapahtumat"
 	}
 }

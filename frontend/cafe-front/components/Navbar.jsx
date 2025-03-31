@@ -32,7 +32,7 @@ function Navbar() {
   const [language, setLanguage] = React.useState(i18n.language);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const { isAuthenticated, isCheckingAuth, logout } = useContext(AuthContext);
+  const { isAuthenticated, isCheckingAuth, logout, user } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
@@ -64,12 +64,13 @@ function Navbar() {
   if (isCheckingAuth) return null; // or loading spinner
 
   const settings = isAuthenticated
-    ? [
+  ? [
       { name: 'Profile', path: '/profile' },
       { name: 'My bookings', path: '/account' },
+      ...(user?.role === 'admin' ? [{ name: 'AdminDashboard', path: '/admin' }] : []),
       { name: 'Logout', action: handleLogout }
     ]
-    : [{ name: 'SignIn', path: '/sign-in' }];
+  : [{ name: 'SignIn', path: '/sign-in' }];
 
   return (
     <AppBar position="static" color="white">

@@ -8,12 +8,14 @@ import Footer from '../components/Footer';
 import CountdownTimer from '../components/CountdownTimer';
 import EventsCard from '../components/EventsCard';
 import '../components/Style/EventCard.css'
+import { useTranslation } from 'react-i18next';
 
 function Events() {
 	const [events, setEvents] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 	const [nextCafeconDate, setNextCafeconDate] = useState(null);
+	const { t } = useTranslation();
   
 	useEffect(() => {
 	  const fetchEvents = async () => {
@@ -55,11 +57,11 @@ function Events() {
 		  heroImage={heroImage}
 		  title="CafeCon Café Boardgame"
 		  text={nextCafeconDate ? <CountdownTimer targetDate={nextCafeconDate} /> : 'No upcoming CafeCon events'}
-		  linkText="Learn More" //Change here
+		  linkText={t('Learn More')}
 		  linkClass="show"
 		  url="/cafecon"
 		/>
-		<h1>Upcoming Events{/*Change here*/}</h1>
+		<h1 style={{ margin: '30px' }}>{t('events.upcomingEvents')}</h1>
 		<div className='cardGen'>
 		  {events.map(event => (
 			<EventsCard 
