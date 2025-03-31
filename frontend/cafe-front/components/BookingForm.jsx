@@ -285,6 +285,8 @@ export default function BookingForm() {
     setError(null);
     setSuccess(false);
 
+    const startTimeString = inputs.startTime.format('HH:mm');
+
     // Validates duration and players
     const parsedPlayers = parseInt(inputs.players, 10);
 
@@ -301,7 +303,7 @@ export default function BookingForm() {
 
     const bookingData = {
       date: inputs.date,
-      startTime: inputs.startTime,
+      startTime: startTimeString,
       duration: inputs.duration,
       tableNumber: inputs.tableNumber,
       players: parsedPlayers,
