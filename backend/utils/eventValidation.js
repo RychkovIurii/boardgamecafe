@@ -21,8 +21,8 @@ exports.eventCreateValidation = [
 	body('image')
 		.optional()
 		.trim()
-		.escape()
-		.isString()
+		.isURL({ protocols: ['http','https'], require_protocol: true })
+		.withMessage('Image must be a valid URL')
 		.isLength({ max: 300 })
 ];
 
