@@ -16,14 +16,14 @@ const MyBookings = () => {
         const fetchBookings = async () => {
             try {
                 const response = await API.get('bookings/my-bookings');
-                console.log('Fetched bookings:', response.data)
+                //console.log('Fetched bookings:', response.data)
                 const now = new Date();
 
                 const past = response.data.filter(booking => new Date(booking.date) < now).sort((a, b) => new Date(a.date) - new Date(b.date));
                 const upcoming = response.data.filter(booking => new Date(booking.date) >= now).sort((a, b) => new Date(a.date) - new Date(b.date));
 
-                console.log('Upcoming:', upcoming);
-                console.log('Past:', past);
+                //console.log('Upcoming:', upcoming);
+                //console.log('Past:', past);
 
                 setBookings({ past, upcoming });
             } catch (error) {
@@ -35,9 +35,9 @@ const MyBookings = () => {
         fetchBookings()
     }, [])
 
-    const handleEdit = (booking) => {
-        navigate('/bookings/edit/${booking._id}', { state: { booking } });  // 예약 정보와 함께 이동
-    };
+    // const handleEdit = (booking) => {
+    //     navigate('/bookings/edit/${booking._id}', { state: { booking } });  // 예약 정보와 함께 이동
+    // };
 
     const handleDelete = async (id) => {
         try {
@@ -54,8 +54,12 @@ const MyBookings = () => {
 
             if (!result.isConfirmed) return;
 
-            await API.delete(`bookings/my-bookings/${id}`);
+            await API.delete(`/bookings/my-bookings/${id}`);
+
+
+            // Update the state after successful deletion
             setBookings(prev => ({
+                past: prev.past.filter(booking => booking._id !== id),
                 upcoming: prev.upcoming.filter(booking => booking._id !== id)
             }));
 
@@ -96,7 +100,7 @@ const MyBookings = () => {
                                 <p>Contact: {booking.contactName}<br /> ({booking.contactPhone})</p>
                                 <div className="mt-3 flex gap-2 justify-center">
                                     <button
-                                        onClick={() => handleEdit(booking)}
+                                        // onClick={() => handleEdit(booking)}
                                         className="bg-green-800 w-20 text-white px-4 py-2 rounded-md"
                                     >
                                         Edit

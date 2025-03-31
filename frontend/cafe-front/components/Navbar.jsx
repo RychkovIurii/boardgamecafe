@@ -65,17 +65,17 @@ function Navbar() {
 
   const settings = isAuthenticated
     ? [
-        { name: 'Profile', path: '/profile' },
-        { name: 'My bookings', path: '/account' },
-        { name: 'Logout', action: handleLogout }
-      ]
+      { name: 'Profile', path: '/profile' },
+      { name: 'My bookings', path: '/account' },
+      { name: 'Logout', action: handleLogout }
+    ]
     : [{ name: 'SignIn', path: '/sign-in' }];
 
   return (
     <AppBar position="static" color="white">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          
+
           <Typography
             variant="h6"
             noWrap
@@ -132,7 +132,7 @@ function Navbar() {
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
           <Typography
             variant="h5"
             noWrap
@@ -149,7 +149,7 @@ function Navbar() {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            CAFÉ BOARDGAME
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, ml: 6 }}>
             {pages.map((page) => (

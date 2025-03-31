@@ -158,7 +158,6 @@ router.put('/my-bookings/:id', authenticate, async (req, res) => {
 router.delete('/my-bookings/:id', authenticate, async (req, res) => {
     try {
         const booking = await Booking.findById(req.params.id);
-        console.log(res.booking)
 
         if (!booking) {
             return res.status(404).json({ message: 'Booking not found' });
@@ -168,7 +167,7 @@ router.delete('/my-bookings/:id', authenticate, async (req, res) => {
             return res.status(403).json({ message: 'Unauthorized to cancel this booking' });
         }
 
-        await booking.remove();
+        await booking.deleteOne({ _id: req.params.id });
         res.json({ message: 'Booking canceled' });
     } catch (error) {
         console.error('Error canceling booking:', error);
