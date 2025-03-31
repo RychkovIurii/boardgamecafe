@@ -2,6 +2,11 @@ const express = require('express');
 const router = express.Router();
 const Table = require('../models/Table');
 const { authenticate, authorizeAdmin } = require('../middleware/auth');
+const {
+	tableValidation,
+	tableIdValidation
+} = require('../utils/tableValidation');
+const validateInputs = require('../middleware/validateInputs');
 
 // Get all tables
 router.get('/', async (req, res) => {
@@ -15,7 +20,7 @@ router.get('/', async (req, res) => {
 });
 
 // Create a new table
-router.post('/', authenticate, authorizeAdmin, async (req, res) => {
+router.post('/', authenticate, authorizeAdmin, tableValidation, validateInputs, async (req, res) => {
     const { number, capacity, location, availability } = req.body;
     try {
         const newTable = new Table({ number, capacity, location, availability });
@@ -27,7 +32,7 @@ router.post('/', authenticate, authorizeAdmin, async (req, res) => {
 });
 
 // Update an existing table
-router.put('/:id', authenticate, authorizeAdmin, async (req, res) => {
+router.put('/:id', authenticate, authorizeAdmin, [...tableIdValidation, ...tableValidation], validateInputs, async (req, res) => {
     const { number, capacity, location, availability } = req.body;
     try {
         const updatedTable = await Table.findByIdAndUpdate(
@@ -45,7 +50,7 @@ router.put('/:id', authenticate, authorizeAdmin, async (req, res) => {
 });
 
 // Delete a table
-router.delete('/:id', authenticate, authorizeAdmin, async (req, res) => {
+router.delete('/:id', authenticate, authorizeAdmin, tableIdValidation, validateInputs, async (req, res) => {
     try {
         const deletedTable = await Table.findByIdAndDelete(req.params.id);
         if (!deletedTable) {

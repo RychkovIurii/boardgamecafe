@@ -31,11 +31,9 @@ const Login = ({ onToggleForm }) => {
 				confirmButtonText: t("login.confirmButton")
 			  });
 			login(role);
-			if (role === 'admin') {
-				navigate('/admin');
-			} else {
-				navigate('/');
-			}
+			setTimeout(() => {
+				navigate(role === 'admin' ? '/admin' : '/');
+			}, 0);
 		} catch (error) {
 			await Swal.fire({
 				icon: 'error',
