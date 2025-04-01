@@ -91,7 +91,7 @@ function AdminNavbar() {
               textDecoration: 'none',
             }}
           >
-            <img src={cafeLogo} />
+            <img src={cafeLogo}  style={{ paddingBottom: '1rem' }} />
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
