@@ -36,7 +36,8 @@
 .footer-logo img {
 	padding-right: 10px;
 	width: 150px;
-	/* object-fit: cover; */
+	filter: brightness(0) saturate(100%) invert(18%) sepia(4%) saturate(0%) hue-rotate(178deg) brightness(90%) contrast(95%);
+
 }
 
 .top {
