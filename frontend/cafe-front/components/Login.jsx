@@ -30,7 +30,7 @@ const Login = ({ onToggleForm }) => {
 				text: t("login.successMessage"),
 				confirmButtonText: t("login.confirmButton")
 			  });
-			login(role);
+			await login();
 			setTimeout(() => {
 				navigate(role === 'admin' ? '/admin' : '/');
 			}, 0);
