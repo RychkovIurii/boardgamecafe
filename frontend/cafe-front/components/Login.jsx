@@ -24,16 +24,19 @@ const Login = ({ onToggleForm }) => {
 		try {
 			const response = await API.post('/users/login', formData);
 			const { role } = response.data;
+			login(role);
 			await Swal.fire({
 				icon: 'success',
 				title: t("login.successTitle"),
 				text: t("login.successMessage"),
 				confirmButtonText: t("login.confirmButton")
-			  });
-			login(role);
-			setTimeout(() => {
-				navigate(role === 'admin' ? '/admin' : '/');
-			}, 0);
+			  }).then(() => {
+				if (role === 'admin') {
+					navigate('/admin');
+				} else {
+					navigate('/');
+				}
+			});
 		} catch (error) {
 			await Swal.fire({
 				icon: 'error',
