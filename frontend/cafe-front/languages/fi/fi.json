@@ -35,10 +35,14 @@
 		"License": "Lisenssi",
 		"Terms of Service": "Käyttöehdot",
 		"Opening hours": "Aukioloajat",
-		"Weekdays": "Maanantai - Torstai",
+		"Monday": "Maanantai",
+		"Tuesday": "Tiistai",
+		"Wednesday": "Keskiviikko",
+		"Thursday": "Torstai",
 		"Friday": "Perjantai",
 		"Saturday": "Lauantai",
-		"Sunday-Close": "Sunnuntai suljettu",
+		"Sunday": "Sunnuntai",
+		"Closed": "Suljettu",
 		"awards": "Palkinnot"
 	},
 	"login": {
