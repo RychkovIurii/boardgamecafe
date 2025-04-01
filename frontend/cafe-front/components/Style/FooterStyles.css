@@ -6,7 +6,6 @@
 
 .footerBg {
 	display: flex;
-	background-image: url('../src/assets/elements/footer-background.png');
 	background-size: 100%;
 	background-repeat: no-repeat;
 	margin: 0;

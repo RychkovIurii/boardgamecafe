@@ -4,12 +4,13 @@ import logo from "../src/assets/logo.png";
 import './Style/FooterStyles.css';
 import Award1 from "../src/assets/icons/Award1.png";
 import Award2 from "../src/assets/icons/Award2.png";
+import footerBg from '../src/assets/elements/footer-background.png';
 
 export default function Footer() {
     const { t } = useTranslation();
     return (
         <div className='footerImg'>
-            <div className='footerBg'>
+            <div className='footerBg' style={{ backgroundImage: `url(${footerBg})` }}>
                 <div className='footer'>
                     <div className='top'>
                         <Link className="footer-logo" to="/"><img src={logo} width={80} height={80} alt="logo" /></Link>
