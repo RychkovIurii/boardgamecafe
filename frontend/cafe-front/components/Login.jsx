@@ -23,14 +23,16 @@ const Login = ({ onToggleForm }) => {
 		e.preventDefault();
 		try {
 			const response = await API.post('/users/login', formData);
-			const { role } = response.data;
+			/* const { role } = response.data; */ //For cookie-based authentication.
+			const { token, role } = response.data;
+			localStorage.setItem('accessToken', token);
 			await Swal.fire({
 				icon: 'success',
 				title: t("login.successTitle"),
 				text: t("login.successMessage"),
 				confirmButtonText: t("login.confirmButton")
 			  });
-			login(role);
+			await login();
 			setTimeout(() => {
 				navigate(role === 'admin' ? '/admin' : '/');
 			}, 0);

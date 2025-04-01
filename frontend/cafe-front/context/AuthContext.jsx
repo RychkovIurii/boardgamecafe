@@ -14,57 +14,62 @@ const AuthProvider = ({ children }) => {
 	const { t } = useTranslation();
   
 	// Fetch the user profile using the provided token.
-	const fetchUserProfile = useCallback(async (token) => {
-	  try {
-		const response = await API.get('/users/profile', {
-		  headers: { Authorization: `Bearer ${token}` },
-		});
-		setUser(response.data);
-		setIsAuthenticated(true);
-	  } catch (error) {
-		console.error('Failed to fetch user profile:', error);
-		setUser(null);
-		setIsAuthenticated(false);
-	  }
-	}, []);
-  
-	// Check for an existing token and fetch the user profile on mount.
-	useEffect(() => {
-	  let isMounted = true;
-	  const checkAuth = async () => {
+	const fetchUserProfile = useCallback(async () => {
 		const token = localStorage.getItem('accessToken');
 		if (!token) {
-		  if (isMounted) {
 			setIsAuthenticated(false);
-			setIsCheckingAuth(false);
-		  }
-		  return;
+			setUser(null);
+			return;
 		}
 		try {
-		  await fetchUserProfile(token);
+			const response = await API.get('/users/profile', {
+				headers: {
+				  Authorization: `Bearer ${token}`
+				}
+			  });
+			setUser(response.data);
+			setIsAuthenticated(true);
 		} catch (error) {
-		  console.error('Error during auth check:', error);
-		} finally {
-		  if (isMounted) setIsCheckingAuth(false);
+			setUser(null);
+			setIsAuthenticated(false);
 		}
-	  };
-	  checkAuth();
-	  return () => {
-		isMounted = false;
-	  };
+	}, []);
+  
+	useEffect(() => {
+		let isMounted = true;
+		const checkAuth = async () => {
+			try {
+				await fetchUserProfile();
+			} catch (err) {
+				console.error('Auth check error:', err);
+			} finally {
+				if (isMounted) setIsCheckingAuth(false);
+			}
+		};
+		checkAuth();
+		return () => {
+			isMounted = false;
+		};
 	}, [fetchUserProfile]);
   
-	// Login: store the token and fetch the user's profile immediately.
-	const login = async (token) => {
-	  localStorage.setItem('accessToken', token);
-	  await fetchUserProfile(token);
+	const login = async () => {
+		await fetchUserProfile();
 	};
   
 	// Logout: call API to logout, clear local storage, update state, and notify the user.
 	const logout = async () => {
-	  try {
-		await API.post('/users/logout');
 		localStorage.removeItem('accessToken');
+		setUser(null);
+		setIsAuthenticated(false);
+		await Swal.fire({
+			icon: 'success',
+			title: t('logout.successTitle'),
+			text: t('logout.successMessage'),
+			confirmButtonText: t('logout.confirmButton'),
+		  });
+		navigate('/');
+	  /* try { //for cookie-based authentication.
+		await API.post('/users/logout');
 		setUser(null);
 		setIsAuthenticated(false);
 		await Swal.fire({
@@ -84,7 +89,7 @@ const AuthProvider = ({ children }) => {
 			'An error occurred during logout. Please try again.',
 		  confirmButtonText: t('logout.confirmButton') || 'OK',
 		});
-	  }
+	  } */
 	};
 
     return (
