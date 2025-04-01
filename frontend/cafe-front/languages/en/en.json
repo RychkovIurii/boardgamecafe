@@ -35,10 +35,14 @@
         "License": "License",
         "Terms of Service": "Terms of Service",
 		"Opening hours": "Opening hours",
-		"Weekdays": "Monday - Thursday",
+		"Monday": "Monday",
+		"Tuesday": "Tuesday",
+		"Wednesday": "Wednesday",
+		"Thursday": "Thursday",
 		"Friday": "Friday",
 		"Saturday": "Saturday",
-		"Sunday-Close": "Sunday Closed",
+		"Sunday": "Sunday",
+		"Closed": "Closed",
 		"awards": "Awards"
 	},
 	"login": {
