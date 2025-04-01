@@ -21,7 +21,7 @@ const loginUser = async (req, res) => {
         res.cookie('accessToken', token, { 
             httpOnly: true, 
             secure: true, 
-            sameSite: 'Strict',
+            sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Strict',
 			path: '/',
 			maxAge: 3600000
         });
