@@ -18,6 +18,7 @@ import dayjs from 'dayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import floorplan from '../src/assets/elements/floorplan.png';
 
 /**
  StepOne, StepTwo, and StepThree are separated for clarity.
@@ -405,7 +406,7 @@ export default function BookingForm() {
   return (
     <>
       <div className='backgroundBooking'>
-        <img className="floorplann" src='../assets/floorplan.png' />
+	  	<img className="floorplann" src={floorplan} alt="floorplan" />
         <div className='stepperStyle'>
 
           <Box className='stepperStyle2' sx={{ minWidth: '400px', maxWidth: '700px', margin: '0 auto', fontFamily: "Fontdiner Swanky" }} >

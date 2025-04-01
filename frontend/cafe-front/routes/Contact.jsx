@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import "../components/Style/ContactStyles.css";
+import contactImage from '../src/assets/elements/contact.png';
 
 
 
@@ -17,11 +18,7 @@ function Contact() {
              
               <div className="contact-container">
       <div className="contact-card">
-        <img
-          src="/src/assets/elements/contact.png" 
-         
-          className="contact-image"
-        />
+	  	<img src={contactImage} className="contact-image" alt="Contact" />
         <div className="contact-info">
           <h1>{t(`contact.heroTitle`)}</h1>
           <h2>{t(`contact.heroText`)}</h2>
