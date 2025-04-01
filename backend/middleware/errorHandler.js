@@ -5,7 +5,7 @@ const errorHandler = (err, req, res, next) => { // I have to think about this
 	res.status(statusCode);
 	res.json({
 	  message: err.message,
-	  stack: process.env.NODE_ENV === 'Production' ? 'X' : err.stack,
+	  stack: process.env.NODE_ENV === 'production' ? 'X' : err.stack,
 	});
   }
 
