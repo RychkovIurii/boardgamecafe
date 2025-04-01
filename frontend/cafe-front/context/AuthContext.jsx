@@ -15,8 +15,18 @@ const AuthProvider = ({ children }) => {
   
 	// Fetch the user profile using the provided token.
 	const fetchUserProfile = useCallback(async () => {
+		const token = localStorage.getItem('accessToken');
+		if (!token) {
+			setIsAuthenticated(false);
+			setUser(null);
+			return;
+		}
 		try {
-			const response = await API.get('/users/profile');
+			const response = await API.get('/users/profile', {
+				headers: {
+				  Authorization: `Bearer ${token}`
+				}
+			  });
 			setUser(response.data);
 			setIsAuthenticated(true);
 		} catch (error) {
@@ -48,7 +58,17 @@ const AuthProvider = ({ children }) => {
   
 	// Logout: call API to logout, clear local storage, update state, and notify the user.
 	const logout = async () => {
-	  try {
+		localStorage.removeItem('accessToken');
+		setUser(null);
+		setIsAuthenticated(false);
+		await Swal.fire({
+			icon: 'success',
+			title: t('logout.successTitle'),
+			text: t('logout.successMessage'),
+			confirmButtonText: t('logout.confirmButton'),
+		  });
+		navigate('/');
+	  /* try { //for cookie-based authentication.
 		await API.post('/users/logout');
 		setUser(null);
 		setIsAuthenticated(false);
@@ -69,7 +89,7 @@ const AuthProvider = ({ children }) => {
 			'An error occurred during logout. Please try again.',
 		  confirmButtonText: t('logout.confirmButton') || 'OK',
 		});
-	  }
+	  } */
 	};
 
     return (
