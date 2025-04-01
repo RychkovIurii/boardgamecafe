@@ -20,7 +20,7 @@ const importMenuData = async () => {
 
         await MenuItem.deleteMany();
 
-        const { menuData } = await import('../../frontend/cafe-front/assets/image_assets/menuData.js');
+        const { menuData } = await import('../../frontend/cafe-front/src/assets/menuData.js');
 
 		await MenuItem.insertMany(menuData);
 

@@ -38,7 +38,7 @@ const MenuIcon = ({ activeId, setActiveId }) => {
                                     ? 'w-16 sm:w-20 md:w-24 lg:w-28 xl:w-32 h-auto mb-6 mt-3'
                                     : 'w-12 sm:w-16 md:w-20 lg:w-24 mb-2'
                                     }`}
-								src={`/assets/image_assets/${item.image}`}
+								src={`/src/assets/icons/${item.image}`}
                                 alt={item.menuType}
                             />
                         </div>

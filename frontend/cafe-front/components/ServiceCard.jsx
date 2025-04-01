@@ -1,6 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next';
-import { serviceMenu } from '../assets/image_assets/assets';
+import { serviceMenu } from '../src/assets/assets';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 function ServiceCard() {

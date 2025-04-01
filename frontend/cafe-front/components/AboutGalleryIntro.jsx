@@ -1,7 +1,7 @@
 import React from 'react'
 import clsx from "clsx";
 import { useState, useEffect } from "react";
-import { assets } from '../assets/image_assets/assets';
+import { assets } from '../src/assets/assets';
 import { useTranslation } from 'react-i18next';
 
 function AboutGalleryIntro() {

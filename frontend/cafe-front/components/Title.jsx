@@ -1,5 +1,5 @@
 import React from 'react'
-import { assets } from '../assets/image_assets/assets';
+import { assets } from '../src/assets/assets';
 
 function Title({ text1, text2 }) {
     return (

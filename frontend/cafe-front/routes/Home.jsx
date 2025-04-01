@@ -1,4 +1,4 @@
-import heroImage from '../assets/hero_home.jpg';
+import heroImage from '../src/assets/hero/hero_home.jpg';
 import Hero from '../components/Hero';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -11,9 +11,9 @@ function Home() {
             <Hero
                 cName="hero"
                 heroImage={heroImage}
-                title="Welcome to CAFÉ BOARDGAME" //Change here
-                text="Enjoy the best board games with your friends and family" //Change here
-                linkText="Book Now" //Change here
+                title="Welcome to CAFÉ BOARDGAME"
+                text="Enjoy the best board games with your friends and family"
+                linkText="Book Now"
                 linkClass="show"
                 url="/bookings"
             />

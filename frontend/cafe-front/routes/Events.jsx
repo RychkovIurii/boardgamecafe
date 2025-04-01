@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import API from '../api/axios';
-import heroImage from '../assets/hero_events2.jpg';
+import heroImage from '../src/assets/hero/hero_events.jpg';
 import Hero from '../components/Hero';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';

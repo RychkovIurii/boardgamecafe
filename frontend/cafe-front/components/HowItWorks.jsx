@@ -1,6 +1,6 @@
 import React from 'react';
-import { steps } from '../assets/image_assets/assets';
-import { assets } from '../assets/image_assets/assets';
+import { steps } from '../src/assets/assets';
+import { assets } from '../src/assets/assets';
 import { useTranslation } from 'react-i18next';
 
 
