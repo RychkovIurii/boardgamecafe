@@ -2,6 +2,11 @@ const express = require('express');
 const router = express.Router();
 const MenuItem = require('../models/MenuItem');
 const { authenticate, authorizeAdmin } = require('../middleware/auth');
+const {
+	menuItemValidation,
+	menuItemIdValidation
+} = require('../utils/priceValidation');
+const validateInputs = require('../middleware/validateInputs');
 
 // Get all menu items
 router.get('/', async (req, res) => {
@@ -15,7 +20,7 @@ router.get('/', async (req, res) => {
 
 module.exports = router;
 
-router.post('/', authenticate, authorizeAdmin, async (req, res) => {
+router.post('/', authenticate, authorizeAdmin, menuItemValidation, validateInputs, async (req, res) => {
 	try {
 		const newMenuItem = new MenuItem({
 			menuType: req.body.menuType,
@@ -30,7 +35,7 @@ router.post('/', authenticate, authorizeAdmin, async (req, res) => {
 	}
 });
 
-router.put('/:id', authenticate, authorizeAdmin, async (req, res) => {
+router.put('/:id', authenticate, authorizeAdmin, [...menuItemIdValidation, ...menuItemValidation], validateInputs, async (req, res) => {
 	try {
 		const updatedMenuItem = await MenuItem.findByIdAndUpdate(
 			req.params.id,
@@ -46,7 +51,7 @@ router.put('/:id', authenticate, authorizeAdmin, async (req, res) => {
 	}
 });
 
-router.delete('/:id', authenticate, authorizeAdmin, async (req, res) => {
+router.delete('/:id', authenticate, authorizeAdmin, menuItemIdValidation, validateInputs, async (req, res) => {
 	try {
 		const menuItem = await MenuItem.findById(req.params.id);
 		if (!menuItem) {

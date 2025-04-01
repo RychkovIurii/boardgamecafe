@@ -17,7 +17,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import cafeLogo from '../../assets/logo1.png';
+import cafeLogo from '../../src/assets/logo.png';
 
 const pages = [
   { name: 'Bookings', path: '/admin' },
@@ -33,7 +33,7 @@ function AdminNavbar() {
   const [language, setLanguage] = React.useState(i18n.language);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const { isAuthenticated, isCheckingAuth, logout } = useContext(AuthContext);
+  const { isAuthenticated, isCheckingAuth, logout, user } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -42,8 +42,11 @@ function AdminNavbar() {
   };
 
   const settings = isAuthenticated
-    ? [{ name: 'Logout', action: handleLogout }]
-    : [{ name: 'Sign In', path: '/sign-in' }];
+  ? [
+      ...(user?.role === 'admin' ? [{ name: 'UserView', path: '/' }] : []),
+      { name: 'Logout', action: handleLogout }
+    ]
+  : [{ name: 'Sign In', path: '/sign-in' }];
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -76,8 +79,8 @@ function AdminNavbar() {
           <Typography
             variant="h6"
             noWrap
-            component="a"
-            href="/admin"
+            component={Link}
+  			to={user?.role === 'admin' ? '/admin' : '/'}
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -133,8 +136,8 @@ function AdminNavbar() {
           <Typography
             variant="h5"
             noWrap
-            component="a"
-            href=""
+            component={Link}
+  			to={user?.role === 'admin' ? '/admin' : '/'}
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
@@ -146,7 +149,7 @@ function AdminNavbar() {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            CAFE GAMEBOARD
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, ml: 6 }}>
             {pages.map((page) => (
@@ -170,7 +173,7 @@ function AdminNavbar() {
             </select>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="BoardGame" />
               </IconButton>
             </Tooltip>
             <Menu

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import API from '../../api/axios';
 import AdminNavbar from '../../components/admin/AdminNavbar';
 

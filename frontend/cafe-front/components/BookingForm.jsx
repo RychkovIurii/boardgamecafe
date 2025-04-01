@@ -18,11 +18,12 @@ import dayjs from 'dayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import floorplan from '../src/assets/elements/floorplan.png';
 
 /**
  StepOne, StepTwo, and StepThree are separated for clarity.
  You can define them inline, in separate files, or as your project needs.*/
-function StepOne({ inputs, handleChange, handleFilterChange }) {
+function StepOne({ inputs, handleChange, handleFilterChange, handleTimeChange }) {
   const { t } = useTranslation();
   const [value, setValue] = React.useState(dayjs('2022-04-17T16:00'));
 
@@ -89,7 +90,7 @@ function StepOne({ inputs, handleChange, handleFilterChange }) {
             timeSteps={{ minutes: 30 }}
             minutesStep={30}
             value={inputs.startTime}
-            onChange={handleChange}
+            onChange={handleTimeChange}
             ampm={false}
             required
           />
@@ -297,7 +298,9 @@ export default function BookingForm() {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-
+  const handleTimeChange = (value) => {
+	setInputs({ ...inputs, startTime: value });
+  };
 
   const handleChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value })
@@ -309,7 +312,7 @@ export default function BookingForm() {
     setError(null);
     setSuccess(false);
 
-    inputs.startTime = inputs.startTime.format('HH:mm');
+    const startTimeString = inputs.startTime.format('HH:mm');
 
     // Validates duration and players
     const parsedPlayers = parseInt(inputs.players, 10);
@@ -327,7 +330,7 @@ export default function BookingForm() {
 
     const bookingData = {
       date: inputs.date,
-      startTime: inputs.startTime,
+      startTime: startTimeString,
       duration: inputs.duration,
       tableNumber: inputs.tableNumber,
       players: parsedPlayers,
@@ -403,7 +406,7 @@ export default function BookingForm() {
   return (
     <>
       <div className='backgroundBooking'>
-        <img className="floorplann" src='../assets/floorplan.png' />
+	  	<img className="floorplann" src={floorplan} alt="floorplan" />
         <div className='stepperStyle'>
 
           <Box className='stepperStyle2' sx={{ minWidth: '400px', maxWidth: '700px', margin: '0 auto', fontFamily: "Fontdiner Swanky" }} >

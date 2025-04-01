@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import heroImage from '../assets/hero_signin.jpg';
+import heroImage from '../src/assets/hero/hero_signin.jpg';
 import Hero from '../components/Hero';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';

@@ -17,7 +17,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import cafeLogo from '../assets/logo1.png';
+import cafeLogo from '../src/assets/logo.png';
 
 const pages = [
   { name: 'Games', path: '/games' },
@@ -32,7 +32,7 @@ function Navbar() {
   const [language, setLanguage] = React.useState(i18n.language);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const { isAuthenticated, isCheckingAuth, logout } = useContext(AuthContext);
+  const { isAuthenticated, isCheckingAuth, logout, user } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
@@ -64,12 +64,13 @@ function Navbar() {
   if (isCheckingAuth) return null; // or loading spinner
 
   const settings = isAuthenticated
-    ? [
-        { name: 'Profile', path: '/profile' },
-        { name: 'My bookings', path: '/account' },
-        { name: 'Logout', action: handleLogout }
-      ]
-    : [{ name: 'SignIn', path: '/sign-in' }];
+  ? [
+      { name: 'Profile', path: '/profile' },
+      { name: 'My bookings', path: '/account' },
+      ...(user?.role === 'admin' ? [{ name: 'AdminDashboard', path: '/admin' }] : []),
+      { name: 'Logout', action: handleLogout }
+    ]
+  : [{ name: 'SignIn', path: '/sign-in' }];
 
   return (
     <AppBar position="static" color="white">
@@ -131,7 +132,7 @@ function Navbar() {
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
           <Typography
             variant="h5"
             noWrap
@@ -148,7 +149,7 @@ function Navbar() {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            CAFÉ BOARDGAME
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, ml: 6 }}>
             {pages.map((page) => (
@@ -172,7 +173,7 @@ function Navbar() {
             </select>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="BoardGame" />
               </IconButton>
             </Tooltip>
             <Menu

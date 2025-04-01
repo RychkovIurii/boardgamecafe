@@ -1,6 +1,6 @@
 import React from 'react';
-import { steps } from '../assets/image_assets/assets';
-import { assets } from '../assets/image_assets/assets';
+import { steps } from '../src/assets/assets';
+import { assets } from '../src/assets/assets';
 import { useTranslation } from 'react-i18next';
 
 
@@ -24,7 +24,7 @@ const HowItWorks = () => {
 
                         </div>
                         {/* Line connecting the steps */}
-                        <div class="h-full w-0.5 bg-gray-300 dark:bg-slate-500"></div>
+                        <div className="h-full w-0.5 bg-gray-300 dark:bg-slate-500"></div>
 
                     </div>
 
