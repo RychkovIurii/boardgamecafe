@@ -26,6 +26,7 @@ const Login = ({ onToggleForm }) => {
 			/* const { role } = response.data; */ //For cookie-based authentication.
 			const { token, role } = response.data;
 			localStorage.setItem('accessToken', token);
+			login(token);
 			await Swal.fire({
 				icon: 'success',
 				title: t("login.successTitle"),
