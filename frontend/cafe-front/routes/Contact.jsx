@@ -18,7 +18,7 @@ function Contact() {
               <div className="contact-container">
       <div className="contact-card">
         <img
-          src="/assets/contact.png" 
+          src="/src/assets/elements/contact.png" 
          
           className="contact-image"
         />
