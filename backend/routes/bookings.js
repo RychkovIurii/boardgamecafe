@@ -14,38 +14,38 @@ const validateInputs = require('../middleware/validateInputs');
 
 // Fetch available tables. FOR ALL USERS
 router.get('/suggested-tables', suggestedTablesValidation, validateInputs, async (req, res) => {
-	const { date, start: startTime, duration } = req.query;
-	
-	if (!date || !startTime || !duration) {
-	  return res.status(400).json({ message: 'Missing required query parameters: date, startTime, endTime' });
-	}
-	const validationResult = await validateBooking(date, start, duration);
+    const { date, start: startTime, duration } = req.query;
+
+    if (!date || !startTime || !duration) {
+        return res.status(400).json({ message: 'Missing required query parameters: date, startTime, endTime' });
+    }
+    const validationResult = await validateBooking(date, start, duration);
     if (!validationResult.isValid) {
         return res.status(400).json({ message: validationResult.message });
     }
 
-	const { startTime: startUTC, endTime: endUTC } = validationResult;
-  
-	try {
-	  // Find bookings that overlap with the requested time interval.
-	  const bookedTables = await Booking.find({
-		date,
-		$or: [
-		  { startTime: { $lt: endUTC, $gte: startUTC } },
-		  { endTime: { $gt: startUTC, $lte: endUTC } },
-		  { startTime: { $lte: startUTC }, endTime: { $gte: endUTC } }
-		]
-	  }).select('tableId');
-  
-	  const bookedTableIds = bookedTables.map(booking => booking.tableId);
-	  const suggestedTables = await Table.find({ _id: { $nin: bookedTableIds } })
-      .sort({ number: 1 });
-  
-	  res.json(suggestedTables);
-	} catch (error) {
-	  console.error('Error fetching available tables:', error);
-	  res.status(500).json({ message: 'Server error' });
-	}
+    const { startTime: startUTC, endTime: endUTC } = validationResult;
+
+    try {
+        // Find bookings that overlap with the requested time interval.
+        const bookedTables = await Booking.find({
+            date,
+            $or: [
+                { startTime: { $lt: endUTC, $gte: startUTC } },
+                { endTime: { $gt: startUTC, $lte: endUTC } },
+                { startTime: { $lte: startUTC }, endTime: { $gte: endUTC } }
+            ]
+        }).select('tableId');
+
+        const bookedTableIds = bookedTables.map(booking => booking.tableId);
+        const suggestedTables = await Table.find({ _id: { $nin: bookedTableIds } })
+            .sort({ number: 1 });
+
+        res.json(suggestedTables);
+    } catch (error) {
+        console.error('Error fetching available tables:', error);
+        res.status(500).json({ message: 'Server error' });
+    }
 });
 
 // Create a new booking. FOR ALL USERS
@@ -127,49 +127,26 @@ router.get('/my-bookings', authenticate, async (req, res) => {
 });
 
 // Update a booking (Authorized user) ONLY FOR AUTHORIZED USERS
-router.put('/my-bookings/:id', authenticate, updateBookingValidation, validateInputs, async (req, res) => {
-    const { date, startTime, duration, tableId, players, game, contactName, contactPhone } = req.body;
-
-    const validationResult = await validateBooking(date, startTime, duration);
-    if (!validationResult.isValid) {
-        return res.status(400).json({ message: validationResult.message });
-    }
-
-    const { startDateTime, endDateTime } = validationResult;
-
-    // Check if the requested booking time is available (excluding the current booking)
-    const hasOverlap = await validateOverlappingBookings(tableId, startDateTime, endDateTime, req.params.id);
-    if (hasOverlap) {
-        return res.status(400).json({ message: 'Requested booking time is not available.' });
-    }
-
+router.put('/my-bookings/:id', authenticate, async (req, res) => {
     try {
-        const booking = await Booking.findById(req.params.id);
 
-        if (!booking) {
+        const updatedBooking = await Booking.findByIdAndUpdate(
+            req.params.id,
+            { $set: req.body },
+            { new: true, runValidators: true }
+        );
+
+        if (!updatedBooking) {
             return res.status(404).json({ message: 'Booking not found' });
         }
 
-        if (booking.userId.toString() !== req.user._id.toString()) {
-            return res.status(403).json({ message: 'Unauthorized to update this booking' });
-        }
-
-        booking.date = startDateTime.toDate();
-        booking.startTime = startDateTime.toDate();
-        booking.endTime = endDateTime.toDate();
-        booking.tableId = tableId;
-        booking.players = players;
-        booking.game = game;
-        booking.contactName = contactName;
-        booking.contactPhone = contactPhone;
-
-        const updatedBooking = await booking.save();
         res.json(updatedBooking);
     } catch (error) {
         console.error('Error updating booking:', error);
         res.status(500).json({ message: 'Server error' });
     }
 });
+
 
 // Delete a booking (Authorized user) ONLY FOR AUTHORIZED USERS
 router.delete('/my-bookings/:id', authenticate, deleteBookingValidation, validateInputs, async (req, res) => {

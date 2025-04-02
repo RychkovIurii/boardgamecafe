@@ -299,7 +299,7 @@ export default function BookingForm() {
   };
 
   const handleTimeChange = (value) => {
-	setInputs({ ...inputs, startTime: value });
+    setInputs({ ...inputs, startTime: value });
   };
 
   const handleChange = (e) => {
@@ -406,7 +406,7 @@ export default function BookingForm() {
   return (
     <>
       <div className='backgroundBooking'>
-	  	<img className="floorplann" src={floorplan} alt="floorplan" />
+        <img className="floorplann" src={floorplan} alt="floorplan" />
         <div className='stepperStyle'>
 
           <Box className='stepperStyle2' sx={{ minWidth: '400px', maxWidth: '700px', margin: '0 auto', fontFamily: "Fontdiner Swanky" }} >
