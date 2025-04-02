@@ -5,7 +5,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
 function ServiceCard() {
     const navigate = useNavigate()
-    const location = useLocation();
+
     const { t } = useTranslation();
     return (
         <div className="py-20 max-w-4xl mx-auto dark:bg-gray-800">
@@ -17,9 +17,9 @@ function ServiceCard() {
             </p>
 
             {/* ServiceMenu */}
-            <div className='w-full grid grid-cols-5 gap-4 pt-5 gap-y-6 px-3 sm:px-0'>
+            <div className="flex flex-wrap gap-3.5 pt-8 m-auto px-5 sm:px-0">
                 {serviceMenu.map((item, index) => (
-                    <div key={index} onClick={() => { navigate(`/service-product/${item._id}`); scrollTo(0, 0) }} className='border border-yellow-800 rounded-xl 
+                    <div key={index} onClick={() => { navigate(`/service-product/${item._id}`); scrollTo(0, 0) }} className='w-full md:w-[49%] border border-yellow-800 rounded-xl 
                 overflow-hidden cursor-pointer hover:translate-y-[-10px] transition-all duration-500'>
                         <img
                             className={`w-full h-[250px] ${item.title === 'home.serviceMenu.COMMUNITY' ? 'bg-black object-contain' : 'object-cover'}`}

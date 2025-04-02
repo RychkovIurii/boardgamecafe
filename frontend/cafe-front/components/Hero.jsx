@@ -12,16 +12,16 @@ function Hero(props) {
       <img className="imgClass" alt="HeroImg" src={heroImage} />
       {(title || text || linkText) && (
         <div className="hero-text">
-          {title && <h1>{t(`hero.${title}`)}</h1>}
-          {text && (
-            <div className="hero-text-content">
-              {typeof text === 'string' ? t(`hero.${text}`) : text}
+          {title && <h1 className="text-outline p-20">{t(`hero.${title}`)}</h1>}
+          {/* {text && (
+            <div className="hero-text-content ">
+              <p className='text-2xl'>{typeof text === 'string' ? t(`hero.${text}`) : text}</p>
             </div>
-          )}
+          )} */}
           {linkText && url && (
-			<Link to={url} className={linkClass}>
-				{t(`hero.${linkText}`)}
-			</Link>
+            <Link to={url} className={linkClass}>
+              {t(`hero.${linkText}`)}
+            </Link>
           )}
         </div>
       )}
