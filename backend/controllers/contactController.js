@@ -10,15 +10,15 @@ const sendContactFormEmail = async (req, res) => {
   let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: 'boardgamecafe.varia@gmail.com',
-      pass: 'adminVaria123',
+      user: process.env.CONTACT_EMAIL,
+      pass: process.env.CONTACT_EMAIL_PASS,
     },
   });
 
   // Define email options
   let mailOptions = {
     from: email,  // Sender's email address (user's email)
-    to: 'boardgamecafe.varia@gmail.com',  // Receiver's email address (admin's email)
+    to: process.env.CONTACT_EMAIL,  // Receiver's email address (admin's email)
     subject: `New Contact Form Submission from ${firstName} ${lastName}`,  // Subject
     text: `Message from: ${firstName} ${lastName}\nEmail: ${email}\n\nMessage:\n${message}`,  // Email body text
   };
