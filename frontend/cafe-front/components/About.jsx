@@ -1,7 +1,7 @@
 import React from 'react'
 import AboutGalleryIntro from './AboutGalleryIntro'
 import { useNavigate } from 'react-router-dom'
-import { aboutMenu } from '../assets/image_assets/assets';
+import { aboutMenu } from '../src/assets/assets';
 import Title from './Title';
 import { useTranslation } from 'react-i18next';
 

@@ -9,7 +9,8 @@
 		"My bookings": "Varaukseni",
 		"SignIn": "Kirjaudu sisään",
 		"Register": "Rekisteröidy",
-		"Logout": "Kirjaudu ulos"
+		"Logout": "Kirjaudu ulos",
+		"AdminDashboard": "Hallintapaneeli"
 	},
 	"hero": {
 		"Welcome to CAFÉ BOARDGAME": "Tervetuloa CAFÉ BOARDGAME",
@@ -34,10 +35,14 @@
 		"License": "Lisenssi",
 		"Terms of Service": "Käyttöehdot",
 		"Opening hours": "Aukioloajat",
-		"Weekdays": "Maanantai - Torstai",
+		"Monday": "Maanantai",
+		"Tuesday": "Tiistai",
+		"Wednesday": "Keskiviikko",
+		"Thursday": "Torstai",
 		"Friday": "Perjantai",
 		"Saturday": "Lauantai",
-		"Sunday-Close": "Sunnuntai suljettu",
+		"Sunday": "Sunnuntai",
+		"Closed": "Suljettu",
 		"awards": "Palkinnot"
 	},
 	"login": {
@@ -65,8 +70,15 @@
 		"submitButton": "Rekisteröidy",
 		"loginButton": "Onko sinulla jo tili? Kirjaudu sisään",
 		"successMessage": "Rekisteröinti onnistui!",
-		"errorMessage": "Rekisteröinti epäonnistui. Yritä uudelleen."
-	},
+		"errorMessage": "Rekisteröinti epäonnistui. Yritä uudelleen.",
+		"validationErrorTitle": "Validointivirhe",
+		"validation": {
+			"name": "Nimen tulee olla vähintään 2 merkkiä pitkä.",
+			"phone": "Syötä kelvollinen puhelinnumero. Sen tulee alkaa +3:lla tai 0:lla ja sen jälkeen olla 6–11 numeroa.",
+			"email": "Syötä kelvollinen sähköpostiosoite.",
+			"password": "Salasanan tulee olla vähintään 6 merkkiä pitkä."
+			}
+		},
 	"home": {
 		"steps": {
 			"How to find us": "Kuinka löytää meidät",
@@ -200,7 +212,8 @@
 		"Tables": "Pöydät",
 		"Hours": "Tunnit",
 		"SignIn": "Kirjaudu sisään",
-		"Logout": "Kirjaudu ulos"
+		"Logout": "Kirjaudu ulos",
+		"UserView": "Käyttäjänäkymä"
 	},
 	"editEvents": {
 		"title": "Muokkaa tapahtumia",
@@ -266,5 +279,8 @@
 		"friday": "Perjantai 16:00 - 02:00",
 		"saturday": "Lauantai 14:00 - 02:00",
 		"sunday": "Sunnuntai suljettu"
+	},
+	"events": {
+		"upcomingEvents": "Tulevat tapahtumat"
 	}
 }

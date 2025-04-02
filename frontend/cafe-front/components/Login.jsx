@@ -23,27 +23,30 @@ const Login = ({ onToggleForm }) => {
 		e.preventDefault();
 		try {
 			const response = await API.post('/users/login', formData);
-			const { role } = response.data;
+			/* const { role } = response.data; */ //For cookie-based authentication.
+			const { token, role } = response.data;
+			localStorage.setItem('accessToken', token);
+			login(role);
 			await Swal.fire({
 				icon: 'success',
 				title: t("login.successTitle"),
 				text: t("login.successMessage"),
 				confirmButtonText: t("login.confirmButton")
-			  });
-			login(role);
-			if (role === 'admin') {
-				navigate('/admin');
-			} else {
-				navigate('/');
-			}
+			  }).then(() => {
+				if (role === 'admin') {
+					navigate('/admin');
+				} else {
+					navigate('/');
+				}
+			});
 		} catch (error) {
 			await Swal.fire({
 				icon: 'error',
 				title: t("login.errorTitle"),
 				text: t("login.errorMessage"),
 				confirmButtonText: t("login.confirmButton")
-				});
-			}
+			});
+		}
 	};
 
 	return (

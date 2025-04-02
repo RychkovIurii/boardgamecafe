@@ -2,6 +2,11 @@ const express = require('express');
 const router = express.Router();
 const Event = require('../models/Event');
 const { authenticate, authorizeAdmin } = require('../middleware/auth');
+const {
+	eventCreateValidation,
+	eventUpdateValidation
+} = require('../utils/eventValidation');
+const validateInputs = require('../middleware/validateInputs');
 
 // Get all events
 router.get('/', async (req, res) => {
@@ -15,7 +20,7 @@ router.get('/', async (req, res) => {
 });
 
 // Create new event (admin only)
-router.post('/', authenticate, authorizeAdmin, async (req, res) => {
+router.post('/', authenticate, authorizeAdmin, eventCreateValidation, validateInputs, async (req, res) => {
     try {
         const newEvent = new Event({
             title: req.body.title,
@@ -32,7 +37,7 @@ router.post('/', authenticate, authorizeAdmin, async (req, res) => {
 });
 
 // Update existing event (admin only)
-router.put('/:id', authenticate, authorizeAdmin, async (req, res) => {
+router.put('/:id', authenticate, authorizeAdmin, eventUpdateValidation, validateInputs, async (req, res) => {
     try {
         const updatedEvent = await Event.findByIdAndUpdate(
             req.params.id,

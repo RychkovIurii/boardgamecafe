@@ -1,15 +1,19 @@
-//Start the server and connect to MongoDB
-
 const app = require('./app');
 const connectDB = require('../config/db');
 
-// Connect to MongoDB
-connectDB();
-
-// Start the server
 const PORT = process.env.PORT;
-app.listen(PORT, () => {
-	console.log(`Server running on http://localhost:${PORT}`);
-}).on('error', (err) => {
-	console.error('Server error:', err);
-});
+
+const startServer = async () => {
+  try {
+    await connectDB();
+
+    app.listen(PORT, () => {
+      console.log(`Server running on http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.error('Failed to start server:', error);
+    process.exit(1);
+  }
+};
+
+startServer();

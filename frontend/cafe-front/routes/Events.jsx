@@ -1,25 +1,41 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import API from '../api/axios';
-import heroImage from '../assets/hero_events2.jpg';
+import heroImage from '../src/assets/hero/hero_events.jpg';
 import Hero from '../components/Hero';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import CountdownTimer from '../components/CountdownTimer';
 import EventsCard from '../components/EventsCard';
 import '../components/Style/EventCard.css'
+import { useTranslation } from 'react-i18next';
 
 function Events() {
 	const [events, setEvents] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
-	const nextEventDate = '2025-04-02T16:00:00';
+	const [nextCafeconDate, setNextCafeconDate] = useState(null);
+	const { t } = useTranslation();
   
 	useEffect(() => {
 	  const fetchEvents = async () => {
 		try {
-		  const response = await API.get('/events');
-		  setEvents(response.data);
+			const response = await API.get('/events');
+			const allEvents = response.data;
+			setEvents(allEvents);
+
+			// 🧠 Find the next CAFECON event
+			const now = new Date();
+			const upcomingCafecon = allEvents
+				.filter(event =>
+					event.title?.toLowerCase().includes('cafecon') &&
+					new Date(event.date) > now
+				)
+				.sort((a, b) => new Date(a.date) - new Date(b.date))[0];
+
+			if (upcomingCafecon) {
+				setNextCafeconDate(upcomingCafecon.date);
+			}
 		} catch (err) {
 		  setError(err.message);
 		} finally {
@@ -40,12 +56,12 @@ function Events() {
 		  cName="heroEvents"
 		  heroImage={heroImage}
 		  title="CafeCon Café Boardgame"
-		  text={<CountdownTimer targetDate={nextEventDate} />}
-		  linkText="Learn More" //Change here
+		  text={nextCafeconDate ? <CountdownTimer targetDate={nextCafeconDate} /> : 'No upcoming CafeCon events'}
+		  linkText={t('Learn More')}
 		  linkClass="show"
 		  url="/cafecon"
 		/>
-		<h1>Upcoming Events{/*Change here*/}</h1>
+		<h1 style={{ margin: '30px' }}>{t('events.upcomingEvents')}</h1>
 		<div className='cardGen'>
 		  {events.map(event => (
 			<EventsCard 

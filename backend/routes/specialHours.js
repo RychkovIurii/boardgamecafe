@@ -2,6 +2,11 @@ const express = require('express');
 const router = express.Router();
 const { SpecialHours } = require('../models/WorkingHours');
 const { authenticate, authorizeAdmin } = require('../middleware/auth');
+const {
+	specialHoursValidation,
+	specialHoursIdValidation
+} = require('../utils/specialHoursValidation');
+const validateInputs = require('../middleware/validateInputs');
 
 // Get all special hours (sorted by date)
 router.get('/', async (req, res) => {
@@ -15,7 +20,7 @@ router.get('/', async (req, res) => {
 });
 
 // Create a new special hours entry
-router.post('/', authenticate, authorizeAdmin, async (req, res) => {
+router.post('/', authenticate, authorizeAdmin, specialHoursValidation, validateInputs, async (req, res) => {
   const { date, openTime, closeTime, reason } = req.body;
   try {
     const existing = await SpecialHours.findOne({ date });
@@ -32,7 +37,7 @@ router.post('/', authenticate, authorizeAdmin, async (req, res) => {
 });
 
 // Update special hours by ID
-router.put('/:id', authenticate, authorizeAdmin, async (req, res) => {
+router.put('/:id', authenticate, authorizeAdmin, [...specialHoursIdValidation, ...specialHoursValidation], validateInputs, async (req, res) => {
   const { date, openTime, closeTime, reason } = req.body;
   try {
     const updated = await SpecialHours.findByIdAndUpdate(
@@ -50,7 +55,7 @@ router.put('/:id', authenticate, authorizeAdmin, async (req, res) => {
 });
 
 // Optional: delete a special day entry
-router.delete('/:id', authenticate, authorizeAdmin, async (req, res) => {
+router.delete('/:id', authenticate, authorizeAdmin, specialHoursIdValidation, validateInputs, async (req, res) => {
   try {
     const deleted = await SpecialHours.findByIdAndDelete(req.params.id);
     if (!deleted) {

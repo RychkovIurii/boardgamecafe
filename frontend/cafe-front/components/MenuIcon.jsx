@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import API from '../api/axios';
 import { useTranslation } from 'react-i18next';
+import { iconMap } from '../src/assets/icons/icon';
 
 const MenuIcon = ({ activeId, setActiveId }) => {
 	const [menuData, setMenuData] = useState([]);
@@ -38,8 +39,7 @@ const MenuIcon = ({ activeId, setActiveId }) => {
                                     ? 'w-16 sm:w-20 md:w-24 lg:w-28 xl:w-32 h-auto mb-6 mt-3'
                                     : 'w-12 sm:w-16 md:w-20 lg:w-24 mb-2'
                                     }`}
-								src={`/assets/image_assets/${item.image}`}
-                                alt={item.menuType}
+								src={iconMap[item.image]} alt={item.menuType}
                             />
                         </div>
                         <p className={`${item.menuType === 'Own Brand' ? 'md:mt-4 font-medium' : 'mt-4 font-medium'}`}>

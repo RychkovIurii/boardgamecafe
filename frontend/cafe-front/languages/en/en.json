@@ -9,7 +9,8 @@
 		"My bookings": "My bookings",
 		"SignIn": "SignIn",
 		"Register": "Register",
-		"Logout": "Logout"
+		"Logout": "Logout",
+		"AdminDashboard": "Admin Dashboard"
 	},
 	"hero": {
 		"Welcome to CAFÉ BOARDGAME": "Welcome to CAFÉ BOARDGAME",
@@ -34,10 +35,14 @@
         "License": "License",
         "Terms of Service": "Terms of Service",
 		"Opening hours": "Opening hours",
-		"Weekdays": "Monday - Thursday",
+		"Monday": "Monday",
+		"Tuesday": "Tuesday",
+		"Wednesday": "Wednesday",
+		"Thursday": "Thursday",
 		"Friday": "Friday",
 		"Saturday": "Saturday",
-		"Sunday-Close": "Sunday Closed",
+		"Sunday": "Sunday",
+		"Closed": "Closed",
 		"awards": "Awards"
 	},
 	"login": {
@@ -76,7 +81,14 @@
 		"successMessage": "Your account has been created.",
 		"errorTitle": "Oops!",
 		"errorMessage": "Registration failed. Please try again.",
-		"confirmButton": "Continue"
+		"confirmButton": "Continue",
+		"validationErrorTitle": "Validation Error",
+		"validation": {
+			"name": "Name must be at least 2 characters long.",
+			"phone": "Please enter a valid phone number. It should start with +3 or 0 followed by 6 to 11 digits.",
+			"email": "Please enter a valid email address.",
+			"password": "Password must be at least 6 characters long."
+			}
 	},
 	"home": {
 		"steps": {
@@ -194,7 +206,8 @@
 		"Tables": "Tables",
 		"Hours": "Hours",
 		"SignIn": "SignIn",
-		"Logout": "Logout"
+		"Logout": "Logout",
+		"UserView": "User View"
 	},
 	"service": {
 		"Title": "Find our service",
@@ -277,5 +290,8 @@
 		"friday": "Friday 16:00 - 02:00",
 		"saturday": "Saturday 14:00 - 02:00",
 		"sunday": "Sunday Closed"
+	},
+	"events": {
+		"upcomingEvents": "Upcoming Events"
 	}
 }

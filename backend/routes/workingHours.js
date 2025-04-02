@@ -2,6 +2,10 @@ const express = require('express');
 const router = express.Router();
 const { WorkingHours } = require('../models/WorkingHours');
 const { authenticate, authorizeAdmin } = require('../middleware/auth');
+const { workingHoursCreateValidation ,
+		workingHoursUpdateValidation ,
+		workingHoursDeleteValidation } = require('../utils/workingHoursValidation');
+const validateInputs = require('../middleware/validateInputs');
 
 // Get all working hours
 router.get('/', async (req, res) => {
@@ -17,7 +21,7 @@ router.get('/', async (req, res) => {
 });
 
 // Create a new working hour entry
-router.post('/', authenticate, authorizeAdmin, async (req, res) => {
+router.post('/', authenticate, authorizeAdmin, workingHoursCreateValidation, validateInputs, async (req, res) => {
   const { day, openTime, closeTime } = req.body;
   try {
     const exists = await WorkingHours.findOne({ day });
@@ -34,7 +38,7 @@ router.post('/', authenticate, authorizeAdmin, async (req, res) => {
 });
 
 // Update working hours by ID
-router.put('/:id', authenticate, authorizeAdmin, async (req, res) => {
+router.put('/:id', authenticate, authorizeAdmin, workingHoursUpdateValidation, validateInputs, async (req, res) => {
   const { day, openTime, closeTime } = req.body;
   try {
     const updated = await WorkingHours.findByIdAndUpdate(
@@ -52,7 +56,7 @@ router.put('/:id', authenticate, authorizeAdmin, async (req, res) => {
 });
 
 // Delete working hours entry
-router.delete('/:id', authenticate, authorizeAdmin, async (req, res) => {
+router.delete('/:id', authenticate, authorizeAdmin, workingHoursDeleteValidation, validateInputs, async (req, res) => {
   try {
     const deleted = await WorkingHours.findByIdAndDelete(req.params.id);
     if (!deleted) {

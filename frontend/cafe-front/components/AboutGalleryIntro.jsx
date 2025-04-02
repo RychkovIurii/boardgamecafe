@@ -1,13 +1,15 @@
 import React from 'react'
 import clsx from "clsx";
+import axios from "axios";
 import { useState, useEffect } from "react";
-import { assets } from '../assets/image_assets/assets';
+import { assets } from '../src/assets/assets';
 import { useTranslation } from 'react-i18next';
 
 function AboutGalleryIntro() {
 
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
     const [isTablet, setIsTablet] = useState(window.innerWidth < 1280);
+	const [workingHours, setWorkingHours] = useState([]);
 	const { t } = useTranslation();
 
     useEffect(() => {
@@ -15,6 +17,70 @@ function AboutGalleryIntro() {
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
     }, []);
+
+	useEffect(() => {
+		const fetchWorkingHours = async () => {
+			const ONE_DAY = 24 * 60 * 60 * 1000;
+			const cache = localStorage.getItem('workingHours');
+			const timestamp = localStorage.getItem('workingHours_timestamp');
+			const now = Date.now();
+	
+			if (cache && timestamp && now - parseInt(timestamp) < ONE_DAY) {
+				try {
+					const parsed = JSON.parse(cache);
+					if (Array.isArray(parsed)) {
+						setWorkingHours(parsed);
+						return;
+					}
+				} catch (e) {
+					console.warn("Invalid cache, refetching...");
+				}
+			}
+			try {
+				const res = await axios.get(`${import.meta.env.VITE_API_URL}/hours`);
+				const dayOrder = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+				const sorted = res.data.sort((a, b) => dayOrder.indexOf(a.day) - dayOrder.indexOf(b.day));
+				setWorkingHours(sorted);
+				localStorage.setItem('workingHours', JSON.stringify(sorted));
+				localStorage.setItem('workingHours_timestamp', now.toString());
+			} catch (err) {
+				console.error("Failed to fetch working hours", err);
+			}
+		};
+	
+		fetchWorkingHours();
+	}, []);
+
+	const groupWorkingHours = (hours) => {
+		const result = [];
+		let group = [];
+	
+		const dayOrder = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+		const sorted = [...hours].sort((a, b) => dayOrder.indexOf(a.day) - dayOrder.indexOf(b.day));
+	
+		for (let i = 0; i < sorted.length; i++) {
+			const current = sorted[i];
+			const prev = group[group.length - 1];
+	
+			const timeStr = `${current.openTime || ''}-${current.closeTime || ''}`;
+			const prevStr = prev ? `${prev.openTime || ''}-${prev.closeTime || ''}` : null;
+	
+			if (!prev || timeStr === prevStr) {
+				group.push(current);
+			} else {
+				result.push(group);
+				group = [current];
+			}
+		}
+		if (group.length > 0) result.push(group);
+		return result;
+	};
+	
+	const formatDayRange = (group) => {
+		const dayName = (d) => t(`footer.${d}`);
+		if (group.length === 1) return dayName(group[0].day);
+		return `${dayName(group[0].day)} - ${dayName(group[group.length - 1].day)}`;
+	};
 
     return (
         <div className="max-w-[1200px] mx-auto">
@@ -107,13 +173,19 @@ function AboutGalleryIntro() {
                     </div>
 
                     <div className={clsx('mb-12', isMobile ? "bg-gray-200 pb-10" : "", "font-fontdiner")}>
-                        <h2 className={clsx("sm:text-2xl lg:text-3xl font-bold text-gray-800 mb-4", isMobile ? "bg-gray-200 pt-10" : "pt-3", "font-fontdiner")}>{t('aboutIntro.openingTitle')}</h2>
-                        <ul className="text-md font-semibold text-gray-800 font-fontdiner">
-							<li>{t('aboutIntro.monThu')}</li>
-							<li>{t('aboutIntro.friday')}</li>
-							<li>{t('aboutIntro.saturday')}</li>
-							<li>{t('aboutIntro.sunday')}</li>
-                        </ul>
+					<h2 className={clsx("sm:text-2xl lg:text-3xl font-bold text-gray-800 mb-4", isMobile ? "bg-gray-200 pt-10" : "pt-3", "font-fontdiner")}>
+						{t('aboutIntro.openingTitle')}
+					</h2>
+					<ul className="text-md font-semibold text-gray-800 font-fontdiner">
+						{workingHours.length > 0 ? groupWorkingHours(workingHours).map((group, idx) => (
+							<li key={idx}>
+								{formatDayRange(group)}{' '}
+								{group[0].openTime && group[0].closeTime
+									? `${group[0].openTime} - ${group[0].closeTime}`
+									: t('footer.Closed')}
+							</li>
+						)) : <li> </li>}
+					</ul>
                     </div>
 
                 </div>

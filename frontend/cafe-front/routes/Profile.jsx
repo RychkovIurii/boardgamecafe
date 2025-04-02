@@ -19,8 +19,6 @@ const Profile = () => {
         const fetchUserData = async () => {
             try {
                 const response = await API.get('/users/profile');
-
-                console.log('API Response:', response.data);
                 setUserData(response.data);
                 setPhone(response.data.phone || '')
             } catch (error) {
