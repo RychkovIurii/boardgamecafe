@@ -134,22 +134,23 @@ function Navbar() {
           </Box>
           {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
           <Typography
-            variant="h5"
+            variant="h7"
             noWrap
-            component="a"
-            href=""
+            component={Link}
+            to="/"
             sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: "Fontdiner Swanky",
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'black',
-              textDecoration: 'none',
-            }}
+				mr: 1,
+				display: { xs: 'flex', md: 'none' },
+				flexGrow: 1,
+				fontFamily: 'Fontdiner Swanky',
+				fontWeight: 400,
+				letterSpacing: '.1rem',
+				fontSize: '1rem',
+				color: 'black',
+				textDecoration: 'none',
+			  }}
           >
-            CAFÉ BOARDGAME
+            BOARDGAME
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, ml: 6 }}>
             {pages.map((page) => (
