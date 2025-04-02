@@ -1,6 +1,8 @@
 import { useTranslation } from 'react-i18next';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from "../src/assets/logo.png";
+import axios from 'axios';
 import './Style/FooterStyles.css';
 import Award1 from "../src/assets/icons/Award1.png";
 import Award2 from "../src/assets/icons/Award2.png";
@@ -8,6 +10,85 @@ import footerBg from '../src/assets/elements/footer-background.png';
 
 export default function Footer() {
     const { t } = useTranslation();
+	const [workingHours, setWorkingHours] = useState([]);
+	useEffect(() => {
+		const fetchWorkingHours = async () => {
+		  const ONE_DAY = 24 * 60 * 60 * 1000;
+		  const cache = localStorage.getItem('workingHours');
+		  const timestamp = localStorage.getItem('workingHours_timestamp');
+	
+		  const now = Date.now();
+		  if (cache && timestamp && now - parseInt(timestamp) < ONE_DAY) {
+			try {
+			  const parsed = JSON.parse(cache);
+			  if (Array.isArray(parsed)) {
+				setWorkingHours(parsed);
+				return;
+			  }
+			} catch (e) {
+			  console.warn("Invalid cache, refetching...");
+			}
+		  }
+	
+		  try {
+			const res = await axios.get(`${import.meta.env.VITE_API_URL}/hours`);
+			const dayOrder = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+			const sorted = res.data.sort((a, b) => dayOrder.indexOf(a.day) - dayOrder.indexOf(b.day));
+	
+			setWorkingHours(sorted);
+			localStorage.setItem('workingHours', JSON.stringify(sorted));
+			localStorage.setItem('workingHours_timestamp', now.toString());
+		  } catch (err) {
+			console.error("Failed to fetch working hours", err);
+		  }
+		};
+	
+		fetchWorkingHours();
+	  }, []);
+	
+	  const renderGroupedHours = () => {
+		const groupByTime = (hours) => {
+		  const result = [];
+		  let group = [];
+		  const dayOrder = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+		  const sorted = [...hours].sort((a, b) => dayOrder.indexOf(a.day) - dayOrder.indexOf(b.day));
+	
+		  for (let i = 0; i < sorted.length; i++) {
+			const current = sorted[i];
+			const prev = group[group.length - 1];
+	
+			const timeStr = `${current.openTime || ''}-${current.closeTime || ''}`;
+			const prevStr = prev ? `${prev.openTime || ''}-${prev.closeTime || ''}` : null;
+	
+			if (!prev || timeStr === prevStr) {
+			  group.push(current);
+			} else {
+			  result.push(group);
+			  group = [current];
+			}
+		  }
+		  if (group.length > 0) result.push(group);
+		  return result;
+		};
+	
+		const grouped = groupByTime(workingHours);
+	
+		const formatDayRange = (group) => {
+		  const dayName = (d) => t(`footer.${d}`);
+		  if (group.length === 1) return dayName(group[0].day);
+		  return `${dayName(group[0].day)} - ${dayName(group[group.length - 1].day)}`;
+		};
+	
+		return grouped.map((group, i) => {
+		  const { openTime, closeTime } = group[0];
+		  const closed = !openTime || !closeTime;
+		  return (
+			<li key={i}>
+			  {formatDayRange(group)} {closed ? t("footer.Closed") : `${openTime} - ${closeTime}`}
+			</li>
+		  );
+		});
+	  };
     return (
         <div className='footerImg'>
             <div className='footerBg' style={{ backgroundImage: `url(${footerBg})` }}>
@@ -46,11 +127,8 @@ export default function Footer() {
                         <div>
                             <h4>{t('footer.Opening hours')}</h4>
                             <ul className="text-md leading-loose">
-                                <li>{t('footer.Weekdays')} 16:00 - 24:00 </li>
-                                <li>{t('footer.Friday')} 16:00 - 02:00</li>
-                                <li>{t('footer.Saturday')} 14:00 - 02:00 </li>
-                                <li>{t('footer.Sunday-Close')}</li>
-                            </ul>
+								{renderGroupedHours()}
+							</ul>
                         </div>
                         <div>
                             <h4>{t('footer.Contact')}</h4> 

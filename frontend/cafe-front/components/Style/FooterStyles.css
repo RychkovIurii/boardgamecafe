@@ -6,19 +6,21 @@
 
 .footerBg {
 	display: flex;
-	background-size: 100%;
-	background-repeat: no-repeat;
-	margin: 0;
-	background-position: center;
+	justify-content: center;
 	align-items: center;
-}
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+	width: 100%;
+	padding: 6rem 2rem;
+	box-sizing: border-box;
+  }
 
 .footer {
-	display: flex;
-	flex-direction: column;
-	flex-wrap: wrap;
-	justify-content: center;
-	margin: 14rem;
+	padding: 4rem 2rem;
+	width: 100%;
+	max-width: 1200px;
+	margin: 0 auto;
 }
 
 .footer-logo {
