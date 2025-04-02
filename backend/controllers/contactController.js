@@ -4,14 +4,17 @@ const nodemailer = require('nodemailer');
 // Function to handle sending email when the contact form is submitted
 const sendContactFormEmail = async (req, res) => {
   const { firstName, lastName, email, message } = req.body;
-  console.log(req.body)
+  // console.log(req.body)
 
   // Create a transporter using Gmail service
   let transporter = nodemailer.createTransport({
-    service: 'gmail',
+    service: "Gmail",
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
     auth: {
       user: process.env.CONTACT_EMAIL,
-      pass: process.env.CONTACT_EMAIL_PASS,
+      pass: process.env.CONTACT_APP_PASS,
     },
   });
 
