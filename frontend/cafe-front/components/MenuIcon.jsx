@@ -23,8 +23,8 @@ const MenuIcon = ({ activeId, setActiveId }) => {
     return (
         <div id="menuType" className="flex flex-col items-center gap-5 md:py-16 py-5 text-gray-800">
             <h1 className="text-3xl md:text-5xl font-black text-yellow-500">{t("menu.title")}</h1>
-            <p className="pt-3 sm:pt-5 text-xl md:text-2xl font-semibold text-gray-700">{t("menu.subtitle")}</p>
-            <div className="flex flex-cols-3 md:flex-cols-6 place-items-center gap-2 pt-3 md:gap-3 md:pt-6">
+            <p className="px-4 pt-3 sm:px-0 sm:pt-5 text-xl md:text-2xl font-semibold text-gray-700">{t("menu.subtitle")}</p>
+            <div className="flex flex-col md:flex-row flex-wrap justify-center items-center gap-4 pt-3 md:gap-6 md:pt-6">
                 {menuData.map((item, index) => (
                     <div
                         key={index}

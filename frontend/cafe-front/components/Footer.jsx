@@ -139,7 +139,7 @@ export default function Footer() {
                                 <li>00100 Helsinki</li>
                             </ul>
                         </div>
-                        <div>
+                        <div className="awards-container">
                             <h4>{t('footer.awards')}</h4>
                             <div className="awards">
                                 <div><img src={Award1} height={50} alt="Award1" /></div>

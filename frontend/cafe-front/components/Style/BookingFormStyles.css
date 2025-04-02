@@ -113,3 +113,50 @@
     color: #5a3825 !important;
     transition: all 0.3s ease-in-out !important;
 }
+
+@media screen and (max-width: 850px) {
+    .backgroundBooking {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .floorplann {
+        order: 1;
+        width: 100%;
+        max-width: 100%;
+        float: none;
+        z-index: 1;
+    }
+
+    .stepperStyle {
+        order: 2;
+        width: 90%;
+        margin: 20px auto;
+        text-align: center;
+        float: none;
+        margin-right: 0;
+        margin-top: 0;
+        padding-left: 0;
+        position: relative;
+    }
+
+    .stepperStyle2 {
+        width: 90%;
+        align-items: center;
+    }
+
+    .formItem {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .formInput {
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .tables {
+        justify-content: center;
+    }
+}
