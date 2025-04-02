@@ -43,5 +43,28 @@
     margin-bottom: 40px;
   }
    
-  
+  @media screen and (max-width: 850px) {
+    .container h2 {
+      margin-left: 50px;
+      text-align: left;
+      font-size: 1.5em;
+      color: #444;
+      margin-bottom: 20px;
+    }
+    
+    .container h3 {
+      margin-left: 50px;
+      text-align: left;
+      margin-top: 20px;
+      color: #555;
+      
+    }
+    
+    .container p {
+      margin-left: 50px;
+      text-align: left;
+      color: #666;
+      margin-bottom: 40px;
+    }
+  }
  
