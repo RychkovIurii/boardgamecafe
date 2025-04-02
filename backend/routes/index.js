@@ -13,6 +13,7 @@ const pricesRoutes = require('./prices');
 const paymentRoutes = require('./payment');
 const hoursRoutes = require('./workingHours');
 const specialHoursRoutes = require('./specialHours');
+const contactRouters = require('./contact');
 
 // Mount all routes
 router.use('/bookings', bookingRoutes);
@@ -24,5 +25,6 @@ router.use('/prices', pricesRoutes);
 router.use('/payment', paymentRoutes);
 router.use('/hours', hoursRoutes);
 router.use('/specialHours', specialHoursRoutes);
+router.use('/contact', contactRouters);
 
 module.exports = router;
