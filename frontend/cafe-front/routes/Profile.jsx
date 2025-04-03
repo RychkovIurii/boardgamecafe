@@ -11,7 +11,7 @@ const Profile = () => {
     const [userData, setUserData] = useState({})
     const [phone, setPhone] = useState('');
     const [isEdit, setIsEdit] = useState(false);
-	const { t } = useTranslation();
+    const { t } = useTranslation();
 
 
 
@@ -30,28 +30,28 @@ const Profile = () => {
 
     const handleUpdate = async (e) => {
         e.preventDefault();
-		// Validate phone number format.
-		const cleaned = phone.replace(/\s+/g, '');
-		const isValid =
-		  (/^(\+3|0)\d{6,11}$/).test(cleaned) && !/[^\d+]/.test(phone);
-	  
-		if (!isValid) {
-		  await Swal.fire({
-			icon: 'warning',
-			title: t('alerts.invalidPhoneTitle'),
-			text: t('alerts.invalidPhoneText'),
-			confirmButtonText: 'OK'
-		  });
-		  return;
-		}
+        // Validate phone number format.
+        const cleaned = phone.replace(/\s+/g, '');
+        const isValid =
+            (/^(\+3|0)\d{6,11}$/).test(cleaned) && !/[^\d+]/.test(phone);
+
+        if (!isValid) {
+            await Swal.fire({
+                icon: 'warning',
+                title: t('alerts.invalidPhoneTitle'),
+                text: t('alerts.invalidPhoneText'),
+                confirmButtonText: 'OK'
+            });
+            return;
+        }
         try {
             await API.put('/users/phone', { phone: cleaned });
             await Swal.fire({
-				icon: 'success',
-				title: t('alerts.updateSuccessTitle'),
-				text: t('alerts.updateSuccessText'),
-				confirmButtonText: 'OK'
-			  });
+                icon: 'success',
+                title: t('alerts.updateSuccessTitle'),
+                text: t('alerts.updateSuccessText'),
+                confirmButtonText: 'OK'
+            });
 
             //Fetch the latest data again after the update
             const response = await API.get('/users/profile');
@@ -61,11 +61,11 @@ const Profile = () => {
         } catch (error) {
             console.error('Error updating phone number:', error);
             await Swal.fire({
-				icon: 'error',
-				title: t('alerts.updateErrorTitle'),
-				text: t('alerts.updateErrorText'),
-				confirmButtonText: 'OK'
-			  });
+                icon: 'error',
+                title: t('alerts.updateErrorTitle'),
+                text: t('alerts.updateErrorText'),
+                confirmButtonText: 'OK'
+            });
         }
     };
 
@@ -80,21 +80,24 @@ const Profile = () => {
 
                 <div>
                     <p className='text-neutral-700 underline mt-3'>CONTACT INFORMATION</p>
-                    <div className='grid grid-cols-[1fr_3fr] gap-y-1 mt-3 text-neutral-700'>
-                        <p className='font-medium text-lg'>Email id:</p>
-                        <p className='text-blue-500 text-lg text-left'>{userData.email}</p>
-                        <p className='font-medium text-lg '>Phone:</p>
+                    <div className='flex flex-row gap-y-1 mt-7 text-neutral-700'>
+                        <p className='pl-20 font-medium text-lg'>Email id:</p>
+                        <p className='pl-5 text-blue-500 text-lg text-left'>{userData.email}</p> </div>
+                    <div className='flex flex-row gap-y-1 mt-7 text-neutral-700'>
+                        <p className='pl-20 font-medium text-lg '>Phone:</p>
                         {
                             isEdit
-                                ? < input className='bg-gray-100 max-w-52 text-lg' type='text' value={phone} onChange={e => setPhone(e.target.value)} />
-                                : <p className='text-blue-500 text-lg text-left'>{userData.phone}</p>
+                                ? < input className=' pl-10 bg-gray-100 max-w-52 text-lg' type='text' value={phone} onChange={e => setPhone(e.target.value)} />
+                                : <p className=' pl-10 text-blue-500 text-lg text-left'>{userData.phone}</p>
                         }
                     </div>
+
+
                 </div>
 
 
 
-                <div className='mt-10'>
+                <div className='mt-10 mb-20'>
                     {isEdit
                         ? <button onClick={handleUpdate} className='border border-primary px-8 py-2 rounded-full hover:bg-primary hover:text-white transition-all' > Save information</button>
                         : <button className='border bg-amber-200 text-gray-800 px-8 py-2 rounded-full hover:bg-primary  hover:text-white transition-all' onClick={() => setIsEdit(true)}> Edit for phone number</button>}
