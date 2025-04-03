@@ -45,3 +45,8 @@
     justify-content: center;
     margin: auto;
 }
+.searchbar{
+    width: 50%;
+    margin: 0 auto;
+    padding: 8px;
+}
