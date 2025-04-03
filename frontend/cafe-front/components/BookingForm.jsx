@@ -27,7 +27,7 @@ const duraOpt = ["60", "90", "120", "150", "180", "210", "240", "270", "300", "3
 /**
  StepOne, StepTwo, and StepThree are separated for clarity.
  You can define them inline, in separate files, or as your project needs.*/
-function StepOne({ inputs, handleChange, handleFilterChange, handleTimeChange }) {
+function StepOne({ inputs, handleChange, handleTimeChange }) {
   const { t } = useTranslation();
   const [value, setValue] = React.useState(dayjs('2022-04-17T16:00'));
 
@@ -425,7 +425,7 @@ export default function BookingForm() {
   const renderStepContent = (stepIndex) => {
     switch (stepIndex) {
       case 0:
-        return <StepOne inputs={inputs} handleChange={handleChange} />;
+        return <StepOne inputs={inputs} handleChange={handleChange} handleTimeChange={handleTimeChange}/>;
       case 1:
         return <StepTwo inputs={inputs} handleChange={handleChange} tables={filteredTables} setInputs={setInputs} />;
       case 2:
