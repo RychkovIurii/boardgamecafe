@@ -22,9 +22,6 @@ html {
 body {
   padding: 0;
   margin: 0;
-  /*   display: flex; */
-  /*   min-width: 320px;
-  min-height: 100vh; */
 }
 
 
@@ -46,9 +43,9 @@ body {
   @apply block
 }
 
-::-webkit-scrollbar {
-  @apply hidden
-}
+/* ::-webkit-scrollbar {
+  @apply block
+} */
 
 @layer utilities {
   .text-outline {

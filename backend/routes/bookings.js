@@ -126,26 +126,113 @@ router.get('/my-bookings', authenticate, async (req, res) => {
     }
 });
 
-// Update a booking (Authorized user) ONLY FOR AUTHORIZED USERS
-router.put('/my-bookings/:id', authenticate, async (req, res) => {
+// Update a booking (Authorized user) ONLY FOR AUTHORIZED USERS - PR version
+rrouter.put('/my-bookings/:id', authenticate, async (req, res) => {
     try {
-
-        const updatedBooking = await Booking.findByIdAndUpdate(
-            req.params.id,
-            { $set: req.body },
-            { new: true, runValidators: true }
-        );
-
-        if (!updatedBooking) {
-            return res.status(404).json({ message: 'Booking not found' });
-        }
-
-        res.json(updatedBooking);
-    } catch (error) {
-        console.error('Error updating booking:', error);
-        res.status(500).json({ message: 'Server error' });
+    const updatedBooking = await Booking.findByIdAndUpdate(
+        req.params.id,
+        { $set: req.body },
+        { new: true, runValidators: true }
+    );
+    if (!updatedBooking) {
+        return res.status(404).json({ message: 'Booking not found' });
     }
+    res.json(updatedBooking);
+} catch (error) {
+    console.error('Error updating booking:', error);
+    res.status(500).json({ message: 'Server error' });
+}
 });
+
+
+// Update a booking (Authorized user) ONLY FOR AUTHORIZED USERS
+// router.put('/my-bookings/:id', authenticate, async (req, res) => {
+//     try {
+//         // Extracting the date, startTime, and duration from the request body
+//         const { date, startTime, duration } = req.body;
+//         console.log('check', req.body)
+
+//         let validationResult;
+//         try {
+//             validationResult = await validateBooking(date, startTime, duration);
+//         } catch (error) {
+//             return res.status(400).json({ message: 'Error during booking validation: ' + error.message });
+//         }
+
+//         if (!validationResult.isValid) {
+//             return res.status(400).json({ message: validationResult.message });
+//         }
+
+//         // Get the validated start and end times from validationResult
+//         const { startHelsinkiTime, endHelsinkiTime } = validationResult;
+
+//         // Proceed with the booking update
+//         const updatedBooking = await Booking.findByIdAndUpdate(
+//             req.params.id,
+//             {
+//                 $set: {
+//                     ...req.body,
+//                     startTime: startHelsinkiTime.toISOString(),  // Update start time to the validated Helsinki time
+//                     endTime: endHelsinkiTime.toISOString()       // Update end time based on the validated duration
+//                 }
+//             },
+//             { new: true, runValidators: true }
+//         );
+
+//         if (!updatedBooking) {
+//             return res.status(404).json({ message: 'Booking not found' });
+//         }
+
+//         res.json(updatedBooking);
+//     } catch (error) {
+//         console.error('Error updating booking:', error);
+//         res.status(500).json({ message: 'Server error' });
+//     }
+// });
+
+// router.put('/my-bookings/:id', authenticate, updateBookingValidation, validateInputs, async (req, res) => {
+//     const { date, startTime, duration, tableId, players, game, contactName, contactPhone } = req.body;
+//     console.log(req.body)
+//     const validationResult = await validateBooking(date, startTime, duration);
+//     if (!validationResult.isValid) {
+//         return res.status(400).json({ message: validationResult.message });
+//     }
+
+//     const { startDateTime, endDateTime } = validationResult;
+
+//     // Check if the requested booking time is available (excluding the current booking)
+//     const hasOverlap = await validateOverlappingBookings(tableId, startDateTime, endDateTime, req.params.id);
+//     if (hasOverlap) {
+//         return res.status(400).json({ message: 'Requested booking time is not available.' });
+//     }
+//     try {
+//         const booking = await Booking.findById(req.params.id);
+
+//         if (!booking) {
+//             return res.status(404).json({ message: 'Booking not found' });
+//         }
+
+//         if (booking.userId.toString() !== req.user._id.toString()) {
+//             return res.status(403).json({ message: 'Unauthorized to update this booking' });
+//         }
+
+//         booking.date = startDateTime.toDate();
+//         booking.startTime = startDateTime.toDate();
+//         booking.endTime = endDateTime.toDate();
+//         booking.tableId = tableId;
+//         booking.players = players;
+//         booking.game = game;
+//         booking.contactName = contactName;
+//         booking.contactPhone = contactPhone;
+
+//         const updatedBooking = await booking.save();
+//         res.json(updatedBooking);
+//     } catch (error) {
+//         console.error('Error updating booking:', error);
+//         res.status(500).json({ message: 'Server error' });
+//     }
+// });
+
 
 
 // Delete a booking (Authorized user) ONLY FOR AUTHORIZED USERS

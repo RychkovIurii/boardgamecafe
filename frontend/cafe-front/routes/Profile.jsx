@@ -73,38 +73,40 @@ const Profile = () => {
     return (
         <>
             <Navbar />
-            <div className='max-w-lg flex flex-col gap-2 text-md mt-5'>
+            <div className="py-20 max-w-4xl mx-auto">
+                <h1 className="text-outline text-3xl md:text-4xl lg:text-5xl font-medium text-yellow-500 mt-5 mb-10">My Profile</h1>
+                <div className='flex flex-col gap-2 mt-5 '>
 
-                <p className='font-medium text-2xl text-neutral-800 mt-4'>{userData.name}</p>
-                <hr className='bg-zinc-400 h-[1px] border-none' />
+                    <p className='font-medium text-2xl text-neutral-800 mt-4'>{userData.name}</p>
+                    <hr className='bg-zinc-400 h-[2px] border-none w-1/2 mx-auto ' />
 
-                <div>
-                    <p className='text-neutral-700 underline mt-3'>CONTACT INFORMATION</p>
-                    <div className='flex flex-row gap-y-1 mt-7 text-neutral-700'>
-                        <p className='pl-20 font-medium text-lg'>Email id:</p>
-                        <p className='pl-5 text-blue-500 text-lg text-left'>{userData.email}</p> </div>
-                    <div className='flex flex-row gap-y-1 mt-7 text-neutral-700'>
-                        <p className='pl-20 font-medium text-lg '>Phone:</p>
-                        {
-                            isEdit
-                                ? < input className=' pl-10 bg-gray-100 max-w-52 text-lg' type='text' value={phone} onChange={e => setPhone(e.target.value)} />
-                                : <p className=' pl-10 text-blue-500 text-lg text-left'>{userData.phone}</p>
-                        }
+                    <div>
+                        <div className='flex flex-row gap-y-1 mt-7 text-neutral-700 justify-center'>
+                            <p className='font-medium text-lg justify-center'>Email id:</p>
+                            <p className='pl-5 text-blue-500 text-lg justify-center'>{userData.email}</p> </div>
+                        <div className='flex flex-row gap-y-1 mt-7 text-neutral-700 justify-center'>
+                            <p className='font-medium text-lg '>Phone:</p>
+                            {
+                                isEdit
+                                    ? < input className=' pl-10 bg-gray-100 max-w-52 text-lg' type='text' value={phone} onChange={e => setPhone(e.target.value)} />
+                                    : <p className=' pl-10 text-blue-500 text-lg'>{userData.phone}</p>
+                            }
+                        </div>
+
+
                     </div>
 
 
-                </div>
+
+                    <div className='mt-10 mb-20'>
+                        {isEdit
+                            ? <button onClick={handleUpdate} className='border border-primary px-8 py-2 rounded-full hover:bg-primary hover:text-white transition-all' > Save information</button>
+                            : <button className='border bg-amber-200 text-gray-800 px-8 py-2 rounded-full hover:bg-primary  hover:text-white transition-all' onClick={() => setIsEdit(true)}> Edit for phone number</button>}
 
 
+                    </div>
 
-                <div className='mt-10 mb-20'>
-                    {isEdit
-                        ? <button onClick={handleUpdate} className='border border-primary px-8 py-2 rounded-full hover:bg-primary hover:text-white transition-all' > Save information</button>
-                        : <button className='border bg-amber-200 text-gray-800 px-8 py-2 rounded-full hover:bg-primary  hover:text-white transition-all' onClick={() => setIsEdit(true)}> Edit for phone number</button>}
-
-
-                </div>
-
+                </div >
             </div >
             <Footer />
         </>

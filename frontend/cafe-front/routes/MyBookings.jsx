@@ -29,6 +29,7 @@ const MyBookings = () => {
         const fetchBookings = async () => {
             try {
                 const response = await API.get('bookings/my-bookings');
+                console.log('data', response.data)
                 const now = new Date();
 
                 const past = response.data.filter(booking => new Date(booking.date) < now).sort((a, b) => new Date(a.date) - new Date(b.date));
@@ -87,8 +88,12 @@ const MyBookings = () => {
     };
 
     const handleChange = (e) => {
-        setEditedBooking({ ...editedBooking, [e.target.name]: e.target.value });
-        if (e.target.name === 'players') checkTableAvailability(e.target.value); // Filter tables when player count changes
+        const { name, value } = e.target;
+        setEditedBooking({
+            ...editedBooking, 
+            [name]: name === 'duration' || name === 'players' ? Number(value) : value, 
+        });
+        if (name === 'players') checkTableAvailability(value); // Filter tables when player count changes
     };
 
     const handleTimeChange = (value) => {
@@ -99,14 +104,13 @@ const MyBookings = () => {
         const formattedBooking = {
             ...editedBooking,
             date: dayjs(editedBooking.date).toISOString(),
-            startTime: editedBooking.startTime.toISOString(),
+            startTime: dayjs(editedBooking.startTime).toISOString(),
             endTime: dayjs(editedBooking.startTime).add(editedBooking.duration, 'minute').toISOString()
-        }
+        };
 
         try {
-
             const response = await API.put(`/bookings/my-bookings/${id}`, formattedBooking);
-            // console.log('formattedBooking', response.data)
+            console.log('formattedBooking', response.data)
 
             if (response.status === 200) {
                 Swal.fire({ icon: 'success', title: 'Updated!', text: 'The booking has been successfully updated.' });
@@ -154,14 +158,14 @@ const MyBookings = () => {
     return (
         <>
             <Navbar />
-            <div className="py-20 max-w-4xl mx-auto  dark:bg-gray-800">
-                <h1 className="text-4xl md:text-5xl font-black text-yellow-500 mb-10">My Bookings</h1>
+            <div className="py-20">
+                <h1 className="text-outline text-5xl font-medium text-yellow-500 mt-5 mb-10">My Bookings</h1>
 
-                <div>
+                <div className='max-w-5xl mx-auto'>
                     <p className='text-xl pt-7 text-start'>Upcoming Bookings</p>
-                    <div className='flex flex-col sm:flex-row m-auto gap-5 pt-5 px-3 sm:px-0'>
+                    <div className='w-full flex flex-wrap pt-5 px-3 gap-5 md:justify-start justify-center '>
                         {bookings.upcoming.length > 0 ? (bookings.upcoming.map((booking) => (
-                            <div key={booking._id} className='border border-gray-400 p-4 rounded-xl flex flex-col text-sm gap-1 shadow-lg bg-white'>
+                            <div key={booking._id} className='w-full sm:w-1/2 md:w-1/3 lg:w-1/4 border border-gray-400 p-4 rounded-xl flex flex-col text-sm gap-1 shadow-lg bg-white'>
 
                                 {isEditing === booking._id ? (
                                     <>
@@ -243,7 +247,7 @@ const MyBookings = () => {
                 </div>
 
                 {/* Repeat for past bookings */}
-                <div className='mt-10'>
+                <div className='max-w-5xl mx-auto mt-7'>
                     <p className='text-xl pt-7 text-start'>Booking History</p>
                     <div className='flex flex-col sm:flex-row m-auto gap-5 pt-5 px-3 sm:px-0'>
                         {bookings.past.length > 0 ? (bookings.past.slice(0, 5).map((booking) => (

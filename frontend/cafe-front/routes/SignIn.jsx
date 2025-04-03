@@ -9,16 +9,13 @@ import '../components/Style/SignInStyles.css';
 
 function SignIn() {
     const [isLogin, setIsLogin] = useState(true); // State to toggle forms
-	
-	const toggleForm = () => setIsLogin(!isLogin); // Toggle between login and registration
+
+    const toggleForm = () => setIsLogin(!isLogin); // Toggle between login and registration
     return (
         <>
             <Navbar />
-            <Hero
-                cName="heroSignIn"
-                heroImage={heroImage}
-            />
-			{isLogin ? <Login onToggleForm={toggleForm} /> : <Register onToggleForm={toggleForm} />}
+
+            {isLogin ? <Login onToggleForm={toggleForm} /> : <Register onToggleForm={toggleForm} />}
             <Footer />
         </>
     );

@@ -8,8 +8,8 @@ function ServiceCard() {
 
     const { t } = useTranslation();
     return (
-        <div className="py-20 max-w-4xl mx-auto dark:bg-gray-800">
-            <h2 className="text-4xl md:text-5xl font-black text-yellow-500 mb-10">
+        <div className="py-20 max-w-4xl mx-auto">
+            <h2 className="text-outline text-4xl md:text-5xl lg:text-6xl font-medium text-yellow-500 mb-7 mt-5">
                 {t(`service.Title`)}
             </h2>
             <p className='w-5/6 m-auto sm:text-sm md:text-base text-gray-700'>
