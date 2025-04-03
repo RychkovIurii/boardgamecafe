@@ -20,15 +20,20 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import floorplan from '../src/assets/elements/floorplan.png';
 
+const regex = new RegExp(/(\+\d{1,3}\s?)?((\(\d{3}\)\s?)|(\d{3})(\s|-?))(\d{3}(\s|-?))(\d{4})(\s?(([E|e]xt[:|.|]?)|x|X)(\s?\d+))?/)
+const nameRegex = new RegExp(/^[\p{Letter}\s\-.']+$/u)
+const duraOpt = ["60", "90", "120", "150", "180", "210", "240", "270", "300", "330", "360", "390", "420", "450", "480", "510", "540", "570", "600"]
+
 /**
  StepOne, StepTwo, and StepThree are separated for clarity.
  You can define them inline, in separate files, or as your project needs.*/
-function StepOne({ inputs, handleChange, handleFilterChange, handleTimeChange }) {
+function StepOne({ inputs, handleChange, handleTimeChange }) {
   const { t } = useTranslation();
   const [value, setValue] = React.useState(dayjs('2022-04-17T16:00'));
 
   return (
-    <Box sx={{ fontFamily: "Fontdiner Swanky" }}>
+    <>
+      {/* <Box sx={{ fontFamily: "Fontdiner Swanky" }}> */}
       <Typography variant="h6" sx={{ fontFamily: "Fontdiner Swanky" }} gutterBottom>
         {t(`bookingForm.step1`)}
       </Typography>
@@ -47,7 +52,7 @@ function StepOne({ inputs, handleChange, handleFilterChange, handleTimeChange })
         <label>{t(`bookingForm.step1Phone`)}</label>
         <input
           className='formInput'
-          type='text'
+          type='tel'
           name="contactPhone"
           value={inputs.contactPhone || ""}
           onChange={handleChange}
@@ -58,12 +63,11 @@ function StepOne({ inputs, handleChange, handleFilterChange, handleTimeChange })
         <label>{t(`bookingForm.step1People`)} </label>
         <input
           className='formInput'
-          type='number'
-          min={1}
-          max={10}
           name='players'
           value={inputs.players || ""}
-          onChange={(e) => { handleChange(e) }}
+          onChange={(e) => { handleChange(e) }
+          
+        }
           placeholder={t(`bookingForm.step1Number`)}
           required
         />
@@ -95,19 +99,7 @@ function StepOne({ inputs, handleChange, handleFilterChange, handleTimeChange })
             required
           />
         </LocalizationProvider>
-
-        {/* <input
-          className='formInput'
-          type='time'
-          name="startTime"
-          value={inputs.startTime || ""}
-          onChange={handleChange}
-          required
-        /> */}
       </div>
-
-
-
 
       <div className='formItem'>
         <label>{t(`bookingForm.step1Duration`)} </label>
@@ -117,14 +109,16 @@ function StepOne({ inputs, handleChange, handleFilterChange, handleTimeChange })
           name='duration'
           value={inputs.duration || ""}
           onChange={handleChange}
-          min={60}
+          min="60"
           step={30}
+          max="600"
           placeholder={t(`bookingForm.step1DurationI`)}
           required
         />
 
       </div>
-    </Box>
+      {/* </Box> */}
+    </>
   );
 }
 
@@ -266,6 +260,8 @@ export default function BookingForm() {
     if (activeStep === 0) {
       // Step 1 validation
       const { contactName, contactPhone, players, date, startTime, duration } = inputs;
+      console.log(inputs);
+
       if (!contactName || !contactPhone || !players || !date || !startTime || !duration) {
         Swal.fire({
           icon: 'warning',
@@ -274,6 +270,42 @@ export default function BookingForm() {
         });
         return;
       }
+
+      if (!nameRegex.test(contactName)){
+        Swal.fire({
+            icon: 'warning',
+            title: "Invalid name",
+            text: "Names may not include numbers",
+          });
+          return;
+        }
+
+      if (!regex.test(contactPhone)){
+        Swal.fire({
+            icon: 'warning',
+            title: "Invalid phone number",
+            text: "please enter a valid phone number",
+          });
+          return;
+        }
+      
+      if (isNaN(players) || players < 1 || players > 10){
+        Swal.fire({
+          icon: 'warning',
+          title: "Invalid players input",
+          text: "players must be a number and between 1 to 10",
+        });
+        return;
+      }
+      
+      if (isNaN(duration) || !duraOpt.includes(duration)){
+        Swal.fire({
+            icon: 'warning',
+            title: "Invalid duration",
+            text: "Duration must be at least 60 minutes, at most 600 minutes and in increments of 30 minutes.",
+          });
+          return;
+        }
     }
 
     if (activeStep === 1) {
@@ -299,7 +331,7 @@ export default function BookingForm() {
   };
 
   const handleTimeChange = (value) => {
-	setInputs({ ...inputs, startTime: value });
+    setInputs({ ...inputs, startTime: value });
   };
 
   const handleChange = (e) => {
@@ -393,7 +425,7 @@ export default function BookingForm() {
   const renderStepContent = (stepIndex) => {
     switch (stepIndex) {
       case 0:
-        return <StepOne inputs={inputs} handleChange={handleChange} />;
+        return <StepOne inputs={inputs} handleChange={handleChange} handleTimeChange={handleTimeChange}/>;
       case 1:
         return <StepTwo inputs={inputs} handleChange={handleChange} tables={filteredTables} setInputs={setInputs} />;
       case 2:
@@ -406,7 +438,7 @@ export default function BookingForm() {
   return (
     <>
       <div className='backgroundBooking'>
-	  	<img className="floorplann" src={floorplan} alt="floorplan" />
+        <img className="floorplann" src={floorplan} alt="floorplan" />
         <div className='stepperStyle'>
 
           <Box className='stepperStyle2' sx={{ width: '100%', maxWidth: '700px', margin: '0 auto', fontFamily: "Fontdiner Swanky", px: 2 }} >
