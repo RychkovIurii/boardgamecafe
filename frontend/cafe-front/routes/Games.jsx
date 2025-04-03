@@ -78,6 +78,7 @@ function Games() {
             <h1 style={{ margin: '30px' }}>{t("gamesPage.collectionHeader")}</h1>
 
             <input
+            className='searchbar'
             type="search"
             placeholder={t("gamesPage.searchPlaceholder")}
             value={searchFilter}
