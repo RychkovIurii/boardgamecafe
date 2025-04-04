@@ -183,7 +183,7 @@ const MyBookings = () => {
         <>
             <Navbar />
             <div className="py-20">
-                <h1 className="text-outline text-5xl font-medium text-yellow-500 mt-5 mb-10">My Bookings</h1>
+                <h1 className="text-outline text-4xl font-medium text-yellow-500 mt-5 mb-10">My Bookings</h1>
 
                 <div className='max-w-5xl mx-auto'>
                     <p className='text-xl pt-7 text-start'>Upcoming Bookings</p>
