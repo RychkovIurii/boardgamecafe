@@ -9,6 +9,7 @@ import dayjs from 'dayjs';
 import { LocalizationProvider, TimePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
+
 const MyBookings = () => {
     const navigate = useNavigate();
     const [bookings, setBookings] = useState({ past: [], upcoming: [] });
@@ -74,10 +75,11 @@ const MyBookings = () => {
         setIsEditing(booking._id);
         setEditedBooking({
             ...booking,
-            date: dayjs(booking.date).format("YYYY-MM-DD"), // dayjs 객체 유지
+            date: dayjs(booking.date).format("YYYY-MM-DD"),
             startTime: dayjs(booking.startTime),
-            duration: booking.duration ?? 60, // Nullish coalescing 사용
-            players: booking.players
+            duration: booking.duration ?? 60,
+            players: booking.players,
+            tableId: booking.tableId, // 추가된 부분
         });
         checkTableAvailability(booking.players);
     };
@@ -90,8 +92,8 @@ const MyBookings = () => {
     const handleChange = (e) => {
         const { name, value } = e.target;
         setEditedBooking({
-            ...editedBooking, 
-            [name]: name === 'duration' || name === 'players' ? Number(value) : value, 
+            ...editedBooking,
+            [name]: name === 'duration' || name === 'players' ? Number(value) : value,
         });
         if (name === 'players') checkTableAvailability(value); // Filter tables when player count changes
     };
@@ -105,8 +107,9 @@ const MyBookings = () => {
             ...editedBooking,
             date: dayjs(editedBooking.date).toISOString(),
             startTime: dayjs(editedBooking.startTime).toISOString(),
-            endTime: dayjs(editedBooking.startTime).add(editedBooking.duration, 'minute').toISOString()
+            endTime: dayjs(editedBooking.startTime).add(editedBooking.duration, 'minute').toISOString(),
         };
+        console.log("Sending data to backend:", formattedBooking);
 
         try {
             const response = await API.put(`/bookings/my-bookings/${id}`, formattedBooking);
@@ -196,8 +199,8 @@ const MyBookings = () => {
                                             <p><strong>Table No:</strong></p>
                                             <select
                                                 name="tableId"
-                                                value={editedBooking.tableId?.number || ""}
-                                                onChange={(e) => setEditedBooking({ ...editedBooking, tableId: { number: e.target.value } })}
+                                                value={editedBooking.tableId}
+                                                onChange={(e) => setEditedBooking({ ...editedBooking, tableId: e.target.value })}
                                                 className="border p-1 rounded"
                                             >
                                                 <option value="" disabled>Select a table</option>

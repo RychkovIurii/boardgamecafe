@@ -43,4 +43,15 @@ exports.updateBookingValidation = [
 		.trim()
 		.notEmpty().withMessage('Phone is required')
 		.isMobilePhone().withMessage('Invalid phone number'),
+
+	// Add a final catch-all error handler to log the validation errors
+	(req, res, next) => {
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) {
+			console.log('Validation errors:', errors.array()); // Log the validation errors
+			return res.status(400).json({ errors: errors.array() });
+		}
+		next();
+	}
 ];
+
