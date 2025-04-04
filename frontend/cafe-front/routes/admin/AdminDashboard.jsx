@@ -3,6 +3,7 @@ import API from '../../api/axios';
 import { useNavigate } from 'react-router-dom';
 import AdminNavbar from '../../components/admin/AdminNavbar';
 import Swal from 'sweetalert2';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const AdminDashboard = () => {
     const [upcomingBookings, setUpcomingBookings] = useState([]);
@@ -33,7 +34,13 @@ const AdminDashboard = () => {
         fetchAdminData();
     }, [navigate]);
 
-    if (loading) return <div>Loading...</div>;
+	if (loading) {
+		return (
+			<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '60vh' }}>
+				<CircularProgress size="3rem" thickness={5} color="inherit"/>
+			</div>
+		);
+	}
     if (error) return <div>{error}</div>;
 
     const handleEdit = (id) => {

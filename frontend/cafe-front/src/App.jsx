@@ -30,7 +30,7 @@ import './App.css';
 
 const AdminRoute = ({ element }) => {
   const { isAuthenticated, isCheckingAuth } = useContext(AuthContext);
-  if (isCheckingAuth) return <div>Loading...</div>;
+  if (isCheckingAuth) return <div> </div>;
   return isAuthenticated ? element : <Navigate to="/sign-in" />;
 };
 

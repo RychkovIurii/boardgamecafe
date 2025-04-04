@@ -8,6 +8,7 @@ import GameCard from '../components/GameCard';
 import '../components/Style/GameCardStyles.css'
 import Paginate from '../components/Pagination';
 import { useTranslation } from 'react-i18next';
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 function Games() {
@@ -15,6 +16,7 @@ function Games() {
     const [filteredGames, setFilteredGames] = useState([])
     const [currentPage, setCurrentPage] = useState(1)
     const [searchFilter, setSearchFilter] = useState("");
+	const [loading, setLoading] = useState(true);
 	const { t } = useTranslation();
     
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -26,33 +28,40 @@ function Games() {
     const currentGames = filteredGames.slice(indexOfFirstGame, indexOfLastGame)
 
     useEffect(() => {
-        fetch("https://boardgamegeek.com/xmlapi2/collection?username=Cafebg")
-            .then((response) => response.text())
-            .then((xmlString) => {
-                const parser = new DOMParser();
-                const xml = parser.parseFromString(xmlString, "text/xml");
-                const items = xml.getElementsByTagName("item");
-                const itemArray = Array.from(items).map((itemNode) => {
-                    const objectId = itemNode.getAttribute("objectid");
-
-                    const name = itemNode.querySelector("name");
-                    const image = itemNode.querySelector("image");
-                    const thumb = itemNode.querySelector("thumbnail");
-                    const year = itemNode.querySelector("yearpublished");
-
-                    return {
-                        id: objectId,
-                        title: name ? name.textContent : "",
-                        image: image ? image.textContent.trim() : "",
-                        thumbnail: thumb ? thumb.textContent.trim() : "",
-                        year: year ? year.textContent : ""
-                    };
-                });
-                setGamesInfo(itemArray);
-                setFilteredGames(itemArray)
-
-            })
-    }, []);
+		const fetchGames = async () => {
+			try {
+				const response = await fetch("https://boardgamegeek.com/xmlapi2/collection?username=Cafebg");
+				const xmlString = await response.text();
+				const parser = new DOMParser();
+				const xml = parser.parseFromString(xmlString, "text/xml");
+				const items = xml.getElementsByTagName("item");
+				const itemArray = Array.from(items).map((itemNode) => {
+					const objectId = itemNode.getAttribute("objectid");
+					const name = itemNode.querySelector("name");
+					const image = itemNode.querySelector("image");
+					const thumb = itemNode.querySelector("thumbnail");
+					const year = itemNode.querySelector("yearpublished");
+	
+					return {
+						id: objectId,
+						title: name ? name.textContent : "",
+						image: image ? image.textContent.trim() : "",
+						thumbnail: thumb ? thumb.textContent.trim() : "",
+						year: year ? year.textContent : ""
+					};
+				});
+	
+				setGamesInfo(itemArray);
+				setFilteredGames(itemArray);
+			} catch (error) {
+				console.error("Failed to load games", error);
+			} finally {
+				setLoading(false);
+			}
+		};
+	
+		fetchGames();
+	}, []);
 
     const FilterGames = (e) => {
         const filtered =
@@ -63,6 +72,13 @@ function Games() {
           setFilteredGames(filtered);
       };
 
+	if (loading) {
+		return (
+			<div style={{ display: 'flex', justifyContent: 'center', padding: '4rem' }}>
+				<CircularProgress size="4rem" thickness={5} color="inherit"/>
+			</div>
+		);
+	}
     return (
         <>
             <Navbar />
