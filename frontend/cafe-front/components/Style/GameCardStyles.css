@@ -50,3 +50,15 @@
     margin: 0 auto 2rem auto;
     padding: 8px;
 }
+
+@media screen and (max-width: 768px) {
+    .gameTit {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .gameTit {
+        font-size: 12px;
+    }
+}
