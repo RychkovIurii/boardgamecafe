@@ -135,10 +135,13 @@ router.put('/my-bookings/:id', authenticate, updateBookingValidation, validateIn
         return res.status(400).json({ message: validationResult.message });
     }
 
-    const { startDateTime, endDateTime } = validationResult;
+    const { startHelsinkiTime, endHelsinkiTime } = validationResult;
+
+	const startUTCtime = startHelsinkiTime.toDate();
+	const endUTCtime = endHelsinkiTime.toDate();
 
     // Check if the requested booking time is available (excluding the current booking)
-    const hasOverlap = await validateOverlappingBookings(tableId, startDateTime, endDateTime, req.params.id);
+    const hasOverlap = await validateOverlappingBookings(tableId, startUTCtime, endUTCtime, req.params.id);
     if (hasOverlap) {
         return res.status(400).json({ message: 'Requested booking time is not available.' });
     }
@@ -154,9 +157,9 @@ router.put('/my-bookings/:id', authenticate, updateBookingValidation, validateIn
             return res.status(403).json({ message: 'Unauthorized to update this booking' });
         }
 
-        booking.date = startDateTime.toDate();
-        booking.startTime = startDateTime.toDate();
-        booking.endTime = endDateTime.toDate();
+        booking.date = startUTCtime;
+        booking.startTime = startUTCtime;
+        booking.endTime = endUTCtime;
         booking.tableId = tableId;
         booking.players = players;
         booking.game = game;
