@@ -9,6 +9,7 @@ import CountdownTimer from '../components/CountdownTimer';
 import EventsCard from '../components/EventsCard';
 import '../components/Style/EventCard.css'
 import { useTranslation } from 'react-i18next';
+import CircularProgress from '@mui/material/CircularProgress';
 
 function Events() {
 	const [events, setEvents] = useState([]);
@@ -46,7 +47,13 @@ function Events() {
 	  fetchEvents();
 	}, []);
   
-	if (loading) return <div>Loading events...</div>;
+	if (loading) {
+		return (
+		  <div style={{ display: 'flex', justifyContent: 'center', padding: '4rem' }}>
+			<CircularProgress size="3rem" thickness={5} color="inherit"/>
+		  </div>
+		);
+	  }
 	if (error) return <div>Error loading events: {error}</div>;
   
 	return (

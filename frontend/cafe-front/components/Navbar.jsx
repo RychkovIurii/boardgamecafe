@@ -16,7 +16,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import cafeLogo from '../src/assets/logo.png';
 
 const pages = [
@@ -88,6 +87,7 @@ function Navbar() {
 					fontWeight: 700,
 					letterSpacing: '.3rem',
 					color: 'black',
+					textDecoration: 'none',
 					}}
 				>
 					<img src={cafeLogo} alt="Cafe Boardgame Logo" style={{ paddingBottom: '1rem' }} />
@@ -132,7 +132,6 @@ function Navbar() {
               ))}
             </Menu>
           </Box>
-          {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
           <Typography
             variant="h7"
             noWrap
