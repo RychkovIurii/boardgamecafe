@@ -46,7 +46,7 @@
     margin: auto;
 }
 .searchbar{
-    width: 50%;
-    margin: 0 auto;
+    width: 60%;
+    margin: 0 auto 2rem auto;
     padding: 8px;
 }
