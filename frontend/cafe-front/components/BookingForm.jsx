@@ -15,6 +15,7 @@ import {
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import dayjs from 'dayjs';
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
@@ -23,6 +24,8 @@ import floorplan from '../src/assets/elements/floorplan.png';
 const regex = new RegExp(/(\+\d{1,3}\s?)?((\(\d{3}\)\s?)|(\d{3})(\s|-?))(\d{3}(\s|-?))(\d{4})(\s?(([E|e]xt[:|.|]?)|x|X)(\s?\d+))?/)
 const nameRegex = new RegExp(/^[\p{Letter}\s\-.']+$/u)
 const duraOpt = ["60", "90", "120", "150", "180", "210", "240", "270", "300", "330", "360", "390", "420", "450", "480", "510", "540", "570", "600"]
+
+dayjs.extend(isSameOrAfter);
 
 /**
  StepOne, StepTwo, and StepThree are separated for clarity.
@@ -195,6 +198,8 @@ export default function BookingForm() {
   const [filteredTables, setFilteredTables] = useState([]);
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const [workingHours, setWorkingHours] = useState([]);
+  const [specialHours, setSpecialHours] = useState([]);
   const [inputs, setInputs] = useState({
     date: "",
     startTime: dayjs('2022-04-17T16:00'),
@@ -217,6 +222,22 @@ export default function BookingForm() {
       }
     };
     fetchTables();
+  }, []);
+
+  useEffect(() => {
+	const fetchHours = async () => {
+	  try {
+		const [whRes, shRes] = await Promise.all([
+		  API.get('/hours'),
+		  API.get('/specialHours')
+		]);
+		setWorkingHours(whRes.data);
+		setSpecialHours(shRes.data);
+	  } catch (err) {
+		console.error("Error fetching hours", err);
+	  }
+	};
+	fetchHours();
   }, []);
 
   useEffect(() => {
@@ -247,6 +268,35 @@ export default function BookingForm() {
     const filtered = tables.filter(table => table.capacity === seatLimit);
     setFilteredTables(filtered);
   }
+  
+  const isWithinWorkingHours = () => {
+	if (!inputs.date || !inputs.startTime) return false;
+  
+	const selectedTime = dayjs(`${inputs.date}T${inputs.startTime.format('HH:mm')}`);
+  
+	const special = specialHours.find(s => dayjs(s.date).isSame(dayjs(inputs.date), 'day'));
+	let openTime, closeTime;
+  
+	if (special) {
+	  if (!special.openTime || !special.closeTime) return false; // Closed
+	  openTime = dayjs(`${special.date}T${special.openTime}`);
+	  closeTime = dayjs(`${special.date}T${special.closeTime}`);
+	} else {
+	  const dayName = dayjs(inputs.date).format('dddd'); // e.g., 'Friday'
+	  const workingDay = workingHours.find(w => w.day === dayName);
+	  if (!workingDay || !workingDay.openTime || !workingDay.closeTime) return false;
+  
+	  openTime = dayjs(`${inputs.date}T${workingDay.openTime}`);
+	  closeTime = dayjs(`${inputs.date}T${workingDay.closeTime}`);
+  
+	  if (closeTime.isBefore(openTime)) {
+		closeTime = closeTime.add(1, 'day'); // handle past-midnight
+	  }
+	}
+  
+	return selectedTime.isSameOrAfter(openTime) && selectedTime.isBefore(closeTime);
+  };
+	
 
   // Define the labels for each step.
   const steps = [
@@ -260,8 +310,6 @@ export default function BookingForm() {
     if (activeStep === 0) {
       // Step 1 validation
       const { contactName, contactPhone, players, date, startTime, duration } = inputs;
-      console.log(inputs);
-
       if (!contactName || !contactPhone || !players || !date || !startTime || !duration) {
         Swal.fire({
           icon: 'warning',
@@ -270,7 +318,6 @@ export default function BookingForm() {
         });
         return;
       }
-
       if (!nameRegex.test(contactName)){
         Swal.fire({
             icon: 'warning',
@@ -306,6 +353,14 @@ export default function BookingForm() {
           });
           return;
         }
+		if (!isWithinWorkingHours()) {
+			Swal.fire({
+			  icon: 'warning',
+			  title: t('alerts.invalidTimeTitle'),
+			  text: t('alerts.invalidTimeText'),
+			});
+			return;
+		  }
     }
 
     if (activeStep === 1) {

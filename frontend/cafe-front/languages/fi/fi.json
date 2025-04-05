@@ -133,6 +133,8 @@
 			"updateSuccessText": "Puhelinnumero päivitetty onnistuneesti.",
 			"updateErrorTitle": "Päivitys epäonnistui",
 			"updateErrorText": "Puhelinnumeron päivittäminen epäonnistui.",
+			"invalidTimeTitle": "Aukioloaikojen ulkopuolella",
+			"invalidTimeText": "Valitsemasi aika on aukioloaikojemme ulkopuolella. Valitse toinen aika.",
 			"goHome": "Palaa etusivulle",
 			"payNow": "Maksa nyt (valinnainen)"
 			},

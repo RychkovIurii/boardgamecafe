@@ -142,6 +142,8 @@
 		"updateSuccessText": "Phone number updated successfully.",
 		"updateErrorTitle": "Update Failed",
 		"updateErrorText": "Failed to update phone number.",
+		"invalidTimeTitle": "Outside Opening Hours",
+		"invalidTimeText": "The day or time you've selected is outside our working hours. Please choose another time.",
 		"paymentSuccessTitle": "Payment Complete!",
 		"paymentSuccessText": "A confirmation email was sent to",
 		"goHome": "Go to Home",
