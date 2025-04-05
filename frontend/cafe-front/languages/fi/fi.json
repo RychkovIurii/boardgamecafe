@@ -74,7 +74,7 @@
 		"validationErrorTitle": "Validointivirhe",
 		"validation": {
 			"name": "Nimen tulee olla vähintään 2 merkkiä pitkä.",
-			"phone": "Syötä kelvollinen puhelinnumero. Sen tulee alkaa +3:lla tai 0:lla ja sen jälkeen olla 6–11 numeroa.",
+			"phone": "Syötä kelvollinen puhelinnumero. +3 alussa. +[CountryCode][Number]",
 			"email": "Syötä kelvollinen sähköpostiosoite.",
 			"password": "Salasanan tulee olla vähintään 6 merkkiä pitkä."
 			}
@@ -128,7 +128,7 @@
 			"paymentSuccessTitle": "Maksu suoritettu!",
 			"paymentSuccessText": "Vahvistussähköposti lähetettiin osoitteeseen",
 			"invalidPhoneTitle": "Virheellinen puhelinnumero",
-			"invalidPhoneText": "Anna kelvollinen puhelinnumero, joka alkaa +3 tai 0.",
+			"invalidPhoneText": "Syötä kelvollinen puhelinnumero. +3 alussa. +[CountryCode][Number]",
 			"updateSuccessTitle": "Päivitetty!",
 			"updateSuccessText": "Puhelinnumero päivitetty onnistuneesti.",
 			"updateErrorTitle": "Päivitys epäonnistui",

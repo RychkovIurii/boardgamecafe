@@ -100,7 +100,7 @@ const MyBookings = () => {
 			Swal.fire({
 			  icon: 'warning',
 			  title: 'Invalid Phone Number',
-			  text: 'Please enter a valid phone number.'
+			  text: 'Please enter a valid phone number in the format: +[CountryCode][Number].'
 			});
 			return false;
 		  }

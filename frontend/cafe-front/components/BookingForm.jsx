@@ -363,7 +363,7 @@ export default function BookingForm() {
         Swal.fire({
             icon: 'warning',
             title: "Invalid phone number",
-            text: "Please enter a valid phone number",
+            text: "Please enter a valid phone number in the format: +[CountryCode][Number]",
           });
           return;
         }
