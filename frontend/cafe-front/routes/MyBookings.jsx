@@ -22,7 +22,7 @@ const MyBookings = () => {
         date: dayjs().format("YYYY-MM-DD"),
         startTime: dayjs().format('HH:mm'),
         duration: 60,
-        tableId: '',
+        tableNumber: '',
         players: 1,
     });
     const [filteredTables, setFilteredTables] = useState([]);
@@ -33,7 +33,6 @@ const MyBookings = () => {
         const fetchBookings = async () => {
             try {
                 const response = await API.get('bookings/my-bookings');
-                console.log('data', response.data)
                 const now = new Date();
 
                 const past = response.data.filter(booking => new Date(booking.date) < now).sort((a, b) => new Date(a.date) - new Date(b.date));
@@ -80,18 +79,27 @@ const MyBookings = () => {
             ...booking,
             date: dayjs(booking.date).format("YYYY-MM-DD"),
             startTime: dayjs(booking.startTime),
+			endTime: dayjs(booking.endTime),
             duration: booking.duration ?? 60,
             players: booking.players,
-            tableId: booking.tableId, // 추가된 부분
-			contactName: editedBooking.contactName || user?.name,
-			contactPhone: editedBooking.contactPhone || user?.phone,
+            tableNumber: booking.tableId.number,
+			contactName: booking.contactName || user?.name,
+			contactPhone: booking.contactPhone || user?.phone,
         });
         checkTableAvailability(booking.players);
     };
 
     const handleCancel = () => {
         setIsEditing(null);
-        setEditedBooking(null);
+        setEditedBooking({
+            date: dayjs().format("YYYY-MM-DD"),
+            startTime: dayjs().format('HH:mm'),
+            duration: 60,
+            tableNumber: '',
+            players: 1,
+            contactName: '',
+            contactPhone: '',
+        });
     };
 
     const handleChange = (e) => {
@@ -108,34 +116,45 @@ const MyBookings = () => {
     };
 
     const handleSave = async (id) => {
-		const selectedTable = tables.find(table => table.number.toString() === editedBooking.tableId.toString());
+		const selectedTable = tables.find(table => table.number.toString() === editedBooking.tableNumber.toString());
 		if (!selectedTable) {
 			return Swal.fire({ icon: 'error', title: 'Invalid Table', text: 'Selected table was not found.' });
 		}
+		const calculatedEndTime = dayjs(editedBooking.startTime).add(editedBooking.duration, 'minute');
         const formattedBooking = {
             ...editedBooking,
             date: dayjs(editedBooking.date).format("YYYY-MM-DD"),
             startTime: dayjs(editedBooking.startTime).format("HH:mm"),
+			endTime: calculatedEndTime.format("HH:mm"),
             duration: editedBooking.duration,
-			tableId: selectedTable._id,
+			tableNumber: selectedTable.number,
         };
-        console.log("Sending data to backend:", formattedBooking);
 
         try {
-            const response = await API.put(`/bookings/my-bookings/${id}`, formattedBooking);
-            console.log('formattedBooking', response.data)
-
-            if (response.status === 200) {
-                Swal.fire({ icon: 'success', title: 'Updated!', text: 'The booking has been successfully updated.' });
-                setBookings(prev => ({
-                    ...prev,
-                    upcoming: prev.upcoming.map(booking => booking._id === id ? { ...booking, ...formattedBooking } : booking)
-                }));
-                setIsEditing(null);
-            }
-        } catch (error) {
-            console.error('Error updating booking:', error);
-            Swal.fire({ icon: 'error', title: 'Update Failed', text: 'Something went wrong while updating the booking.' });
+			const response = await API.put(`/bookings/my-bookings/${id}`, formattedBooking);
+			if (response.status === 200) {
+				Swal.fire({ icon: 'success', title: 'Updated!', text: 'The booking has been successfully updated.' });
+				setBookings(prev => ({
+					...prev,
+					upcoming: prev.upcoming.map(booking =>
+						booking._id === id
+							? {
+								...booking,
+								...formattedBooking,
+								tableId: { ...selectedTable },
+							}
+							: booking
+					),
+				}));
+	
+				setIsEditing(null);
+			}
+		} catch (error) {
+            if (error.response && error.response.data && error.response.data.message) {
+				Swal.fire({ icon: 'error', title: 'Update Failed', text: error.response.data.message });
+			} else {
+				Swal.fire({ icon: 'error', title: 'Update Failed', text: 'Something went wrong while updating the booking.' });
+			}
         }
     };
 
@@ -219,9 +238,9 @@ const MyBookings = () => {
                                         <div className="mb-2">
                                             <p><strong>Table No:</strong></p>
                                             <select
-                                                name="tableId"
-                                                value={editedBooking.tableId}
-                                                onChange={(e) => setEditedBooking({ ...editedBooking, tableId: e.target.value })}
+                                                name="tableNumber"
+                                                value={editedBooking.tableNumber}
+                                                onChange={(e) => setEditedBooking({ ...editedBooking, tableNumber: e.target.value })}
                                                 className="border p-1 rounded"
                                             >
                                                 <option value="" disabled>Select a table</option>
@@ -233,15 +252,15 @@ const MyBookings = () => {
                                             </select>
                                         </div>
                                         <div className="mb-2">
-                                            <p><strong>Game:</strong></p>
+                                            <p><strong>Game: </strong></p>
                                             <input type="text" name="game" value={editedBooking.game} onChange={handleChange} className="border p-1 rounded" />
                                         </div>
                                         <div className="mb-2">
-                                            <p><strong>Contact Name:</strong></p>
+                                            <p><strong>Contact Name: </strong></p>
                                             <input type="text" name="contactName" value={editedBooking.contactName} onChange={handleChange} className="border p-1 rounded" />
                                         </div>
                                         <div className="mb-2">
-                                            <p><strong>Contact Phone:</strong></p>
+                                            <p><strong>Contact Phone: </strong></p>
                                             <input type="text" name="contactPhone" value={editedBooking.contactPhone} onChange={handleChange} className="border p-1 rounded" />
                                         </div>
                                         <div className="flex gap-2 justify-center">
@@ -251,10 +270,18 @@ const MyBookings = () => {
                                     </>
                                 ) : (
                                     <>
-                                        <p><strong>Date:</strong> {new Date(booking.date).toLocaleDateString()}</p>
-                                        <p><strong>Time:</strong> {new Date(booking.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - {new Date(booking.endTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                                        <p><strong>Date: </strong> {dayjs(booking.date).format('DD/MM/YYYY')}</p>
+                                        <p><strong>Time: </strong> 
+											{dayjs(booking.startTime).isValid() 
+												? dayjs(booking.startTime).format('HH:mm') 
+												: booking.startTime} 
+											- 
+											{dayjs(booking.endTime).isValid() 
+												? dayjs(booking.endTime).format('HH:mm') 
+												: booking.endTime}
+										</p>
                                         <p>Players: {booking.players}</p>
-                                        <p>Table No: {booking.tableId?.number}</p>
+                                        <p>Table No: {booking.tableId?.number || 'N/A'}</p>
                                         <p>Contact: {booking.contactName}<br /> ({booking.contactPhone})</p>
                                         <div className="mt-3 flex gap-2 justify-center">
                                             <button onClick={() => handleEdit(booking)} className="bg-green-800 w-20 text-white px-4 py-2 rounded-md">Edit</button>
@@ -276,11 +303,19 @@ const MyBookings = () => {
                     <div className='flex flex-col sm:flex-row m-auto gap-5 pt-5 px-3 sm:px-0'>
                         {bookings.past.length > 0 ? (bookings.past.slice(0, 5).map((booking) => (
                             <div key={booking._id} className=' border border-gray-400 p-4 rounded-xl flex flex-col text-sm gap-1 shadow-lg bg-white'>
-                                <p><strong>Date:</strong> {new Date(booking.date).toLocaleDateString()}</p>
-                                <p><strong>Time:</strong> {new Date(booking.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - {new Date(booking.endTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
-                                <p>Players:{booking.players}</p>
+                                <p><strong>Date: </strong> {dayjs(booking.date).format('DD/MM/YYYY')}</p>
+                                <p><strong>Time: </strong> 
+									{dayjs(booking.startTime).isValid() 
+										? dayjs(booking.startTime).format('HH:mm') 
+										: booking.startTime} 
+									- 
+									{dayjs(booking.endTime).isValid() 
+										? dayjs(booking.endTime).format('HH:mm') 
+										: booking.endTime}
+								</p>
+                                <p>Players: {booking.players}</p>
                                 <p>Table No: {booking.tableId?.number}</p>
-                                <p>Contact:{booking.contactName} <br /> ({booking.contactPhone})</p>
+                                <p>Contact: {booking.contactName} <br /> ({booking.contactPhone})</p>
                             </div>
                         ))
                         ) : (
