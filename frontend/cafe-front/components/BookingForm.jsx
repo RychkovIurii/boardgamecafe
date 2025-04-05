@@ -244,14 +244,6 @@ export default function BookingForm() {
     }
   }, [isAuthenticated, user]);
 
-  useEffect(() => {
-	if (inputs.date && inputs.startTime && inputs.duration && inputs.players) {
-	  (async () => {
-		await checkAvailability(Number(inputs.players));
-	  })();
-	}
-  }, [inputs.date, inputs.startTime, inputs.duration, inputs.players]);
-
   async function checkAvailability(people) {
     if (people < 1) {
       const message = t(`bookingForm.availabilityPeople`);
