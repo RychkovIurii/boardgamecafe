@@ -19,9 +19,9 @@ exports.updateBookingValidation = [
 		.notEmpty().withMessage('Duration is required')
 		.isInt({ min: 30, max: 360 }).withMessage('Invalid duration'),
 
-	body('tableId')
+	body('tableNumber')
 		.notEmpty().withMessage('Table is required')
-		.custom(value => mongoose.Types.ObjectId.isValid(value)).withMessage('Invalid table ID'),
+		.isInt({ min: 1, max: 50 }).withMessage('Table number must be between 1 and 50'),
 
 	body('players')
 		.notEmpty().withMessage('Player count is required')

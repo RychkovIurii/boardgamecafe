@@ -32,11 +32,11 @@ const Login = ({ onToggleForm }) => {
 				title: t("login.successTitle"),
 				text: t("login.successMessage"),
 				confirmButtonText: t("login.confirmButton")
-			  }).then(() => {
+			}).then(() => {
 				if (role === 'admin') {
 					navigate('/admin');
 				} else {
-					navigate('/');
+					navigate('/'); window.scrollTo(0, 0);
 				}
 			});
 		} catch (error) {

@@ -118,7 +118,7 @@ router.post('/', createBookingValidation, validateInputs, async (req, res) => {
 // Fetch own bookings (Authorized user) ONLY FOR AUTHORIZED USERS
 router.get('/my-bookings', authenticate, async (req, res) => {
     try {
-        const bookings = await Booking.find({ userId: req.user._id }).populate('tableId').populate('userId');
+        const bookings = await Booking.find({ userId: req.user._id }).populate('tableId', 'number capacity location availability').populate('userId');
         res.json(bookings);
     } catch (error) {
         console.error('Error fetching bookings:', error);
@@ -128,17 +128,26 @@ router.get('/my-bookings', authenticate, async (req, res) => {
 
 // Update a booking (Authorized user) ONLY FOR AUTHORIZED USERS
 router.put('/my-bookings/:id', authenticate, updateBookingValidation, validateInputs, async (req, res) => {
-    const { date, startTime, duration, tableId, players, game, contactName, contactPhone } = req.body;
+    const { date, startTime, duration, tableNumber, players, game, contactName, contactPhone } = req.body;
 
     const validationResult = await validateBooking(date, startTime, duration);
     if (!validationResult.isValid) {
         return res.status(400).json({ message: validationResult.message });
     }
 
-    const { startDateTime, endDateTime } = validationResult;
+    const table = await Table.findOne({ number: tableNumber });
+    if (!table) {
+        return res.status(400).json({ message: 'Table not found' });
+    }
+    const tableId = table._id;
+
+    const { startHelsinkiTime, endHelsinkiTime } = validationResult;
+
+	const startUTCtime = startHelsinkiTime.toDate();
+	const endUTCtime = endHelsinkiTime.toDate();
 
     // Check if the requested booking time is available (excluding the current booking)
-    const hasOverlap = await validateOverlappingBookings(tableId, startDateTime, endDateTime, req.params.id);
+    const hasOverlap = await validateOverlappingBookings(tableId, startUTCtime, endUTCtime, req.params.id);
     if (hasOverlap) {
         return res.status(400).json({ message: 'Requested booking time is not available.' });
     }
@@ -154,9 +163,9 @@ router.put('/my-bookings/:id', authenticate, updateBookingValidation, validateIn
             return res.status(403).json({ message: 'Unauthorized to update this booking' });
         }
 
-        booking.date = startDateTime.toDate();
-        booking.startTime = startDateTime.toDate();
-        booking.endTime = endDateTime.toDate();
+        booking.date = startUTCtime;
+        booking.startTime = startUTCtime;
+        booking.endTime = endUTCtime;
         booking.tableId = tableId;
         booking.players = players;
         booking.game = game;
