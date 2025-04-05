@@ -127,47 +127,58 @@ function StepOne({ inputs, handleChange, handleTimeChange }) {
 
 function StepTwo({ inputs, handleChange, tables, setInputs }) {
   const { t } = useTranslation();
-  return (
-    <Box>
-      <Typography variant="h6" sx={{ fontFamily: "Fontdiner Swanky" }} gutterBottom>
-        {t(`bookingForm.step2`)}
-      </Typography>
-      <div className='smallerText'>
-        {t(`bookingForm.step2Text`)}
-      </div>
-      <label>{t(`bookingForm.step2Table`)} </label>
-      <input
-        className='formInput'
-        type='number'
-        min={1}
-        max={50}
-        name='tableNumber'
-        value={inputs.tableNumber || ""}
-        placeholder={t(`bookingForm.step2TableNum`)}
-        onChange={handleChange}
-        required
-      />
-      <div className='tables'>{t(`bookingForm.step2Suggested`)}
-        {tables.map((table) => <div key={table.number} className='table' onClick={(e) => { setInputs({ ...inputs, tableNumber: table.number }); }}> {table.number}</div>)}
-      </div>
-      <label>{t(`bookingForm.step2Game`)} </label>
-      <input
-        className='formInput'
-        type='text'
-        name="game"
-        value={inputs.game || ""}
-        onChange={handleChange}
-      />
-      {/* <label>Other:</label>
-      <textarea className='formInput'
-        name='other_rez'
-        value={inputs.other_rez || ""}
-        onChange={handleChange}
-        placeholder="if you need an additional chair, it's a birthday, or you have other notes, please put them in this field."
-      >
-      </textarea> */}
-    </Box>
-  );
+return (
+	<Box>
+		<Typography variant="h6" sx={{ fontFamily: "Fontdiner Swanky" }} gutterBottom>
+			{t(`bookingForm.step2`)}
+		</Typography>
+		<div className='smallerText'>
+			{t(`bookingForm.step2Text`)}
+		</div>
+		<label>{t(`bookingForm.step2Table`)} </label>
+		<input
+			className='formInput'
+			type='number'
+			min={1}
+			max={50}
+			name='tableNumber'
+			value={inputs.tableNumber || ""}
+			placeholder={t(`bookingForm.step2TableNum`)}
+			onChange={handleChange}
+			required
+		/>
+		<div className='tables'>
+			<div className='tablesChild'>
+			{t(`bookingForm.step2Suggested`)} 
+			{tables.suggested && tables.suggested.map((table) => (
+				<div key={table.number} 
+						 className='table' 
+						 onClick={() => setInputs({ ...inputs, tableNumber: table.number })}>
+					{table.number}
+				</div>
+			))}
+			</div>
+			<div className='tablesChild'>
+			{t(`bookingForm.step2AlsoAvailable`)} 
+			{tables.alsoAvailable && tables.alsoAvailable.map((table) => (
+				<div key={table.number} 
+						 className='table' 
+						 onClick={() => setInputs({ ...inputs, tableNumber: table.number })}>
+					{table.number}
+				</div>
+			))}
+			</div>
+		</div>
+		<label>{t(`bookingForm.step2Game`)} </label>
+		<input
+			className='formInput'
+			type='text'
+			name="game"
+			value={inputs.game || ""}
+			onChange={handleChange}
+		/>
+	</Box>
+);
 }
 
 function StepThree({ inputs, handleChange, handleSubmit }) {
@@ -288,9 +299,14 @@ export default function BookingForm() {
 		  }
 		});
 	
-		// Filter available tables by capacity
-		const availableTables = res.data.filter(table => table.capacity === seatLimit);
-		setFilteredTables(availableTables);
+		// Split tables into two groups:
+		const suggestedTables = res.data
+			.filter(table => table.capacity === seatLimit)
+			.sort((a, b) => a.capacity - b.capacity);
+		const alsoAvailableTables = res.data
+			.filter(table => table.capacity > seatLimit)
+			.sort((a, b) => a.capacity - b.capacity);
+		setFilteredTables({ suggested: suggestedTables, alsoAvailable: alsoAvailableTables });
 	
 	  } catch (err) {
 		console.error('Failed to fetch available tables:', err);
@@ -394,24 +410,37 @@ export default function BookingForm() {
 			});
 			return;
 		  }
+		await checkAvailability(inputs.players);
     }
 
     if (activeStep === 1) {
       // Step 2 validation
-      if (!inputs.tableNumber) {
-        Swal.fire({
-          icon: 'warning',
-          title: t('alerts.tableTitle'),
-          text: t('alerts.tableText'),
-        });
-        return;
-      }
-    }
-
-    // Everything is valid
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    await checkAvailability(inputs.players);
-  };
+		if (!inputs.tableNumber) {
+			Swal.fire({
+			icon: 'warning',
+			title: t('alerts.tableTitle'),
+			text: t('alerts.tableText'),
+			});
+			return;
+		}
+		const allAvailableTables = [
+			...(filteredTables.suggested || []),
+			...(filteredTables.alsoAvailable || [])
+		];
+		const selectedTable = allAvailableTables.find(
+			(table) => table.number === parseInt(inputs.tableNumber, 10)
+		);
+		if (!selectedTable || selectedTable.capacity < Number(inputs.players)) {
+			Swal.fire({
+			icon: 'warning',
+			title: t('alerts.tableNotAvailableTitle'),
+			text: t('alerts.tableNotAvailableText'),
+			});
+			return;
+		}
+	};
+	setActiveStep((prevActiveStep) => prevActiveStep + 1);
+}
 
   // Handle previous step
   const handleBack = () => {
