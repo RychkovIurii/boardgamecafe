@@ -209,7 +209,7 @@ const MyBookings = () => {
             <div className="py-20">
                 <h1 className="text-outline text-4xl font-medium text-yellow-500 mt-5 mb-10">My Bookings</h1>
 
-                <div className='max-w-5xl mx-auto'>
+                <div className='max-w-5xl mx-auto px-4 sm:px-0'>
                     <p className='text-xl pt-7 text-start'>Upcoming Bookings</p>
                     <div className='w-full flex flex-wrap pt-5 px-3 gap-5 md:justify-start justify-center '>
                         {bookings.upcoming.length > 0 ? (bookings.upcoming.map((booking) => (
@@ -308,7 +308,7 @@ const MyBookings = () => {
                 </div>
 
                 {/* Repeat for past bookings */}
-                <div className='max-w-5xl mx-auto mt-7'>
+                <div className='max-w-5xl mx-auto mt-7 px-4 sm:px-0'>
                     <p className='text-xl pt-7 text-start'>Booking History</p>
                     <div className='flex flex-col sm:flex-row m-auto gap-5 pt-5 px-3 sm:px-0'>
                         {bookings.past.length > 0 ? (bookings.past.slice(0, 5).map((booking) => (
