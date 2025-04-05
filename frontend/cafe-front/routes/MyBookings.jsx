@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState , useContext } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import API from '../api/axios'
@@ -8,7 +8,6 @@ import dayjs from 'dayjs';
 import { LocalizationProvider, TimePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { isValidPhoneNumber } from 'libphonenumber-js';
-import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 
 
@@ -48,21 +47,44 @@ const MyBookings = () => {
             }
         };
 
-        const fetchTables = async () => {
-            try {
-                const response = await API.get('/tables');
-                setTables(response.data);
-            } catch (error) {
-                console.error('Error fetching tables:', error);
-            }
-        };
-
         fetchBookings();
-        fetchTables();
     }, []);
 
+	useEffect(() => {
+		// Check if the booking fields are available and valid
+		if (
+		  editedBooking.date &&
+		  editedBooking.startTime &&
+		  dayjs(editedBooking.startTime).isValid() &&
+		  editedBooking.duration
+		) {
+		  const fetchSuggestedTables = async () => {
+			try {
+			  const date = dayjs(editedBooking.date).format("YYYY-MM-DD");
+			  const startTime = dayjs(editedBooking.startTime).format("HH:mm");
+			  const duration = editedBooking.duration;
+			  const response = await API.get('/bookings/suggested-tables', {
+				params: { date, startTime, duration }
+			  });
+			  // Store the available tables
+			  setTables(response.data);
+			} catch (error) {
+			  console.error('Error fetching suggested tables:', error);
+			  Swal.fire({
+				icon: 'error',
+				title: 'Error',
+				text: 'Could not fetch available tables. Please try again later.'
+			  });
+			}
+		  };
+		  // Call the function when all conditions are met
+		  fetchSuggestedTables();
+		}
+	  }, [editedBooking.date, editedBooking.startTime, editedBooking.duration]);
+	  
+
     // Function to check and filter tables based on number of players
-    function checkTableAvailability(people) {
+    async function checkTableAvailability(people) {
         const seatCapacities = [2, 4, 5, 6, 8, 10]; // Define allowed seat counts
         const seatLimit = seatCapacities.find(capacity => people <= capacity); // Find the smallest matching capacity
 
@@ -72,7 +94,23 @@ const MyBookings = () => {
             return;
         }
 
-        setFilteredTables(tables.filter(table => table.capacity === seatLimit));
+        try {
+			const date = dayjs(editedBooking.date).format("YYYY-MM-DD");
+			const startTime = dayjs(editedBooking.startTime).format("HH:mm");
+			const duration = editedBooking.duration;
+			const response = await API.get('/bookings/suggested-tables', {
+			  params: { date, startTime, duration }
+			});
+			// Filter the tables to those that match the exact seat limit
+			setFilteredTables(response.data.filter(table => table.capacity === seatLimit));
+		  } catch (error) {
+			console.error('Error fetching suggested tables:', error);
+			Swal.fire({
+			  icon: 'error',
+			  title: 'Error',
+			  text: 'Could not fetch available tables.'
+			});
+		  }
     }
 
 	const validateEditedBooking = () => {
@@ -140,7 +178,7 @@ const MyBookings = () => {
 		  contactName: booking.contactName || user?.name,
 		  contactPhone: booking.contactPhone || user?.phone,
 		});
-		checkTableAvailability(booking.players);
+		//checkTableAvailability(booking.players);
 	  };
 
     const handleCancel = () => {
