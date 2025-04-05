@@ -4,6 +4,7 @@ import API from '../api/axios';
 import { useTranslation } from 'react-i18next';
 import './Style/RegisterStyles.css';
 import Swal from 'sweetalert2';
+import { isValidPhoneNumber } from 'libphonenumber-js';
 
 const Register = ({ onToggleForm }) => {
 	const { t } = useTranslation();
@@ -24,11 +25,8 @@ const Register = ({ onToggleForm }) => {
 		}
 	
 		// Phone validation using your provided logic.
-		const cleaned = phone.replace(/\s+/g, '');
-		const isValidPhone =
-		  (/^(\+3|0)\d{6,11}$/).test(cleaned) && !/[^\d+]/.test(phone);
-		if (!isValidPhone) {
-		  return t('register.validation.phone'); // e.g., "Please enter a valid phone number."
+		if (!isValidPhoneNumber(phone)) {
+			return t('register.validation.phone'); // e.g., "Please enter a valid phone number."
 		}
 	
 		// Email validation: basic email regex.

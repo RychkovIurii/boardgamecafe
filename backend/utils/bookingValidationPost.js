@@ -37,7 +37,7 @@ exports.createBookingValidation = [
 	body('contactPhone')
 		.trim()
 		.notEmpty().withMessage('Phone is required')
-		.isMobilePhone().withMessage('Invalid phone number'),
+		.isMobilePhone('any').withMessage('Invalid phone number'),
 
 	body('paymentMethod')
 		.optional()

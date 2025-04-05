@@ -14,26 +14,25 @@ const validateInputs = require('../middleware/validateInputs');
 
 // Fetch available tables. FOR ALL USERS
 router.get('/suggested-tables', suggestedTablesValidation, validateInputs, async (req, res) => {
-	const { date, start: startTime, duration } = req.query;
+	const { date, startTime, duration } = req.query;
 	
 	if (!date || !startTime || !duration) {
-	  return res.status(400).json({ message: 'Missing required query parameters: date, startTime, endTime' });
+	  return res.status(400).json({ message: 'Missing required query parameters: date, startTime, duration' });
 	}
-	const validationResult = await validateBooking(date, start, duration);
+	const validationResult = await validateBooking(date, startTime, duration);
     if (!validationResult.isValid) {
         return res.status(400).json({ message: validationResult.message });
     }
 
-	const { startTime: startUTC, endTime: endUTC } = validationResult;
+	const { startHelsinkiTime, endHelsinkiTime } = validationResult;
+    const startUTCtime = startHelsinkiTime.toDate();
+    const endUTCtime = endHelsinkiTime.toDate();
   
 	try {
 	  // Find bookings that overlap with the requested time interval.
 	  const bookedTables = await Booking.find({
-		date,
 		$or: [
-		  { startTime: { $lt: endUTC, $gte: startUTC } },
-		  { endTime: { $gt: startUTC, $lte: endUTC } },
-		  { startTime: { $lte: startUTC }, endTime: { $gte: endUTC } }
+			{ startTime: { $lt: endUTCtime }, endTime: { $gt: startUTCtime } }
 		]
 	  }).select('tableId');
   

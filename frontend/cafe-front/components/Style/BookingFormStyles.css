@@ -43,12 +43,20 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: flex-start;
     margin: 5px;
     padding: 3px;
     align-content: space-between;
     cursor: pointer;
 }
+
+.tablesChild {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	justify-content: flex-start;
+	cursor: pointer;
+  }
 
 .table {
     background-color: #eee8aa;

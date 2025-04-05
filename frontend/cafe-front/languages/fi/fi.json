@@ -74,7 +74,7 @@
 		"validationErrorTitle": "Validointivirhe",
 		"validation": {
 			"name": "Nimen tulee olla vähintään 2 merkkiä pitkä.",
-			"phone": "Syötä kelvollinen puhelinnumero. Sen tulee alkaa +3:lla tai 0:lla ja sen jälkeen olla 6–11 numeroa.",
+			"phone": "Syötä kelvollinen puhelinnumero. +3 alussa. +[CountryCode][Number]",
 			"email": "Syötä kelvollinen sähköpostiosoite.",
 			"password": "Salasanan tulee olla vähintään 6 merkkiä pitkä."
 			}
@@ -128,11 +128,13 @@
 			"paymentSuccessTitle": "Maksu suoritettu!",
 			"paymentSuccessText": "Vahvistussähköposti lähetettiin osoitteeseen",
 			"invalidPhoneTitle": "Virheellinen puhelinnumero",
-			"invalidPhoneText": "Anna kelvollinen puhelinnumero, joka alkaa +3 tai 0.",
+			"invalidPhoneText": "Syötä kelvollinen puhelinnumero. +3 alussa. +[CountryCode][Number]",
 			"updateSuccessTitle": "Päivitetty!",
 			"updateSuccessText": "Puhelinnumero päivitetty onnistuneesti.",
 			"updateErrorTitle": "Päivitys epäonnistui",
 			"updateErrorText": "Puhelinnumeron päivittäminen epäonnistui.",
+			"invalidTimeTitle": "Aukioloaikojen ulkopuolella",
+			"invalidTimeText": "Valitsemasi aika on aukioloaikojemme ulkopuolella. Valitse toinen aika.",
 			"goHome": "Palaa etusivulle",
 			"payNow": "Maksa nyt (valinnainen)"
 			},
@@ -251,10 +253,11 @@
 		"step1Duration": "Kesto:",
 		"step1DurationI": "Kesto (minuutit):",
 		"step2": "Vaihe 2: Valinnaiset pyynnöt",
-		"step2Text": "Täällä voit halutessasi pyytää tietyn pöydän tai pelin. Voit ohittaa tämän vaiheen, jos sinulla ei ole tiettyjä pyydettäviä tuotteita. Huomioithan, että kahvila pidättää oikeuden pöytien vaihtoon tarpeen mukaan.",
+		"step2Text": "Huomioithan: pöydän valinta on pakollista, kun taas pelin valinta on vapaaehtoista. Kahvila pidättää oikeuden vaihtaa pöytiä tarpeen mukaan.",
 		"step2Table": "Pöytä:",
 		"step2TableNum": "Pöytänumero",
 		"step2Suggested": "Ehdotettu:",
+		"step2AlsoAvailable": "Myös saatavilla:",
 		"step2Game": "Peli:",
 		"step3": "Vaihe 3: Lähetä",
 		"step3Submit": "Lähettämällä tämän lomakkeen hyväksyt Cafe Boardgamen säännöt ja ehdot.",
