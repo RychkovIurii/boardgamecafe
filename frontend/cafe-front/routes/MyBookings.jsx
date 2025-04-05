@@ -76,8 +76,8 @@ const MyBookings = () => {
         setEditedBooking({
             ...booking,
             date: dayjs(booking.date).format("YYYY-MM-DD"),
-            startTime: dayjs(booking.startTime),
-			endTime: dayjs(booking.endTime),
+            startTime: dayjs(booking.startTime, "HH:mm"),
+			endTime: dayjs(booking.endTime, "HH:mm"),
             duration: booking.duration ?? 60,
             players: booking.players,
             tableNumber: booking.tableId.number,
@@ -228,7 +228,12 @@ const MyBookings = () => {
                                         <div className="mb-2">
                                             <p><strong>Start Time:</strong></p>
                                             <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                                <TimePicker value={editedBooking.startTime} onChange={handleTimeChange} timeSteps={{ minutes: 30 }} minutesStep={30} ampm={false} />
+                                                <TimePicker 
+													value={dayjs(editedBooking.startTime).isValid() ? editedBooking.startTime : dayjs()}
+													onChange={handleTimeChange} 
+													timeSteps={{ minutes: 30 }} 
+													minutesStep={30} 
+													ampm={false} />
                                             </LocalizationProvider>
                                         </div>
                                         <div className="mb-2">
