@@ -19,9 +19,9 @@ import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import { isValidPhoneNumber } from 'libphonenumber-js';
 import floorplan from '../src/assets/elements/floorplan.png';
 
-const regex = new RegExp(/(\+\d{1,3}\s?)?((\(\d{3}\)\s?)|(\d{3})(\s|-?))(\d{3}(\s|-?))(\d{4})(\s?(([E|e]xt[:|.|]?)|x|X)(\s?\d+))?/)
 const nameRegex = new RegExp(/^[\p{Letter}\s\-.']+$/u)
 const duraOpt = ["60", "90", "120", "150", "180", "210", "240", "270", "300", "330", "360", "390", "420", "450", "480", "510", "540", "570", "600"]
 
@@ -327,11 +327,11 @@ export default function BookingForm() {
           return;
         }
 
-      if (!regex.test(contactPhone)){
+      if (!isValidPhoneNumber(contactPhone)){
         Swal.fire({
             icon: 'warning',
             title: "Invalid phone number",
-            text: "please enter a valid phone number",
+            text: "Please enter a valid phone number",
           });
           return;
         }
