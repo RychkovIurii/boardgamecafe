@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import dayjs from 'dayjs';
 import { LocalizationProvider, TimePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { isValidPhoneNumber } from 'libphonenumber-js';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 
@@ -28,7 +29,6 @@ const MyBookings = () => {
     const { t } = useTranslation();
 
 	const nameRegex = /^[\p{L}\s\-.']+$/u;
-	const phoneRegex = /(\+\d{1,3}\s?)?((\(\d{3}\)\s?)|(\d{3})(\s|-?))(\d{3}(\s|-?))(\d{4})(\s?(([E|e]xt[:|.|]?)|x|X)(\s?\d+))?/;
 	const validDurations = ["60", "90", "120", "150", "180", "210", "240", "270", "300", "330", "360", "390", "420", "450", "480", "510", "540", "570", "600"];
 
     useEffect(() => {
@@ -96,14 +96,14 @@ const MyBookings = () => {
 		  return false;
 		}
 	  
-		if (!phoneRegex.test(contactPhone)) {
-		  Swal.fire({
-			icon: 'warning',
-			title: 'Invalid Phone Number',
-			text: 'Please enter a valid phone number.'
-		  });
-		  return false;
-		}
+		if (!isValidPhoneNumber(contactPhone)) {
+			Swal.fire({
+			  icon: 'warning',
+			  title: 'Invalid Phone Number',
+			  text: 'Please enter a valid phone number in the format: +[CountryCode][Number].'
+			});
+			return false;
+		  }
 	  
 		if (isNaN(players) || players < 1 || players > 10) {
 		  Swal.fire({

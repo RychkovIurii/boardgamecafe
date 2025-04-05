@@ -15,14 +15,17 @@ import {
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import dayjs from 'dayjs';
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import { isValidPhoneNumber } from 'libphonenumber-js';
 import floorplan from '../src/assets/elements/floorplan.png';
 
-const regex = new RegExp(/(\+\d{1,3}\s?)?((\(\d{3}\)\s?)|(\d{3})(\s|-?))(\d{3}(\s|-?))(\d{4})(\s?(([E|e]xt[:|.|]?)|x|X)(\s?\d+))?/)
 const nameRegex = new RegExp(/^[\p{Letter}\s\-.']+$/u)
 const duraOpt = ["60", "90", "120", "150", "180", "210", "240", "270", "300", "330", "360", "390", "420", "450", "480", "510", "540", "570", "600"]
+
+dayjs.extend(isSameOrAfter);
 
 /**
  StepOne, StepTwo, and StepThree are separated for clarity.
@@ -124,47 +127,58 @@ function StepOne({ inputs, handleChange, handleTimeChange }) {
 
 function StepTwo({ inputs, handleChange, tables, setInputs }) {
   const { t } = useTranslation();
-  return (
-    <Box>
-      <Typography variant="h6" sx={{ fontFamily: "Fontdiner Swanky" }} gutterBottom>
-        {t(`bookingForm.step2`)}
-      </Typography>
-      <div className='smallerText'>
-        {t(`bookingForm.step2Text`)}
-      </div>
-      <label>{t(`bookingForm.step2Table`)} </label>
-      <input
-        className='formInput'
-        type='number'
-        min={1}
-        max={50}
-        name='tableNumber'
-        value={inputs.tableNumber || ""}
-        placeholder={t(`bookingForm.step2TableNum`)}
-        onChange={handleChange}
-        required
-      />
-      <div className='tables'>{t(`bookingForm.step2Suggested`)}
-        {tables.map((table) => <div key={table.number} className='table' onClick={(e) => { setInputs({ ...inputs, tableNumber: table.number }); }}> {table.number}</div>)}
-      </div>
-      <label>{t(`bookingForm.step2Game`)} </label>
-      <input
-        className='formInput'
-        type='text'
-        name="game"
-        value={inputs.game || ""}
-        onChange={handleChange}
-      />
-      {/* <label>Other:</label>
-      <textarea className='formInput'
-        name='other_rez'
-        value={inputs.other_rez || ""}
-        onChange={handleChange}
-        placeholder="if you need an additional chair, it's a birthday, or you have other notes, please put them in this field."
-      >
-      </textarea> */}
-    </Box>
-  );
+return (
+	<Box>
+		<Typography variant="h6" sx={{ fontFamily: "Fontdiner Swanky" }} gutterBottom>
+			{t(`bookingForm.step2`)}
+		</Typography>
+		<div className='smallerText'>
+			{t(`bookingForm.step2Text`)}
+		</div>
+		<label>{t(`bookingForm.step2Table`)} </label>
+		<input
+			className='formInput'
+			type='number'
+			min={1}
+			max={50}
+			name='tableNumber'
+			value={inputs.tableNumber || ""}
+			placeholder={t(`bookingForm.step2TableNum`)}
+			onChange={handleChange}
+			required
+		/>
+		<div className='tables'>
+			<div className='tablesChild'>
+			{t(`bookingForm.step2Suggested`)} 
+			{tables.suggested && tables.suggested.map((table) => (
+				<div key={table.number} 
+						 className='table' 
+						 onClick={() => setInputs({ ...inputs, tableNumber: table.number })}>
+					{table.number}
+				</div>
+			))}
+			</div>
+			<div className='tablesChild'>
+			{t(`bookingForm.step2AlsoAvailable`)} 
+			{tables.alsoAvailable && tables.alsoAvailable.map((table) => (
+				<div key={table.number} 
+						 className='table' 
+						 onClick={() => setInputs({ ...inputs, tableNumber: table.number })}>
+					{table.number}
+				</div>
+			))}
+			</div>
+		</div>
+		<label>{t(`bookingForm.step2Game`)} </label>
+		<input
+			className='formInput'
+			type='text'
+			name="game"
+			value={inputs.game || ""}
+			onChange={handleChange}
+		/>
+	</Box>
+);
 }
 
 function StepThree({ inputs, handleChange, handleSubmit }) {
@@ -181,20 +195,17 @@ function StepThree({ inputs, handleChange, handleSubmit }) {
   );
 }
 
-
-
 export default function BookingForm() {
   const { isAuthenticated, user } = useContext(AuthContext);
-  const [tables, setTables] = useState([]);
   const [activeStep, setActiveStep] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
-  const [availability, setAvailability] = useState();
-  const [bookingId, setBookingId] = useState(null);
   const [filteredTables, setFilteredTables] = useState([]);
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const [workingHours, setWorkingHours] = useState([]);
+  const [specialHours, setSpecialHours] = useState([]);
   const [inputs, setInputs] = useState({
     date: "",
     startTime: dayjs('2022-04-17T16:00'),
@@ -208,15 +219,19 @@ export default function BookingForm() {
   });
 
   useEffect(() => {
-    const fetchTables = async () => {
-      try {
-        const response = await API.get('/tables');
-        setTables(response.data);
-      } catch (error) {
-        console.error('Error fetching tables:', error);
-      }
-    };
-    fetchTables();
+	const fetchHours = async () => {
+	  try {
+		const [whRes, shRes] = await Promise.all([
+		  API.get('/hours'),
+		  API.get('/specialHours')
+		]);
+		setWorkingHours(whRes.data);
+		setSpecialHours(shRes.data);
+	  } catch (err) {
+		console.error("Error fetching hours", err);
+	  }
+	};
+	fetchHours();
   }, []);
 
   useEffect(() => {
@@ -229,7 +244,7 @@ export default function BookingForm() {
     }
   }, [isAuthenticated, user]);
 
-  function checkAvailability(people) {
+  async function checkAvailability(people) {
     if (people < 1) {
       const message = t(`bookingForm.availabilityPeople`);
       return message;
@@ -239,14 +254,73 @@ export default function BookingForm() {
     const seatLimit = seatCapacities.find(capacity => people <= capacity); // ✅ Find the smallest matching capacity
 
     if (!seatLimit) {
-      const message1 = t(`bookingForm.availabilityText`)
-      return message1;
-    }
+		Swal.fire({
+		  icon: 'warning',
+		  title: t('alerts.capacityError'),
+		  text: t('bookingForm.availabilityText')
+		});
+		return;
+	  }
+	
+	const start = dayjs(inputs.startTime);
+	const duration = parseInt(inputs.duration, 10);
 
-    // ✅ Filter tables that match the found `seatLimit`
-    const filtered = tables.filter(table => table.capacity === seatLimit);
-    setFilteredTables(filtered);
+    try {
+		const res = await API.get('/bookings/suggested-tables', {
+		  params: {
+			date: inputs.date,
+			startTime: start.format("HH:mm"),
+			duration: duration,
+		  }
+		});
+	
+		// Split tables into two groups:
+		const suggestedTables = res.data
+			.filter(table => table.capacity === seatLimit)
+			.sort((a, b) => a.capacity - b.capacity);
+		const alsoAvailableTables = res.data
+			.filter(table => table.capacity > seatLimit)
+			.sort((a, b) => a.capacity - b.capacity);
+		setFilteredTables({ suggested: suggestedTables, alsoAvailable: alsoAvailableTables });
+	
+	  } catch (err) {
+		console.error('Failed to fetch available tables:', err);
+		Swal.fire({
+		  icon: 'error',
+		  title: 'Availability check failed',
+		  text: 'Please try again later.'
+		});
+	  }
   }
+  
+  const isWithinWorkingHours = () => {
+	if (!inputs.date || !inputs.startTime) return false;
+  
+	const selectedTime = dayjs(`${inputs.date}T${inputs.startTime.format('HH:mm')}`);
+  
+	const special = specialHours.find(s => dayjs(s.date).isSame(dayjs(inputs.date), 'day'));
+	let openTime, closeTime;
+  
+	if (special) {
+	  if (!special.openTime || !special.closeTime) return false; // Closed
+	  openTime = dayjs(`${special.date}T${special.openTime}`);
+	  closeTime = dayjs(`${special.date}T${special.closeTime}`);
+	} else {
+	  const dayName = dayjs(inputs.date).format('dddd'); // e.g., 'Friday'
+	  const workingDay = workingHours.find(w => w.day === dayName);
+	  if (!workingDay || !workingDay.openTime || !workingDay.closeTime) return false;
+  
+	  openTime = dayjs(`${inputs.date}T${workingDay.openTime}`);
+	  closeTime = dayjs(`${inputs.date}T${workingDay.closeTime}`);
+  
+	  if (closeTime.isBefore(openTime)) {
+		closeTime = closeTime.add(1, 'day'); // handle past-midnight
+	  }
+	}
+  
+	return selectedTime.isSameOrAfter(openTime) && selectedTime.isBefore(closeTime);
+  };
+	
 
   // Define the labels for each step.
   const steps = [
@@ -256,12 +330,10 @@ export default function BookingForm() {
   ];
 
   // Handle next step
-  const handleNext = () => {
+  const handleNext = async () => {
     if (activeStep === 0) {
       // Step 1 validation
       const { contactName, contactPhone, players, date, startTime, duration } = inputs;
-      console.log(inputs);
-
       if (!contactName || !contactPhone || !players || !date || !startTime || !duration) {
         Swal.fire({
           icon: 'warning',
@@ -270,7 +342,6 @@ export default function BookingForm() {
         });
         return;
       }
-
       if (!nameRegex.test(contactName)){
         Swal.fire({
             icon: 'warning',
@@ -280,11 +351,11 @@ export default function BookingForm() {
           return;
         }
 
-      if (!regex.test(contactPhone)){
+      if (!isValidPhoneNumber(contactPhone)){
         Swal.fire({
             icon: 'warning',
             title: "Invalid phone number",
-            text: "please enter a valid phone number",
+            text: "Please enter a valid phone number in the format: +[CountryCode][Number]",
           });
           return;
         }
@@ -306,24 +377,45 @@ export default function BookingForm() {
           });
           return;
         }
+		if (!isWithinWorkingHours()) {
+			Swal.fire({
+			  icon: 'warning',
+			  title: t('alerts.invalidTimeTitle'),
+			  text: t('alerts.invalidTimeText'),
+			});
+			return;
+		  }
+		await checkAvailability(inputs.players);
     }
 
     if (activeStep === 1) {
       // Step 2 validation
-      if (!inputs.tableNumber) {
-        Swal.fire({
-          icon: 'warning',
-          title: t('alerts.tableTitle'),
-          text: t('alerts.tableText'),
-        });
-        return;
-      }
-    }
-
-    // Everything is valid
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    checkAvailability(inputs.players);
-  };
+		if (!inputs.tableNumber) {
+			Swal.fire({
+			icon: 'warning',
+			title: t('alerts.tableTitle'),
+			text: t('alerts.tableText'),
+			});
+			return;
+		}
+		const allAvailableTables = [
+			...(filteredTables.suggested || []),
+			...(filteredTables.alsoAvailable || [])
+		];
+		const selectedTable = allAvailableTables.find(
+			(table) => table.number === parseInt(inputs.tableNumber, 10)
+		);
+		if (!selectedTable || selectedTable.capacity < Number(inputs.players)) {
+			Swal.fire({
+			icon: 'warning',
+			title: t('alerts.tableNotAvailableTitle'),
+			text: t('alerts.tableNotAvailableText'),
+			});
+			return;
+		}
+	};
+	setActiveStep((prevActiveStep) => prevActiveStep + 1);
+}
 
   // Handle previous step
   const handleBack = () => {
@@ -377,7 +469,6 @@ export default function BookingForm() {
       const response = await API.post('/bookings', bookingData);
       setSuccess(true);
       const createdBookingId = response.data._id;
-      setBookingId(createdBookingId);
       setInputs({
         date: "",
         startTime: "",

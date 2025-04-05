@@ -26,14 +26,14 @@ const seedUsers = [
         name: 'User',
         email: 'user@example.com',
         password: 'user',
-        phone: '1234567890',
+        phone: '+358466554433',
         role: 'user',
     },
     {
         name: 'Admin',
         email: 'admin@example.com',
         password: 'admin',
-        phone: '0987654321',
+        phone: '+358466554422',
         role: 'admin',
     },
 ];
@@ -97,7 +97,7 @@ const seedBookings = [
         tableId: null, // This will be updated after tables are seeded
         players: 3,
         contactName: 'Charlie',
-        contactPhone: '1122334455',
+        contactPhone: '+358466554411',
     },
     {
         date: new Date("2025-04-07T10:33:30.922Z"),
