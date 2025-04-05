@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import API from '../api/axios'
-import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { useTranslation } from 'react-i18next';
 import dayjs from 'dayjs';
@@ -13,7 +12,6 @@ import { AuthContext } from '../context/AuthContext';
 
 
 const MyBookings = () => {
-    const navigate = useNavigate();
     const [bookings, setBookings] = useState({ past: [], upcoming: [] });
 	const { user } = useContext(AuthContext);
     const [tables, setTables] = useState([]);
@@ -109,6 +107,13 @@ const MyBookings = () => {
             [name]: name === 'duration' || name === 'players' ? Number(value) : value,
         });
         if (name === 'players') checkTableAvailability(value); // Filter tables when player count changes
+		const firstAvailableTable = tables.find(table => table.capacity >= value);
+        if (firstAvailableTable) {
+            setEditedBooking(prev => ({
+                ...prev,
+                tableNumber: firstAvailableTable.number,
+            }));
+        }
     };
 
     const handleTimeChange = (value) => {
