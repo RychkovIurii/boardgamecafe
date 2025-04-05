@@ -199,12 +199,10 @@ function StepThree({ inputs, handleChange, handleSubmit }) {
 
 export default function BookingForm() {
   const { isAuthenticated, user } = useContext(AuthContext);
-  const [tables, setTables] = useState([]);
   const [activeStep, setActiveStep] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
-  const [availability, setAvailability] = useState();
   const [bookingId, setBookingId] = useState(null);
   const [filteredTables, setFilteredTables] = useState([]);
   const navigate = useNavigate();
@@ -222,18 +220,6 @@ export default function BookingForm() {
     contactName: "",
     contactPhone: ""
   });
-
-  useEffect(() => {
-    const fetchTables = async () => {
-      try {
-        const response = await API.get('/tables');
-        setTables(response.data);
-      } catch (error) {
-        console.error('Error fetching tables:', error);
-      }
-    };
-    fetchTables();
-  }, []);
 
   useEffect(() => {
 	const fetchHours = async () => {
