@@ -250,7 +250,15 @@ export default function BookingForm() {
     }
   }, [isAuthenticated, user]);
 
-  function checkAvailability(people) {
+  useEffect(() => {
+	if (inputs.date && inputs.startTime && inputs.duration && inputs.players) {
+	  (async () => {
+		await checkAvailability(Number(inputs.players));
+	  })();
+	}
+  }, [inputs.date, inputs.startTime, inputs.duration, inputs.players]);
+
+  async function checkAvailability(people) {
     if (people < 1) {
       const message = t(`bookingForm.availabilityPeople`);
       return message;
@@ -260,13 +268,38 @@ export default function BookingForm() {
     const seatLimit = seatCapacities.find(capacity => people <= capacity); // ✅ Find the smallest matching capacity
 
     if (!seatLimit) {
-      const message1 = t(`bookingForm.availabilityText`)
-      return message1;
-    }
+		Swal.fire({
+		  icon: 'warning',
+		  title: t('alerts.capacityError'),
+		  text: t('bookingForm.availabilityText')
+		});
+		return;
+	  }
+	
+	const start = dayjs(inputs.startTime);
+	const duration = parseInt(inputs.duration, 10);
 
-    // ✅ Filter tables that match the found `seatLimit`
-    const filtered = tables.filter(table => table.capacity === seatLimit);
-    setFilteredTables(filtered);
+    try {
+		const res = await API.get('/bookings/suggested-tables', {
+		  params: {
+			date: inputs.date,
+			startTime: start.format("HH:mm"),
+			duration: duration,
+		  }
+		});
+	
+		// Filter available tables by capacity
+		const availableTables = res.data.filter(table => table.capacity === seatLimit);
+		setFilteredTables(availableTables);
+	
+	  } catch (err) {
+		console.error('Failed to fetch available tables:', err);
+		Swal.fire({
+		  icon: 'error',
+		  title: 'Availability check failed',
+		  text: 'Please try again later.'
+		});
+	  }
   }
   
   const isWithinWorkingHours = () => {
@@ -306,7 +339,7 @@ export default function BookingForm() {
   ];
 
   // Handle next step
-  const handleNext = () => {
+  const handleNext = async () => {
     if (activeStep === 0) {
       // Step 1 validation
       const { contactName, contactPhone, players, date, startTime, duration } = inputs;
@@ -377,7 +410,7 @@ export default function BookingForm() {
 
     // Everything is valid
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    checkAvailability(inputs.players);
+    await checkAvailability(inputs.players);
   };
 
   // Handle previous step
