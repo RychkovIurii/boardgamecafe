@@ -27,6 +27,10 @@ const MyBookings = () => {
     const [loading, setLoading] = useState(true);
     const { t } = useTranslation();
 
+	const nameRegex = /^[\p{L}\s\-.']+$/u;
+	const phoneRegex = /(\+\d{1,3}\s?)?((\(\d{3}\)\s?)|(\d{3})(\s|-?))(\d{3}(\s|-?))(\d{4})(\s?(([E|e]xt[:|.|]?)|x|X)(\s?\d+))?/;
+	const validDurations = ["60", "90", "120", "150", "180", "210", "240", "270", "300", "330", "360", "390", "420", "450", "480", "510", "540", "570", "600"];
+
     useEffect(() => {
         const fetchBookings = async () => {
             try {
@@ -70,6 +74,58 @@ const MyBookings = () => {
 
         setFilteredTables(tables.filter(table => table.capacity === seatLimit));
     }
+
+	const validateEditedBooking = () => {
+		const { contactName, contactPhone, players, date, startTime, duration } = editedBooking;
+	  
+		if (!contactName || !contactPhone || !players || !date || !startTime || !duration) {
+		  Swal.fire({
+			icon: 'warning',
+			title: 'Incomplete Data',
+			text: 'Please fill out all required fields.'
+		  });
+		  return false;
+		}
+	  
+		if (!nameRegex.test(contactName)) {
+		  Swal.fire({
+			icon: 'warning',
+			title: 'Invalid Name',
+			text: 'Names may only include letters, spaces, hyphens, or periods.'
+		  });
+		  return false;
+		}
+	  
+		if (!phoneRegex.test(contactPhone)) {
+		  Swal.fire({
+			icon: 'warning',
+			title: 'Invalid Phone Number',
+			text: 'Please enter a valid phone number.'
+		  });
+		  return false;
+		}
+	  
+		if (isNaN(players) || players < 1 || players > 10) {
+		  Swal.fire({
+			icon: 'warning',
+			title: 'Invalid Players Input',
+			text: 'Players must be a number between 1 and 10.'
+		  });
+		  return false;
+		}
+	  
+		if (isNaN(duration) || !validDurations.includes(duration.toString())) {
+		  Swal.fire({
+			icon: 'warning',
+			title: 'Invalid Duration',
+			text: 'Duration must be at least 60 minutes, at most 600 minutes, and in increments of 30 minutes.'
+		  });
+		  return false;
+		}
+	  
+		return true;
+	  };
+	  
 
     const handleEdit = (booking) => {
 		setIsEditing(booking._id);
@@ -121,6 +177,9 @@ const MyBookings = () => {
     };
 
     const handleSave = async (id) => {
+		if (!validateEditedBooking()) {
+			return;
+		}  
 		const selectedTable = tables.find(table => table.number.toString() === editedBooking.tableNumber.toString());
 		if (!selectedTable) {
 			return Swal.fire({ icon: 'error', title: 'Invalid Table', text: 'Selected table was not found.' });
