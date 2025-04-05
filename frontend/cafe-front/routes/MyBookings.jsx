@@ -68,24 +68,24 @@ const MyBookings = () => {
             return;
         }
 
-        setFilteredTables(tables.filter(table => table.capacity === seatLimit)); // Filter tables
+        setFilteredTables(tables.filter(table => table.capacity === seatLimit));
     }
 
     const handleEdit = (booking) => {
-        setIsEditing(booking._id);
-        setEditedBooking({
-            ...booking,
-            date: dayjs(booking.date).format("YYYY-MM-DD"),
-            startTime: dayjs(booking.startTime, "HH:mm"),
-			endTime: dayjs(booking.endTime, "HH:mm"),
-            duration: booking.duration ?? 60,
-            players: booking.players,
-            tableNumber: booking.tableId.number,
-			contactName: booking.contactName || user?.name,
-			contactPhone: booking.contactPhone || user?.phone,
-        });
-        checkTableAvailability(booking.players);
-    };
+		setIsEditing(booking._id);
+		setEditedBooking({
+		  ...booking,
+		  date: booking.date,
+		  startTime: dayjs(booking.startTime),
+		  endTime: dayjs(booking.endTime),
+		  duration: booking.duration ?? 60,
+		  players: booking.players,
+		  tableNumber: booking.tableId.number,
+		  contactName: booking.contactName || user?.name,
+		  contactPhone: booking.contactPhone || user?.phone,
+		});
+		checkTableAvailability(booking.players);
+	  };
 
     const handleCancel = () => {
         setIsEditing(null);
@@ -126,17 +126,31 @@ const MyBookings = () => {
 			return Swal.fire({ icon: 'error', title: 'Invalid Table', text: 'Selected table was not found.' });
 		}
 		const calculatedEndTime = dayjs(editedBooking.startTime).add(editedBooking.duration, 'minute');
-        const formattedBooking = {
-            ...editedBooking,
-            date: dayjs(editedBooking.date).format("YYYY-MM-DD"),
-            startTime: dayjs(editedBooking.startTime).format("HH:mm"),
+		const bookingDate = dayjs(editedBooking.date).format("YYYY-MM-DD");
+        // Create an object for the API (only time parts)
+		const formattedBookingForAPI = {
+			...editedBooking,
+			date: bookingDate,
+			startTime: dayjs(editedBooking.startTime).format("HH:mm"),
 			endTime: calculatedEndTime.format("HH:mm"),
-            duration: editedBooking.duration,
+			duration: editedBooking.duration,
 			tableNumber: selectedTable.number,
-        };
+		};
+
+		const bookingForState = {
+			...editedBooking,
+			date: bookingDate,
+			startTime: `${bookingDate} ${dayjs(editedBooking.startTime).format("HH:mm")}`,
+			endTime: `${bookingDate} ${calculatedEndTime.format("HH:mm")}`,
+			duration: editedBooking.duration,
+			players: editedBooking.players,
+			tableId: { ...selectedTable },
+			contactName: editedBooking.contactName,
+			contactPhone: editedBooking.contactPhone,
+		};
 
         try {
-			const response = await API.put(`/bookings/my-bookings/${id}`, formattedBooking);
+			const response = await API.put(`/bookings/my-bookings/${id}`, formattedBookingForAPI);
 			if (response.status === 200) {
 				Swal.fire({ icon: 'success', title: 'Updated!', text: 'The booking has been successfully updated.' });
 				setBookings(prev => ({
@@ -145,7 +159,7 @@ const MyBookings = () => {
 						booking._id === id
 							? {
 								...booking,
-								...formattedBooking,
+								...bookingForState,
 								tableId: { ...selectedTable },
 							}
 							: booking
