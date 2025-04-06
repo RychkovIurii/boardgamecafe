@@ -329,6 +329,18 @@
 		"editButton": "Edit for phone number",
 		"saveButton": "Save information"
 	},
+	"forgotPassword": {
+		"title": "Forgot Password",
+		"emailLabel": "Email Address",
+		"emailPlaceholder": "Enter your email",
+		"submitButton": "Send me my password",
+		"backToLogin": "Back to Login",
+		"successTitle": "Email Sent",
+		"successMessage": "Check your inbox for your password.",
+		"errorTitle": "Something went wrong",
+		"errorMessage": "We couldn't find your email or send the message.",
+		"confirmButton": "OK"
+	},
 	"myBookings": {
 		"pageTitle": "My Bookings",
 		"upcomingBookings": "Upcoming Bookings",

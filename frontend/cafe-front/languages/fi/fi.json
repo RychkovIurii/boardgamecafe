@@ -318,6 +318,18 @@
 		"editButton": "Muokkaa puhelinnumeroa",
 		"saveButton": "Tallenna tiedot"
 		},
+	"forgotPassword": {
+		"title": "Unohtuiko salasana",
+		"emailLabel": "Sähköpostiosoite",
+		"emailPlaceholder": "Syötä sähköpostisi",
+		"submitButton": "Lähetä salasana sähköpostiin",
+		"backToLogin": "Takaisin kirjautumiseen",
+		"successTitle": "Sähköposti lähetetty",
+		"successMessage": "Tarkista sähköpostisi salasanan saamiseksi.",
+		"errorTitle": "Jotain meni pieleen",
+		"errorMessage": "Sähköpostiosoitetta ei löytynyt tai viestiä ei voitu lähettää.",
+		"confirmButton": "OK"
+	},
 	"myBookings": {
 		"pageTitle": "Varaukseni",
 		"upcomingBookings": "Tulevat varaukset",
