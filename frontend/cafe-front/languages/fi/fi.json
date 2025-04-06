@@ -320,7 +320,7 @@
 		},
 	"forgotPassword": {
 		"title": "Unohtuiko salasana",
-		"emailLabel": "Sähköpostiosoite",
+		"emailLabel": "Sähköposti",
 		"emailPlaceholder": "Syötä sähköpostisi",
 		"submitButton": "Lähetä salasana sähköpostiin",
 		"backToLogin": "Takaisin kirjautumiseen",

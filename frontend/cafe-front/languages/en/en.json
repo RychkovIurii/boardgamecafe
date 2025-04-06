@@ -331,7 +331,7 @@
 	},
 	"forgotPassword": {
 		"title": "Forgot Password",
-		"emailLabel": "Email Address",
+		"emailLabel": "Email",
 		"emailPlaceholder": "Enter your email",
 		"submitButton": "Send me my password",
 		"backToLogin": "Back to Login",
