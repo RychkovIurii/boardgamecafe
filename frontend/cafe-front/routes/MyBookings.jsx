@@ -10,6 +10,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { isValidPhoneNumber } from 'libphonenumber-js';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 const MyBookings = () => {
@@ -68,7 +69,7 @@ const MyBookings = () => {
 
         if (!seatLimit) {
             const message = t(`bookingForm.availabilityText`);
-            Swal.fire({ icon: 'error', title: 'Error', text: message });
+            Swal.fire({ icon: 'error', title: t('bookingForm.errorTitle'), text: message });
             return;
         }
 
@@ -81,8 +82,8 @@ const MyBookings = () => {
 		if (!contactName || !contactPhone || !players || !date || !startTime || !duration) {
 		  Swal.fire({
 			icon: 'warning',
-			title: 'Incomplete Data',
-			text: 'Please fill out all required fields.'
+			title: t('bookingForm.incompleteTitle'),
+			text: t('bookingForm.incompleteText')
 		  });
 		  return false;
 		}
@@ -90,17 +91,17 @@ const MyBookings = () => {
 		if (!nameRegex.test(contactName)) {
 		  Swal.fire({
 			icon: 'warning',
-			title: 'Invalid Name',
-			text: 'Names may only include letters, spaces, hyphens, or periods.'
+			title: t('bookingForm.invalidNameTitle'),
+			text: t('bookingForm.invalidNameText')
 		  });
 		  return false;
 		}
 	  
 		if (!isValidPhoneNumber(contactPhone)) {
 			Swal.fire({
-			  icon: 'warning',
-			  title: 'Invalid Phone Number',
-			  text: 'Please enter a valid phone number in the format: +[CountryCode][Number].'
+				icon: 'warning',
+				title: t('bookingForm.invalidPhoneTitle'),
+				text: t('bookingForm.invalidPhoneText')
 			});
 			return false;
 		  }
@@ -108,8 +109,8 @@ const MyBookings = () => {
 		if (isNaN(players) || players < 1 || players > 10) {
 		  Swal.fire({
 			icon: 'warning',
-			title: 'Invalid Players Input',
-			text: 'Players must be a number between 1 and 10.'
+			title: t('bookingForm.invalidPlayersTitle'),
+			text: t('bookingForm.invalidPlayersText')
 		  });
 		  return false;
 		}
@@ -117,8 +118,8 @@ const MyBookings = () => {
 		if (isNaN(duration) || !validDurations.includes(duration.toString())) {
 		  Swal.fire({
 			icon: 'warning',
-			title: 'Invalid Duration',
-			text: 'Duration must be at least 60 minutes, at most 600 minutes, and in increments of 30 minutes.'
+			title: t('bookingForm.invalidDurationTitle'),
+			text: t('bookingForm.invalidDurationText')
 		  });
 		  return false;
 		}
@@ -182,7 +183,7 @@ const MyBookings = () => {
 		}  
 		const selectedTable = tables.find(table => table.number.toString() === editedBooking.tableNumber.toString());
 		if (!selectedTable) {
-			return Swal.fire({ icon: 'error', title: 'Invalid Table', text: 'Selected table was not found.' });
+			return Swal.fire({ icon: 'error', title: t('bookingForm.invalidTableTitle'), text: t('bookingForm.invalidTableText') });
 		}
 		const calculatedEndTime = dayjs(editedBooking.startTime).add(editedBooking.duration, 'minute');
 		const bookingDate = dayjs(editedBooking.date).format("YYYY-MM-DD");
@@ -211,7 +212,7 @@ const MyBookings = () => {
         try {
 			const response = await API.put(`/bookings/my-bookings/${id}`, formattedBookingForAPI);
 			if (response.status === 200) {
-				Swal.fire({ icon: 'success', title: 'Updated!', text: 'The booking has been successfully updated.' });
+				Swal.fire({ icon: 'success', title: t('bookingForm.updateSuccessTitle'), text: t('bookingForm.updateSuccessText') });
 				setBookings(prev => ({
 					...prev,
 					upcoming: prev.upcoming.map(booking =>
@@ -229,9 +230,9 @@ const MyBookings = () => {
 			}
 		} catch (error) {
             if (error.response && error.response.data && error.response.data.message) {
-				Swal.fire({ icon: 'error', title: 'Update Failed', text: error.response.data.message });
+				Swal.fire({ icon: 'error', title: t('bookingForm.updateFailedTitle'), text: error.response.data.message });
 			} else {
-				Swal.fire({ icon: 'error', title: 'Update Failed', text: 'Something went wrong while updating the booking.' });
+				Swal.fire({ icon: 'error', title: t('bookingForm.updateFailedTitle'), text: t('bookingForm.updateFailedText') });
 			}
         }
     };
@@ -239,14 +240,14 @@ const MyBookings = () => {
     const handleDelete = async (id) => {
         try {
             const result = await Swal.fire({
-                title: 'Are you sure?',
-                text: 'This booking will be permanently deleted.',
+                title: t('bookingForm.deleteConfirmTitle'),
+                text: t('bookingForm.deleteConfirmText'),
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#d33',
                 cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Yes, delete it!',
-                cancelButtonText: 'Cancel'
+                confirmButtonText: t('bookingForm.deleteConfirmButton'),
+                cancelButtonText: t('bookingForm.cancelButtonText')
             });
 
             if (!result.isConfirmed) return;
@@ -259,8 +260,8 @@ const MyBookings = () => {
 
             await Swal.fire({
                 icon: 'success',
-                title: 'Deleted!',
-                text: 'The booking has been deleted.',
+                title: t('bookingForm.deletedTitle'),
+                text: t('bookingForm.deletedText'),
                 timer: 1500,
                 showConfirmButton: false
             });
@@ -269,21 +270,27 @@ const MyBookings = () => {
 
             await Swal.fire({
                 icon: 'error',
-                title: 'Delete Failed',
-                text: 'Something went wrong while deleting the booking.'
+                title: t('bookingForm.deleteFailedTitle'),
+                text: t('bookingForm.deleteFailedText')
             });
         }
     };
 
-    if (loading) return <p>Loading...</p>;
+    if (loading) {
+			return (
+				<div style={{ display: 'flex', justifyContent: 'center', padding: '4rem' }}>
+					<CircularProgress size="4rem" thickness={5} color="inherit"/>
+				</div>
+			);
+		};
     return (
         <>
             <Navbar />
             <div className="py-20">
-                <h1 className="text-outline text-4xl font-medium text-yellow-500 mt-5 mb-10">My Bookings</h1>
+                <h1 className="text-outline text-4xl font-medium text-yellow-500 mt-5 mb-10">{t('myBookings.pageTitle')}</h1>
 
                 <div className='max-w-5xl mx-auto px-4 sm:px-0'>
-                    <p className='text-xl pt-7 text-start'>Upcoming Bookings</p>
+                    <p className='text-xl pt-7 text-start'>{t('myBookings.upcomingBookings')}</p>
                     <div className='w-full flex flex-wrap pt-5 px-3 gap-5 md:justify-start justify-center '>
                         {bookings.upcoming.length > 0 ? (bookings.upcoming.map((booking) => (
                             <div key={booking._id} className='w-full sm:w-1/2 md:w-1/3 lg:w-1/4 border border-gray-400 p-4 rounded-xl flex flex-col text-sm gap-1 shadow-lg bg-white'>
@@ -291,7 +298,7 @@ const MyBookings = () => {
                                 {isEditing === booking._id ? (
                                     <>
                                         <div className="mb-2">
-                                            <p><strong>Date:</strong></p>
+                                            <p><strong>{t('myBookings.dateLabel')} </strong></p>
                                             <input type='date'
                                                 min={new Date().toJSON().slice(0, 10)}  // Setting the minimum date to today's date
                                                 name="date"
@@ -299,7 +306,7 @@ const MyBookings = () => {
                                                 onChange={handleChange} className="border p-1 rounded" />
                                         </div>
                                         <div className="mb-2">
-                                            <p><strong>Start Time:</strong></p>
+                                            <p><strong>{t('myBookings.startTimeLabel')} </strong></p>
                                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                                 <TimePicker 
 													value={dayjs(editedBooking.startTime).isValid() ? editedBooking.startTime : dayjs()}
@@ -310,23 +317,23 @@ const MyBookings = () => {
                                             </LocalizationProvider>
                                         </div>
                                         <div className="mb-2">
-                                            <p><strong>Duration:</strong></p>
+                                            <p><strong>{t('myBookings.durationLabel')} </strong></p>
                                             <input type="number" name="duration" value={editedBooking.duration || 60} onChange={handleChange} min={60}
                                                 step={30} className="border p-1 rounded" />
                                         </div>
                                         <div className="mb-2">
-                                            <p><strong>Players:</strong></p>
+                                            <p><strong>{t('myBookings.playersLabel')} </strong></p>
                                             <input type="number" name="players" value={editedBooking.players} onChange={(e) => handleChange({ target: { name: e.target.name, value: Number(e.target.value) } })} className="border p-1 rounded" />
                                         </div>
                                         <div className="mb-2">
-                                            <p><strong>Table No:</strong></p>
+                                            <p><strong>{t('myBookings.tableNumberLabel')} </strong></p>
                                             <select
                                                 name="tableNumber"
                                                 value={editedBooking.tableNumber}
                                                 onChange={(e) => setEditedBooking({ ...editedBooking, tableNumber: e.target.value })}
                                                 className="border p-1 rounded"
                                             >
-                                                <option value="" disabled>Select a table</option>
+                                                <option value="" disabled>{t('myBookings.selectTable')}</option>
                                                 {filteredTables.map(table => (
                                                     <option key={table.number} value={table.number}>
                                                         {table.number}
@@ -335,26 +342,26 @@ const MyBookings = () => {
                                             </select>
                                         </div>
                                         <div className="mb-2">
-                                            <p><strong>Game: </strong></p>
+                                            <p><strong>{t('myBookings.gameLabel')} </strong></p>
                                             <input type="text" name="game" value={editedBooking.game} onChange={handleChange} className="border p-1 rounded" />
                                         </div>
                                         <div className="mb-2">
-                                            <p><strong>Contact Name: </strong></p>
+                                            <p><strong>{t('myBookings.contactNameLabel')} </strong></p>
                                             <input type="text" name="contactName" value={editedBooking.contactName} onChange={handleChange} className="border p-1 rounded" />
                                         </div>
                                         <div className="mb-2">
-                                            <p><strong>Contact Phone: </strong></p>
+                                            <p><strong>{t('myBookings.contactPhoneLabel')} </strong></p>
                                             <input type="text" name="contactPhone" value={editedBooking.contactPhone} onChange={handleChange} className="border p-1 rounded" />
                                         </div>
                                         <div className="flex gap-2 justify-center">
-                                            <button onClick={() => handleSave(booking._id)} className="bg-blue-600 text-white px-4 py-2 rounded-md mt-2">Save</button>
-                                            <button onClick={handleCancel} className="bg-gray-500 text-white px-4 py-2 rounded-md mt-2">Cancel</button>
+                                            <button onClick={() => handleSave(booking._id)} className="bg-blue-600 text-white px-4 py-2 rounded-md mt-2">{t('myBookings.saveButton')}</button>
+                                            <button onClick={handleCancel} className="bg-gray-500 text-white px-4 py-2 rounded-md mt-2">{t('myBookings.cancelButton')}</button>
                                         </div>
                                     </>
                                 ) : (
                                     <>
-                                        <p><strong>Date: </strong> {dayjs(booking.date).format('DD/MM/YYYY')}</p>
-                                        <p><strong>Time: </strong> 
+                                        <p><strong>{t('myBookings.dateLabel')} </strong> {dayjs(booking.date).format('DD/MM/YYYY')}</p>
+                                        <p><strong>{t('myBookings.timeLabel')} </strong> 
 											{dayjs(booking.startTime).isValid() 
 												? dayjs(booking.startTime).format('HH:mm') 
 												: booking.startTime} 
@@ -363,31 +370,31 @@ const MyBookings = () => {
 												? dayjs(booking.endTime).format('HH:mm') 
 												: booking.endTime}
 										</p>
-                                        <p>Players: {booking.players}</p>
-                                        <p>Table No: {booking.tableId?.number || 'N/A'}</p>
-                                        <p>Contact: {booking.contactName}<br /> ({booking.contactPhone})</p>
+                                        <p>{t('myBookings.playersLabel')} {booking.players}</p>
+                                        <p>{t('myBookings.tableNumberLabel')} {booking.tableId?.number || 'N/A'}</p>
+                                        <p>{t('myBookings.contactLabel')} {booking.contactName}<br /> ({booking.contactPhone})</p>
                                         <div className="mt-3 flex gap-2 justify-center">
-                                            <button onClick={() => handleEdit(booking)} className="bg-green-800 w-20 text-white px-4 py-2 rounded-md">Edit</button>
-                                            <button onClick={() => handleDelete(booking._id)} className="bg-gray-700 w-20 text-white px-4 py-2 rounded-md">Cancel</button>
+                                            <button onClick={() => handleEdit(booking)} className="bg-green-800 w-20 text-white px-1 py-2 rounded-md">{t('myBookings.editButton')}</button>
+                                            <button onClick={() => handleDelete(booking._id)} className="bg-gray-700 w-20 text-white px-1 py-2 rounded-md">{t('myBookings.deleteButton')}</button>
                                         </div>
                                     </>
                                 )}
                             </div>
                         ))
                         ) : (
-                            <p>No upcoming bookings.</p>
+                            <p>{t('myBookings.noUpcoming')}</p>
                         )}
                     </div>
                 </div>
 
                 {/* Repeat for past bookings */}
                 <div className='max-w-5xl mx-auto mt-7 px-4 sm:px-0'>
-                    <p className='text-xl pt-7 text-start'>Booking History</p>
+                    <p className='text-xl pt-7 text-start'>{t('myBookings.bookingHistory')}</p>
                     <div className='flex flex-col sm:flex-row m-auto gap-5 pt-5 px-3 sm:px-0'>
                         {bookings.past.length > 0 ? (bookings.past.slice(0, 5).map((booking) => (
                             <div key={booking._id} className=' border border-gray-400 p-4 rounded-xl flex flex-col text-sm gap-1 shadow-lg bg-white'>
-                                <p><strong>Date: </strong> {dayjs(booking.date).format('DD/MM/YYYY')}</p>
-                                <p><strong>Time: </strong> 
+                                <p><strong>{t('myBookings.dateLabel')} </strong> {dayjs(booking.date).format('DD/MM/YYYY')}</p>
+                                <p><strong>{t('myBookings.timeLabel')} </strong> 
 									{dayjs(booking.startTime).isValid() 
 										? dayjs(booking.startTime).format('HH:mm') 
 										: booking.startTime} 
@@ -396,13 +403,13 @@ const MyBookings = () => {
 										? dayjs(booking.endTime).format('HH:mm') 
 										: booking.endTime}
 								</p>
-                                <p>Players: {booking.players}</p>
-                                <p>Table No: {booking.tableId?.number}</p>
-                                <p>Contact: {booking.contactName} <br /> ({booking.contactPhone})</p>
+                                <p>{t('myBookings.playersLabel')} {booking.players}</p>
+                                <p>{t('myBookings.tableNumberLabel')} {booking.tableId?.number}</p>
+                                <p>{t('myBookings.contactLabel')} {booking.contactName} <br /> ({booking.contactPhone})</p>
                             </div>
                         ))
                         ) : (
-                            <p>No booking history</p>
+                            <p>{t('myBookings.noHistory')}</p>
                         )}
                     </div>
                 </div>
