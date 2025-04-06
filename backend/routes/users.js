@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const { loginUser, registerUser, updateUserPhone } = require('../controllers/usersController');
+const { loginUser, registerUser, updateUserPhone, sendPasswordByEmail } = require('../controllers/usersController');
 const { authenticate } = require('../middleware/auth');
 const User = require('../models/User');
 const { registerValidation } = require('../utils/userValidation');
 const { loginValidation } = require('../utils/userValidation');
 const { updatePhoneValidation } = require('../utils/userValidation');
+const { updateEmailValidation } = require('../utils/userValidation');
 const validateInputs = require('../middleware/validateInputs');
 
 // Login route
@@ -27,6 +28,9 @@ router.post('/logout', (req, res) => {
 
 // Update phone route
 router.put('/phone', authenticate, updatePhoneValidation, validateInputs, updateUserPhone);
+
+// Send password by email route
+router.post('/forgot-password', updateEmailValidation, validateInputs, sendPasswordByEmail);
 
 
 // Fetch user profile route

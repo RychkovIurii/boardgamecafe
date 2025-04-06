@@ -4,7 +4,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Swal from 'sweetalert2';
 import { useTranslation } from 'react-i18next';
-
+import { isValidPhoneNumber } from 'libphonenumber-js';
 
 const Profile = () => {
 
@@ -12,8 +12,6 @@ const Profile = () => {
     const [phone, setPhone] = useState('');
     const [isEdit, setIsEdit] = useState(false);
     const { t } = useTranslation();
-
-
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -31,11 +29,7 @@ const Profile = () => {
     const handleUpdate = async (e) => {
         e.preventDefault();
         // Validate phone number format.
-        const cleaned = phone.replace(/\s+/g, '');
-        const isValid =
-            (/^(\+3|0)\d{6,11}$/).test(cleaned) && !/[^\d+]/.test(phone);
-
-        if (!isValid) {
+        if (!isValidPhoneNumber(phone)) {
             await Swal.fire({
                 icon: 'warning',
                 title: t('alerts.invalidPhoneTitle'),
@@ -45,7 +39,7 @@ const Profile = () => {
             return;
         }
         try {
-            await API.put('/users/phone', { phone: cleaned });
+            await API.put('/users/phone', { phone });
             await Swal.fire({
                 icon: 'success',
                 title: t('alerts.updateSuccessTitle'),
@@ -74,7 +68,7 @@ const Profile = () => {
         <>
             <Navbar />
             <div className="py-20 max-w-4xl mx-auto">
-                <h1 className="text-outline text-3xl md:text-4xl lg:text-5xl font-medium text-yellow-500 mt-5 mb-10">My Profile</h1>
+                <h1 className="text-outline text-3xl md:text-4xl lg:text-5xl font-medium text-yellow-500 mt-5 mb-10">{t('profile.pageTitle')}</h1>
                 <div className='flex flex-col gap-2 mt-5 '>
 
                     <p className='font-medium text-2xl text-neutral-800 mt-4'>{userData.name}</p>
@@ -82,10 +76,10 @@ const Profile = () => {
 
                     <div>
                         <div className='flex flex-row gap-y-1 mt-7 text-neutral-700 justify-center'>
-                            <p className='font-medium text-lg justify-center'>Email id:</p>
+                            <p className='font-medium text-lg justify-center'>{t('profile.emailLabel')}</p>
                             <p className='pl-5 text-blue-500 text-lg justify-center'>{userData.email}</p> </div>
                         <div className='flex flex-row gap-y-1 mt-7 text-neutral-700 justify-center'>
-                            <p className='font-medium text-lg '>Phone:</p>
+                            <p className='font-medium text-lg '>{t('profile.phoneLabel')}</p>
                             {
                                 isEdit
                                     ? < input className=' pl-10 bg-gray-100 max-w-52 text-lg' type='text' value={phone} onChange={e => setPhone(e.target.value)} />
@@ -100,8 +94,8 @@ const Profile = () => {
 
                     <div className='mt-10 mb-20'>
                         {isEdit
-                            ? <button onClick={handleUpdate} className='border border-primary px-8 py-2 rounded-full hover:bg-primary hover:text-white transition-all' > Save information</button>
-                            : <button className='border bg-amber-200 text-gray-800 px-8 py-2 rounded-full hover:bg-primary  hover:text-white transition-all' onClick={() => setIsEdit(true)}> Edit for phone number</button>}
+                            ? <button onClick={handleUpdate} className='border border-primary px-8 py-2 rounded-full hover:bg-primary hover:text-white transition-all' >{t('profile.saveButton')}</button>
+                            : <button className='border bg-amber-200 text-gray-800 px-8 py-2 rounded-full hover:bg-primary  hover:text-white transition-all' onClick={() => setIsEdit(true)}>{t('profile.editButton')}</button>}
 
 
                     </div>

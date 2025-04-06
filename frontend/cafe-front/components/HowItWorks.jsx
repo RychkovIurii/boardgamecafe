@@ -3,12 +3,10 @@ import { steps } from '../src/assets/assets';
 import { assets } from '../src/assets/assets';
 import { useTranslation } from 'react-i18next';
 
-
-
 const HowItWorks = () => {
 	const { t } = useTranslation();
     return (
-        <div className="py-20 max-w-4xl mx-auto dark:bg-gray-800">
+        <div className="py-20 px-8 max-w-4xl mx-auto dark:bg-gray-800">
             <h2 className="text-4xl md:text-5xl font-black text-yellow-500 mb-10">
             {t(`HowItWorks.title`)}
             </h2>
@@ -18,7 +16,7 @@ const HowItWorks = () => {
                     {/* Step Indicator */}
                     <div className="mr-7 flex flex-col items-center">
                         <div
-                            className={`flex items-center justify-center w-10`}
+                            className={`flex items-center justify-center w-10 h-10`}
                         >
                             <img src={item.image} alt="" className='w-10 h-10 object-contain' />
 
@@ -53,7 +51,7 @@ const HowItWorks = () => {
             <div className="flex">
                 <div className="mr-4 flex flex-col items-center">
                     <div
-                        className="flex w-10 items-center justify-center"
+                        className="flex items-center justify-center w-10 h-10"
                     >
                         <img src={assets.face_grin_stars_icon} alt="" className='w-10 h-10 object-contain' />
                     </div>

@@ -118,9 +118,9 @@ export default function Footer() {
                         <div>
                             <h4>{t('footer.About')}</h4> 
                             <ul className="text-md leading-loose">
-                                <li><Link to='/'>{t('footer.About Us')}</Link></li>
                                 <li><Link to='/contact'>{t('footer.Contact')}</Link></li>
-                                <li><Link to='/'>{t('footer.Partners')}</Link></li>
+                                <li><Link to='/service'>{t('footer.Services')}</Link></li>
+								<li><Link to='/faq'>{t('footer.How it works')}</Link></li>
                                 <li><Link to='/privacy-policy'>{t('footer.Privacy Policy')}</Link></li>
                             </ul>
                         </div>

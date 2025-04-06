@@ -42,3 +42,11 @@ exports.updatePhoneValidation = [
 		.notEmpty().withMessage('Phone number is required')
 		.isMobilePhone('any').withMessage('Invalid phone number')
 ];
+
+exports.updateEmailValidation = [
+	body('email')
+		.trim()
+		.normalizeEmail()
+		.notEmpty().withMessage('Email is required')
+		.isEmail().withMessage('Invalid email format'),
+];
