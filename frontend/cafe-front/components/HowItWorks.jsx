@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 const HowItWorks = () => {
 	const { t } = useTranslation();
     return (
-        <div className="py-20 px-8 max-w-4xl mx-auto dark:bg-gray-800">
+        <div className="py-20 px-8 max-w-4xl mx-auto">
             <h2 className="text-4xl md:text-5xl font-black text-yellow-500 mb-10">
             {t(`HowItWorks.title`)}
             </h2>
@@ -22,25 +22,25 @@ const HowItWorks = () => {
 
                         </div>
                         {/* Line connecting the steps */}
-                        <div className="h-full w-0.5 bg-gray-300 dark:bg-slate-500"></div>
+                        <div className="h-full w-0.5 bg-gray-300"></div>
 
                     </div>
 
                     {/* Step Content */}
                     <div className="pt-1 pb-10 text-left">
-                        <p className="mb-2 text-xl font-bold text-gray-900 dark:text-slate-300">{t(item.label)}</p>
-                        <p className="text-gray-600 dark:text-slate-400">{t(item.details.process.step1)}</p>
+                        <p className="mb-2 text-xl font-bold text-gray-900">{t(item.label)}</p>
+                        <p className="text-gray-600">{t(item.details.process.step1)}</p>
                         {item.details.process.step2 && (
-                            <p className="mt-2 text-gray-600 dark:text-slate-400">{t(item.details.process.step2)}</p>
+                            <p className="mt-2 text-gray-600">{t(item.details.process.step2)}</p>
                         )}
                         {item.details.process.step3 && (
-                            <p className="mt-2 text-gray-600 dark:text-slate-400">{t(item.details.process.step3)}</p>
+                            <p className="mt-2 text-gray-600">{t(item.details.process.step3)}</p>
                         )}
 
                         {item.details.marks && (
                             <div className="mt-2">
-                                <p className="mt-2 text-gray-600 dark:text-slate-400">{t(item.details.marks.mark1)}</p>
-                                <p className="mt-2 text-gray-600 dark:text-slate-400">{t(item.details.marks.mark2)}</p>
+                                <p className="mt-2 text-gray-600">{t(item.details.marks.mark1)}</p>
+                                <p className="mt-2 text-gray-600">{t(item.details.marks.mark2)}</p>
                             </div>
                         )}
                     </div>
@@ -57,7 +57,7 @@ const HowItWorks = () => {
                     </div>
                 </div>
                 <div className="pt-1">
-                    <p className="mb-2 text-xl font-bold text-gray-900 dark:text-slate-300">Your Adventure Awaits!</p>
+                    <p className="mb-2 text-xl font-bold text-gray-900">Your Adventure Awaits!</p>
                 </div>
             </div>
         </div>
