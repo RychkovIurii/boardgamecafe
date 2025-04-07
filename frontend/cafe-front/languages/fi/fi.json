@@ -247,7 +247,7 @@
 		"step1Phone": "Puhelin:",
 		"step1People": "Henkilömäärä*:",
 		"step1Number": "Pelaajien Määrä:",
-		"step1Text": "(Jos ryhmässäsi on enemmän kuin 8 henkilöä, ota yhteyttä suoraan varauksen tekemiseksi)",
+		"step1Text": "*Jos ryhmässäsi on enemmän kuin 8 henkilöä, ota yhteyttä suoraan varauksen tekemiseksi",
 		"step1Date": "Päivämäärä:",
 		"step1Time": "Aloitusaika:",
 		"step1Duration": "Kesto:",

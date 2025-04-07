@@ -212,7 +212,7 @@
 		"UserView": "User View"
 	},
 	"service": {
-		"Title": "Find our service",
+		"Title": "Find our services",
 		"serviceP": "Our goal is to make Helsinki the heart of gaming culture and to provide an accessible meeting place for everyone interested in games. Cafe Boardgame is a four-story gaming culture hub, combining a restaurant, café, bar, events, training, and meeting services.",
 		"button": "contact us"
 	},
@@ -258,7 +258,7 @@
 		"step1Phone": "Phone:",
 		"step1People": "People*:",
 		"step1Number": "Number of Players:",
-		"step1Text": "(If your group has more than 8 people, please contact us directly for your booking)",
+		"step1Text": "*If your group has more than 8 people, please contact us directly for your booking",
 		"step1Date": "Date:",
 		"step1Time": "Start time:",
 		"step1Duration": "Duration:",
@@ -311,7 +311,7 @@
 	},
 	"aboutIntro": {
 		"intro1": "Founded in 2021, with over 500 games Café Boardgame has been a welcoming spot for board games and role-playing games lovers.",
-		"intro2": "Our friendly staff are always here to help you pick a game, explain the rules, or guide you through gameplay.",
+		"intro2": "Our friendly staff is always here to help you pick a game, explain the rules, or guide you through gameplay.",
 		"intro3": "At Café Boardgame, you can enjoy great food, drinks, and games in a fun and relaxing space with friends, family, or colleagues.",
 		"openingTitle": "Opening Hours",
 		"monThu": "Monday - Thursday 16:00 - 24:00",
