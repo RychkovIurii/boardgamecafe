@@ -160,17 +160,29 @@ function AboutGalleryIntro() {
                     color: "black",
                 }}>
 
-                    < div className={clsx('justify-center pr-10 pl-10 mt-12 font-fontdiner', isMobile? 'm-5':'')}>
-                        <p className='pt-2 mr-4 ml-16 font-fontdiner text-gray-800'>
+					<div className={clsx(
+					'justify-center mt-12 font-fontdiner',
+					isMobile ? 'px-4' : 'px-10'
+					)}>
+						<p className={clsx(
+							'pt-2 font-fontdiner text-gray-800',
+							isMobile ? 'text-center' : 'ml-14 mr-4'
+						)}>
 							{t('aboutIntro.intro1')}
-                        </p>
-                        <p className='pt-2 mr-4 ml-14 font-fontdiner text-gray-800'>
+						</p>
+						<p className={clsx(
+							'pt-2 font-fontdiner text-gray-800',
+							isMobile ? 'text-center' : 'ml-14 mr-4'
+						)}>
 							{t('aboutIntro.intro2')}
 						</p>
-                        <p className='pt-2 mr-4 ml-14 font-fontdiner text-gray-800'>
+						<p className={clsx(
+							'pt-2 font-fontdiner text-gray-800',
+							isMobile ? 'text-center' : 'ml-14 mr-4'
+						)}>
 							{t('aboutIntro.intro3')}
-                        </p>
-                    </div>
+						</p>
+					</div>
 
                     <div className={clsx('mb-12', isMobile ? "bg-gray-200 pb-10" : "", "font-fontdiner")}>
 					<h2 className={clsx("sm:text-2xl lg:text-3xl font-bold text-gray-800 mb-4", isMobile ? "bg-gray-200 pt-10" : "pt-3", "font-fontdiner")}>
