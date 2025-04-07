@@ -25,15 +25,15 @@ function PrivacyPolicy() {
       <p>{t(`privacyPolicy.dataSubjectsDesc`)}</p>
 
       <h3>{t(`privacyPolicy.purpose`)}</h3>
-      <p>
-      {t(`privacyPolicy.purposes`)}
-      </p>
+	  {t(`privacyPolicy.purposes`, { returnObjects: true }).map((item, idx) => (
+		<p key={idx}>{item}</p>
+		))}
 
       <h3>{t(`privacyPolicy.recordedData`)}</h3>
       <p>{t(`privacyPolicy.recordedDataP`)}</p>
-      <p>
-      {t(`privacyPolicy.dataList`)}
-      </p>
+	  {t(`privacyPolicy.dataList`, { returnObjects: true }).map((item, idx) => (
+		<p key={idx}>{item}</p>
+		))}
 
       <h3>{t(`privacyPolicy.rights`)}</h3>
       <p>{t(`privacyPolicy.rightsP`)}</p>
