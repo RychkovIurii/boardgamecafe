@@ -30,7 +30,7 @@ const ServiceProduct = () => {
         <div>
             <Navbar />
 
-            <div className='border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100'>
+            <div className='border-t-2 pt-10 px-4 sm:px-6 md:px-12 transition-opacity ease-in duration-500 opacity-100'>
                 {/* ------- Service Data ---------- */}
                 <div className='flex gap-12 sm:gap-5 flex-col sm:flex-row'>
 
@@ -69,7 +69,7 @@ const ServiceProduct = () => {
                             </button>
                         ) : (
                             <button onClick={() => { navigate(`/contact`); scrollTo(0, 0) }} className='bg-amber-200 text-gray-700 text-2xl px-12 py-3 rounded-full mt-10'>
-                                Contact Us
+                                {t(`service.button`)}
                             </button>
                         )}
                     </div>

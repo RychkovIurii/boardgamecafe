@@ -190,7 +190,7 @@
 		"decisionMakingP": "Automaattista päätöksentekoa tai profilointia ei tehdä."
 		},
 	"service": {
-			"Title": "Löydä palvelumme",
+		"Title": "Löydä palvelumme",
 		"serviceP": "Tavoitteenamme on tehdä Helsingistä pelikulttuurin sydän ja tarjota esteetön kohtaamispaikka kaikille pelistä kiinnostuneille. Cafe Boardgame on nelikerroksinen pelikulttuurin keskus, jossa yhdistyvät ravintola, kahvila, baari, tapahtumat, koulutus ja kokouspalvelut.",
 		"button": "Ota yhteyttä"
 	},
@@ -247,7 +247,7 @@
 		"step1Phone": "Puhelin:",
 		"step1People": "Henkilömäärä*:",
 		"step1Number": "Pelaajien Määrä:",
-		"step1Text": "(Jos ryhmässäsi on enemmän kuin 8 henkilöä, ota yhteyttä suoraan varauksen tekemiseksi)",
+		"step1Text": "*Jos ryhmässäsi on enemmän kuin 8 henkilöä, ota yhteyttä suoraan varauksen tekemiseksi",
 		"step1Date": "Päivämäärä:",
 		"step1Time": "Aloitusaika:",
 		"step1Duration": "Kesto:",
