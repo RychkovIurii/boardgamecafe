@@ -14,7 +14,7 @@ const About = () => {
             <div className='bg-gray-100 pt-10 pb-10'>
                 <div className='pt-20'>
                     <h1 className='text-3xl md:text-5xl font-black text-yellow-500 '>{t(`about.title`)}</h1>
-                    <p className='pt-5 m-3 sm:pt-10 text-xl md:text-2xl font-semibold text-gray-700'>{t(`about.aboutP`)}</p>
+                    <p className='pt-5 m-3 sm:pt-10 text-xl md:text-2xl font-semibold font-fontdiner text-gray-700'>{t(`about.aboutP`)}</p>
                 </div>
 
                 <AboutGalleryIntro />

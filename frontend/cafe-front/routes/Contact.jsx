@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import "../components/Style/ContactStyles.css";
 import contactImage from '../src/assets/elements/contact.png';
+import { colors } from '../components/Style/Colors';
 
 
 
@@ -15,8 +16,8 @@ function Contact() {
             <Navbar />
             
             <div className='contactHeader'> 
-             
-              <div className="contact-container">
+            
+              <div className="contact-container" style={{ backgroundColor: colors.color.background }}>
       <div className="contact-card">
 	  	<img src={contactImage} className="contact-image" alt="Contact" />
         <div className="contact-info">
@@ -138,7 +139,7 @@ function Contact() {
     </div>
             </div>
             
-            <Footer />
+            <Footer />     
         </>
     );
 }
