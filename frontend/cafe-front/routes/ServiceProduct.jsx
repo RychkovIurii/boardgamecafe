@@ -30,7 +30,7 @@ const ServiceProduct = () => {
         <div>
             <Navbar />
 
-            <div className='border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100'>
+            <div className='border-t-2 pt-10 px-4 sm:px-6 md:px-12 transition-opacity ease-in duration-500 opacity-100'>
                 {/* ------- Service Data ---------- */}
                 <div className='flex gap-12 sm:gap-5 flex-col sm:flex-row'>
 
