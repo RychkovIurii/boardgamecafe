@@ -69,7 +69,7 @@ const ServiceProduct = () => {
                             </button>
                         ) : (
                             <button onClick={() => { navigate(`/contact`); scrollTo(0, 0) }} className='bg-amber-200 text-gray-700 text-2xl px-12 py-3 rounded-full mt-10'>
-                                Contact Us
+                                {t(`service.button`)}
                             </button>
                         )}
                     </div>
