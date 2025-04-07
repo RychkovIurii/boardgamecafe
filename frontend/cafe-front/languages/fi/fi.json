@@ -158,7 +158,7 @@
 		"contact_info": "Yhteystiedot:",
 		"inquiries": "Yhteystiedot henkilötietoihin liittyvissä asioissa:",
 			"dataSubjects": "2. Rekisteröidyt henkilöt",
-		"dataSubjectsDesc": "Rekisteriin kuuluvat henkilöt asiakkaat.",
+		"dataSubjectsDesc": "Rekisteriin kuuluvat henkilöt.",
 		"purpose": "3. Henkilötietojen käyttötarkoitus",
 		"purposes": [
 		"- Asiakassuhteiden hallinta",
@@ -231,8 +231,8 @@
 	"about": {
 		"title": "TIETOJA CAFÉ BOARDGAMESTA",
 		"aboutP": "Tervetuloa Café BoardGameen, pelikulttuurin sydämeen Helsingissä!",
-		"GalleryIntroTitle1": "Tutki lisää",
-		"GalleryIntroTitle2": "Café Boardgamesta"
+		"GalleryIntroTitle1": "Tutustu tarkemmin",
+		"GalleryIntroTitle2": "Café Boardgameen"
 	},
 	"gamesPage": {
 		"searchPlaceholder": "Hae",
@@ -263,7 +263,7 @@
 		"step3Submit": "Lähettämällä tämän lomakkeen hyväksyt Cafe Boardgamen säännöt ja ehdot.",
 		"errorMessage": "Virhe pöytien haussa:",
 		"availabilityPeople": "Virheellinen pelaajamäärä.",
-		"availabilityText": "Ei ole saatavilla olevia pöytiä, jotka voisivat majoittaa ryhmänne. Ottakaa yhteyttä puhelimitse tarkistaaksenne, onko muita tapoja isännöidä ryhmäänne.",
+		"availabilityText": "Ei pöytiä saatavilla valitulle ryhmäkoolle. Ottakaa yhteyttä puhelimitse tarkistaaksenne, onko muita tapoja isännöidä ryhmäänne.",
 		"bookingSuccessfully": "Varaus luotu onnistuneesti!",
 		"stepLabel1": "Henkilötiedot",
 		"stepLabel2": "Pöytä ja peli",
@@ -280,7 +280,7 @@
 		"invalidPhoneTitle": "Virheellinen puhelinnumero",
 		"invalidPhoneText": "Syötä kelvollinen puhelinnumero muodossa: +[Maatunnus][Numero].",
 		"invalidPlayersTitle": "Virheellinen pelaajamäärä",
-		"invalidPlayersText": "Pelaajien määrän tulee olla 1 ja 10 välillä.",
+		"invalidPlayersText": "Pelaajamäärän tulee olla 1 ja 10 välillä.",
 		"invalidDurationTitle": "Virheellinen kesto",
 		"invalidDurationText": "Keston tulee olla vähintään 60 minuuttia, enintään 600 minuuttia ja 30 minuutin välein.",
 		"invalidTableTitle": "Virheellinen pöytä",
@@ -299,7 +299,7 @@
 		"deleteFailedText": "Jokin meni pieleen varauksen poistossa."
 		},
 	"aboutIntro": {
-		"intro1": "Perustettu vuonna 2021, yli 500 pelillä Café Boardgame on ollut viihtyisä paikka lautapelien ja roolipelien ystäville.",
+		"intro1": "Vuonna 2021 perustettu Café Boardgame ja sen yli 500 pelin pelikirjasto on viihtyisä paikka lautapelien ja roolipelien ystäville.",
 		"intro2": "Ystävällinen henkilökuntamme auttaa sinua valitsemaan pelin, selittää säännöt tai ohjaa sinua pelin aikana.",
 		"intro3": "Café Boardgamessa voit nauttia hyvästä ruuasta, juomista ja peleistä rennossa ja hauskassa ympäristössä ystävien, perheen tai kollegoiden kanssa.",
 		"openingTitle": "Aukioloajat",

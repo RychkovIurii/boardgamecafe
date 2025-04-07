@@ -242,7 +242,7 @@
 	"about": {
 		"title": "ABOUT CAFÉ BOARDGAME",
 		"aboutP": "Welcome to Café Boardgame, the heart of gaming culture in Helsinki!",
-		"GalleryIntroTitle1": "Expore more",
+		"GalleryIntroTitle1": "Find out more",
 		"GalleryIntroTitle2": "about Café Boardgame"
 	},
 	"gamesPage": {
@@ -310,9 +310,9 @@
 		"deleteFailedText": "Something went wrong while deleting the booking."
 	},
 	"aboutIntro": {
-		"intro1": "Founded in 2021, with over 500 games Café Boardgame has been a welcoming spot for board games and role-playing games lovers.",
+		"intro1": "Since 2021, Café Boardgame with its 500 games, has been a welcoming spot for board game and role-playing game lovers.",
 		"intro2": "Our friendly staff are always here to help you pick a game, explain the rules, or guide you through gameplay.",
-		"intro3": "At Café Boardgame, you can enjoy great food, drinks, and games in a fun and relaxing space with friends, family, or colleagues.",
+		"intro3": "At Café Boardgame, you can enjoy great food, drinks, and games in a fun and relaxing environment with friends, family, or colleagues.",
 		"openingTitle": "Opening Hours",
 		"monThu": "Monday - Thursday 16:00 - 24:00",
 		"friday": "Friday 16:00 - 02:00",
