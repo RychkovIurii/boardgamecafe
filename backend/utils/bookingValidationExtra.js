@@ -8,7 +8,7 @@ exports.suggestedTablesValidation = [
 		.notEmpty().withMessage('Date is required')
 		.isISO8601().withMessage('Date must be a valid ISO8601 date'),
 
-	query('start')
+	query('startTime')
 		.trim()
 		.notEmpty().withMessage('Start time is required')
 		.matches(/^([01]\d|2[0-3]):([0-5]\d)$/).withMessage('Start time must be in HH:mm format'),

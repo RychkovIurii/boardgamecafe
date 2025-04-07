@@ -32,7 +32,7 @@ describe('validateOverlappingBookings', () => {
             endTime: endUTCtime,
             players: 4,
             contactName: "John Doe",
-            contactPhone: "123-456-7890"
+            contactPhone: "+358466554400"
         });
 
         const hasOverlap = await validateOverlappingBookings(tableId, startUTCtime, endUTCtime);
@@ -51,7 +51,7 @@ describe('validateOverlappingBookings', () => {
             endTime: new Date("2025-03-21T18:00:00Z"),
             players: 4,
             contactName: "John Doe",
-            contactPhone: "123-456-7890"
+            contactPhone: "+358466554400"
         });
 
         const hasOverlap = await validateOverlappingBookings(tableId, startUTCtime, endUTCtime);
@@ -70,7 +70,7 @@ describe('validateOverlappingBookings', () => {
             endTime: new Date("2025-03-21T17:00:00Z"),
             players: 4,
             contactName: "John Doe",
-            contactPhone: "123-456-7890"
+            contactPhone: "+358466554400"
         });
 
         const hasOverlap = await validateOverlappingBookings(tableId, startUTCtime, endUTCtime);
@@ -89,7 +89,7 @@ describe('validateOverlappingBookings', () => {
             endTime: new Date("2025-03-21T21:00:00Z"),
             players: 4,
             contactName: "John Doe",
-            contactPhone: "123-456-7890"
+            contactPhone: "+358466554400"
         });
 
         const hasOverlap = await validateOverlappingBookings(tableId, startUTCtime, endUTCtime);

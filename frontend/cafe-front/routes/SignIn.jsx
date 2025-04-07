@@ -5,12 +5,24 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Login from '../components/Login';
 import Register from '../components/Register';
+import ForgotPassword from '../components/ForgotPassword';
 import '../components/Style/SignInStyles.css';
 
 function SignIn() {
-    const [isLogin, setIsLogin] = useState(true); // State to toggle forms
+    const [formState, setFormState] = useState('login');
 	
-	const toggleForm = () => setIsLogin(!isLogin); // Toggle between login and registration
+	const renderForm = () => {
+		switch (formState) {
+			case 'login':
+				return <Login onToggleForm={() => setFormState('register')} onForgotPassword={() => setFormState('forgot')} />;
+			case 'register':
+				return <Register onToggleForm={() => setFormState('login')} />;
+			case 'forgot':
+				return <ForgotPassword onToggleForm={() => setFormState('login')} />;
+			default:
+				return null;
+		}
+	};
     return (
         <>
             <Navbar />
@@ -18,7 +30,7 @@ function SignIn() {
                 cName="heroSignIn"
                 heroImage={heroImage}
             />
-			{isLogin ? <Login onToggleForm={toggleForm} /> : <Register onToggleForm={toggleForm} />}
+			{renderForm()}
             <Footer />
         </>
     );

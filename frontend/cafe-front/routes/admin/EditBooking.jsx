@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import API from '../../api/axios';
 import Swal from 'sweetalert2';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const EditBooking = () => {
     const { id } = useParams();
@@ -102,7 +103,13 @@ const EditBooking = () => {
         }
     };
 
-    if (loading || !booking) return <div>Loading...</div>;
+	if (loading || !booking) {
+		return (
+			<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '60vh' }}>
+				<CircularProgress size="4rem" thickness={5} color="inherit"/>
+			</div>
+		);
+	}
     if (error) return <div>{error}</div>;
 
     return (

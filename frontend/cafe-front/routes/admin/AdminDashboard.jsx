@@ -3,6 +3,7 @@ import API from '../../api/axios';
 import { useNavigate } from 'react-router-dom';
 import AdminNavbar from '../../components/admin/AdminNavbar';
 import Swal from 'sweetalert2';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const AdminDashboard = () => {
     const [upcomingBookings, setUpcomingBookings] = useState([]);
@@ -33,7 +34,13 @@ const AdminDashboard = () => {
         fetchAdminData();
     }, [navigate]);
 
-    if (loading) return <div>Loading...</div>;
+	if (loading) {
+		return (
+			<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '60vh' }}>
+				<CircularProgress size="3rem" thickness={5} color="inherit"/>
+			</div>
+		);
+	}
     if (error) return <div>{error}</div>;
 
     const handleEdit = (id) => {
@@ -114,9 +121,9 @@ const AdminDashboard = () => {
 	
 
     return (
-        <div>
+        <div style={{ maxWidth: '100vw', overflowX: 'hidden' }}>
 			<AdminNavbar />
-            <h1 style={{ marginTop: '30px' }}>Admin Dashboard</h1>
+            <h1 style={{ margin: '30px' }}>Admin Dashboard</h1>
             <input 
                 type="text" 
                 placeholder="Search by user, phone, table, or game" 
@@ -134,13 +141,13 @@ const AdminDashboard = () => {
                     <option key={table._id} value={table.number}>Table {table.number}</option>
                 ))}
             </select>
-            <select onChange={(e) => setFilterBy(e.target.value)} value={filterBy}>
+            <select onChange={(e) => setFilterBy(e.target.value)} value={filterBy} style={{ marginTop: '20px' }}>
                 <option value="all">All Upcoming</option>
                 <option value="today">Today</option>
                 <option value="thisWeek">This Week</option>
             </select>
-            <h2>Upcoming Bookings</h2>
-            <table style={{ border: '1px solid black', borderCollapse: 'collapse' }}>
+			<div style={{ overflowX: 'auto' }}>
+            <table style={{ border: '1px solid black', borderCollapse: 'collapse', minWidth: '800px' }}>
                 <thead>
                     <tr>
                         <th style={{ border: '1px solid black', padding: '8px' }}>Date</th>
@@ -195,6 +202,7 @@ const AdminDashboard = () => {
                     ))}
                 </tbody>
             </table>
+			</div>
         </div>
     );
 };

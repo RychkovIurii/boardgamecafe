@@ -86,8 +86,45 @@ const updateUserPhone = async (req, res) => {
     }
 };
 
+const sendPasswordByEmail = async (req, res) => {
+	const { email } = req.body;
+
+	try {
+		const user = await User.findOne({ email });
+		if (!user) {
+			return res.status(404).json({ message: 'User not found' });
+		}
+
+		let transporter = require('nodemailer').createTransport({
+			service: "Gmail",
+			host: "smtp.gmail.com",
+			port: 465,
+			secure: true,
+			auth: {
+				user: process.env.CONTACT_EMAIL,
+				pass: process.env.CONTACT_APP_PASS,
+			},
+		});
+
+		let mailOptions = {
+			from: process.env.CONTACT_EMAIL,
+			to: email,
+			subject: 'BoardGameCafe Password Recovery',
+			text: `Hello ${user.name},\n\nWe are currently developing this feature. Password recovery will be available soon.\n\nBest regards,\nBoardGameCafe Team`
+		};
+
+		await transporter.sendMail(mailOptions);
+		res.status(200).json({ message: 'Password sent to your email' });
+
+	} catch (error) {
+		console.error('Error sending password email:', error);
+		res.status(500).json({ message: 'Failed to send email' });
+	}
+};
+
 module.exports = {
 	loginUser,
 	registerUser,
-	updateUserPhone
+	updateUserPhone,
+	sendPasswordByEmail
 };

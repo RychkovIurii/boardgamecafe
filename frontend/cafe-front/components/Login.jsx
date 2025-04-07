@@ -6,7 +6,7 @@ import { AuthContext } from '../context/AuthContext';
 import './Style/LoginStyles.css';
 import Swal from 'sweetalert2';
 
-const Login = ({ onToggleForm }) => {
+const Login = ({ onToggleForm, onForgotPassword }) => {
 	const { t } = useTranslation();
 	const { login } = useContext(AuthContext); // Access the login function
 	const navigate = useNavigate();
@@ -32,11 +32,11 @@ const Login = ({ onToggleForm }) => {
 				title: t("login.successTitle"),
 				text: t("login.successMessage"),
 				confirmButtonText: t("login.confirmButton")
-			  }).then(() => {
+			}).then(() => {
 				if (role === 'admin') {
 					navigate('/admin');
 				} else {
-					navigate('/');
+					navigate('/'); window.scrollTo(0, 0);
 				}
 			});
 		} catch (error) {
@@ -86,7 +86,7 @@ const Login = ({ onToggleForm }) => {
 					>
 						{t("login.registerButton")}
 					</button>
-					<button type="button" className="secondary-button">
+					<button type="button" className="secondary-button" onClick={() => onForgotPassword()}>
 						{t("login.forgotPassword")}
 					</button>
 				</div>

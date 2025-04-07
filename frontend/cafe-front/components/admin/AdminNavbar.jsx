@@ -16,7 +16,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import cafeLogo from '../../src/assets/logo.png';
 
 const pages = [
@@ -91,7 +90,7 @@ function AdminNavbar() {
               textDecoration: 'none',
             }}
           >
-            <img src={cafeLogo}  style={{ paddingBottom: '1rem' }} />
+            <img src={cafeLogo} alt="Cafe Boardgame Logo" style={{ paddingBottom: '1rem' }} />
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -132,24 +131,23 @@ function AdminNavbar() {
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
-            variant="h5"
+            variant="h7"
             noWrap
             component={Link}
   			to={user?.role === 'admin' ? '/admin' : '/'}
             sx={{
-              mr: 2,
+              mr: 1,
               display: { xs: 'flex', md: 'none' },
               flexGrow: 1,
               fontFamily: "Fontdiner Swanky",
-              fontWeight: 700,
-              letterSpacing: '.3rem',
+              fontWeight: 400,
+              letterSpacing: '.1rem',
               color: 'black',
               textDecoration: 'none',
             }}
           >
-            CAFE GAMEBOARD
+            BOARDGAME
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, ml: 6 }}>
             {pages.map((page) => (
