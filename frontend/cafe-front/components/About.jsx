@@ -30,7 +30,7 @@ const About = () => {
                     {aboutMenu.map((item, index) => (
                         <div
                             key={index}
-                            onClick={() => { if (item.link) navigate(item.link); window.scrollTo(0, 0); }}
+                            onClick={() => { if (item.link) navigate(item.link); }}
                             className="relative cursor-pointer h-[250px] flex flex-col justify-end text-center bg-cover bg-center hover:scale-105 transition-transform duration-300"
                         >
                             <div className='relative'>
