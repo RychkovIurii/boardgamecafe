@@ -30,12 +30,13 @@
 
 .formItem {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: baseline;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    padding-top: 0.4rem;
 }
 
-.smallerText{
+.smallerText {
     font-size: small;
 }
 
@@ -51,12 +52,12 @@
 }
 
 .tablesChild {
-	display: flex;
-	flex-wrap: wrap;
-	flex-direction: row;
-	justify-content: flex-start;
-	cursor: pointer;
-  }
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: flex-start;
+    cursor: pointer;
+}
 
 .table {
     background-color: #eee8aa;
@@ -76,6 +77,7 @@
 }
 
 .formInput {
+    width: 100%;
     border: 2px solid rgb(141, 89, 41);
     border-radius: 5px;
     margin: 2px;
@@ -94,18 +96,16 @@
     padding: 2px !important;
     font-weight: lighter !important;
     background-color: #fffaf5 !important;
-    border-inline-style: solid;
-    border-inline-color: pink lightblue;
 }
 
-.css-1dune0f-MuiInputBase-input-MuiOutlinedInput-input :hover{
+.css-1dune0f-MuiInputBase-input-MuiOutlinedInput-input :hover {
     margin: 2px;
     padding: 2px !important;
     font-weight: lighter !important;
     background-color: #fffaf5 !important;
 }
 
-.css-jupps9-MuiInputBase-root-MuiOutlinedInput-root{
+.css-jupps9-MuiInputBase-root-MuiOutlinedInput-root {
     font-family: inherit !important;
     background-color: #fffaf5 !important;
     color: #5a3825 !important;
@@ -117,7 +117,8 @@
     color: #5a3825 !important;
     transition: all 0.3s ease-in-out !important;
 }
-.css-1umw9bq-MuiSvgIcon-root :hover{
+
+.css-1umw9bq-MuiSvgIcon-root :hover {
     color: #5a3825 !important;
     transition: all 0.3s ease-in-out !important;
 }
@@ -157,6 +158,9 @@
     .formItem {
         flex-direction: column;
         align-items: center;
+        width: 100%;
+        display: flex;
+        max-width: 400px;
     }
 
     .formInput {
@@ -174,11 +178,10 @@
         font-weight: lighter !important;
         background-color: #fffaf5 !important;
     }
-    
-    .css-jupps9-MuiInputBase-root-MuiOutlinedInput-root{
+
+    .css-jupps9-MuiInputBase-root-MuiOutlinedInput-root {
         font-family: inherit !important;
         background-color: #fffaf5 !important;
-        border: 2px solid rgba(255, 255, 255, 0) !important;
         color: #5a3825 !important;
         justify-content: space-around !important;
     }

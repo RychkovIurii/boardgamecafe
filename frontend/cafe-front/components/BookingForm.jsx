@@ -19,7 +19,6 @@ import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { isValidPhoneNumber } from 'libphonenumber-js';
 import floorplan from '../src/assets/elements/floorplan.png';
 
@@ -45,7 +44,7 @@ function StepOne({ inputs, handleChange, handleTimeChange }) {
         <label>{t(`bookingForm.step1Name`)}</label>
         <input
           className='formInput'
-          placeholder='Ex:  Maija Meikäläinen'
+          placeholder='Ex: Maija Meikäläinen'
           type='text'
           name="contactName"
           value={inputs.contactName || ""}
@@ -57,7 +56,7 @@ function StepOne({ inputs, handleChange, handleTimeChange }) {
         <label>{t(`bookingForm.step1Phone`)}</label>
         <input
           className='formInput'
-          placeholder='+[country][phone nr] ex: +358 505662613'
+          placeholder='+[country][phone nr] ex: +358505662613'
           type='tel'
           name="contactPhone"
           value={inputs.contactPhone || ""}
@@ -98,12 +97,18 @@ function StepOne({ inputs, handleChange, handleTimeChange }) {
           <div className='formInput'>
             <TimePicker
               name="startTime"
-              
+
               timeSteps={{ minutes: 30 }}
               minutesStep={30}
               value={inputs.startTime}
               onChange={handleTimeChange}
               ampm={false}
+              slotProps={{
+                textField: {
+                  fullWidth: true,
+                  required: true,
+                },
+              }}
               required
             />
           </div>
