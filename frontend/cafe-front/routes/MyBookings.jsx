@@ -313,7 +313,13 @@ const MyBookings = () => {
 													onChange={handleTimeChange} 
 													timeSteps={{ minutes: 30 }} 
 													minutesStep={30} 
-													ampm={false} />
+													ampm={false} 
+                                                    slotProps={{
+                                                        textField: {
+                                                          fullWidth: true,
+                                                          required: true,
+                                                        },
+                                                     }}/>
                                             </LocalizationProvider>
                                         </div>
                                         <div className="mb-2">
