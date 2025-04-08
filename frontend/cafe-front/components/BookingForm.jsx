@@ -39,12 +39,13 @@ function StepOne({ inputs, handleChange, handleTimeChange }) {
     <>
       {/* <Box sx={{ fontFamily: "Fontdiner Swanky" }}> */}
       <Typography variant="h6" sx={{ fontFamily: "Fontdiner Swanky" }} gutterBottom>
-        {t(`bookingForm.step1`)}
+        {/* {t(`bookingForm.step1`)} */}
       </Typography>
       <div className='formItem'>
         <label>{t(`bookingForm.step1Name`)}</label>
         <input
           className='formInput'
+          placeholder='Ex:  Maija Meikäläinen'
           type='text'
           name="contactName"
           value={inputs.contactName || ""}
@@ -56,6 +57,7 @@ function StepOne({ inputs, handleChange, handleTimeChange }) {
         <label>{t(`bookingForm.step1Phone`)}</label>
         <input
           className='formInput'
+          placeholder='+[country][phone nr] ex: +358 505662613'
           type='tel'
           name="contactPhone"
           value={inputs.contactPhone || ""}
@@ -84,7 +86,6 @@ function StepOne({ inputs, handleChange, handleTimeChange }) {
           type='date'
           min={new Date().toJSON().slice(0, 10)}
           name="date"
-          format="MM/DD/YYYY"
           value={inputs.date || ""}
           onChange={handleChange}
           required
@@ -94,15 +95,18 @@ function StepOne({ inputs, handleChange, handleTimeChange }) {
       <div className='formItem'>
         <label>{t(`bookingForm.step1Time`)} </label>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <TimePicker
-            name="startTime"
-            timeSteps={{ minutes: 30 }}
-            minutesStep={30}
-            value={inputs.startTime}
-            onChange={handleTimeChange}
-            ampm={false}
-            required
-          />
+          <div className='formInput'>
+            <TimePicker
+              name="startTime"
+              
+              timeSteps={{ minutes: 30 }}
+              minutesStep={30}
+              value={inputs.startTime}
+              onChange={handleTimeChange}
+              ampm={false}
+              required
+            />
+          </div>
         </LocalizationProvider>
       </div>
 
@@ -132,7 +136,7 @@ function StepTwo({ inputs, handleChange, tables, setInputs }) {
   return (
     <Box>
       <Typography variant="h6" sx={{ fontFamily: "Fontdiner Swanky" }} gutterBottom>
-        {t(`bookingForm.step2`)}
+        {/* {t(`bookingForm.step2`)} */}
       </Typography>
       <div className='smallerText'>
         {t(`bookingForm.step2Text`)}
@@ -188,7 +192,7 @@ function StepThree({ inputs, handleChange, handleSubmit }) {
   return (
     <Box sx={{ fontFamily: "Fontdiner Swanky" }}>
       <Typography sx={{ fontFamily: "Fontdiner Swanky" }} variant="h6" gutterBottom>
-        {t(`bookingForm.step3`)}
+        {/* {t(`bookingForm.step3`)} */}
       </Typography>
       <Typography sx={{ fontFamily: "Fontdiner Swanky" }} variant="body1" gutterBottom>
         {t(`bookingForm.step3Submit`)}

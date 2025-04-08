@@ -77,6 +77,7 @@
 
 .formInput {
     border: 2px solid rgb(141, 89, 41);
+    border-radius: 5px;
     margin: 2px;
     padding: 2px;
     font-weight: lighter;
@@ -88,16 +89,16 @@
     font-weight: lighter;
 }
 
-.submitButt {
-    background-color: #f0e68c;
-    padding: 16px;
-    border-radius: 5px;
-    text-align: center;
-    width: 150px;
-    height: 38px;
+.css-1dune0f-MuiInputBase-input-MuiOutlinedInput-input {
+    margin: 2px;
+    padding: 2px !important;
+    font-weight: lighter !important;
+    background-color: #fffaf5 !important;
+    border-inline-style: solid;
+    border-inline-color: pink lightblue;
 }
 
-.css-1dune0f-MuiInputBase-input-MuiOutlinedInput-input {
+.css-1dune0f-MuiInputBase-input-MuiOutlinedInput-input :hover{
     margin: 2px;
     padding: 2px !important;
     font-weight: lighter !important;
@@ -107,7 +108,6 @@
 .css-jupps9-MuiInputBase-root-MuiOutlinedInput-root{
     font-family: inherit !important;
     background-color: #fffaf5 !important;
-    border: 2px solid rgb(141, 89, 41) !important;
     color: #5a3825 !important;
     justify-content: space-around !important;
 }
@@ -166,5 +166,20 @@
 
     .tables {
         justify-content: center;
+    }
+
+    .css-1dune0f-MuiInputBase-input-MuiOutlinedInput-input {
+        margin: 2px;
+        padding: 2px !important;
+        font-weight: lighter !important;
+        background-color: #fffaf5 !important;
+    }
+    
+    .css-jupps9-MuiInputBase-root-MuiOutlinedInput-root{
+        font-family: inherit !important;
+        background-color: #fffaf5 !important;
+        border: 2px solid rgba(255, 255, 255, 0) !important;
+        color: #5a3825 !important;
+        justify-content: space-around !important;
     }
 }
