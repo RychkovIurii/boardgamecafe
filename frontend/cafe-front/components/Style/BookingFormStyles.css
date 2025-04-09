@@ -172,6 +172,16 @@
         justify-content: center;
     }
 
+    /* align to the left */
+    .tablesChild {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: flex-start;
+        cursor: pointer;
+        align-items: start;
+    }
+
     .css-1dune0f-MuiInputBase-input-MuiOutlinedInput-input {
         margin: 2px;
         padding: 2px !important;
