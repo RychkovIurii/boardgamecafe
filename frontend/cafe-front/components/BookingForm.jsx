@@ -38,12 +38,13 @@ function StepOne({ inputs, handleChange, handleTimeChange }) {
     <>
       {/* <Box sx={{ fontFamily: "Fontdiner Swanky" }}> */}
       <Typography variant="h6" sx={{ fontFamily: "Fontdiner Swanky" }} gutterBottom>
-        {t(`bookingForm.step1`)}
+        {/* {t(`bookingForm.step1`)} */}
       </Typography>
       <div className='formItem'>
         <label>{t(`bookingForm.step1Name`)}</label>
         <input
           className='formInput'
+          placeholder='Ex: Maija Meikäläinen'
           type='text'
           name="contactName"
           value={inputs.contactName || ""}
@@ -55,6 +56,7 @@ function StepOne({ inputs, handleChange, handleTimeChange }) {
         <label>{t(`bookingForm.step1Phone`)}</label>
         <input
           className='formInput'
+          placeholder='Ex: +358505662613'
           type='tel'
           name="contactPhone"
           value={inputs.contactPhone || ""}
@@ -67,10 +69,13 @@ function StepOne({ inputs, handleChange, handleTimeChange }) {
         <input
           className='formInput'
           name='players'
+          type='number'
+          min={1}
+          max={10}
           value={inputs.players || ""}
           onChange={(e) => { handleChange(e) }
-          
-        }
+
+          }
           placeholder={t(`bookingForm.step1Number`)}
           required
         />
@@ -82,6 +87,7 @@ function StepOne({ inputs, handleChange, handleTimeChange }) {
           className='formInput'
           type='date'
           min={new Date().toJSON().slice(0, 10)}
+          max={new Date(new Date().setMonth(new Date().getMonth() + 2)).toISOString().slice(0, 10)}
           name="date"
           value={inputs.date || ""}
           onChange={handleChange}
@@ -92,15 +98,23 @@ function StepOne({ inputs, handleChange, handleTimeChange }) {
       <div className='formItem'>
         <label>{t(`bookingForm.step1Time`)} </label>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <TimePicker
-            name="startTime"
-            timeSteps={{ minutes: 30 }}
-            minutesStep={30}
-            value={inputs.startTime}
-            onChange={handleTimeChange}
-            ampm={false}
-            required
-          />
+          <div className='formInput'>
+            <TimePicker
+              name="startTime"
+              timeSteps={{ minutes: 30 }}
+              minutesStep={30}
+              value={inputs.startTime}
+              onChange={handleTimeChange}
+              ampm={false}
+              slotProps={{
+                textField: {
+                  fullWidth: true,
+                  required: true,
+                },
+              }}
+              required
+            />
+          </div>
         </LocalizationProvider>
       </div>
 
@@ -127,58 +141,58 @@ function StepOne({ inputs, handleChange, handleTimeChange }) {
 
 function StepTwo({ inputs, handleChange, tables, setInputs }) {
   const { t } = useTranslation();
-return (
-	<Box>
-		<Typography variant="h6" sx={{ fontFamily: "Fontdiner Swanky" }} gutterBottom>
-			{t(`bookingForm.step2`)}
-		</Typography>
-		<div className='smallerText'>
-			{t(`bookingForm.step2Text`)}
-		</div>
-		<label>{t(`bookingForm.step2Table`)} </label>
-		<input
-			className='formInput'
-			type='number'
-			min={1}
-			max={50}
-			name='tableNumber'
-			value={inputs.tableNumber || ""}
-			placeholder={t(`bookingForm.step2TableNum`)}
-			onChange={handleChange}
-			required
-		/>
-		<div className='tables'>
-			<div className='tablesChild'>
-			{t(`bookingForm.step2Suggested`)} 
-			{tables.suggested && tables.suggested.map((table) => (
-				<div key={table.number} 
-						 className='table' 
-						 onClick={() => setInputs({ ...inputs, tableNumber: table.number })}>
-					{table.number}
-				</div>
-			))}
-			</div>
-			<div className='tablesChild'>
-			{t(`bookingForm.step2AlsoAvailable`)} 
-			{tables.alsoAvailable && tables.alsoAvailable.map((table) => (
-				<div key={table.number} 
-						 className='table' 
-						 onClick={() => setInputs({ ...inputs, tableNumber: table.number })}>
-					{table.number}
-				</div>
-			))}
-			</div>
-		</div>
-		<label>{t(`bookingForm.step2Game`)} </label>
-		<input
-			className='formInput'
-			type='text'
-			name="game"
-			value={inputs.game || ""}
-			onChange={handleChange}
-		/>
-	</Box>
-);
+  return (
+    <Box>
+      <Typography variant="h6" sx={{ fontFamily: "Fontdiner Swanky" }} gutterBottom>
+        {/* {t(`bookingForm.step2`)} */}
+      </Typography>
+      <label>{t(`bookingForm.step2Table`)} </label>
+      <input
+        className='formInput'
+        type='number'
+        min={1}
+        max={50}
+        name='tableNumber'
+        value={inputs.tableNumber || ""}
+        placeholder={t(`bookingForm.step2TableNum`)}
+        onChange={handleChange}
+        required
+      />
+      <div className='tables'>
+        <div className='tablesChild'>
+          {t(`bookingForm.step2Suggested`)}
+          {tables.suggested && tables.suggested.map((table) => (
+            <div key={table.number}
+              className='table'
+              onClick={() => setInputs({ ...inputs, tableNumber: table.number })}>
+              {table.number}
+            </div>
+          ))}
+        </div>
+        <div className='tablesChild'>
+          {t(`bookingForm.step2AlsoAvailable`)}
+          {tables.alsoAvailable && tables.alsoAvailable.map((table) => (
+            <div key={table.number}
+              className='table'
+              onClick={() => setInputs({ ...inputs, tableNumber: table.number })}>
+              {table.number}
+            </div>
+          ))}
+        </div>
+      </div>
+      <label>{t(`bookingForm.step2Game`)} </label>
+      <input
+        className='formInput'
+        type='text'
+        name="game"
+        value={inputs.game || ""}
+        onChange={handleChange}
+      />
+      <div className='smallerText'>
+        {t(`bookingForm.step2Text`)}
+      </div>
+    </Box>
+  );
 }
 
 function StepThree({ inputs, handleChange, handleSubmit }) {
@@ -186,7 +200,7 @@ function StepThree({ inputs, handleChange, handleSubmit }) {
   return (
     <Box sx={{ fontFamily: "Fontdiner Swanky" }}>
       <Typography sx={{ fontFamily: "Fontdiner Swanky" }} variant="h6" gutterBottom>
-        {t(`bookingForm.step3`)}
+        {/* {t(`bookingForm.step3`)} */}
       </Typography>
       <Typography sx={{ fontFamily: "Fontdiner Swanky" }} variant="body1" gutterBottom>
         {t(`bookingForm.step3Submit`)}
@@ -219,19 +233,19 @@ export default function BookingForm() {
   });
 
   useEffect(() => {
-	const fetchHours = async () => {
-	  try {
-		const [whRes, shRes] = await Promise.all([
-		  API.get('/hours'),
-		  API.get('/specialHours')
-		]);
-		setWorkingHours(whRes.data);
-		setSpecialHours(shRes.data);
-	  } catch (err) {
-		console.error("Error fetching hours", err);
-	  }
-	};
-	fetchHours();
+    const fetchHours = async () => {
+      try {
+        const [whRes, shRes] = await Promise.all([
+          API.get('/hours'),
+          API.get('/specialHours')
+        ]);
+        setWorkingHours(whRes.data);
+        setSpecialHours(shRes.data);
+      } catch (err) {
+        console.error("Error fetching hours", err);
+      }
+    };
+    fetchHours();
   }, []);
 
   useEffect(() => {
@@ -254,73 +268,73 @@ export default function BookingForm() {
     const seatLimit = seatCapacities.find(capacity => people <= capacity); // ✅ Find the smallest matching capacity
 
     if (!seatLimit) {
-		Swal.fire({
-		  icon: 'warning',
-		  title: t('alerts.capacityError'),
-		  text: t('bookingForm.availabilityText')
-		});
-		return;
-	  }
-	
-	const start = dayjs(inputs.startTime);
-	const duration = parseInt(inputs.duration, 10);
+      Swal.fire({
+        icon: 'warning',
+        title: t('alerts.capacityError'),
+        text: t('bookingForm.availabilityText')
+      });
+      return;
+    }
+
+    const start = dayjs(inputs.startTime);
+    const duration = parseInt(inputs.duration, 10);
 
     try {
-		const res = await API.get('/bookings/suggested-tables', {
-		  params: {
-			date: inputs.date,
-			startTime: start.format("HH:mm"),
-			duration: duration,
-		  }
-		});
-	
-		// Split tables into two groups:
-		const suggestedTables = res.data
-			.filter(table => table.capacity === seatLimit)
-			.sort((a, b) => a.capacity - b.capacity);
-		const alsoAvailableTables = res.data
-			.filter(table => table.capacity > seatLimit)
-			.sort((a, b) => a.capacity - b.capacity);
-		setFilteredTables({ suggested: suggestedTables, alsoAvailable: alsoAvailableTables });
-	
-	  } catch (err) {
-		console.error('Failed to fetch available tables:', err);
-		Swal.fire({
-		  icon: 'error',
-		  title: 'Availability check failed',
-		  text: 'Please try again later.'
-		});
-	  }
+      const res = await API.get('/bookings/suggested-tables', {
+        params: {
+          date: inputs.date,
+          startTime: start.format("HH:mm"),
+          duration: duration,
+        }
+      });
+
+      // Split tables into two groups:
+      const suggestedTables = res.data
+        .filter(table => table.capacity === seatLimit)
+        .sort((a, b) => a.capacity - b.capacity);
+      const alsoAvailableTables = res.data
+        .filter(table => table.capacity > seatLimit)
+        .sort((a, b) => a.capacity - b.capacity);
+      setFilteredTables({ suggested: suggestedTables, alsoAvailable: alsoAvailableTables });
+
+    } catch (err) {
+      console.error('Failed to fetch available tables:', err);
+      Swal.fire({
+        icon: 'error',
+        title: 'Availability check failed',
+        text: 'Please try again later.'
+      });
+    }
   }
-  
+
   const isWithinWorkingHours = () => {
-	if (!inputs.date || !inputs.startTime) return false;
-  
-	const selectedTime = dayjs(`${inputs.date}T${inputs.startTime.format('HH:mm')}`);
-  
-	const special = specialHours.find(s => dayjs(s.date).isSame(dayjs(inputs.date), 'day'));
-	let openTime, closeTime;
-  
-	if (special) {
-	  if (!special.openTime || !special.closeTime) return false; // Closed
-	  openTime = dayjs(`${special.date}T${special.openTime}`);
-	  closeTime = dayjs(`${special.date}T${special.closeTime}`);
-	} else {
-	  const dayName = dayjs(inputs.date).format('dddd'); // e.g., 'Friday'
-	  const workingDay = workingHours.find(w => w.day === dayName);
-	  if (!workingDay || !workingDay.openTime || !workingDay.closeTime) return false;
-  
-	  openTime = dayjs(`${inputs.date}T${workingDay.openTime}`);
-	  closeTime = dayjs(`${inputs.date}T${workingDay.closeTime}`);
-  
-	  if (closeTime.isBefore(openTime)) {
-		closeTime = closeTime.add(1, 'day'); // handle past-midnight
-	  }
-	}
-  
-	return selectedTime.isSameOrAfter(openTime) && selectedTime.isBefore(closeTime);
+    if (!inputs.date || !inputs.startTime) return false;
+
+    const selectedTime = dayjs(`${inputs.date}T${inputs.startTime.format('HH:mm')}`);
+
+    const special = specialHours.find(s => dayjs(s.date).isSame(dayjs(inputs.date), 'day'));
+    let openTime, closeTime;
+
+    if (special) {
+      if (!special.openTime || !special.closeTime) return false; // Closed
+      openTime = dayjs(`${special.date}T${special.openTime}`);
+      closeTime = dayjs(`${special.date}T${special.closeTime}`);
+    } else {
+      const dayName = dayjs(inputs.date).format('dddd'); // e.g., 'Friday'
+      const workingDay = workingHours.find(w => w.day === dayName);
+      if (!workingDay || !workingDay.openTime || !workingDay.closeTime) return false;
+
+      openTime = dayjs(`${inputs.date}T${workingDay.openTime}`);
+      closeTime = dayjs(`${inputs.date}T${workingDay.closeTime}`);
+
+      if (closeTime.isBefore(openTime)) {
+        closeTime = closeTime.add(1, 'day'); // handle past-midnight
+      }
+    }
+
+    return selectedTime.isSameOrAfter(openTime) && selectedTime.isBefore(closeTime);
   };
-	
+
 
   // Define the labels for each step.
   const steps = [
@@ -342,25 +356,25 @@ export default function BookingForm() {
         });
         return;
       }
-      if (!nameRegex.test(contactName)){
+      if (!nameRegex.test(contactName)) {
         Swal.fire({
-            icon: 'warning',
-            title: "Invalid name",
-            text: "Names may not include numbers",
-          });
-          return;
-        }
+          icon: 'warning',
+          title: "Invalid name",
+          text: "Names may not include numbers",
+        });
+        return;
+      }
 
-      if (!isValidPhoneNumber(contactPhone)){
+      if (!isValidPhoneNumber(contactPhone)) {
         Swal.fire({
-            icon: 'warning',
-            title: "Invalid phone number",
-            text: "Please enter a valid phone number in the format: +[CountryCode][Number]",
-          });
-          return;
-        }
-      
-      if (isNaN(players) || players < 1 || players > 10){
+          icon: 'warning',
+          title: "Invalid phone number",
+          text: "Please enter a valid phone number in the format: +[CountryCode][Number]",
+        });
+        return;
+      }
+
+      if (isNaN(players) || players < 1 || players > 10) {
         Swal.fire({
           icon: 'warning',
           title: "Invalid players input",
@@ -368,54 +382,54 @@ export default function BookingForm() {
         });
         return;
       }
-      
-      if (isNaN(duration) || !duraOpt.includes(duration)){
+
+      if (isNaN(duration) || !duraOpt.includes(duration)) {
         Swal.fire({
-            icon: 'warning',
-            title: "Invalid duration",
-            text: "Duration must be at least 60 minutes, at most 600 minutes and in increments of 30 minutes.",
-          });
-          return;
-        }
-		if (!isWithinWorkingHours()) {
-			Swal.fire({
-			  icon: 'warning',
-			  title: t('alerts.invalidTimeTitle'),
-			  text: t('alerts.invalidTimeText'),
-			});
-			return;
-		  }
-		await checkAvailability(inputs.players);
+          icon: 'warning',
+          title: "Invalid duration",
+          text: "Duration must be at least 60 minutes, at most 600 minutes and in increments of 30 minutes.",
+        });
+        return;
+      }
+      if (!isWithinWorkingHours()) {
+        Swal.fire({
+          icon: 'warning',
+          title: t('alerts.invalidTimeTitle'),
+          text: t('alerts.invalidTimeText'),
+        });
+        return;
+      }
+      await checkAvailability(inputs.players);
     }
 
     if (activeStep === 1) {
       // Step 2 validation
-		if (!inputs.tableNumber) {
-			Swal.fire({
-			icon: 'warning',
-			title: t('alerts.tableTitle'),
-			text: t('alerts.tableText'),
-			});
-			return;
-		}
-		const allAvailableTables = [
-			...(filteredTables.suggested || []),
-			...(filteredTables.alsoAvailable || [])
-		];
-		const selectedTable = allAvailableTables.find(
-			(table) => table.number === parseInt(inputs.tableNumber, 10)
-		);
-		if (!selectedTable || selectedTable.capacity < Number(inputs.players)) {
-			Swal.fire({
-			icon: 'warning',
-			title: t('alerts.tableNotAvailableTitle'),
-			text: t('alerts.tableNotAvailableText'),
-			});
-			return;
-		}
-	};
-	setActiveStep((prevActiveStep) => prevActiveStep + 1);
-}
+      if (!inputs.tableNumber) {
+        Swal.fire({
+          icon: 'warning',
+          title: t('alerts.tableTitle'),
+          text: t('alerts.tableText'),
+        });
+        return;
+      }
+      const allAvailableTables = [
+        ...(filteredTables.suggested || []),
+        ...(filteredTables.alsoAvailable || [])
+      ];
+      const selectedTable = allAvailableTables.find(
+        (table) => table.number === parseInt(inputs.tableNumber, 10)
+      );
+      if (!selectedTable || selectedTable.capacity < Number(inputs.players)) {
+        Swal.fire({
+          icon: 'warning',
+          title: t('alerts.tableNotAvailableTitle'),
+          text: t('alerts.tableNotAvailableText'),
+        });
+        return;
+      }
+    };
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  }
 
   // Handle previous step
   const handleBack = () => {
@@ -516,7 +530,7 @@ export default function BookingForm() {
   const renderStepContent = (stepIndex) => {
     switch (stepIndex) {
       case 0:
-        return <StepOne inputs={inputs} handleChange={handleChange} handleTimeChange={handleTimeChange}/>;
+        return <StepOne inputs={inputs} handleChange={handleChange} handleTimeChange={handleTimeChange} />;
       case 1:
         return <StepTwo inputs={inputs} handleChange={handleChange} tables={filteredTables} setInputs={setInputs} />;
       case 2:
