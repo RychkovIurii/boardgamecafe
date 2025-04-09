@@ -18,11 +18,12 @@ function Hero(props) {
               {typeof text === 'string' ? t(`hero.${text}`) : text}
             </div>
           )}
-          {linkText && url && (
-			<Link to={url} className={linkClass}>
-				{t(`hero.${linkText}`)}
-			</Link>
-          )}
+          <div className='p-5'>   {linkText && url && (
+            <Link to={url} className={linkClass}>
+              {t(`hero.${linkText}`)}
+            </Link>
+          )}</div>
+
         </div>
       )}
     </div>

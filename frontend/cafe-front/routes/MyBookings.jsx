@@ -287,11 +287,11 @@ const MyBookings = () => {
     return (
         <>
             <Navbar />
-            <div className="py-20">
-                <h1 className="text-outline text-4xl font-medium text-yellow-500 mt-5 mb-10">{t('myBookings.pageTitle')}</h1>
+            <div className="md:py-20 py-10 max-w-4xl mx-auto px-8">
+                <h2 className="md:pt-5 text-3xl md:text-5xl font-medium text-yellow-500 mb-10">{t('myBookings.pageTitle')}</h2>
 
                 <div className='max-w-5xl mx-auto px-4 sm:px-0'>
-                    <p className='text-xl pt-7 text-start'>{t('myBookings.upcomingBookings')}</p>
+                    <p className='text-xl pt-7 text-center md:text-start'>{t('myBookings.upcomingBookings')}</p>
                     <div className='w-full flex flex-wrap pt-5 px-3 gap-5 md:justify-start justify-center '>
                         {bookings.upcoming.length > 0 ? (bookings.upcoming.map((booking) => (
                             <div key={booking._id} className='w-full sm:w-1/2 md:w-1/3 lg:w-1/4 border border-gray-400 p-4 rounded-xl flex flex-col text-sm gap-1 shadow-lg bg-white'>
@@ -336,7 +336,7 @@ const MyBookings = () => {
                                                 name="players"
                                                 min={1}
                                                 max={10}
-                                                value={editedBooking.players} 
+                                                value={editedBooking.players}
                                                 onChange={(e) => handleChange({ target: { name: e.target.name, value: Number(e.target.value) } })} className="border p-1 rounded" />
                                         </div>
                                         <div className="mb-2">
@@ -403,10 +403,10 @@ const MyBookings = () => {
 
                 {/* Repeat for past bookings */}
                 <div className='max-w-5xl mx-auto mt-7 px-4 sm:px-0'>
-                    <p className='text-xl pt-7 text-start'>{t('myBookings.bookingHistory')}</p>
-                    <div className='flex flex-col sm:flex-row m-auto gap-5 pt-5 px-3 sm:px-0'>
+                    <p className='text-xl pt-7 text-center md:text-start '>{t('myBookings.bookingHistory')}</p>
+                    <div className='w-full flex flex-wrap pt-5 px-3 gap-5 md:justify-start justify-center '>
                         {bookings.past.length > 0 ? (bookings.past.slice(0, 5).map((booking) => (
-                            <div key={booking._id} className=' border border-gray-400 p-4 rounded-xl flex flex-col text-sm gap-1 shadow-lg bg-white'>
+                            <div key={booking._id} className='w-full sm:w-1/2 md:w-1/3 lg:w-1/4 border border-gray-400 p-4 rounded-xl flex flex-col text-sm gap-1 shadow-lg bg-white'>
                                 <p><strong>{t('myBookings.dateLabel')} </strong> {dayjs(booking.date).format('DD/MM/YYYY')}</p>
                                 <p><strong>{t('myBookings.timeLabel')} </strong>
                                     {dayjs(booking.startTime).isValid()
