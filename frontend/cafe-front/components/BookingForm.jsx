@@ -160,7 +160,8 @@ function StepTwo({ inputs, handleChange, tables, setInputs }) {
       />
       <div className='tables'>
         <div className='tablesChild'>
-          {t(`bookingForm.step2Suggested`)}
+          <div className='lefties' Style="width: 150px;">{t(`bookingForm.step2Suggested`)}</div>
+          <div className='suggestedTableTokens'>
           {tables.suggested && tables.suggested.map((table) => (
             <div key={table.number}
               className='table'
@@ -169,8 +170,10 @@ function StepTwo({ inputs, handleChange, tables, setInputs }) {
             </div>
           ))}
         </div>
+        </div>
         <div className='tablesChild'>
-          {t(`bookingForm.step2AlsoAvailable`)}
+          <div className='lefties' Style="width: 150px;">{t(`bookingForm.step2AlsoAvailable`)}</div>
+          <div className='suggestedTableTokens'>
           {tables.alsoAvailable && tables.alsoAvailable.map((table) => (
             <div key={table.number}
               className='table'
@@ -178,6 +181,7 @@ function StepTwo({ inputs, handleChange, tables, setInputs }) {
               {table.number}
             </div>
           ))}
+          </div>
         </div>
       </div>
       <label>{t(`bookingForm.step2Game`)} </label>
