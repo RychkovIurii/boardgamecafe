@@ -56,7 +56,7 @@ function StepOne({ inputs, handleChange, handleTimeChange }) {
         <label>{t(`bookingForm.step1Phone`)}</label>
         <input
           className='formInput'
-          placeholder='+[country][phone nr] ex: +358505662613'
+          placeholder='Ex: +358505662613'
           type='tel'
           name="contactPhone"
           value={inputs.contactPhone || ""}
@@ -69,6 +69,9 @@ function StepOne({ inputs, handleChange, handleTimeChange }) {
         <input
           className='formInput'
           name='players'
+          type='number'
+          min={1}
+          max={10}
           value={inputs.players || ""}
           onChange={(e) => { handleChange(e) }
 
@@ -84,6 +87,7 @@ function StepOne({ inputs, handleChange, handleTimeChange }) {
           className='formInput'
           type='date'
           min={new Date().toJSON().slice(0, 10)}
+          max={new Date(new Date().setMonth(new Date().getMonth() + 2)).toISOString().slice(0, 10)}
           name="date"
           value={inputs.date || ""}
           onChange={handleChange}
@@ -97,7 +101,6 @@ function StepOne({ inputs, handleChange, handleTimeChange }) {
           <div className='formInput'>
             <TimePicker
               name="startTime"
-
               timeSteps={{ minutes: 30 }}
               minutesStep={30}
               value={inputs.startTime}
@@ -143,9 +146,6 @@ function StepTwo({ inputs, handleChange, tables, setInputs }) {
       <Typography variant="h6" sx={{ fontFamily: "Fontdiner Swanky" }} gutterBottom>
         {/* {t(`bookingForm.step2`)} */}
       </Typography>
-      <div className='smallerText'>
-        {t(`bookingForm.step2Text`)}
-      </div>
       <label>{t(`bookingForm.step2Table`)} </label>
       <input
         className='formInput'
@@ -188,6 +188,9 @@ function StepTwo({ inputs, handleChange, tables, setInputs }) {
         value={inputs.game || ""}
         onChange={handleChange}
       />
+      <div className='smallerText'>
+        {t(`bookingForm.step2Text`)}
+      </div>
     </Box>
   );
 }
