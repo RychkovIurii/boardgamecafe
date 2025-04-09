@@ -4,11 +4,11 @@ import { assets } from '../src/assets/assets';
 import { useTranslation } from 'react-i18next';
 
 const HowItWorks = () => {
-	const { t } = useTranslation();
+    const { t } = useTranslation();
     return (
-        <div className="py-20 px-8 max-w-4xl mx-auto">
-            <h2 className="text-4xl md:text-5xl font-black text-yellow-500 mb-10">
-            {t(`HowItWorks.title`)}
+        <div className="md:py-20 py-10 max-w-4xl mx-auto">
+            <h2 className="md:pt-5 text-3xl md:text-5xl lg:text-6xl font-medium text-yellow-500 mb-10">
+                {t(`HowItWorks.title`)}
             </h2>
 
             {steps.map((item, index) => (

@@ -286,8 +286,8 @@ const MyBookings = () => {
     return (
         <>
             <Navbar />
-            <div className="py-20">
-                <h1 className="text-outline text-4xl font-medium text-yellow-500 mt-5 mb-10">{t('myBookings.pageTitle')}</h1>
+            <div className="md:py-20 py-10 max-w-4xl mx-auto">
+            <h2 className="md:pt-5 text-3xl md:text-5xl font-medium text-yellow-500 mb-10">{t('myBookings.pageTitle')}</h2>
 
                 <div className='max-w-5xl mx-auto px-4 sm:px-0'>
                     <p className='text-xl pt-7 text-start'>{t('myBookings.upcomingBookings')}</p>

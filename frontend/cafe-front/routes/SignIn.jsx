@@ -26,10 +26,10 @@ function SignIn() {
     return (
         <>
             <Navbar />
-            <Hero
+            {/* <Hero
                 cName="heroSignIn"
                 heroImage={heroImage}
-            />
+            /> */}
 			{renderForm()}
             <Footer />
         </>
