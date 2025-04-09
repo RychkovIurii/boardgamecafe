@@ -11,11 +11,12 @@ import { isValidPhoneNumber } from 'libphonenumber-js';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import CircularProgress from '@mui/material/CircularProgress';
+import '../components/Style/MyBookingsStyle.css'
 
 
 const MyBookings = () => {
     const [bookings, setBookings] = useState({ past: [], upcoming: [] });
-	const { user } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
     const [tables, setTables] = useState([]);
     const [isEditing, setIsEditing] = useState(null);
     const [editedBooking, setEditedBooking] = useState({
@@ -29,8 +30,8 @@ const MyBookings = () => {
     const [loading, setLoading] = useState(true);
     const { t } = useTranslation();
 
-	const nameRegex = /^[\p{L}\s\-.']+$/u;
-	const validDurations = ["60", "90", "120", "150", "180", "210", "240", "270", "300", "330", "360", "390", "420", "450", "480", "510", "540", "570", "600"];
+    const nameRegex = /^[\p{L}\s\-.']+$/u;
+    const validDurations = ["60", "90", "120", "150", "180", "210", "240", "270", "300", "330", "360", "390", "420", "450", "480", "510", "540", "570", "600"];
 
     useEffect(() => {
         const fetchBookings = async () => {
@@ -76,73 +77,73 @@ const MyBookings = () => {
         setFilteredTables(tables.filter(table => table.capacity === seatLimit));
     }
 
-	const validateEditedBooking = () => {
-		const { contactName, contactPhone, players, date, startTime, duration } = editedBooking;
-	  
-		if (!contactName || !contactPhone || !players || !date || !startTime || !duration) {
-		  Swal.fire({
-			icon: 'warning',
-			title: t('bookingForm.incompleteTitle'),
-			text: t('bookingForm.incompleteText')
-		  });
-		  return false;
-		}
-	  
-		if (!nameRegex.test(contactName)) {
-		  Swal.fire({
-			icon: 'warning',
-			title: t('bookingForm.invalidNameTitle'),
-			text: t('bookingForm.invalidNameText')
-		  });
-		  return false;
-		}
-	  
-		if (!isValidPhoneNumber(contactPhone)) {
-			Swal.fire({
-				icon: 'warning',
-				title: t('bookingForm.invalidPhoneTitle'),
-				text: t('bookingForm.invalidPhoneText')
-			});
-			return false;
-		  }
-	  
-		if (isNaN(players) || players < 1 || players > 10) {
-		  Swal.fire({
-			icon: 'warning',
-			title: t('bookingForm.invalidPlayersTitle'),
-			text: t('bookingForm.invalidPlayersText')
-		  });
-		  return false;
-		}
-	  
-		if (isNaN(duration) || !validDurations.includes(duration.toString())) {
-		  Swal.fire({
-			icon: 'warning',
-			title: t('bookingForm.invalidDurationTitle'),
-			text: t('bookingForm.invalidDurationText')
-		  });
-		  return false;
-		}
-	  
-		return true;
-	  };
-	  
+    const validateEditedBooking = () => {
+        const { contactName, contactPhone, players, date, startTime, duration } = editedBooking;
+
+        if (!contactName || !contactPhone || !players || !date || !startTime || !duration) {
+            Swal.fire({
+                icon: 'warning',
+                title: t('bookingForm.incompleteTitle'),
+                text: t('bookingForm.incompleteText')
+            });
+            return false;
+        }
+
+        if (!nameRegex.test(contactName)) {
+            Swal.fire({
+                icon: 'warning',
+                title: t('bookingForm.invalidNameTitle'),
+                text: t('bookingForm.invalidNameText')
+            });
+            return false;
+        }
+
+        if (!isValidPhoneNumber(contactPhone)) {
+            Swal.fire({
+                icon: 'warning',
+                title: t('bookingForm.invalidPhoneTitle'),
+                text: t('bookingForm.invalidPhoneText')
+            });
+            return false;
+        }
+
+        if (isNaN(players) || players < 1 || players > 10) {
+            Swal.fire({
+                icon: 'warning',
+                title: t('bookingForm.invalidPlayersTitle'),
+                text: t('bookingForm.invalidPlayersText')
+            });
+            return false;
+        }
+
+        if (isNaN(duration) || !validDurations.includes(duration.toString())) {
+            Swal.fire({
+                icon: 'warning',
+                title: t('bookingForm.invalidDurationTitle'),
+                text: t('bookingForm.invalidDurationText')
+            });
+            return false;
+        }
+
+        return true;
+    };
+
 
     const handleEdit = (booking) => {
-		setIsEditing(booking._id);
-		setEditedBooking({
-		  ...booking,
-		  date: booking.date,
-		  startTime: dayjs(booking.startTime),
-		  endTime: dayjs(booking.endTime),
-		  duration: booking.duration ?? 60,
-		  players: booking.players,
-		  tableNumber: booking.tableId.number,
-		  contactName: booking.contactName || user?.name,
-		  contactPhone: booking.contactPhone || user?.phone,
-		});
-		checkTableAvailability(booking.players);
-	  };
+        setIsEditing(booking._id);
+        setEditedBooking({
+            ...booking,
+            date: booking.date,
+            startTime: dayjs(booking.startTime),
+            endTime: dayjs(booking.endTime),
+            duration: booking.duration ?? 60,
+            players: booking.players,
+            tableNumber: booking.tableId.number,
+            contactName: booking.contactName || user?.name,
+            contactPhone: booking.contactPhone || user?.phone,
+        });
+        checkTableAvailability(booking.players);
+    };
 
     const handleCancel = () => {
         setIsEditing(null);
@@ -164,7 +165,7 @@ const MyBookings = () => {
             [name]: name === 'duration' || name === 'players' ? Number(value) : value,
         });
         if (name === 'players') checkTableAvailability(value); // Filter tables when player count changes
-		const firstAvailableTable = tables.find(table => table.capacity >= value);
+        const firstAvailableTable = tables.find(table => table.capacity >= value);
         if (firstAvailableTable) {
             setEditedBooking(prev => ({
                 ...prev,
@@ -178,62 +179,62 @@ const MyBookings = () => {
     };
 
     const handleSave = async (id) => {
-		if (!validateEditedBooking()) {
-			return;
-		}  
-		const selectedTable = tables.find(table => table.number.toString() === editedBooking.tableNumber.toString());
-		if (!selectedTable) {
-			return Swal.fire({ icon: 'error', title: t('bookingForm.invalidTableTitle'), text: t('bookingForm.invalidTableText') });
-		}
-		const calculatedEndTime = dayjs(editedBooking.startTime).add(editedBooking.duration, 'minute');
-		const bookingDate = dayjs(editedBooking.date).format("YYYY-MM-DD");
+        if (!validateEditedBooking()) {
+            return;
+        }
+        const selectedTable = tables.find(table => table.number.toString() === editedBooking.tableNumber.toString());
+        if (!selectedTable) {
+            return Swal.fire({ icon: 'error', title: t('bookingForm.invalidTableTitle'), text: t('bookingForm.invalidTableText') });
+        }
+        const calculatedEndTime = dayjs(editedBooking.startTime).add(editedBooking.duration, 'minute');
+        const bookingDate = dayjs(editedBooking.date).format("YYYY-MM-DD");
         // Create an object for the API (only time parts)
-		const formattedBookingForAPI = {
-			...editedBooking,
-			date: bookingDate,
-			startTime: dayjs(editedBooking.startTime).format("HH:mm"),
-			endTime: calculatedEndTime.format("HH:mm"),
-			duration: editedBooking.duration,
-			tableNumber: selectedTable.number,
-		};
+        const formattedBookingForAPI = {
+            ...editedBooking,
+            date: bookingDate,
+            startTime: dayjs(editedBooking.startTime).format("HH:mm"),
+            endTime: calculatedEndTime.format("HH:mm"),
+            duration: editedBooking.duration,
+            tableNumber: selectedTable.number,
+        };
 
-		const bookingForState = {
-			...editedBooking,
-			date: bookingDate,
-			startTime: `${bookingDate} ${dayjs(editedBooking.startTime).format("HH:mm")}`,
-			endTime: `${bookingDate} ${calculatedEndTime.format("HH:mm")}`,
-			duration: editedBooking.duration,
-			players: editedBooking.players,
-			tableId: { ...selectedTable },
-			contactName: editedBooking.contactName,
-			contactPhone: editedBooking.contactPhone,
-		};
+        const bookingForState = {
+            ...editedBooking,
+            date: bookingDate,
+            startTime: `${bookingDate} ${dayjs(editedBooking.startTime).format("HH:mm")}`,
+            endTime: `${bookingDate} ${calculatedEndTime.format("HH:mm")}`,
+            duration: editedBooking.duration,
+            players: editedBooking.players,
+            tableId: { ...selectedTable },
+            contactName: editedBooking.contactName,
+            contactPhone: editedBooking.contactPhone,
+        };
 
         try {
-			const response = await API.put(`/bookings/my-bookings/${id}`, formattedBookingForAPI);
-			if (response.status === 200) {
-				Swal.fire({ icon: 'success', title: t('bookingForm.updateSuccessTitle'), text: t('bookingForm.updateSuccessText') });
-				setBookings(prev => ({
-					...prev,
-					upcoming: prev.upcoming.map(booking =>
-						booking._id === id
-							? {
-								...booking,
-								...bookingForState,
-								tableId: { ...selectedTable },
-							}
-							: booking
-					),
-				}));
-	
-				setIsEditing(null);
-			}
-		} catch (error) {
+            const response = await API.put(`/bookings/my-bookings/${id}`, formattedBookingForAPI);
+            if (response.status === 200) {
+                Swal.fire({ icon: 'success', title: t('bookingForm.updateSuccessTitle'), text: t('bookingForm.updateSuccessText') });
+                setBookings(prev => ({
+                    ...prev,
+                    upcoming: prev.upcoming.map(booking =>
+                        booking._id === id
+                            ? {
+                                ...booking,
+                                ...bookingForState,
+                                tableId: { ...selectedTable },
+                            }
+                            : booking
+                    ),
+                }));
+
+                setIsEditing(null);
+            }
+        } catch (error) {
             if (error.response && error.response.data && error.response.data.message) {
-				Swal.fire({ icon: 'error', title: t('bookingForm.updateFailedTitle'), text: error.response.data.message });
-			} else {
-				Swal.fire({ icon: 'error', title: t('bookingForm.updateFailedTitle'), text: t('bookingForm.updateFailedText') });
-			}
+                Swal.fire({ icon: 'error', title: t('bookingForm.updateFailedTitle'), text: error.response.data.message });
+            } else {
+                Swal.fire({ icon: 'error', title: t('bookingForm.updateFailedTitle'), text: t('bookingForm.updateFailedText') });
+            }
         }
     };
 
@@ -277,12 +278,12 @@ const MyBookings = () => {
     };
 
     if (loading) {
-			return (
-				<div style={{ display: 'flex', justifyContent: 'center', padding: '4rem' }}>
-					<CircularProgress size="4rem" thickness={5} color="inherit"/>
-				</div>
-			);
-		};
+        return (
+            <div style={{ display: 'flex', justifyContent: 'center', padding: '4rem' }}>
+                <CircularProgress size="4rem" thickness={5} color="inherit" />
+            </div>
+        );
+    };
     return (
         <>
             <Navbar />
@@ -301,6 +302,7 @@ const MyBookings = () => {
                                             <p><strong>{t('myBookings.dateLabel')} </strong></p>
                                             <input type='date'
                                                 min={new Date().toJSON().slice(0, 10)}  // Setting the minimum date to today's date
+                                                max={new Date(new Date().setMonth(new Date().getMonth() + 2)).toISOString().slice(0, 10)}
                                                 name="date"
                                                 value={dayjs(editedBooking.date).format('YYYY-MM-DD') || ""}  // Make sure to format the date if using dayjs
                                                 onChange={handleChange} className="border p-1 rounded" />
@@ -308,18 +310,18 @@ const MyBookings = () => {
                                         <div className="mb-2">
                                             <p><strong>{t('myBookings.startTimeLabel')} </strong></p>
                                             <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                                <TimePicker 
-													value={dayjs(editedBooking.startTime).isValid() ? editedBooking.startTime : dayjs()}
-													onChange={handleTimeChange} 
-													timeSteps={{ minutes: 30 }} 
-													minutesStep={30} 
-													ampm={false} 
+                                                <TimePicker
+                                                    value={dayjs(editedBooking.startTime).isValid() ? editedBooking.startTime : dayjs()}
+                                                    onChange={handleTimeChange}
+                                                    timeSteps={{ minutes: 30 }}
+                                                    minutesStep={30}
+                                                    ampm={false}
                                                     slotProps={{
                                                         textField: {
-                                                          fullWidth: true,
-                                                          required: true,
+                                                            fullWidth: true,
+                                                            required: true,
                                                         },
-                                                     }}/>
+                                                    }} />
                                             </LocalizationProvider>
                                         </div>
                                         <div className="mb-2">
@@ -329,7 +331,13 @@ const MyBookings = () => {
                                         </div>
                                         <div className="mb-2">
                                             <p><strong>{t('myBookings.playersLabel')} </strong></p>
-                                            <input type="number" name="players" value={editedBooking.players} onChange={(e) => handleChange({ target: { name: e.target.name, value: Number(e.target.value) } })} className="border p-1 rounded" />
+                                            <input
+                                                type="number"
+                                                name="players"
+                                                min={1}
+                                                max={10}
+                                                value={editedBooking.players} 
+                                                onChange={(e) => handleChange({ target: { name: e.target.name, value: Number(e.target.value) } })} className="border p-1 rounded" />
                                         </div>
                                         <div className="mb-2">
                                             <p><strong>{t('myBookings.tableNumberLabel')} </strong></p>
@@ -367,15 +375,15 @@ const MyBookings = () => {
                                 ) : (
                                     <>
                                         <p><strong>{t('myBookings.dateLabel')} </strong> {dayjs(booking.date).format('DD/MM/YYYY')}</p>
-                                        <p><strong>{t('myBookings.timeLabel')} </strong> 
-											{dayjs(booking.startTime).isValid() 
-												? dayjs(booking.startTime).format('HH:mm') 
-												: booking.startTime} 
-											- 
-											{dayjs(booking.endTime).isValid() 
-												? dayjs(booking.endTime).format('HH:mm') 
-												: booking.endTime}
-										</p>
+                                        <p><strong>{t('myBookings.timeLabel')} </strong>
+                                            {dayjs(booking.startTime).isValid()
+                                                ? dayjs(booking.startTime).format('HH:mm')
+                                                : booking.startTime}
+                                            -
+                                            {dayjs(booking.endTime).isValid()
+                                                ? dayjs(booking.endTime).format('HH:mm')
+                                                : booking.endTime}
+                                        </p>
                                         <p>{t('myBookings.playersLabel')} {booking.players}</p>
                                         <p>{t('myBookings.tableNumberLabel')} {booking.tableId?.number || 'N/A'}</p>
                                         <p>{t('myBookings.contactLabel')} {booking.contactName}<br /> ({booking.contactPhone})</p>
@@ -400,15 +408,15 @@ const MyBookings = () => {
                         {bookings.past.length > 0 ? (bookings.past.slice(0, 5).map((booking) => (
                             <div key={booking._id} className=' border border-gray-400 p-4 rounded-xl flex flex-col text-sm gap-1 shadow-lg bg-white'>
                                 <p><strong>{t('myBookings.dateLabel')} </strong> {dayjs(booking.date).format('DD/MM/YYYY')}</p>
-                                <p><strong>{t('myBookings.timeLabel')} </strong> 
-									{dayjs(booking.startTime).isValid() 
-										? dayjs(booking.startTime).format('HH:mm') 
-										: booking.startTime} 
-									- 
-									{dayjs(booking.endTime).isValid() 
-										? dayjs(booking.endTime).format('HH:mm') 
-										: booking.endTime}
-								</p>
+                                <p><strong>{t('myBookings.timeLabel')} </strong>
+                                    {dayjs(booking.startTime).isValid()
+                                        ? dayjs(booking.startTime).format('HH:mm')
+                                        : booking.startTime}
+                                    -
+                                    {dayjs(booking.endTime).isValid()
+                                        ? dayjs(booking.endTime).format('HH:mm')
+                                        : booking.endTime}
+                                </p>
                                 <p>{t('myBookings.playersLabel')} {booking.players}</p>
                                 <p>{t('myBookings.tableNumberLabel')} {booking.tableId?.number}</p>
                                 <p>{t('myBookings.contactLabel')} {booking.contactName} <br /> ({booking.contactPhone})</p>
