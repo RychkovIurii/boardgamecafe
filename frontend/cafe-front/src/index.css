@@ -52,12 +52,10 @@ body {
 }
 
 @layer components {
-  
-  .admin-page-container {
-    @apply font-roboto;
-  }
+
+
   .admin-section-wrapper {
-    @apply md:py-20 px-10 py-10 mx-auto font-roboto;
+    @apply md:py-20 px-10 py-10 mx-auto;
   }
 
   .admin-section-title {
@@ -65,6 +63,6 @@ body {
   }
 
   .admin-section-td {
-    @apply px-4 py-2 border font-roboto;
+    @apply px-4 py-2 border;
   }
 }
