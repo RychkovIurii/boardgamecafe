@@ -1,0 +1,44 @@
+.css-1dune0f-MuiInputBase-input-MuiOutlinedInput-input {
+    margin: 2px;
+    padding: 2px !important;
+    font-weight: lighter !important;
+    background-color: #fffaf5 !important;
+}
+
+.css-1n04w30-MuiInputBase-root-MuiOutlinedInput-root {
+    font-family: inherit !important;
+    background-color: #fffaf5 !important;
+    color: #5a3825 !important;
+    justify-content: space-around !important;
+}
+.css-1ysp02-MuiButtonBase-root-MuiIconButton-root{
+    color: #5a3825 !important;
+    transition: all 0.3s ease-in-out !important;
+}
+
+.css-1umw9bq-MuiSvgIcon-root {
+    color: #6b432b !important;
+    transition: all 0.3s ease-in-out !important;
+}
+
+.css-1umw9bq-MuiSvgIcon-root :hover {
+    color: #5a3825 !important;
+    transition: all 0.3s ease-in-out !important;
+}
+
+
+@media screen and (max-width: 850px){
+    .css-1dune0f-MuiInputBase-input-MuiOutlinedInput-input {
+        margin: 2px;
+        padding: 2px !important;
+        font-weight: lighter !important;
+        background-color: #fffaf5 !important;
+    }
+
+    .css-1n04w30-MuiInputBase-root-MuiOutlinedInput-root {
+        font-family: inherit !important;
+        background-color: #fffaf5 !important;
+        color: #5a3825 !important;
+        justify-content: space-around !important;
+    }
+}

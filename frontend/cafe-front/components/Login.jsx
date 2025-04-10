@@ -36,7 +36,7 @@ const Login = ({ onToggleForm, onForgotPassword }) => {
 				if (role === 'admin') {
 					navigate('/admin');
 				} else {
-					navigate('/'); window.scrollTo(0, 0);
+					navigate('/');
 				}
 			});
 		} catch (error) {
