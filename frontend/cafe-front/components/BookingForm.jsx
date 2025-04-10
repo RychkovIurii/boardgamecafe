@@ -80,7 +80,10 @@ function StepOne({ inputs, handleChange, handleTimeChange }) {
           required
         />
       </div>
+      <Typography variant="body2" sx={{ fontFamily: "Fontdiner Swanky", paddingTop: 1 }} gutterBottom>
       {t(`bookingForm.step1Text`)}
+        </Typography>
+      
       <div className='formItem'>
         <label>{t(`bookingForm.step1Date`)} </label>
         <input
@@ -160,7 +163,8 @@ function StepTwo({ inputs, handleChange, tables, setInputs }) {
       />
       <div className='tables'>
         <div className='tablesChild'>
-          {t(`bookingForm.step2Suggested`)}
+          <div className='lefties'>{t(`bookingForm.step2Suggested`)}</div>
+          <div className='suggestedTableTokens'>
           {tables.suggested && tables.suggested.map((table) => (
             <div key={table.number}
               className='table'
@@ -169,8 +173,10 @@ function StepTwo({ inputs, handleChange, tables, setInputs }) {
             </div>
           ))}
         </div>
+        </div>
         <div className='tablesChild'>
-          {t(`bookingForm.step2AlsoAvailable`)}
+          <div className='lefties'>{t(`bookingForm.step2AlsoAvailable`)}</div>
+          <div className='suggestedTableTokens'>
           {tables.alsoAvailable && tables.alsoAvailable.map((table) => (
             <div key={table.number}
               className='table'
@@ -178,6 +184,7 @@ function StepTwo({ inputs, handleChange, tables, setInputs }) {
               {table.number}
             </div>
           ))}
+          </div>
         </div>
       </div>
       <label>{t(`bookingForm.step2Game`)} </label>
