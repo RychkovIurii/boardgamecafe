@@ -1,13 +1,29 @@
-* {
+*{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Fontdiner Swanky", serif;
 }
 
+/* Public layout font */
+.public-app {
+  font-family: "Fontdiner Swanky", serif;
+  text-align: center;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #F3F4F6;
+}
+
+/* Admin layout font */.admin-app {
+  font-family: "Roboto", sans-serif;
+  text-align: center;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #F3F4F6;}
+
 .App {
-	text-align: center;
-	width: 100%;
-	min-height: 100vh;
-	background-color: #F3F4F6;
-  }
+  text-align: center;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #F3F4F6;
+}
+
