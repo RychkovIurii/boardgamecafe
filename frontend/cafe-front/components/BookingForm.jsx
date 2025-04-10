@@ -80,7 +80,10 @@ function StepOne({ inputs, handleChange, handleTimeChange }) {
           required
         />
       </div>
+      <Typography variant="body2" sx={{ fontFamily: "Fontdiner Swanky", paddingTop: 1 }} gutterBottom>
       {t(`bookingForm.step1Text`)}
+        </Typography>
+      
       <div className='formItem'>
         <label>{t(`bookingForm.step1Date`)} </label>
         <input
