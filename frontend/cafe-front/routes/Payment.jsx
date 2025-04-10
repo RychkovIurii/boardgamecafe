@@ -61,7 +61,7 @@ export const Return = () => {
             setStatus(currentStatus);
             setCustomerEmail(res.data.customer_email);
 
-            if (currentStatus === 'complete') {
+            if (currentStatus === 'complete' || currentStatus === 'open') {
                 clearInterval(interval);
             }
 
@@ -105,10 +105,6 @@ export const Return = () => {
       });
     }
   }, [status, customerEmail, navigate, t]);
-
-  if (status === 'open') {
-    return <Navigate to="/checkout" />;
-  }
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
