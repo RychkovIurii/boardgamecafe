@@ -146,6 +146,10 @@
 		"invalidTimeText": "The day or time you've selected is outside our working hours. Please choose another time.",
 		"paymentSuccessTitle": "Payment Complete!",
 		"paymentSuccessText": "A confirmation email was sent to",
+		"paymentErrorTitle": "Something went wrong",
+		"paymentErrorText": "We couldn’t confirm your payment. Please try again or contact us.",
+		"paymentProcessing": "Processing your payment...",
+		"paymentProcessingText": "This may take a few seconds. Please don’t close this page.",
 		"goHome": "Go to Home",
 		"payNow": "Pay Now (Optional)"
 		},

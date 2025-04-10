@@ -9,6 +9,7 @@ import { useSearchParams } from 'react-router-dom';
 import API from '../api/axios';
 import Swal from 'sweetalert2';
 import { useTranslation } from 'react-i18next';
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 const stripePromise = loadStripe(import.meta.env.VITE_APP_STRIPE_PUBLIC_KEY);
@@ -47,12 +48,50 @@ export const Return = () => {
     const urlParams = new URLSearchParams(queryString);
     const sessionId = urlParams.get('session_id');
 
-    API.get(`payment/session-status?session_id=${sessionId}`)
-      .then(res => {
-        setStatus(res.data.status);
-        setCustomerEmail(res.data.customer_email);
-      });
-  }, []);
+    if (!sessionId) {
+        return <Navigate to="/" />;
+    }
+
+    let attempts = 0;
+    const maxAttempts = 15;
+    const interval = setInterval(() => {
+        API.get(`payment/session-status?session_id=${sessionId}`)
+        .then(res => {
+            const currentStatus = res.data.status;
+            setStatus(currentStatus);
+            setCustomerEmail(res.data.customer_email);
+
+            if (currentStatus === 'complete') {
+                clearInterval(interval);
+            }
+
+            attempts++;
+            if (attempts >= maxAttempts) {
+                clearInterval(interval);
+                Swal.fire({
+                    icon: 'error',
+                    title: t('alerts.paymentErrorTitle'),
+                    text: t('alerts.paymentErrorText'),
+                    confirmButtonText: t('alerts.goHome'),
+                }).then(() =>
+                    navigate('/'));
+                }
+        }
+        ).catch(err => {
+            console.error('Error fetching session status:', err);
+            clearInterval(interval);
+            Swal.fire({
+                icon: 'error',
+                title: t('alerts.paymentErrorTitle'),
+                text: t('alerts.paymentErrorText'),
+                confirmButtonText: t('alerts.goHome'),
+            }).then(() =>
+                navigate('/'));
+        })
+    }
+    , 2000);
+    return () => clearInterval(interval);
+    }, [t, navigate]);
 
   useEffect(() => {
     if (status === 'complete') {
@@ -65,11 +104,17 @@ export const Return = () => {
         navigate('/');
       });
     }
-  }, [status, customerEmail, navigate]);
+  }, [status, customerEmail, navigate, t]);
 
   if (status === 'open') {
     return <Navigate to="/checkout" />;
   }
 
-  return null;
+  return (
+    <div className="flex flex-col items-center justify-center h-screen">
+      <CircularProgress />
+      <h1 className="text-2xl mt-4">{t('alerts.paymentProcessing')}</h1>
+      <p>{t('alerts.paymentProcessingText')}</p>
+    </div>
+  )
 };

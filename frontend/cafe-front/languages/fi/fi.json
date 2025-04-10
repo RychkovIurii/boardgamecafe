@@ -135,6 +135,10 @@
 			"updateErrorText": "Puhelinnumeron päivittäminen epäonnistui.",
 			"invalidTimeTitle": "Aukioloaikojen ulkopuolella",
 			"invalidTimeText": "Valitsemasi aika on aukioloaikojemme ulkopuolella. Valitse toinen aika.",
+			"paymentErrorTitle": "Jotain meni pieleen",
+			"paymentErrorText": "Emme voineet vahvistaa maksua. Yritä uudelleen tai ota meihin yhteyttä.",
+			"paymentProcessing": "Maksua käsitellään...",
+			"paymentProcessingText": "Tämä voi kestää hetken. Älä sulje tätä sivua.",
 			"goHome": "Palaa etusivulle",
 			"payNow": "Maksa nyt (valinnainen)"
 			},
