@@ -15,6 +15,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 const stripePromise = loadStripe(import.meta.env.VITE_APP_STRIPE_PUBLIC_KEY);
 
 export const CheckoutForm = () => {
+    console.log('we are in the checkout form');
 	const [searchParams] = useSearchParams();
 	const bookingId = searchParams.get("bookingId");
 	const fetchClientSecret = useCallback(() => {
@@ -48,7 +49,9 @@ export const Return = () => {
     const urlParams = new URLSearchParams(queryString);
     const sessionId = urlParams.get('session_id');
 
+    console.log('we are in the return page');
     if (!sessionId) {
+        console.error('No session ID found in URL');
         return <Navigate to="/" />;
     }
 
@@ -89,7 +92,7 @@ export const Return = () => {
                 navigate('/'));
         })
     }
-    , 2000);
+    , 4000);
     return () => clearInterval(interval);
     }, [t, navigate]);
 
