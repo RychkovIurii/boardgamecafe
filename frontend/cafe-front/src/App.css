@@ -5,9 +5,27 @@
   font-family: "Fontdiner Swanky", serif;
 }
 
+/* Apply Roboto font globally */
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+.font-inter {
+  font-family: "Inter", sans-serif;
+}
+
+.font-roboto {
+  font-family: "Roboto", sans-serif;
+}
+
 .App {
-	text-align: center;
-	width: 100%;
-	min-height: 100vh;
-	background-color: #F3F4F6;
-  }
+  text-align: center;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #F3F4F6;
+}
+
+/* Apply font to admin container */
+.admin-page-container {
+  font-family: "Roboto", sans-serif !important;
+}
