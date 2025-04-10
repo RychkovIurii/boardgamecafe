@@ -41,11 +41,11 @@ function AdminNavbar() {
   };
 
   const settings = isAuthenticated
-  ? [
+    ? [
       ...(user?.role === 'admin' ? [{ name: 'UserView', path: '/' }] : []),
       { name: 'Logout', action: handleLogout }
     ]
-  : [{ name: 'Sign In', path: '/sign-in' }];
+    : [{ name: 'Sign In', path: '/sign-in' }];
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -74,23 +74,24 @@ function AdminNavbar() {
     <AppBar position="static" color="white">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          
+
           <Typography
-            variant="h6"
+            variant="h7"
             noWrap
             component={Link}
-  			to={user?.role === 'admin' ? '/admin' : '/'}
+            to={user?.role === 'admin' ? '/admin' : '/'}
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
               fontFamily: "Fontdiner Swanky",
               fontWeight: 700,
               letterSpacing: '.3rem',
+              fontSize: '1rem',
               color: 'black',
               textDecoration: 'none',
             }}
           >
-            <img src={cafeLogo} alt="Cafe Boardgame Logo" style={{ paddingBottom: '1rem' }} />
+            <img src={cafeLogo} alt="Cafe Boardgame Logo" className="max-w-[90px]" />
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -135,7 +136,7 @@ function AdminNavbar() {
             variant="h7"
             noWrap
             component={Link}
-  			to={user?.role === 'admin' ? '/admin' : '/'}
+            to={user?.role === 'admin' ? '/admin' : '/'}
             sx={{
               mr: 1,
               display: { xs: 'flex', md: 'none' },
@@ -143,6 +144,7 @@ function AdminNavbar() {
               fontFamily: "Fontdiner Swanky",
               fontWeight: 400,
               letterSpacing: '.1rem',
+              fontSize: '1rem',
               color: 'black',
               textDecoration: 'none',
             }}
@@ -154,7 +156,7 @@ function AdminNavbar() {
               <Button
                 key={page.name}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'black', display: 'block', mr: 6, fontFamily: 'Fontdiner Swanky', ":hover": { bgcolor: 'white' } }}
+                sx={{ my: 2, color: 'black', display: 'block', mr: 6, fontSize: '1rem', fontFamily: 'Fontdiner Swanky', ":hover": { bgcolor: 'white' } }}
                 component={Link}
                 to={page.path}
               >
@@ -165,7 +167,7 @@ function AdminNavbar() {
 
           <Box sx={{ flexGrow: 0, display: 'flex', alignItems: 'center' }}>
             <i className="fa-solid fa-globe"></i>
-            <select value={language} onChange={(e) => updateLanguage(e.target.value)} style={{ marginLeft: '10px', marginRight: '20px', border: 'none', outline: 'none', backgroundColor: 'transparent', cursor: 'pointer' }}>
+            <select value={language} onChange={(e) => updateLanguage(e.target.value)} style={{ marginLeft: '10px', marginRight: '20px', border: 'none', outline: 'none', backgroundColor: 'transparent', cursor: 'pointer', }}>
               <option value="en">EN</option>
               <option value="fi">FI</option>
             </select>
@@ -193,7 +195,7 @@ function AdminNavbar() {
               {settings.map((setting, index) => (
                 <MenuItem key={index} onClick={setting.action || handleCloseUserMenu}>
                   <Typography textAlign="center" fontFamily={'Fontdiner Swanky'}>
-                   {setting.path ? <Link to={setting.path}>{t(`admin_navbar.${setting.name}`)}</Link> : t(`admin_navbar.${setting.name}`)}
+                    {setting.path ? <Link to={setting.path}>{t(`admin_navbar.${setting.name}`)}</Link> : t(`admin_navbar.${setting.name}`)}
                   </Typography>
                 </MenuItem>
               ))}
