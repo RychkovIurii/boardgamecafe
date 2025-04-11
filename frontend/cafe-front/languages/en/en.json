@@ -241,7 +241,7 @@
 		"datePlaceholder": "Enter event date",
 		"imagePlaceholder": "Enter event image URL",
 		"submitButton": "Create Event",
-		"updateButton": "Update Event",
+		"updateButton": "Update",
 		"editButton": "Edit",
 		"existingEvents": "Existing Events"
 	},
