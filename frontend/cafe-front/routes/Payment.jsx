@@ -113,8 +113,10 @@ export const Return = () => {
 
   if (loading) {
     return (
-      <div className="flex flex-col items-center justify-center h-screen">
+        <div className="flex flex-col items-center justify-center h-screen">
         <CircularProgress />
+        <h1 className="text-2xl mt-4">{t('alerts.paymentProcessing')}</h1>
+        <p>{t('alerts.paymentProcessingText')}</p>
       </div>
     );
   }
