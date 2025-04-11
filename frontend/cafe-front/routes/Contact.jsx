@@ -4,7 +4,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import "../components/Style/ContactStyles.css";
 import contactImage from '../src/assets/elements/contact.png';
-import Swal from 'sweetalert2';
+import Swal from '../utils/swalWithFont';
 import API from '../api/axios'
 
 

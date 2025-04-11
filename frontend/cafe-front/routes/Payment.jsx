@@ -7,7 +7,7 @@ import {
 import { Navigate, useNavigate } from 'react-router-dom';
 import { useSearchParams } from 'react-router-dom';
 import API from '../api/axios';
-import Swal from 'sweetalert2';
+import Swal from '../utils/swalWithFont';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
 

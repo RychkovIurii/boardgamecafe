@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import API from '../api/axios'
-import Swal from 'sweetalert2';
+import Swal from '../utils/swalWithFont';
 import { useTranslation } from 'react-i18next';
 import dayjs from 'dayjs';
 import { LocalizationProvider, TimePicker } from '@mui/x-date-pickers';

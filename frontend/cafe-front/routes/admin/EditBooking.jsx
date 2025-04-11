@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import API from '../../api/axios';
-import Swal from 'sweetalert2';
+import Swal from '../../utils/swalWithFont';
 import CircularProgress from '@mui/material/CircularProgress';
 
 const EditBooking = () => {
