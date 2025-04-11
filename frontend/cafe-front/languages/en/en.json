@@ -243,7 +243,10 @@
 		"submitButton": "Create Event",
 		"updateButton": "Update",
 		"editButton": "Edit",
-		"existingEvents": "Existing Events"
+		"existingEvents": "Existing Events",
+		"includePastLabel": "Show:",
+		"onlyUpcoming": "Upcoming Events",
+		"allEvents": "Past Events"
 	},
 	"about": {
 		"title": "ABOUT CAFÉ BOARDGAME",

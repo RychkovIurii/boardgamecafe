@@ -243,7 +243,10 @@
 		"submitButton": "Luo tapahtuma",
 		"updateButton": "Päivitä",
 		"editButton": "Muokkaa",
-		"existingEvents": "Olemassa olevat tapahtumat"
+		"existingEvents": "Olemassa olevat tapahtumat",
+		"includePastLabel": "Näytä:",
+		"onlyUpcoming": "Tulevat tapahtumat",
+		"allEvents": "Menneet tapahtumat"
 	},
 	"about": {
 		"title": "TIETOJA CAFÉ BOARDGAMESTA",

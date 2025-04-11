@@ -14,11 +14,13 @@ const EditEvents = () => {
         image: ''
     });
     const [selectedEventId, setSelectedEventId] = useState(null);
+    const [viewPast, setViewPast] = useState(false);
 
     useEffect(() => {
         const fetchEvents = async () => {
             try {
-                const response = await API.get('/events');
+                const endpoint = viewPast ? '/events/past' : '/events';
+                const response = await API.get(endpoint);
                 setEvents(response.data);
             } catch (error) {
                 console.error('Error fetching events:', error);
@@ -26,7 +28,7 @@ const EditEvents = () => {
         };
 
         fetchEvents();
-    }, []);
+    }, [viewPast]);
 
     const handleChange = (e) => {
         setNewEvent({
@@ -68,7 +70,17 @@ const EditEvents = () => {
             <AdminNavbar />
             <div className="md:py-20 py-10 mx-auto px-8">
                 <h1 className="admin-section-title">{t('editEvents.title')}</h1>
-
+                <div className="flex justify-end mb-4">
+                    <label className="mr-2 font-medium">{t('editEvents.includePastLabel')}</label>
+                    <select
+                        className="border px-2 py-1 rounded-md"
+                        value={viewPast ? 'past' : 'upcoming'}
+                        onChange={(e) => setViewPast(e.target.value === 'past')}
+                    >
+                        <option value="upcoming">{t('editEvents.onlyUpcoming')}</option>
+                        <option value="past">{t('editEvents.allEvents')}</option>
+                    </select>
+                </div>
                 <form onSubmit={handleSubmit} className="flex flex-col gap-4 mt-5 ">
                     <input
                         type="text"
