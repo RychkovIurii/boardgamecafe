@@ -134,8 +134,8 @@ const AdminDashboard = () => {
             <AdminNavbar />
             <div className="admin-section-wrapper">
 
-                <h1 className="admin-section-title  font-roboto ">Admin Dashboard</h1>
-                <div className="flex flex-wrap gap-4 mb-6 pt-5 font-roboto">
+                <h1 className="admin-section-title">Admin Dashboard</h1>
+                <div className="flex flex-wrap gap-4 mb-6 pt-5">
                     <input
                         type="text"
                         placeholder="Search by user, phone, table, or game"
@@ -178,13 +178,13 @@ const AdminDashboard = () => {
                         <thead className="bg-gray-100 text-center">
                             <tr>
                                 {['Date', 'Start Time', 'End Time', 'Table', 'Game', 'User', 'Phone', 'Players', 'Payment Status', '', ''].map((header, index) => (
-                                    <th key={index} className="px-4 py-2 border font-roboto">{header}</th>
+                                    <th key={index} className="px-4 py-2 border">{header}</th>
                                 ))}
                             </tr>
                         </thead>
                         <tbody>
                             {filteredBookings.map((booking) => (
-                                <tr key={booking._id} className="hover:bg-gray-50 font-roboto">
+                                <tr key={booking._id} className="hover:bg-gray-50">
                                     <td className="admin-section-td">{new Date(booking.date).toLocaleDateString()}</td>
                                     <td className="admin-section-td">{formatTime(booking.startTime)}</td>
                                     <td className="admin-section-td">{formatTime(booking.endTime)}</td>
@@ -192,7 +192,7 @@ const AdminDashboard = () => {
                                     <td className="admin-section-td">{booking.game || '-'}</td>
                                     <td className="admin-section-td">
                                         {booking.userId ? (
-                                            <a href={`/admin/users/${booking.userId._id}`} className="text-blue-600 hover:underline font-roboto">
+                                            <a href={`/admin/users/${booking.userId._id}`} className="text-blue-600 hover:underline">
                                                 {booking.userId.name}
                                             </a>
                                         ) : booking.contactName || 'Guest'}
@@ -202,7 +202,7 @@ const AdminDashboard = () => {
                                     <td className={`admin-section-td ${booking.paymentId?.status === 'completed' ? 'text-green-600' : 'text-red-600'}`}>
                                         {booking.paymentId ? (
                                             <>
-                                                <span className="font-semibold font-roboto">{booking.paymentId.status.toUpperCase()}</span>
+                                                <span className="font-semibold">{booking.paymentId.status.toUpperCase()}</span>
                                                 <br />
                                                 <small>{booking.paymentId.paymentMethod} - ${booking.paymentId.amount}</small>
                                             </>
@@ -211,7 +211,7 @@ const AdminDashboard = () => {
                                     <td className="admin-section-td">
                                         <button
                                             onClick={() => handleEdit(booking._id)}
-                                            className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 font-roboto"
+                                            className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
                                         >
                                             Edit
                                         </button>
@@ -219,7 +219,7 @@ const AdminDashboard = () => {
                                     <td className="px-4 py-2 border">
                                         <button
                                             onClick={() => handleDelete(booking._id)}
-                                            className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 font-roboto"
+                                            className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
                                         >
                                             Delete
                                         </button>

@@ -1,22 +1,24 @@
-* {
+*{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+/* Public layout font */
+.public-app {
   font-family: "Fontdiner Swanky", serif;
+  text-align: center;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #F3F4F6;
 }
 
-/* Apply Roboto font globally */
-body {
+/* Admin layout font */.admin-app {
   font-family: "Roboto", sans-serif;
-}
-
-.font-inter {
-  font-family: "Inter", sans-serif;
-}
-
-.font-roboto {
-  font-family: "Roboto", sans-serif;
-}
+  text-align: center;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #F3F4F6;}
 
 .App {
   text-align: center;
@@ -25,7 +27,3 @@ body {
   background-color: #F3F4F6;
 }
 
-/* Apply font to admin container */
-.admin-page-container {
-  font-family: "Roboto", sans-serif !important;
-}

@@ -13,7 +13,7 @@
 		"AdminDashboard": "Hallintapaneeli"
 	},
 	"hero": {
-		"Welcome to CAFÉ BOARDGAME": "Tervetuloa CAFÉ BOARDGAME",
+		"Welcome to CAFÉ BOARDGAME": "Tervetuloa CAFÉ BOARDGAMEEN",
 		"Enjoy the best board games with your friends and family": "Nauti parhaista lautapeleistä ystäviesi ja perheesi kanssa",
 		"Book Now": "Varaa nyt",
 		"CafeCon Café Boardgame": "CafeCon Café Boardgame",
@@ -22,7 +22,7 @@
 		"Enjoy the best board games with us.": "Nauti parhaista lautapeleistä kanssamme."
 	},
 	"footer": {
-		"Created by Varia Students": "© 2025 Luonut Varia-opiskelijat. Kaikki oikeudet pidätetään.",
+		"Created by Varia Students": "© 2025 Sivuston toteutus: Varia-opiskelijat. Kaikki oikeudet pidätetään.",
 		"Contact": "Yhteystiedot",
 		"About": "Tietoa",
 		"Others": "Muut",
@@ -81,18 +81,18 @@
 		},
 	"home": {
 		"steps": {
-			"How to find us": "Kuinka löytää meidät",
+			"How to find us": "Mistä meidät löytää",
 			"Ordering process": "Tilausprosessi",
 			"Need Help?": "Tarvitsetko apua?",
-			"Visit us at": "Vieraile osoitteessa Eerikinkatu 14, 00100 Helsinki, heti tunnelin jälkeen.",
+			"Visit us at": "Osoitteemme on Eerikinkatu 14, 00100 Helsinki. Löydät meidät heti tunnelin jälkeen.",
 			"Accessibility": "Esteettömyys on rajallista portaiden ja kapeiden käytävien vuoksi. WC-tilamme eivät ole esteettömiä.",
 			"Pets": "Kahvila on allergiavapaa, joten lemmikit eivät ole sallittuja sisätiloissa, opaskoiria lukuun ottamatta.",
 			"Go to counter": "Mene tiskille saadaksesi opastusta järjestelmään.",
-			"Pay first": "Maksa ensin pelimaksu kassalla ennen pöytään siirtymistä, vaikka ryhmäsi olisi jo saapunut.",
+			"Pay first": "Maksa pelimaksu kassalla ennen pöytään siirtymistä, vaikka ryhmäsi olisi jo saapunut. Pelimaksu pienenee, jos ruoka- tai juomaostot ylittävät tietyn rajan.",
 			"Ask menu": "Kysy rohkeasti ruokalistastamme.",
 			"No outside food": "Omien ruokien ja juomien tuonti ei ole sallittua.",
 			"Use our menu": "Toivomme, että käytät kattavaa ruoka- ja juomalistaamme. Päivitämme listaa toiveiden mukaan.",
-			"Staff help": "Henkilökuntamme auttaa peleissä, juomissa ja hauskan kokemuksen luomisessa.",
+			"Staff help": "Henkilökuntamme auttaa mielellään pelin valitsemisessa, antaa juomasuosituksia ja auttaa hauskan kokemuksen luomisessa.",
 			"Tutorial offer": "Jos aikaa riittää, voimme antaa lyhyen peliopastuksen tai jopa pelata kanssasi, jos ryhmästäsi puuttuu pelaaja.",
 			"Safe place": "Toimintamme on turvallista ja hauskaa kaikille.",
 			"Respect games": "Toimintamme perustuu luottamukseen. Käsittele lautapelejä kunnioittavasti ja palauta ne asianmukaisesti."
@@ -107,9 +107,9 @@
 		},
 		"serviceMenu": {
 			"RESTAURANT/CAFE/BAR": "RAVINTOLA/KAHVILA/BAARI",
-			"Restaurant detail": "Hyvin varusteltu keittiö valmistaa herkkuja kaikille pelaajille, ja yksityiset huoneet tarjoavat ylellisyyttä erikoistilanteisiin.",
-			"PRIVATE ROOMS": "YKSITYISET HUONEET",
-			"Private detail": "Juhli syntymäpäivää, perhejuhlia tai muita yksityistilaisuuksia. Tarjoamme puoliyksityisiä ja yksityisiä huoneita jopa 12 hengelle.",
+			"Restaurant detail": "Hyvin varusteltu keittiö valmistaa herkkuja kaikille pelaajille, ja KABINETIT tarjoavat ylellisyyttä erityistilaisuuksiin.",
+			"PRIVATE ROOMS": "KABINETIT",
+			"Private detail": "Juhli syntymäpäivää, perhejuhlia tai muita yksityistilaisuuksia. Tarjoamme puoliyksityisiä ja yksityisiä kabinetteja jopa 12 hengelle.",
 			"CORPORATE EVENTS": "YRITYSTAPAHTUMAT",
 			"Corporate detail": "Tarjoamme erinomaiset tilat kokouksille, tiimipäiville ja virkistystapahtumille. Valmiit paketit sisältävät murhamysteerilounaita, roolipelillisiä illallisia, yksityisiä karaoketilaisuuksia ja 90-luvun diskoja DJ:n johdolla.",
 			"COMMUNITY": "YHTEISÖ",
@@ -139,7 +139,7 @@
 			"payNow": "Maksa nyt (valinnainen)"
 			},
 	"contact": {
-			"heroTitle": "Pysy yhteydessä!",
+			"heroTitle": "Ole yhteydessä meihin!",
 		"heroText": "Onko sinulla kysyttävää tai haluatko vain tervehtiä? Ota rohkeasti yhteyttä, kuulemme mielellämme sinusta!",
 		"formTitle": "Ota yhteyttä",
 		"formText": "Onko sinulla kysyttävää? Täytä alla oleva lomake, niin otamme sinuun yhteyttä.",
@@ -152,13 +152,13 @@
 	"privacyPolicy": {
 		"title": "Tietosuojakäytäntö",
 		"statement": "Café Boardgame Oy:n tietosuojalausunto",
-		"statementP": "Yleisen tietosuoja asetuksen mukaan rekisterinpitäjän on velvollisuus tiedottaa rekisteröidyille selkeällä tavalla.",
+		"statementP": "Yleisen tietosuoja-asetuksen mukaan rekisterinpitäjällä on velvollisuus tiedottaa rekisteröidyille selkeällä tavalla.",
 		"controller": "1. Henkilötietojen hallitsija",
 		"company": "Café Boardgame Oy",
 		"contact_info": "Yhteystiedot:",
 		"inquiries": "Yhteystiedot henkilötietoihin liittyvissä asioissa:",
 			"dataSubjects": "2. Rekisteröidyt henkilöt",
-		"dataSubjectsDesc": "Rekisteriin kuuluvat henkilöt asiakkaat.",
+		"dataSubjectsDesc": "Rekisteriin kuuluvat henkilöt.",
 		"purpose": "3. Henkilötietojen käyttötarkoitus",
 		"purposes": [
 		"- Asiakassuhteiden hallinta",
@@ -190,18 +190,18 @@
 		"decisionMakingP": "Automaattista päätöksentekoa tai profilointia ei tehdä."
 		},
 	"service": {
-		"Title": "Löydä palvelumme",
-		"serviceP": "Tavoitteenamme on tehdä Helsingistä pelikulttuurin sydän ja tarjota esteetön kohtaamispaikka kaikille pelistä kiinnostuneille. Cafe Boardgame on nelikerroksinen pelikulttuurin keskus, jossa yhdistyvät ravintola, kahvila, baari, tapahtumat, koulutus ja kokouspalvelut.",
+			"Title": "Löydä palvelumme",
+		"serviceP": "Tavoitteenamme on tehdä Helsingistä pelikulttuurin sydän ja tarjota miellyttävä kohtaamispaikka kaikille peleistä kiinnostuneille. Cafe Boardgame on nelikerroksinen pelikulttuurin keskus, jossa yhdistyvät ravintola, kahvila, baari sekä tapahtuma-, koulutus- ja kokouspalvelut.",
 		"button": "Ota yhteyttä"
 	},
 	"menu": {
 		"title": "Tutustu menuumme",
-		"subtitle": "Tarvitsetko välipalaa tai juomaa? Tai ehkä omaa tuotettamme?",
+		"subtitle": "Tarvitsetko välipalaa tai juomaa? Tai haluatko maistaa omia tuotteitamme?",
 		"types": {
 			"Cold Drinks": "Kylmät juomat",
 			"Hot Drinks": "Lämpimät juomat",
 			"Beers & Ciders": "Oluet ja siiderit",
-			"Own Brand": "Oma tuote",
+			"Own Brand": "Omat tuotteet",
 			"Gaming Fee": "Pelaamismaksu",
 			"Food": "Ruoka"
 		}
@@ -229,17 +229,17 @@
 		"existingEvents": "Olemassa olevat tapahtumat"
 	},
 	"about": {
-		"title": "TIETOJA CAFÉ BOARDGAME",
+		"title": "TIETOJA CAFÉ BOARDGAMESTA",
 		"aboutP": "Tervetuloa Café BoardGameen, pelikulttuurin sydämeen Helsingissä!",
-		"GalleryIntroTitle1": "Tutki lisää",
-		"GalleryIntroTitle2": "Café Boardgamesta"
+		"GalleryIntroTitle1": "Tutustu tarkemmin",
+		"GalleryIntroTitle2": "Café Boardgameen"
 	},
 	"gamesPage": {
 		"searchPlaceholder": "Hae",
 		"collectionHeader": "Cafe Boardgamen pelikokoelma:"
 	},
 	"HowItWorks": {
-		"title": "Kuinka Se Toimii"
+		"title": "Näin Se Toimii"
 		},
 	"bookingForm": {
 		"step1": "Vaihe 1: Henkilötiedot",
@@ -263,7 +263,7 @@
 		"step3Submit": "Lähettämällä tämän lomakkeen hyväksyt Cafe Boardgamen säännöt ja ehdot.",
 		"errorMessage": "Virhe pöytien haussa:",
 		"availabilityPeople": "Virheellinen pelaajamäärä.",
-		"availabilityText": "Ei ole saatavilla olevia pöytiä, jotka voisivat majoittaa ryhmänne. Ottakaa yhteyttä puhelimitse tarkistaaksenne, onko muita tapoja isännöidä ryhmäänne.",
+		"availabilityText": "Ei pöytiä saatavilla valitulle ryhmäkoolle. Ottakaa yhteyttä puhelimitse tarkistaaksenne, onko muita tapoja isännöidä ryhmäänne.",
 		"bookingSuccessfully": "Varaus luotu onnistuneesti!",
 		"stepLabel1": "Henkilötiedot",
 		"stepLabel2": "Pöytä ja peli",
@@ -280,7 +280,7 @@
 		"invalidPhoneTitle": "Virheellinen puhelinnumero",
 		"invalidPhoneText": "Syötä kelvollinen puhelinnumero muodossa: +[Maatunnus][Numero].",
 		"invalidPlayersTitle": "Virheellinen pelaajamäärä",
-		"invalidPlayersText": "Pelaajien määrän tulee olla 1 ja 10 välillä.",
+		"invalidPlayersText": "Pelaajamäärän tulee olla 1 ja 10 välillä.",
 		"invalidDurationTitle": "Virheellinen kesto",
 		"invalidDurationText": "Keston tulee olla vähintään 60 minuuttia, enintään 600 minuuttia ja 30 minuutin välein.",
 		"invalidTableTitle": "Virheellinen pöytä",
@@ -299,7 +299,7 @@
 		"deleteFailedText": "Jokin meni pieleen varauksen poistossa."
 		},
 	"aboutIntro": {
-		"intro1": "Perustettu vuonna 2021, yli 500 pelillä Café Boardgame on ollut viihtyisä paikka lautapelien ja roolipelien ystäville.",
+		"intro1": "Vuonna 2021 perustettu Café Boardgame ja sen yli 500 pelin pelikirjasto on viihtyisä paikka lautapelien ja roolipelien ystäville.",
 		"intro2": "Ystävällinen henkilökuntamme auttaa sinua valitsemaan pelin, selittää säännöt tai ohjaa sinua pelin aikana.",
 		"intro3": "Café Boardgamessa voit nauttia hyvästä ruuasta, juomista ja peleistä rennossa ja hauskassa ympäristössä ystävien, perheen tai kollegoiden kanssa.",
 		"openingTitle": "Aukioloajat",

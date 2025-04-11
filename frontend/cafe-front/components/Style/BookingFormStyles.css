@@ -12,7 +12,7 @@
     text-align: left;
     margin-right: -38%;
     margin-top: 22%;
-    padding-left: 3%;
+    padding-left: 0%;
     float: left;
     z-index: 2;
     position: relative;
@@ -37,26 +37,28 @@
 }
 
 .smallerText {
+    margin-top: 1rem;
     font-size: small;
 }
 
+.lefties {
+    margin-top: 0.5rem;
+    text-align: start;
+    align-self: flex-start;
+}
+
 .tables {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: flex-start;
-    margin: 5px;
-    padding: 3px;
-    align-content: space-between;
-    cursor: pointer;
+    width: inherit;
 }
 
 .tablesChild {
     display: flex;
-    flex-wrap: wrap;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: flex-end;
     cursor: pointer;
+    max-width: inherit;
+    width: inherit;
+    justify-content: space-between;
 }
 
 .table {
@@ -68,6 +70,12 @@
     margin: 3px;
     text-align: center;
     padding: 3px;
+}
+.suggestedTableTokens {
+    margin-top: 0.3rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: end;
 }
 
 .form label {
@@ -141,7 +149,7 @@
     .stepperStyle {
         order: 2;
         width: 90%;
-        margin: 20px auto;
+        margin: 0;
         text-align: center;
         float: none;
         margin-right: 0;
