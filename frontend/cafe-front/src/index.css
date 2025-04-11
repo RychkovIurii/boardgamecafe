@@ -55,11 +55,12 @@ body {
 
 
   .admin-section-wrapper {
-    @apply md:py-20 px-10 py-10 mx-auto;
+    @apply md:py-20 px-10 py-10 mx-auto
   }
 
   .admin-section-title {
-    @apply md:pt-5 text-3xl md:text-5xl font-medium text-gray-800 mb-10;
+    @apply md:px-10 md:pt-10 md:pb-5 px-5 pt-5 text-4xl md:text-5xl font-medium text-gray-800;
+
   }
 
   .admin-section-td {

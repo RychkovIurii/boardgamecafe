@@ -199,7 +199,7 @@ const AdminDashboard = () => {
                                     </td>
                                     <td className="admin-section-td">{booking.userId?.phone || booking.contactPhone || 'No Phone'}</td>
                                     <td className="admin-section-td">{booking.players}</td>
-                                    <td className={`admin-section-td ${booking.paymentId?.status === 'completed' ? 'text-green-600' : 'text-red-600'}`}>
+                                    <td className={`admin-section-td ${booking.paymentId?.status === 'completed' ? 'text-green-600' : 'text-gray-500 '}`}>
                                         {booking.paymentId ? (
                                             <>
                                                 <span className="font-semibold">{booking.paymentId.status.toUpperCase()}</span>
@@ -211,7 +211,7 @@ const AdminDashboard = () => {
                                     <td className="admin-section-td">
                                         <button
                                             onClick={() => handleEdit(booking._id)}
-                                            className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
+                                            className="bg-green-800 w-20 text-white px-3 py-1 rounded hover:bg-green-600"
                                         >
                                             Edit
                                         </button>
@@ -219,7 +219,7 @@ const AdminDashboard = () => {
                                     <td className="px-4 py-2 border">
                                         <button
                                             onClick={() => handleDelete(booking._id)}
-                                            className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+                                            className="bg-gray-700 w-20 text-white px-3 py-1 rounded hover:bg-red-600"
                                         >
                                             Delete
                                         </button>
