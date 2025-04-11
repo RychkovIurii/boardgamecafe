@@ -23,6 +23,21 @@ router.get('/upcoming-bookings', authenticate, authorizeAdmin, async (req, res) 
     }
 });
 
+router.get('/past-bookings', authenticate, authorizeAdmin, async (req, res) => {
+    try {
+        const today = new Date();
+        const pastBookings = await Booking.find({ date: { $lt: today } })
+            .populate('tableId', 'number')
+            .populate('userId', 'name email')
+            .populate({ path: 'paymentId', select: 'status amount paymentMethod' })
+            .sort({ date: -1, startTime: -1 });
+        res.json(pastBookings);
+    } catch (error) {
+        console.error('Error fetching past bookings:', error);
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
 // Fetch all tables (Admin view) ONLY FOR ADMIN
 router.get('/tables', authenticate, authorizeAdmin, async (req, res) => {
     try {

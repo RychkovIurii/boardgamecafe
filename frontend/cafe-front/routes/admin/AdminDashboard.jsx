@@ -19,7 +19,12 @@ const AdminDashboard = () => {
     useEffect(() => {
         const fetchAdminData = async () => {
             try {
-                const bookingsResponse = await API.get('/admin/upcoming-bookings');
+                let bookingsResponse;
+                if (filterBy === 'past') {
+                    bookingsResponse = await API.get('/admin/past-bookings');
+                } else {
+                    bookingsResponse = await API.get('/admin/upcoming-bookings');
+                }
                 setUpcomingBookings(bookingsResponse.data);
                 const tablesResponse = await API.get('/admin/tables');
                 setTables(tablesResponse.data);
@@ -32,7 +37,7 @@ const AdminDashboard = () => {
             }
         };
         fetchAdminData();
-    }, [navigate]);
+    }, [navigate, filterBy]);
 
     const formatTime = (timeString) => {
         const date = new Date(timeString);
@@ -134,7 +139,9 @@ const AdminDashboard = () => {
             <AdminNavbar />
             <div className="admin-section-wrapper">
 
-                <h1 className="admin-section-title">Admin Dashboard</h1>
+                <h1 className="admin-section-title">
+                    {filterBy === 'past' ? 'Past Bookings' : 'Admin Dashboard'}
+                </h1>
                 <div className="flex flex-wrap gap-4 mb-6 pt-5">
                     <input
                         type="text"
@@ -168,6 +175,7 @@ const AdminDashboard = () => {
                         <option className='text-center' value="all">All Upcoming</option>
                         <option className='text-center' value="today">Today</option>
                         <option className='text-center' value="thisWeek">This Week</option>
+                        <option className='text-center' value="past">Past</option>
                     </select>
 
 
@@ -191,11 +199,10 @@ const AdminDashboard = () => {
                                     <td className="admin-section-td">{booking.tableId?.number || 'No Table Assigned'}</td>
                                     <td className="admin-section-td">{booking.game || '-'}</td>
                                     <td className="admin-section-td">
-                                        {booking.userId ? (
-                                            <a href={`/admin/users/${booking.userId._id}`} className="text-blue-600 hover:underline">
-                                                {booking.userId.name}
-                                            </a>
-                                        ) : booking.contactName || 'Guest'}
+                                        {booking.userId?.name || booking.contactName || 'Guest'}
+                                        {booking.userId?.name && booking.contactName && booking.contactName !== booking.userId.name && (
+                                            <> (for {booking.contactName})</>
+                                        )}
                                     </td>
                                     <td className="admin-section-td">{booking.userId?.phone || booking.contactPhone || 'No Phone'}</td>
                                     <td className="admin-section-td">{booking.players}</td>
