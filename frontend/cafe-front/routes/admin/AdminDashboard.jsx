@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import API from '../../api/axios';
 import { useNavigate } from 'react-router-dom';
 import AdminNavbar from '../../components/admin/AdminNavbar';
-import Swal from 'sweetalert2';
+import Swal from '../../utils/swalWithFont';
 import CircularProgress from '@mui/material/CircularProgress';
 
 const AdminDashboard = () => {
