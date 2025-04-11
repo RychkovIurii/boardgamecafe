@@ -187,7 +187,7 @@ const EditBooking = () => {
                     <div className="flex gap-4 justify-center mt-4">
                         <button
                             type="submit"
-                            className="bg-blue-600 w-20 text-white px-4 py-2 rounded hover:bg-green-600"
+                            className="bg-blue-600 w-20 text-white px-4 py-2 rounded"
                         >
                             Save
                         </button>
