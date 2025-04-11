@@ -368,5 +368,58 @@
 		"noUpcoming": "No upcoming bookings.",
 		"bookingHistory": "Booking History",
 		"noHistory": "No booking history"
+	},
+	"adminDashboard": {
+		"pageTitle": {
+			"upcoming": "Admin Dashboard",
+			"past": "Past Bookings"
+		},
+		"searchPlaceholder": "Search by user, phone, table, or game",
+		"filter": {
+			"all": "All Upcoming",
+			"today": "Today",
+			"thisWeek": "This Week",
+			"past": "Past"
+		},
+		"tableHeader": {
+			"date": "Date",
+			"startTime": "Start Time",
+			"endTime": "End Time",
+			"table": "Table",
+			"game": "Game",
+			"user": "User",
+			"phone": "Phone",
+			"players": "Players",
+			"paymentStatus": "Payment Status",
+			"edit": "Edit",
+			"delete": "Delete"
+		},
+		"tableFilter": {
+			"allTables": "All Tables",
+			"table": "Table"
+		},
+		"noTableAssigned": "No Table Assigned",
+		"noPhone": "No Phone",
+		"guest": "Guest",
+		"noPayment": "No Payment",
+		"paymentStatus": {
+			"completed": "Completed",
+			"pending": "Pending",
+			"failed": "Failed"
+		},
+		"deleteConfirm": {
+			"title": "Are you sure?",
+			"text": "This booking will be permanently deleted.",
+			"confirmButton": "Yes, delete it!",
+			"cancelButton": "Cancel"
+		},
+		"deleteSuccess": {
+			"title": "Deleted!",
+			"text": "The booking has been deleted."
+		},
+		"deleteError": {
+			"title": "Delete Failed",
+			"text": "Something went wrong while deleting the booking."
+		}
 	}
 }
