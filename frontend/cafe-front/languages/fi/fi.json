@@ -55,8 +55,16 @@
 			"registerButton": "Luo uusi tili",
 			"forgotPassword": "Unohditko salasanasi?",
 			"successMessage": "Sisäänkirjautuminen onnistui!",
-			"errorMessage": "Sisäänkirjautuminen epäonnistui. Yritä uudelleen."
+			"errorMessage": "Sisäänkirjautuminen epäonnistui. Yritä uudelleen.",
+			"successTitle": "Tervetuloa!",
+			"confirmButton": "Jatka",
+			"errorTitle": "Oops!"
 		},
+	"logout": {
+		"successTitle": "Kirjauduttu ulos",
+		"successMessage": "Olet kirjautunut ulos onnistuneesti.",
+		"confirmButton": "OK"
+	},
 	"register": {
 		"title": "Rekisteröidy",
 		"nameLabel": "Nimi",
@@ -69,7 +77,10 @@
 		"passwordPlaceholder": "Syötä salasanasi",
 		"submitButton": "Rekisteröidy",
 		"loginButton": "Onko sinulla jo tili? Kirjaudu sisään",
-		"successMessage": "Rekisteröinti onnistui!",
+		"successTitle": "Rekisteröinti onnistui!",
+		"successMessage": "Tilisi on luotu.",
+		"errorTitle": "Oops!",
+		"confirmButton": "Jatka",
 		"errorMessage": "Rekisteröinti epäonnistui. Yritä uudelleen.",
 		"validationErrorTitle": "Validointivirhe",
 		"validation": {
