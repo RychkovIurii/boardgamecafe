@@ -116,89 +116,91 @@ const EditBooking = () => {
         <div className="admin-section-wrapper">
             <h1 className="admin-section-title">Edit Booking</h1>
 
-            <form onSubmit={handleUpdate} className="flex flex-col gap-4">
-                <div>
-                    <label className="block mb-1 font-semibold">Date</label>
-                    <input
-                        type="date"
-                        className="border px-4 py-2 rounded-md w-full"
-                        value={booking.date?.split('T')[0] || ''}
-                        onChange={(e) => setBooking({ ...booking, date: e.target.value })}
-                    />
-                </div>
-
-                <div className="grid grid-cols-2 gap-4">
+                <form onSubmit={handleUpdate} className="flex flex-col gap-4 mt-5">
                     <div>
-                        <label className="block mb-1 font-semibold">Start Time</label>
+                        <label className="block mb-1 font-semibold">Date</label>
                         <input
-                            type="time"
+                            type="date"
                             className="border px-4 py-2 rounded-md w-full"
-                            value={formatTime(booking.startTime)}
-                            onChange={(e) => setBooking({ ...booking, startTime: e.target.value })}
+                            value={booking.date?.split('T')[0] || ''}
+                            onChange={(e) => setBooking({ ...booking, date: e.target.value })}
                         />
                     </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                        <div>
+                            <label className="block mb-1 font-semibold">Start Time</label>
+                            <input
+                                type="time"
+                                className="border px-4 py-2 rounded-md w-full"
+                                value={formatTime(booking.startTime)}
+                                onChange={(e) => setBooking({ ...booking, startTime: e.target.value })}
+                            />
+                        </div>
+                        <div>
+                            <label className="block mb-1 font-semibold">End Time</label>
+                            <input
+                                type="time"
+                                className="border px-4 py-2 rounded-md w-full"
+                                value={formatTime(booking.endTime)}
+                                onChange={(e) => setBooking({ ...booking, endTime: e.target.value })}
+                            />
+                        </div>
+                    </div>
+
                     <div>
-                        <label className="block mb-1 font-semibold">End Time</label>
-                        <input
-                            type="time"
+                        <label className="block mb-1 font-semibold">Table</label>
+                        <select
                             className="border px-4 py-2 rounded-md w-full"
-                            value={formatTime(booking.endTime)}
-                            onChange={(e) => setBooking({ ...booking, endTime: e.target.value })}
+                            value={booking.tableId?.toString() || ''}
+                            onChange={(e) => setBooking({ ...booking, tableId: e.target.value })}
+                        >
+                            {tables.map((table) => (
+                                <option key={table._id} value={table._id}>
+                                    Table {table.number}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+
+                    <div>
+                        <label className="block mb-1 font-semibold">Game</label>
+                        <input
+                            type="text"
+                            className="border px-4 py-2 rounded-md w-full"
+                            value={booking.game || ''}
+                            onChange={(e) => setBooking({ ...booking, game: e.target.value })}
                         />
                     </div>
-                </div>
 
-                <div>
-                    <label className="block mb-1 font-semibold">Table</label>
-                    <select
-                        className="border px-4 py-2 rounded-md w-full"
-                        value={booking.tableId?.toString() || ''}
-                        onChange={(e) => setBooking({ ...booking, tableId: e.target.value })}
-                    >
-                        {tables.map((table) => (
-                            <option key={table._id} value={table._id}>
-                                Table {table.number}
-                            </option>
-                        ))}
-                    </select>
-                </div>
+                    <div>
+                        <label className="block mb-1 font-semibold">Players</label>
+                        <input
+                            type="number"
+                            className="border px-4 py-2 rounded-md w-full"
+                            value={booking.players}
+                            onChange={(e) => setBooking({ ...booking, players: e.target.value })}
+                        />
+                    </div>
 
-                <div>
-                    <label className="block mb-1 font-semibold">Game</label>
-                    <input
-                        type="text"
-                        className="border px-4 py-2 rounded-md w-full"
-                        value={booking.game || ''}
-                        onChange={(e) => setBooking({ ...booking, game: e.target.value })}
-                    />
-                </div>
+                    <div className="flex gap-4 justify-center mt-4">
+                        <button
+                            type="submit"
+                            className="bg-blue-600 w-20 text-white px-4 py-2 rounded hover:bg-green-600"
+                        >
+                            Save
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => navigate('/admin')}
+                            className="bg-gray-500 w-20 text-white px-4 py-2 rounded hover:bg-gray-500"
+                        >
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+  
 
-                <div>
-                    <label className="block mb-1 font-semibold">Players</label>
-                    <input
-                        type="number"
-                        className="border px-4 py-2 rounded-md w-full"
-                        value={booking.players}
-                        onChange={(e) => setBooking({ ...booking, players: e.target.value })}
-                    />
-                </div>
-
-                <div className="flex gap-4 justify-center mt-4">
-                    <button
-                        type="submit"
-                        className="bg-blue-600 w-20 text-white px-4 py-2 rounded hover:bg-green-600"
-                    >
-                        Save
-                    </button>
-                    <button
-                        type="button"
-                        onClick={() => navigate('/admin')}
-                        className="bg-gray-500 w-20 text-white px-4 py-2 rounded hover:bg-gray-500"
-                    >
-                        Cancel
-                    </button>
-                </div>
-            </form>
         </div>
 
     );

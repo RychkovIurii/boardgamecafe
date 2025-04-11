@@ -199,7 +199,7 @@ const AdminDashboard = () => {
                                     </td>
                                     <td className="admin-section-td">{booking.userId?.phone || booking.contactPhone || 'No Phone'}</td>
                                     <td className="admin-section-td">{booking.players}</td>
-                                    <td className={`admin-section-td ${booking.paymentId?.status === 'completed' ? 'text-green-600' : 'text-red-600'}`}>
+                                    <td className={`admin-section-td ${booking.paymentId?.status === 'completed' ? 'text-green-600' : 'text-gray-500 '}`}>
                                         {booking.paymentId ? (
                                             <>
                                                 <span className="font-semibold">{booking.paymentId.status.toUpperCase()}</span>
