@@ -4,7 +4,7 @@ import API from '../api/axios';
 import { useTranslation } from 'react-i18next';
 import { AuthContext } from '../context/AuthContext';
 import './Style/LoginStyles.css';
-import Swal from 'sweetalert2';
+import Swal from '../utils/swalWithFont';
 
 const Login = ({ onToggleForm, onForgotPassword }) => {
 	const { t } = useTranslation();

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import API from '../api/axios';
-import Swal from 'sweetalert2';
+import Swal from '../utils/swalWithFont';
 import './Style/ForgotPasswordStyles.css';
 import { useTranslation } from 'react-i18next';
 
