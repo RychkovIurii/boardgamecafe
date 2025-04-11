@@ -7,9 +7,6 @@ import contactImage from '../src/assets/elements/contact.png';
 import Swal from '../utils/swalWithFont';
 import API from '../api/axios'
 
-
-
-
 function Contact() {
     const { t } = useTranslation();
 
@@ -95,6 +92,7 @@ function Contact() {
                                             value={formData.firstName}
                                             onChange={handleChange}
                                             autoComplete="given-name"
+                                            required
                                             className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 outline-gray-300 placeholder-gray-400 focus:outline-2 focus:outline-indigo-600"
                                         />
                                     </div>
@@ -110,6 +108,7 @@ function Contact() {
                                             value={formData.lastName}
                                             onChange={handleChange}
                                             autoComplete="family-name"
+                                            required
                                             className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 outline-gray-300 placeholder-gray-400 focus:outline-2 focus:outline-indigo-600"
                                         />
                                     </div>
@@ -127,6 +126,7 @@ function Contact() {
                                             value={formData.email}
                                             onChange={handleChange}
                                             autoComplete="email"
+                                            required
                                             className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 outline-gray-300 placeholder-gray-400 focus:outline-2 focus:outline-indigo-600"
                                         />
                                     </div>
@@ -141,6 +141,7 @@ function Contact() {
                                             value={formData.message}
                                             onChange={handleChange}
                                             rows="4"
+                                            required
                                             className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 outline-gray-300 placeholder-gray-400 focus:outline-2 focus:outline-indigo-600"
                                         ></textarea>
                                     </div>
