@@ -1,6 +1,7 @@
-import { useContext, useLayoutEffect } from 'react';
+import { useContext, useLayoutEffect , useEffect } from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
+import axios from 'axios';
 
 // --- Public Routes ---
 import Home from '../routes/Home';
@@ -34,6 +35,18 @@ const Wrapper = ({ children }) => {
 	useLayoutEffect(() => {
 		window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
 	}, [location.pathname]);
+
+	// Wake up the backend server if it's asleep
+	useEffect(() => {
+		const wakeBackend = async () => {
+			try {
+				await axios.get(`${import.meta.env.VITE_API_URL}/health`); // or /hours
+			} catch (err) {
+				console.warn("Backend wake-up failed", err);
+			}
+		};
+		wakeBackend();
+	}, []);
 	return <>{children}</>;
 };
 

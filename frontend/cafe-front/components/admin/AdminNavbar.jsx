@@ -167,7 +167,7 @@ function AdminNavbar() {
 
           <Box sx={{ flexGrow: 0, display: 'flex', alignItems: 'center' }}>
             <i className="fa-solid fa-globe"></i>
-            <select value={language} onChange={(e) => updateLanguage(e.target.value)} style={{ marginLeft: '10px', marginRight: '20px', border: 'none', outline: 'none', backgroundColor: 'transparent', cursor: 'pointer', }}>
+            <select value={language} onChange={(e) => updateLanguage(e.target.value)} style={{  fontFamily: 'Fontdiner Swanky', marginLeft: '10px', marginRight: '20px', border: 'none', outline: 'none', backgroundColor: 'transparent', cursor: 'pointer', }}>
               <option value="en">EN</option>
               <option value="fi">FI</option>
             </select>
