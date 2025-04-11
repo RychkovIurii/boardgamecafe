@@ -55,8 +55,16 @@
 			"registerButton": "Luo uusi tili",
 			"forgotPassword": "Unohditko salasanasi?",
 			"successMessage": "Sisäänkirjautuminen onnistui!",
-			"errorMessage": "Sisäänkirjautuminen epäonnistui. Yritä uudelleen."
+			"errorMessage": "Sisäänkirjautuminen epäonnistui. Yritä uudelleen.",
+			"successTitle": "Tervetuloa!",
+			"confirmButton": "Jatka",
+			"errorTitle": "Oops!"
 		},
+	"logout": {
+		"successTitle": "Kirjauduttu ulos",
+		"successMessage": "Olet kirjautunut ulos onnistuneesti.",
+		"confirmButton": "OK"
+	},
 	"register": {
 		"title": "Rekisteröidy",
 		"nameLabel": "Nimi",
@@ -69,7 +77,10 @@
 		"passwordPlaceholder": "Syötä salasanasi",
 		"submitButton": "Rekisteröidy",
 		"loginButton": "Onko sinulla jo tili? Kirjaudu sisään",
-		"successMessage": "Rekisteröinti onnistui!",
+		"successTitle": "Rekisteröinti onnistui!",
+		"successMessage": "Tilisi on luotu.",
+		"errorTitle": "Oops!",
+		"confirmButton": "Jatka",
 		"errorMessage": "Rekisteröinti epäonnistui. Yritä uudelleen.",
 		"validationErrorTitle": "Validointivirhe",
 		"validation": {
@@ -357,5 +368,58 @@
 		"noUpcoming": "Ei tulevia varauksia.",
 		"bookingHistory": "Varaushistoria",
 		"noHistory": "Ei varaushistoriaa."
+		},
+	"adminDashboard": {
+		"pageTitle": {
+			"upcoming": "Hallintapaneeli",
+			"past": "Menneet varaukset"
+		},
+		"searchPlaceholder": "Hae käyttäjän, puhelimen, pöydän tai pelin mukaan",
+		"filter": {
+			"all": "Kaikki tulevat",
+			"today": "Tänään",
+			"thisWeek": "Tällä viikolla",
+			"past": "Menneet"
+		},
+		"tableHeader": {
+			"date": "Päivämäärä",
+			"startTime": "Alkuaika",
+			"endTime": "Loppuaika",
+			"table": "Pöytä",
+			"game": "Peli",
+			"user": "Käyttäjä",
+			"phone": "Puhelin",
+			"players": "Pelaajat",
+			"paymentStatus": "Maksun tila",
+			"edit": "Muokkaa",
+			"delete": "Poista"
+		},
+		"tableFilter": {
+			"allTables": "Kaikki pöydät",
+			"table": "Pöytä"
+		},
+		"noTableAssigned": "Ei pöytää",
+		"noPhone": "Ei puhelinta",
+		"guest": "Vieras",
+		"noPayment": "Ei maksua",
+		"paymentStatus": {
+			"completed": "Maksettu",
+			"pending": "Odottaa",
+			"failed": "Epäonnistui"
+		},
+		"deleteConfirm": {
+			"title": "Oletko varma?",
+			"text": "Tämä varaus poistetaan pysyvästi.",
+			"confirmButton": "Kyllä, poista se!",
+			"cancelButton": "Peruuta"
+		},
+		"deleteSuccess": {
+			"title": "Poistettu!",
+			"text": "Varaus on poistettu."
+		},
+		"deleteError": {
+			"title": "Poisto epäonnistui",
+			"text": "Jokin meni pieleen varauksen poistossa."
 		}
+	}
 }
