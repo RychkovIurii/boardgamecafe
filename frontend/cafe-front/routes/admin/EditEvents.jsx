@@ -39,11 +39,9 @@ const EditEvents = () => {
         e.preventDefault();
         try {
             if (selectedEventId) {
-                // Update existing event
                 const response = await API.put(`/events/${selectedEventId}`, newEvent);
                 setEvents(events.map(event => (event._id === selectedEventId ? response.data : event)));
             } else {
-                // Create new event
                 const response = await API.post('/events', newEvent);
                 setEvents([...events, response.data]);
             }
@@ -68,9 +66,10 @@ const EditEvents = () => {
     return (
         <div>
             <AdminNavbar />
-            <div className='spacer'> 
-                <h1 style={{ marginTop: '30px' }}>{t('editEvents.title')}</h1>
-                <form onSubmit={handleSubmit}>
+            <div className="md:py-20 py-10 mx-auto px-8">
+                <h1 className="admin-section-title">{t('editEvents.title')}</h1>
+
+                <form onSubmit={handleSubmit} className="flex flex-col gap-4 mt-5 ">
                     <input
                         type="text"
                         name="title"
@@ -78,6 +77,7 @@ const EditEvents = () => {
                         value={newEvent.title}
                         onChange={handleChange}
                         required
+                        className="border px-4 py-2 rounded-md w-full"
                     />
                     <textarea
                         name="description"
@@ -85,6 +85,7 @@ const EditEvents = () => {
                         value={newEvent.description}
                         onChange={handleChange}
                         required
+                        className="border px-4 py-2 rounded-md w-full min-h-[100px]"
                     ></textarea>
                     <input
                         type="date"
@@ -92,6 +93,7 @@ const EditEvents = () => {
                         value={newEvent.date}
                         onChange={handleChange}
                         required
+                        className="border px-4 py-2 rounded-md w-full"
                     />
                     <input
                         type="text"
@@ -99,20 +101,51 @@ const EditEvents = () => {
                         placeholder={t('editEvents.imagePlaceholder')}
                         value={newEvent.image}
                         onChange={handleChange}
+                        className="border px-4 py-2 rounded-md w-full"
                     />
-                    <button type="submit">{selectedEventId ? t('editEvents.updateButton') : t('editEvents.submitButton')}</button>
+
+                    <div className="flex gap-4 pt-2 justify-center">
+                        <button
+                            type="submit"
+                            className="bg-green-800 text-white px-6 py-2 rounded hover:bg-green-600"
+                        >
+                            {selectedEventId ? t('editEvents.updateButton') : t('editEvents.submitButton')}
+                        </button>
+                        {selectedEventId && (
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    setNewEvent({ title: '', description: '', date: '', image: '' });
+                                    setSelectedEventId(null);
+                                }}
+                                className="bg-gray-500 text-white px-6 py-2 rounded hover:bg-gray-600 "
+                            >
+                                Cancel
+                            </button>
+                        )}
+                    </div>
                 </form>
-                <h2 style={{ marginTop: '30px' }}>{t('editEvents.existingEvents')}</h2>
-                <div className='cardGen'>
+
+                <h2 className='md:px-10 md:pt-10 md:mt-10 md:pb-5 pt-10 pb-5 text-2xl md:text-3xl font-medium text-gray-800'>{t('editEvents.existingEvents')}</h2>
+                <div className="flex flex-wrap justify-center mx-auto">
                     {events.map(event => (
-                        <div key={event._id}>
+                        <div key={event._id} className="border rounded-md p-4 shadow hover:shadow-md transition duration-200 ">
                             <EventsCard
                                 eventTitle={event.title}
-                                eventDate={new Date(event.date).toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' })}
+                                eventDate={new Date(event.date).toLocaleDateString('en-GB', {
+                                    day: '2-digit', month: 'long', year: 'numeric'
+                                })}
                                 eventDescription={event.description}
                                 image={event.image}
                             />
-                            <button className='edit_but' onClick={() => handleEdit(event)}>{t('editEvents.editButton')}</button>
+                            <div className="m-4 ">
+                                <button
+                                    onClick={() => handleEdit(event)}
+                                    className="bg-gray-700 text-white px-4 py-2 rounded hover:bg-blue-600"
+                                >
+                                    {t('editEvents.editButton')}
+                                </button>
+                            </div>
                         </div>
                     ))}
                 </div>
