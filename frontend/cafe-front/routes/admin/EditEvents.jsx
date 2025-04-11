@@ -107,7 +107,7 @@ const EditEvents = () => {
                     <div className="flex gap-4 pt-2 justify-center">
                         <button
                             type="submit"
-                            className="bg-green-800 text-white px-6 py-2 rounded hover:bg-green-600"
+                            className="bg-blue-600 text-white px-6 py-2 rounded"
                         >
                             {selectedEventId ? t('editEvents.updateButton') : t('editEvents.submitButton')}
                         </button>
@@ -118,7 +118,7 @@ const EditEvents = () => {
                                     setNewEvent({ title: '', description: '', date: '', image: '' });
                                     setSelectedEventId(null);
                                 }}
-                                className="bg-gray-500 text-white px-6 py-2 rounded hover:bg-gray-600 "
+                                className="bg-gray-500 text-white px-6 py-2 rounded"
                             >
                                 Cancel
                             </button>
@@ -141,7 +141,7 @@ const EditEvents = () => {
                             <div className="m-4 ">
                                 <button
                                     onClick={() => handleEdit(event)}
-                                    className="bg-gray-700 text-white px-4 py-2 rounded hover:bg-blue-600"
+                                    className="bg-green-800 text-white px-4 py-2 rounded hover:bg-green-600"
                                 >
                                     {t('editEvents.editButton')}
                                 </button>

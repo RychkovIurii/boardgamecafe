@@ -224,7 +224,7 @@
 		"datePlaceholder": "Syötä tapahtuman päivämäärä",
 		"imagePlaceholder": "Syötä tapahtuman kuvan URL",
 		"submitButton": "Luo tapahtuma",
-		"updateButton": "Päivitä tapahtuma",
+		"updateButton": "Päivitä",
 		"editButton": "Muokkaa",
 		"existingEvents": "Olemassa olevat tapahtumat"
 	},
