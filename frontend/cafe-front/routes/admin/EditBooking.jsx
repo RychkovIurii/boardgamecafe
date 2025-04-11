@@ -20,8 +20,9 @@ const EditBooking = () => {
         }
         const date = new Date(time);
         if (isNaN(date.getTime())) return '';
-        return date.toISOString().slice(11, 16);
-    };
+        // Use toLocaleTimeString to format according to local time.
+        return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+      };
 
     // Helper function to combine a date and a time into a Date object
     const combineDateTime = (date, time) => {
