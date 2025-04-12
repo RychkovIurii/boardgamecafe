@@ -223,7 +223,7 @@ const AdminDashboard = () => {
                                     <td className="admin-section-td">
                                         <button
                                             onClick={() => handleEdit(booking._id)}
-                                            className="bg-green-800 w-20 text-white px-3 py-1 rounded hover:bg-green-600"
+                                            className="bg-green-800 w-20 text-white  py-1 rounded hover:bg-green-600 text-center"
                                         >
                                             {t('adminDashboard.tableHeader.edit')}
                                         </button>
@@ -231,7 +231,7 @@ const AdminDashboard = () => {
                                     <td className="px-4 py-2 border">
                                         <button
                                             onClick={() => handleDelete(booking._id)}
-                                            className="bg-gray-700 w-20 text-white px-3 py-1 rounded hover:bg-red-600"
+                                            className="bg-gray-700 w-20 text-white py-1 rounded hover:bg-red-600 text-center"
                                         >
                                             {t('adminDashboard.tableHeader.delete')}
                                         </button>
