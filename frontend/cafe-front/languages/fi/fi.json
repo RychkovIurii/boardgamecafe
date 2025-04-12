@@ -88,8 +88,8 @@
 			"phone": "Syötä kelvollinen puhelinnumero. +3 alussa. +[CountryCode][Number]",
 			"email": "Syötä kelvollinen sähköpostiosoite.",
 			"password": "Salasanan tulee olla vähintään 6 merkkiä pitkä."
-			}
-		},
+		}
+	},
 	"home": {
 		"steps": {
 			"How to find us": "Mistä meidät löytää",
@@ -156,7 +156,7 @@
 			"payNow": "Maksa nyt (valinnainen)"
 			},
 	"contact": {
-			"heroTitle": "Ole yhteydessä meihin!",
+		"heroTitle": "Ole yhteydessä meihin!",
 		"heroText": "Onko sinulla kysyttävää tai haluatko vain tervehtiä? Ota rohkeasti yhteyttä, kuulemme mielellämme sinusta!",
 		"formTitle": "Ota yhteyttä",
 		"formText": "Onko sinulla kysyttävää? Täytä alla oleva lomake, niin otamme sinuun yhteyttä.",
@@ -174,23 +174,25 @@
 		"company": "Café Boardgame Oy",
 		"contact_info": "Yhteystiedot:",
 		"inquiries": "Yhteystiedot henkilötietoihin liittyvissä asioissa:",
-			"dataSubjects": "2. Rekisteröidyt henkilöt",
+		"dataSubjects": "2. Rekisteröidyt henkilöt",
 		"dataSubjectsDesc": "Rekisteriin kuuluvat henkilöt.",
 		"purpose": "3. Henkilötietojen käyttötarkoitus",
 		"purposes": [
-		"- Asiakassuhteiden hallinta",
-		"- Ennalta määritettyjen ostojen käsittely",
-		"- Palveluista tiedottaminen",
-		"- Yhteiset viestintäkanavat" ],
+			"- Asiakassuhteiden hallinta",
+			"- Ennalta määritettyjen ostojen käsittely",
+			"- Palveluista tiedottaminen",
+			"- Yhteiset viestintäkanavat"
+		],
 		"recordedData": "4. Rekisteröidyt tiedot",
 		"recordedDataP": "Asiakasrekisteri sisältää:",
 		"dataList": [
-		"- Nimi",
-		"- Osoite",
-		"- Sähköposti",
-		"- Puhelinnumero",
-		"- Asiakastiedot",
-		"- Ostetut tuotteet/palvelut"],
+			"- Nimi",
+			"- Osoite",
+			"- Sähköposti",
+			"- Puhelinnumero",
+			"- Asiakastiedot",
+			"- Ostetut tuotteet/palvelut"
+		],
 		"rights": "5. Rekisteröityjen oikeudet",
 		"rightsP": "Asiakkaalla on oikeus päästä käsiksi tietoihinsa, oikaista, poistaa ja vastustaa tietojensa käsittelyä.",
 		"sources": "6. Tietolähteet",
@@ -205,9 +207,9 @@
 		"transferP": "Tietoja ei siirretä EU:n tai ETA:n ulkopuolelle.",
 		"decisionMaking": "11. Automaattinen päätöksenteko",
 		"decisionMakingP": "Automaattista päätöksentekoa tai profilointia ei tehdä."
-		},
+	},
 	"service": {
-			"Title": "Löydä palvelumme",
+		"Title": "Löydä palvelumme",
 		"serviceP": "Tavoitteenamme on tehdä Helsingistä pelikulttuurin sydän ja tarjota miellyttävä kohtaamispaikka kaikille peleistä kiinnostuneille. Cafe Boardgame on nelikerroksinen pelikulttuurin keskus, jossa yhdistyvät ravintola, kahvila, baari sekä tapahtuma-, koulutus- ja kokouspalvelut.",
 		"button": "Ota yhteyttä"
 	},
@@ -260,7 +262,7 @@
 	},
 	"HowItWorks": {
 		"title": "Näin Se Toimii"
-		},
+	},
 	"bookingForm": {
 		"step1": "Vaihe 1: Henkilötiedot",
 		"step1Name": "Nimi:",
@@ -317,7 +319,7 @@
 		"deletedText": "Varaus on poistettu.",
 		"deleteFailedTitle": "Poisto epäonnistui",
 		"deleteFailedText": "Jokin meni pieleen varauksen poistossa."
-		},
+	},
 	"aboutIntro": {
 		"intro1": "Vuonna 2021 perustettu Café Boardgame ja sen yli 500 pelin pelikirjasto on viihtyisä paikka lautapelien ja roolipelien ystäville.",
 		"intro2": "Ystävällinen henkilökuntamme auttaa sinua valitsemaan pelin, selittää säännöt tai ohjaa sinua pelin aikana.",
@@ -327,17 +329,17 @@
 		"friday": "Perjantai 16:00 - 02:00",
 		"saturday": "Lauantai 14:00 - 02:00",
 		"sunday": "Sunnuntai suljettu"
-		},
+	},
 	"events": {
 		"upcomingEvents": "Tulevat tapahtumat"
-		},
+	},
 	"profile": {
 		"pageTitle": "Profiilini",
 		"emailLabel": "Sähköposti:",
 		"phoneLabel": "Puhelin:",
 		"editButton": "Muokkaa puhelinnumeroa",
 		"saveButton": "Tallenna tiedot"
-		},
+	},
 	"forgotPassword": {
 		"title": "Unohtuiko salasana",
 		"emailLabel": "Sähköposti",

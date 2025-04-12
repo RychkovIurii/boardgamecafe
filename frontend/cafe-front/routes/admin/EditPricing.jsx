@@ -106,7 +106,7 @@ const ManageMenuItems = () => {
     return (
         <div>
             <AdminNavbar />
-            <div className="md:py-20 py-10 mx-auto px-8">
+            <div className="admin-section-wrapper">
                 <h1 className="admin-section-title">Manage Menu Items</h1>
                 <form
                     onSubmit={selectedMenuItemId ? handleUpdateMenuItem : handleAddMenuItem}
@@ -174,7 +174,7 @@ const ManageMenuItems = () => {
                     ))}
                     <div className="flex gap-4 pt-2 justify-center">
                         <button type="submit" className="bg-blue-600 text-white px-6 py-2 rounded">
-                            {selectedMenuItemId ? 'Update Menu Item' : 'Add Menu Item'}
+                            {selectedMenuItemId ? 'Update Menu' : 'Add Menu'}
                         </button>
                         {selectedMenuItemId && (
                             <button
@@ -190,7 +190,7 @@ const ManageMenuItems = () => {
                                     });
                                     setSelectedMenuItemId(null);
                                 }}
-                                className="bg-gray-500 text-white px-6 py-2 rounded"
+                                className="admin-button-cancle-delete"
                             >
                                 Cancel
                             </button>
@@ -198,31 +198,34 @@ const ManageMenuItems = () => {
                     </div>
                 </form>
 
-                <h2 className='md:px-10 md:pt-10 md:mt-10 md:pb-5 pt-10 pb-5 text-2xl md:text-3xl font-medium text-gray-800'>Existing Menu Items</h2>
-                <ul className="space-y-4">
-                    {menuItems.map(item => (
-                        <li key={item._id} className="border p-4 rounded shadow">
-                            <div className="font-medium text-lg mb-2 text-start">
-                                <p className='font-semibold'>{item.menuType}</p>
-                                <p>{item.details.description}</p>
-                            </div>
-                            <div className="flex gap-2 justify-center pt-2">
-                                <button
-                                    onClick={() => handleEditMenuItem(item)}
-                                    className="bg-green-800 w-20 text-white px-4 py-1 rounded hover:bg-green-600"
-                                >
-                                    Edit
-                                </button>
-                                <button
-                                    onClick={() => handleDeleteMenuItem(item._id)}
-                                    className="bg-gray-500 w-20 text-white px-4 py-1 rounded hover:bg-red-500"
-                                >
-                                    Delete
-                                </button>
-                            </div>
-                        </li>
-                    ))}
-                </ul>
+                <section className='w-[800px] mx-auto'>
+                    <h2 className='md:px-10 md:pt-10 md:mt-10 md:pb-5 pt-10 pb-5 text-2xl md:text-3xl font-medium text-gray-800'>Existing Menu Items</h2>
+                    <ul className="space-y-4">
+                        {menuItems.map(item => (
+                            <li key={item._id} className="border p-4 rounded shadow">
+                                <div className="font-medium text-lg mb-2 text-start">
+                                    <p className='font-semibold'>{item.menuType}</p>
+                                    <p>{item.details.description}</p>
+                                </div>
+                                <div className="flex gap-2 justify-center pt-2">
+                                    <button
+                                        onClick={() => handleEditMenuItem(item)}
+                                        className="admin-button-edit"
+                                    >
+                                        Edit
+                                    </button>
+                                    <button
+                                        onClick={() => handleDeleteMenuItem(item._id)}
+                                        className="admin-button-cancle-delete"
+                                    >
+                                        Delete
+                                    </button>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                </section>
+
             </div>
         </div>
     );

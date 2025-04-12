@@ -65,6 +65,18 @@ const EditEvents = () => {
         setSelectedEventId(event._id);
     };
 
+    const handleDelete = async (id) => {
+        const confirmDelete = window.confirm('Are you sure you want to delete this event?');
+        if (confirmDelete) {
+            try {
+                await API.delete(`/events/${id}`);
+                setEvents(events.filter(item => item._id !== id));
+            } catch (error) {
+                console.error('Error deleting menu item:', error);
+            }
+        }
+    };
+
     return (
         <div>
             <AdminNavbar />
@@ -130,7 +142,7 @@ const EditEvents = () => {
                                     setNewEvent({ title: '', description: '', date: '', image: '' });
                                     setSelectedEventId(null);
                                 }}
-                                className="bg-gray-500 text-white px-6 py-2 rounded"
+                                className="admin-button-cancle-delete"
                             >
                                 Cancel
                             </button>
@@ -139,7 +151,7 @@ const EditEvents = () => {
                 </form>
 
                 <h2 className='md:px-10 md:pt-10 md:mt-10 md:pb-5 pt-10 pb-5 text-2xl md:text-3xl font-medium text-gray-800'>{t('editEvents.existingEvents')}</h2>
-                <div className="flex flex-wrap justify-center mx-auto">
+                <div className="flex flex-wrap justify-center mx-auto gap-3">
                     {events.map(event => (
                         <div key={event._id} className="border rounded-md p-4 shadow hover:shadow-md transition duration-200 ">
                             <EventsCard
@@ -150,12 +162,18 @@ const EditEvents = () => {
                                 eventDescription={event.description}
                                 image={event.image}
                             />
-                            <div className="m-4 ">
+                            <div className="flex gap-2 justify-center pt-2 ">
                                 <button
                                     onClick={() => handleEdit(event)}
-                                    className="bg-green-800 text-white px-4 py-2 rounded hover:bg-green-600"
+                                    className="admin-button-edit"
                                 >
                                     {t('editEvents.editButton')}
+                                </button>
+                                <button
+                                    onClick={() => handleDelete(event._id)}
+                                    className="admin-button-cancle-delete"
+                                >
+                                    {t('editEvents.deleteButton')}
                                 </button>
                             </div>
                         </div>

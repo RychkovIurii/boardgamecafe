@@ -24,16 +24,16 @@
 	"footer": {
 		"Created by Varia Students": "© 2025 Created by Varia Students. All rights reserved.",
 		"Contact": "Contact",
-        "About": "About",
-        "Others": "Others",
-        "Call us": "Call us",
-        "Email us": "Email us",
-        "How it works": "How it works",
-        "Staff": "Staff",
-        "Services": "Services",
-        "Privacy Policy": "Privacy Policy",
-        "License": "License",
-        "Terms of Service": "Terms of Service",
+		"About": "About",
+		"Others": "Others",
+		"Call us": "Call us",
+		"Email us": "Email us",
+		"How it works": "How it works",
+		"Staff": "Staff",
+		"Services": "Services",
+		"Privacy Policy": "Privacy Policy",
+		"License": "License",
+		"Terms of Service": "Terms of Service",
 		"Opening hours": "Opening hours",
 		"Monday": "Monday",
 		"Tuesday": "Tuesday",
@@ -88,7 +88,7 @@
 			"phone": "Please enter a valid phone number in the format: +[CountryCode][Number].",
 			"email": "Please enter a valid email address.",
 			"password": "Password must be at least 6 characters long."
-			}
+		}
 	},
 	"home": {
 		"steps": {
@@ -154,7 +154,7 @@
 		"emailErrorText": "Failed to send the email. Please try again later.",
 		"goHome": "Go to Home",
 		"payNow": "Pay Now (Optional)"
-		},
+	},
 	"contact": {
 		"heroTitle": "Get in Touch!",
 		"heroText": "Have a question or just want to say hi? Feel free to reach out we’d love to hear from you!",
@@ -181,7 +181,8 @@
 			"- Customer relationship management",
 			"- Processing of pre-determined purchases",
 			"- Informing about services",
-			"- Common information channels"],
+			"- Common information channels"
+		],
 		"recordedData": "4. Personal Data Recorded",
 		"recordedDataP": "The customer register contains:",
 		"dataList": [
@@ -190,7 +191,8 @@
 			"- Email",
 			"- Phone Number",
 			"- Customer Information",
-			"- Purchased products/services"],
+			"- Purchased products/services"
+		],
 		"rights": "5. Data Subject's Rights",
 		"rightsP": "Customers have the right to access, rectify, delete, and object to their data processing.",
 		"sources": "6. Data Sources",
@@ -204,7 +206,7 @@
 		"transfer": "10. Data Transfers Outside the EU",
 		"transferP": "No data is transferred outside the EU or EEA.",
 		"decisionMaking": "11. Automated Decision Making",
-		"decisionMakingP": "No automatic decision-making or profiling is done."	
+		"decisionMakingP": "No automatic decision-making or profiling is done."
 	},
 	"admin_navbar": {
 		"Games": "Games",
@@ -243,6 +245,7 @@
 		"submitButton": "Create Event",
 		"updateButton": "Update",
 		"editButton": "Edit",
+		"deleteButton": "Delete",
 		"existingEvents": "Existing Events",
 		"includePastLabel": "Show:",
 		"onlyUpcoming": "Upcoming Events",

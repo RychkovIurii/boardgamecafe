@@ -3,8 +3,8 @@ const router = express.Router();
 const { SpecialHours } = require('../models/WorkingHours');
 const { authenticate, authorizeAdmin } = require('../middleware/auth');
 const {
-	specialHoursValidation,
-	specialHoursIdValidation
+  specialHoursValidation,
+  specialHoursIdValidation
 } = require('../utils/specialHoursValidation');
 const validateInputs = require('../middleware/validateInputs');
 
