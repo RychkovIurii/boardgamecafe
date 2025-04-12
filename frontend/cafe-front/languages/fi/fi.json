@@ -245,6 +245,7 @@
 		"submitButton": "Luo tapahtuma",
 		"updateButton": "Päivitä",
 		"editButton": "Muokkaa",
+		"deleteButton": "Poista",
 		"existingEvents": "Olemassa olevat tapahtumat",
 		"includePastLabel": "Näytä:",
 		"onlyUpcoming": "Tulevat tapahtumat",
