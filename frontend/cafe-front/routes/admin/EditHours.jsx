@@ -144,12 +144,12 @@ const EditHours = () => {
                     <td className="admin-section-td">{hour.closeTime || 'Closed'}</td>
                     <td className="admin-section-td">{hour.reason || '-'}</td>
                     <td className="admin-section-td">
-                      <button className="bg-green-800 text-white px-4 py-1 w-20 rounded hover:bg-green-600" onClick={() => handleSpecialEdit(hour)}>
+                      <button className="admin-button-edit" onClick={() => handleSpecialEdit(hour)}>
                         Edit
                       </button>
                     </td>
                     <td className="admin-section-td">
-                      <button className="bg-gray-700 text-white py-1 w-20 rounded hover:bg-red-600" onClick={() => handleSpecialDelete(hour._id)}>
+                      <button className="admin-button-cancle-delete" onClick={() => handleSpecialDelete(hour._id)}>
                         Delete
                       </button>
                     </td>
@@ -228,7 +228,7 @@ const EditHours = () => {
                     <td className="admin-section-td">
                       <button
                         onClick={() => handleWorkingEdit(hour)}
-                        className="bg-green-800 text-white px-4 py-1  w-20 rounded hover:bg-green-600"
+                        className="admin-button-edit"
                       >
                         Edit
                       </button>
