@@ -154,7 +154,7 @@ function AboutGalleryIntro() {
                 </div>
                 <div className={clsx('flex flex-col justify-center gap-6 md:w-2/4 text-md text-gray-800')} style={{
                     backgroundImage: isMobile ? "none" : `url(${assets.rotated_scroll})`,
-                    backgroundSize: "100% 130%",
+                    backgroundSize: "100% 100%",
                     backgroundPosition: "center",
                     backgroundRepeat: "no-repeat",
                     color: "black",
@@ -165,20 +165,20 @@ function AboutGalleryIntro() {
 					isMobile ? 'px-4' : 'px-10'
 					)}>
 						<p className={clsx(
-							'pt-2 font-fontdiner text-gray-800',
-							isMobile ? 'text-center' : 'ml-14 mr-4'
+							'pt-8 font-fontdiner text-gray-800',
+							isMobile ? 'text-center' : 'ml-9 mr-9'
 						)}>
 							{t('aboutIntro.intro1')}
 						</p>
 						<p className={clsx(
 							'pt-2 font-fontdiner text-gray-800',
-							isMobile ? 'text-center' : 'ml-14 mr-4'
+							isMobile ? 'text-center' : 'ml-9 mr-9'
 						)}>
 							{t('aboutIntro.intro2')}
 						</p>
 						<p className={clsx(
 							'pt-2 font-fontdiner text-gray-800',
-							isMobile ? 'text-center' : 'ml-14 mr-4'
+							isMobile ? 'text-center' : 'ml-9 mr-9'
 						)}>
 							{t('aboutIntro.intro3')}
 						</p>
@@ -188,7 +188,7 @@ function AboutGalleryIntro() {
 					<h2 className={clsx("sm:text-2xl lg:text-3xl font-bold text-gray-800 mb-4", isMobile ? "bg-gray-200 pt-10" : "pt-3", "font-fontdiner")}>
 						{t('aboutIntro.openingTitle')}
 					</h2>
-					<ul className="text-md font-semibold text-gray-800 font-fontdiner">
+					<ul className="text-md font-semibold text-gray-800 font-fontdiner mb-8">
 						{workingHours.length > 0 ? groupWorkingHours(workingHours).map((group, idx) => (
 							<li key={idx}>
 								{formatDayRange(group)}{' '}
