@@ -55,8 +55,9 @@ body {
 
 
   .admin-section-wrapper {
-    @apply md:py-20 px-10 py-10 mx-auto
+    @apply md:py-20 px-10 py-10 mx-auto md:max-w-[90%]
   }
+
 
   .admin-section-title {
     @apply md:px-10 md:pt-10 md:pb-5 px-5 pt-5 text-4xl md:text-5xl font-medium text-gray-800;
@@ -64,6 +65,14 @@ body {
   }
 
   .admin-section-td {
-    @apply px-4 py-2 border;
+    @apply sm:px-4 px-2 py-2 border;
+  }
+
+  .admin-button-cancle-delete {
+    @apply bg-gray-700 text-white w-20 py-1 rounded hover:bg-gray-500 text-center
+  }
+
+  .admin-button-edit {
+    @apply bg-green-800 w-20 text-white py-1 rounded hover:bg-green-600 text-center
   }
 }

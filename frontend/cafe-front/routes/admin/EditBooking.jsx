@@ -193,7 +193,7 @@ const EditBooking = () => {
                         <button
                             type="button"
                             onClick={() => navigate('/admin')}
-                            className="bg-gray-500 w-20 text-white px-4 py-2 rounded"
+                            className="admin-button-cancle-delete"
                         >
                             Cancel
                         </button>

@@ -83,47 +83,166 @@ const EditHours = () => {
     setSelectedSpecialId(entry._id);
   };
 
+  const handleSpecialDelete = async (selectedSpecialId) => {
+    const confirmDelete = window.confirm('Are you sure you want to delete this date?')
+    if (confirmDelete) {
+      try {
+        await API.delete(`/specialHours/${selectedSpecialId}`, specialForm);
+        setSpecialHours(specialHours.filter(item => item._id != selectedSpecialId))
+      } catch (error) {
+        console.error('Error deleting date:', error);
+      }
+    }
+  }
+
   return (
     <div>
       <AdminNavbar />
-      <h1 style={{ marginTop: '30px' }}>Edit Opening Hours</h1>
+      <div className="admin-section-wrapper">
+        <h1 className="admin-section-title">Edit Opening Hours</h1>
 
-      <h2>Regular Weekly Hours</h2>
-      <form onSubmit={handleWorkingSubmit}>
-        <select name="day" value={workingForm.day} onChange={handleWorkingChange} required>
-          <option value="">Select Day</option>
-          {weekDays.map(day => <option key={day} value={day}>{day}</option>)}
-        </select>
-        <input type="time" name="openTime" value={workingForm.openTime} onChange={handleWorkingChange} />
-        <input type="time" name="closeTime" value={workingForm.closeTime} onChange={handleWorkingChange} />
-        <button type="submit">{selectedWorkingId ? 'Update' : 'Add'}</button>
-      </form>
-      <ul className='edits_close'>
-        {workingHours.map(hour => (
-          <li className='items' key={hour._id}>
-            {hour.day}: {hour.openTime || 'Closed'} - {hour.closeTime || 'Closed'}
-            <button className='edit_but' onClick={() => handleWorkingEdit(hour)}>Edit</button>
-          </li>
-        ))}
-      </ul>
+        <section >
+          <h2 className="md:px-10 md:pt-10 md:mt-5 md:pb-5 pt-10 pb-2 text-2xl md:text-3xl font-medium text-gray-800">Special Dates</h2>
+          <form onSubmit={handleSpecialSubmit} className="flex flex-col gap-4 mt-3 mb-5">
+            <input type="date" name="date" value={specialForm.date} onChange={handleSpecialChange} required className="border px-4 py-2 rounded" />
+            <input type="time" name="openTime" value={specialForm.openTime} onChange={handleSpecialChange} className="border px-4 py-2 rounded" />
+            <input type="time" name="closeTime" value={specialForm.closeTime} onChange={handleSpecialChange} className="border px-4 py-2 rounded" />
+            <input type="text" name="reason" placeholder="Reason (e.g. Christmas)" value={specialForm.reason} onChange={handleSpecialChange} className="border px-4 py-2 rounded" />
+            <div className="flex gap-4 justify-center mt-4">
+              <button type="submit" className="bg-blue-600 text-white w-20 py-1 rounded hover:bg-blue-500 text-center">
+                {selectedSpecialId ? 'Update' : 'Add'}
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setSpecialForm({ date: '', openTime: '', closeTime: '', reason: '' });
+                  setSelectedSpecialId(null);
+                }}
+                className="bg-gray-700 text-white w-20 py-1 rounded hover:bg-gray-500 text-center"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+          <div className="overflow-x-auto pt-5 w-[800px] mx-auto">
+            <table className="table-auto w-full border border-gray-300 shadow-sm rounded-md">
+              <thead className="bg-gray-100 text-center">
+                <tr>
+                  <th className="admin-section-td">Date</th>
+                  <th className="admin-section-td">Open Time</th>
+                  <th className="admin-section-td">Close Time</th>
+                  <th className="admin-section-td">Reason</th>
+                  <th className="admin-section-td"></th>
+                  <th className="admin-section-td"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {specialHours.map(hour => (
+                  <tr key={hour._id} className="text-center hover:bg-gray-50">
+                    <td className="admin-section-td">{hour.date?.slice(0, 10)}</td>
+                    <td className="admin-section-td">{hour.openTime || 'Closed'}</td>
+                    <td className="admin-section-td">{hour.closeTime || 'Closed'}</td>
+                    <td className="admin-section-td">{hour.reason || '-'}</td>
+                    <td className="admin-section-td">
+                      <button className="bg-green-800 text-white px-4 py-1 w-20 rounded hover:bg-green-600" onClick={() => handleSpecialEdit(hour)}>
+                        Edit
+                      </button>
+                    </td>
+                    <td className="admin-section-td">
+                      <button className="bg-gray-700 text-white py-1 w-20 rounded hover:bg-red-600" onClick={() => handleSpecialDelete(hour._id)}>
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
 
-      <h2 style={{ marginTop: '40px' }}>Special Dates</h2>
-      <form onSubmit={handleSpecialSubmit}>
-        <input type="date" name="date" value={specialForm.date} onChange={handleSpecialChange} required />
-        <input type="time" name="openTime" value={specialForm.openTime} onChange={handleSpecialChange} />
-        <input type="time" name="closeTime" value={specialForm.closeTime} onChange={handleSpecialChange} />
-        <input type="text" name="reason" placeholder="Reason (e.g. Christmas)" value={specialForm.reason} onChange={handleSpecialChange} />
-        <button type="submit">{selectedSpecialId ? 'Update' : 'Add'}</button>
-      </form>
-      <ul className='edits_close'>
-        {specialHours.map(hour => (
-          <li className='items' key={hour._id}>
-            {hour.date?.slice(0, 10)}: {hour.openTime || 'Closed'} - {hour.closeTime || 'Closed'} {hour.reason && `(${hour.reason})`}
-            <button className='edit_but' onClick={() => handleSpecialEdit(hour)}>Edit</button>
-          </li>
-        ))}
-      </ul>
-    </div>
+        <section>
+          <h2 className="md:px-10 md:pt-10 md:mt-7 md:pb-5 pt-10 pb-2 text-2xl md:text-3xl font-medium text-gray-800">Regular Weekly Hours</h2>
+          <form onSubmit={handleWorkingSubmit} className="flex flex-col gap-4 mt-3 mb-5">
+            <select
+              name="day"
+              value={workingForm.day}
+              onChange={handleWorkingChange}
+              required
+              className="border rounded px-4 py-2"
+            >
+              <option value="">Select Day</option>
+              {weekDays.map(day => (
+                <option key={day} value={day}>{day}</option>
+              ))}
+            </select>
+            <input
+              type="time"
+              name="openTime"
+              value={workingForm.openTime}
+              onChange={handleWorkingChange}
+              className="border rounded px-4 py-2"
+            />
+            <input
+              type="time"
+              name="closeTime"
+              value={workingForm.closeTime}
+              onChange={handleWorkingChange}
+              className="border rounded px-4 py-2"
+            />
+            <div className="flex gap-4 justify-center mt-4">
+              <button
+                type="submit"
+                className="bg-blue-600 text-white w-20 py-1 rounded hover:bg-blue-500 text-center"
+              >
+                {selectedWorkingId ? 'Update' : 'Add'}
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setWorkingForm({ day: '', openTime: '', closeTime: '' });
+                  setSelectedWorkingId(null);
+                }}
+                className="bg-gray-700 text-white w-20 py-1 rounded hover:bg-gray-500 text-center"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+
+          <div className="overflow-x-auto pt-5 w-[800px] mx-auto">
+            <table className="table-auto w-full border border-gray-300 shadow-sm rounded-md">
+              <thead className="bg-gray-100 text-center">
+                <tr>
+                  <th className="admin-section-td">Day</th>
+                  <th className="admin-section-td">Open Time</th>
+                  <th className="admin-section-td">Close Time</th>
+                  <th className="admin-section-td"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {workingHours.map(hour => (
+                  <tr key={hour._id} className="text-center hover:bg-gray-50">
+                    <td className="admin-section-td">{hour.day}</td>
+                    <td className="admin-section-td">{hour.openTime || 'Closed'}</td>
+                    <td className="admin-section-td">{hour.closeTime || 'Closed'}</td>
+                    <td className="admin-section-td">
+                      <button
+                        onClick={() => handleWorkingEdit(hour)}
+                        className="bg-green-800 text-white px-4 py-1  w-20 rounded hover:bg-green-600"
+                      >
+                        Edit
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+
+      </div>
+    </div >
   );
 };
 

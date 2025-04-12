@@ -46,17 +46,17 @@
 		"awards": "Palkinnot"
 	},
 	"login": {
-			"title": "Kirjaudu sisään",
-			"emailLabel": "Sähköposti",
-			"emailPlaceholder": "Syötä sähköpostiosoitteesi",
-			"passwordLabel": "Salasana",
-			"passwordPlaceholder": "Syötä salasanasi",
-			"submitButton": "Kirjaudu sisään",
-			"registerButton": "Luo uusi tili",
-			"forgotPassword": "Unohditko salasanasi?",
-			"successMessage": "Sisäänkirjautuminen onnistui!",
-			"errorMessage": "Sisäänkirjautuminen epäonnistui. Yritä uudelleen."
-		},
+		"title": "Kirjaudu sisään",
+		"emailLabel": "Sähköposti",
+		"emailPlaceholder": "Syötä sähköpostiosoitteesi",
+		"passwordLabel": "Salasana",
+		"passwordPlaceholder": "Syötä salasanasi",
+		"submitButton": "Kirjaudu sisään",
+		"registerButton": "Luo uusi tili",
+		"forgotPassword": "Unohditko salasanasi?",
+		"successMessage": "Sisäänkirjautuminen onnistui!",
+		"errorMessage": "Sisäänkirjautuminen epäonnistui. Yritä uudelleen."
+	},
 	"register": {
 		"title": "Rekisteröidy",
 		"nameLabel": "Nimi",
@@ -77,8 +77,8 @@
 			"phone": "Syötä kelvollinen puhelinnumero. +3 alussa. +[CountryCode][Number]",
 			"email": "Syötä kelvollinen sähköpostiosoite.",
 			"password": "Salasanan tulee olla vähintään 6 merkkiä pitkä."
-			}
-		},
+		}
+	},
 	"home": {
 		"steps": {
 			"How to find us": "Mistä meidät löytää",
@@ -115,31 +115,31 @@
 			"COMMUNITY": "YHTEISÖ",
 			"Community detail": "Discord-kanavallamme on yli 1500 aktiivista jäsentä ja pelejä isännöivät usein suomalaiset pelikehittäjät."
 		}
-		},
-		"alerts": {
-			"incompleteTitle": "Puuttuvat tiedot",
-			"incompleteText": "Täytä kaikki vaaditut kentät ennen jatkamista.",
-			"tableTitle": "Pöytä vaaditaan",
-			"tableText": "Valitse tai syötä pöytänumero ennen jatkamista.",
-			"bookingSuccessTitle": "Varaus vahvistettu!",
-			"bookingSuccessText": "Kiitos! Pöytäsi on nyt varattu.",
-			"bookingErrorTitle": "Varaus epäonnistui",
-			"bookingErrorText": "Virhe varauksen luomisessa.",
-			"paymentSuccessTitle": "Maksu suoritettu!",
-			"paymentSuccessText": "Vahvistussähköposti lähetettiin osoitteeseen",
-			"invalidPhoneTitle": "Virheellinen puhelinnumero",
-			"invalidPhoneText": "Syötä kelvollinen puhelinnumero. +3 alussa. +[CountryCode][Number]",
-			"updateSuccessTitle": "Päivitetty!",
-			"updateSuccessText": "Puhelinnumero päivitetty onnistuneesti.",
-			"updateErrorTitle": "Päivitys epäonnistui",
-			"updateErrorText": "Puhelinnumeron päivittäminen epäonnistui.",
-			"invalidTimeTitle": "Aukioloaikojen ulkopuolella",
-			"invalidTimeText": "Valitsemasi aika on aukioloaikojemme ulkopuolella. Valitse toinen aika.",
-			"goHome": "Palaa etusivulle",
-			"payNow": "Maksa nyt (valinnainen)"
-			},
+	},
+	"alerts": {
+		"incompleteTitle": "Puuttuvat tiedot",
+		"incompleteText": "Täytä kaikki vaaditut kentät ennen jatkamista.",
+		"tableTitle": "Pöytä vaaditaan",
+		"tableText": "Valitse tai syötä pöytänumero ennen jatkamista.",
+		"bookingSuccessTitle": "Varaus vahvistettu!",
+		"bookingSuccessText": "Kiitos! Pöytäsi on nyt varattu.",
+		"bookingErrorTitle": "Varaus epäonnistui",
+		"bookingErrorText": "Virhe varauksen luomisessa.",
+		"paymentSuccessTitle": "Maksu suoritettu!",
+		"paymentSuccessText": "Vahvistussähköposti lähetettiin osoitteeseen",
+		"invalidPhoneTitle": "Virheellinen puhelinnumero",
+		"invalidPhoneText": "Syötä kelvollinen puhelinnumero. +3 alussa. +[CountryCode][Number]",
+		"updateSuccessTitle": "Päivitetty!",
+		"updateSuccessText": "Puhelinnumero päivitetty onnistuneesti.",
+		"updateErrorTitle": "Päivitys epäonnistui",
+		"updateErrorText": "Puhelinnumeron päivittäminen epäonnistui.",
+		"invalidTimeTitle": "Aukioloaikojen ulkopuolella",
+		"invalidTimeText": "Valitsemasi aika on aukioloaikojemme ulkopuolella. Valitse toinen aika.",
+		"goHome": "Palaa etusivulle",
+		"payNow": "Maksa nyt (valinnainen)"
+	},
 	"contact": {
-			"heroTitle": "Ole yhteydessä meihin!",
+		"heroTitle": "Ole yhteydessä meihin!",
 		"heroText": "Onko sinulla kysyttävää tai haluatko vain tervehtiä? Ota rohkeasti yhteyttä, kuulemme mielellämme sinusta!",
 		"formTitle": "Ota yhteyttä",
 		"formText": "Onko sinulla kysyttävää? Täytä alla oleva lomake, niin otamme sinuun yhteyttä.",
@@ -157,23 +157,25 @@
 		"company": "Café Boardgame Oy",
 		"contact_info": "Yhteystiedot:",
 		"inquiries": "Yhteystiedot henkilötietoihin liittyvissä asioissa:",
-			"dataSubjects": "2. Rekisteröidyt henkilöt",
+		"dataSubjects": "2. Rekisteröidyt henkilöt",
 		"dataSubjectsDesc": "Rekisteriin kuuluvat henkilöt.",
 		"purpose": "3. Henkilötietojen käyttötarkoitus",
 		"purposes": [
-		"- Asiakassuhteiden hallinta",
-		"- Ennalta määritettyjen ostojen käsittely",
-		"- Palveluista tiedottaminen",
-		"- Yhteiset viestintäkanavat" ],
+			"- Asiakassuhteiden hallinta",
+			"- Ennalta määritettyjen ostojen käsittely",
+			"- Palveluista tiedottaminen",
+			"- Yhteiset viestintäkanavat"
+		],
 		"recordedData": "4. Rekisteröidyt tiedot",
 		"recordedDataP": "Asiakasrekisteri sisältää:",
 		"dataList": [
-		"- Nimi",
-		"- Osoite",
-		"- Sähköposti",
-		"- Puhelinnumero",
-		"- Asiakastiedot",
-		"- Ostetut tuotteet/palvelut"],
+			"- Nimi",
+			"- Osoite",
+			"- Sähköposti",
+			"- Puhelinnumero",
+			"- Asiakastiedot",
+			"- Ostetut tuotteet/palvelut"
+		],
 		"rights": "5. Rekisteröityjen oikeudet",
 		"rightsP": "Asiakkaalla on oikeus päästä käsiksi tietoihinsa, oikaista, poistaa ja vastustaa tietojensa käsittelyä.",
 		"sources": "6. Tietolähteet",
@@ -188,9 +190,9 @@
 		"transferP": "Tietoja ei siirretä EU:n tai ETA:n ulkopuolelle.",
 		"decisionMaking": "11. Automaattinen päätöksenteko",
 		"decisionMakingP": "Automaattista päätöksentekoa tai profilointia ei tehdä."
-		},
+	},
 	"service": {
-			"Title": "Löydä palvelumme",
+		"Title": "Löydä palvelumme",
 		"serviceP": "Tavoitteenamme on tehdä Helsingistä pelikulttuurin sydän ja tarjota miellyttävä kohtaamispaikka kaikille peleistä kiinnostuneille. Cafe Boardgame on nelikerroksinen pelikulttuurin keskus, jossa yhdistyvät ravintola, kahvila, baari sekä tapahtuma-, koulutus- ja kokouspalvelut.",
 		"button": "Ota yhteyttä"
 	},
@@ -226,6 +228,7 @@
 		"submitButton": "Luo tapahtuma",
 		"updateButton": "Päivitä",
 		"editButton": "Muokkaa",
+		"deleteButton": "poista",
 		"existingEvents": "Olemassa olevat tapahtumat"
 	},
 	"about": {
@@ -240,7 +243,7 @@
 	},
 	"HowItWorks": {
 		"title": "Näin Se Toimii"
-		},
+	},
 	"bookingForm": {
 		"step1": "Vaihe 1: Henkilötiedot",
 		"step1Name": "Nimi:",
@@ -297,7 +300,7 @@
 		"deletedText": "Varaus on poistettu.",
 		"deleteFailedTitle": "Poisto epäonnistui",
 		"deleteFailedText": "Jokin meni pieleen varauksen poistossa."
-		},
+	},
 	"aboutIntro": {
 		"intro1": "Vuonna 2021 perustettu Café Boardgame ja sen yli 500 pelin pelikirjasto on viihtyisä paikka lautapelien ja roolipelien ystäville.",
 		"intro2": "Ystävällinen henkilökuntamme auttaa sinua valitsemaan pelin, selittää säännöt tai ohjaa sinua pelin aikana.",
@@ -307,17 +310,17 @@
 		"friday": "Perjantai 16:00 - 02:00",
 		"saturday": "Lauantai 14:00 - 02:00",
 		"sunday": "Sunnuntai suljettu"
-		},
+	},
 	"events": {
 		"upcomingEvents": "Tulevat tapahtumat"
-		},
+	},
 	"profile": {
 		"pageTitle": "Profiilini",
 		"emailLabel": "Sähköposti:",
 		"phoneLabel": "Puhelin:",
 		"editButton": "Muokkaa puhelinnumeroa",
 		"saveButton": "Tallenna tiedot"
-		},
+	},
 	"forgotPassword": {
 		"title": "Unohtuiko salasana",
 		"emailLabel": "Sähköposti",
@@ -351,5 +354,5 @@
 		"noUpcoming": "Ei tulevia varauksia.",
 		"bookingHistory": "Varaushistoria",
 		"noHistory": "Ei varaushistoriaa."
-		}
+	}
 }
