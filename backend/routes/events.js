@@ -19,6 +19,17 @@ router.get('/', async (req, res) => {
     }
 });
 
+// Get past events (admin only)
+router.get('/past', authenticate, authorizeAdmin, async (req, res) => {
+    try {
+        const currentDate = new Date();
+        const events = await Event.find({ date: { $lt: currentDate } }).sort({ date: -1 });
+        res.json(events);
+    } catch (error) {
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
 // Create new event (admin only)
 router.post('/', authenticate, authorizeAdmin, eventCreateValidation, validateInputs, async (req, res) => {
     try {

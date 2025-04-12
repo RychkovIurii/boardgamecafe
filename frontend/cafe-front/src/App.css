@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+.swal-custom-font {
+    font-family: "Fontdiner Swanky", serif !important;
+  }
+
 /* Public layout font */
 .public-app {
   font-family: "Fontdiner Swanky", serif;

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import './Style/BookingFormStyles.css';
-import Swal from 'sweetalert2';
+import Swal from '../utils/swalWithFont';
 import API from '../api/axios';
 import {
   Stepper,

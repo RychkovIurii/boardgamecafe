@@ -1,7 +1,7 @@
 import { createContext, useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import API from '../api/axios';
-import Swal from 'sweetalert2';
+import Swal from '../utils/swalWithFont';
 import { useTranslation } from 'react-i18next';
 
 export const AuthContext = createContext();

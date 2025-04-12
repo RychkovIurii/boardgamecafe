@@ -125,7 +125,7 @@ function Navbar() {
             >
               {pages.map((page) => (
                 <MenuItem key={page.name} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">
+                  <Typography textAlign="center" sx={{ fontFamily: 'Fontdiner Swanky' }}>
                     <Link to={page.path}>{t(`navbar.${page.name}`)}</Link>
                   </Typography>
                 </MenuItem>
