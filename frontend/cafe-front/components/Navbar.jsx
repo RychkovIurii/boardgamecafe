@@ -156,7 +156,13 @@ function Navbar() {
               <Button
                 key={page.name}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'black', display: 'block', mr: 6, fontSize: '1rem', fontFamily: 'Fontdiner Swanky', ":hover": { bgcolor: 'white' } }}
+                sx={{ my: 2, color: 'black', display: 'block',
+                    mr:
+                       {
+                            md: 2,
+                            lg: 6
+                        },
+                     fontSize: '1rem', fontFamily: 'Fontdiner Swanky', ":hover": { bgcolor: 'white' } }}
                 component={Link}
                 to={page.path}
               >
