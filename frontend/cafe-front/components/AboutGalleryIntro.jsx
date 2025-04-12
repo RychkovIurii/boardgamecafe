@@ -92,35 +92,35 @@ function AboutGalleryIntro() {
                 <div className={clsx("flex lg:flex-row md:flex-wrap ", isMobile ? "w-full" : isTablet ? "w-1/2" : "w-2/3")}>
                     {/* 왼쪽 이미지 그룹 */}
                     <div className="flex w-full sm:w-1/2 flex-wrap lg:w-1/2">
-                        <div className="w-full lg:w-1/2 p-1">
+                        <div className="w-full lg:w-1/2 p-1">{/* <div className="w-full lg:w-1/2 p-2"> */}
                             <img
                                 alt="gallery"
                                 className="block h-full w-full rounded-lg 2xl:rounded-2xl object-cover object-center"
                                 src={assets.property_photo_5}
                             />
                         </div>
-                        <div className="w-full lg:w-1/2 p-1">
+                        <div className="w-full lg:w-1/2 p-1">{/* <div className="w-full lg:w-1/2 p-2"> */}
                             <img
                                 alt="gallery"
                                 className="block h-full w-full rounded-lg 2xl:rounded-2xl object-cover object-center"
                                 src={assets.property_photo_10}
                             />
                         </div>
-                        <div className="w-full lg:w-1/2 p-1 md:p-1">
+                        <div className="w-full lg:w-1/2 p-1 md:p-1">{/* <div className="w-full lg:w-1/2 p-1 md:p-2"> */}
                             <img
                                 alt="gallery"
                                 className="block h-full w-full rounded-lg 2xl:rounded-2xl object-cover object-center"
                                 src={assets.property_photo_4}
                             />
                         </div>
-                        <div className="w-full lg:w-1/2 p-1 md:p-1">
+                        <div className="w-full lg:w-1/2 p-1 md:p-1">{/* <div className="w-full lg:w-1/2 p-1 md:p-2"> */}
                             <img
                                 alt="gallery"
                                 className="block h-full w-full rounded-lg 2xl:rounded-2xl object-cover object-center"
                                 src={assets.property_photo_7}
                             />
                         </div>
-                        <div className="w-full p-1 md:p-2">
+                        <div className="w-full p-1 md:p-1">{/* <div className="w-full p-1 md:p-2"> */}
                             <img
                                 alt="gallery"
                                 className="block h-full w-full rounded-lg 2xl:rounded-2xl object-cover object-center max-h-none lg:max-h-[1000px]"
@@ -129,21 +129,21 @@ function AboutGalleryIntro() {
                         </div>
                     </div>
                     <div className="flex w-full sm:w-1/2 flex-wrap">
-                        <div className="w-full p-1 md:p-2">
+                        <div className="w-full p-1 md:p-1">{/* <div className="w-full p-1 md:p-2"> */}
                             <img
                                 alt="gallery"
                                 className="block h-full w-full rounded-lg 2xl:rounded-2xl object-cover object-center"
                                 src={assets.property_photo_9}
                             />
                         </div>
-                        <div className="w-1/2 p-1 md:p-2">
+                        <div className="w-1/2 p-1 md:p-1">{/* <div className="w-1/2 p-1 md:p-2"> */}
                             <img
                                 alt="gallery"
                                 className="block h-full w-full rounded-lg 2xl:rounded-2xl object-cover object-center"
                                 src={assets.property_photo_11}
                             />
                         </div>
-                        <div className="w-1/2 p-1 md:p-2">
+                        <div className="w-1/2 p-1 md:p-1">{/* <div className="w-1/2 p-1 md:p-2"> */}
                             <img
                                 alt="gallery"
                                 className="block h-full w-full rounded-lg 2xl:rounded-2xl object-cover object-center"
@@ -188,7 +188,7 @@ function AboutGalleryIntro() {
 					<h2 className={clsx("sm:text-2xl lg:text-3xl font-bold text-gray-800 mb-4", isMobile ? "bg-gray-200 pt-10" : "pt-3", "font-fontdiner")}>
 						{t('aboutIntro.openingTitle')}
 					</h2>
-					<ul className="text-md font-semibold text-gray-800 font-fontdiner mb-8">
+					<ul className="text-md font-semibold text-gray-800 font-fontdiner sm:mb-8">
 						{workingHours.length > 0 ? groupWorkingHours(workingHours).map((group, idx) => (
 							<li key={idx}>
 								{formatDayRange(group)}{' '}
