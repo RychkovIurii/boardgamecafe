@@ -46,16 +46,24 @@
 		"awards": "Palkinnot"
 	},
 	"login": {
-		"title": "Kirjaudu sisään",
-		"emailLabel": "Sähköposti",
-		"emailPlaceholder": "Syötä sähköpostiosoitteesi",
-		"passwordLabel": "Salasana",
-		"passwordPlaceholder": "Syötä salasanasi",
-		"submitButton": "Kirjaudu sisään",
-		"registerButton": "Luo uusi tili",
-		"forgotPassword": "Unohditko salasanasi?",
-		"successMessage": "Sisäänkirjautuminen onnistui!",
-		"errorMessage": "Sisäänkirjautuminen epäonnistui. Yritä uudelleen."
+			"title": "Kirjaudu sisään",
+			"emailLabel": "Sähköposti",
+			"emailPlaceholder": "Syötä sähköpostiosoitteesi",
+			"passwordLabel": "Salasana",
+			"passwordPlaceholder": "Syötä salasanasi",
+			"submitButton": "Kirjaudu sisään",
+			"registerButton": "Luo uusi tili",
+			"forgotPassword": "Unohditko salasanasi?",
+			"successMessage": "Sisäänkirjautuminen onnistui!",
+			"errorMessage": "Sisäänkirjautuminen epäonnistui. Yritä uudelleen.",
+			"successTitle": "Tervetuloa!",
+			"confirmButton": "Jatka",
+			"errorTitle": "Oops!"
+		},
+	"logout": {
+		"successTitle": "Kirjauduttu ulos",
+		"successMessage": "Olet kirjautunut ulos onnistuneesti.",
+		"confirmButton": "OK"
 	},
 	"register": {
 		"title": "Rekisteröidy",
@@ -69,7 +77,10 @@
 		"passwordPlaceholder": "Syötä salasanasi",
 		"submitButton": "Rekisteröidy",
 		"loginButton": "Onko sinulla jo tili? Kirjaudu sisään",
-		"successMessage": "Rekisteröinti onnistui!",
+		"successTitle": "Rekisteröinti onnistui!",
+		"successMessage": "Tilisi on luotu.",
+		"errorTitle": "Oops!",
+		"confirmButton": "Jatka",
 		"errorMessage": "Rekisteröinti epäonnistui. Yritä uudelleen.",
 		"validationErrorTitle": "Validointivirhe",
 		"validation": {
@@ -115,29 +126,29 @@
 			"COMMUNITY": "YHTEISÖ",
 			"Community detail": "Discord-kanavallamme on yli 1500 aktiivista jäsentä ja pelejä isännöivät usein suomalaiset pelikehittäjät."
 		}
-	},
-	"alerts": {
-		"incompleteTitle": "Puuttuvat tiedot",
-		"incompleteText": "Täytä kaikki vaaditut kentät ennen jatkamista.",
-		"tableTitle": "Pöytä vaaditaan",
-		"tableText": "Valitse tai syötä pöytänumero ennen jatkamista.",
-		"bookingSuccessTitle": "Varaus vahvistettu!",
-		"bookingSuccessText": "Kiitos! Pöytäsi on nyt varattu.",
-		"bookingErrorTitle": "Varaus epäonnistui",
-		"bookingErrorText": "Virhe varauksen luomisessa.",
-		"paymentSuccessTitle": "Maksu suoritettu!",
-		"paymentSuccessText": "Vahvistussähköposti lähetettiin osoitteeseen",
-		"invalidPhoneTitle": "Virheellinen puhelinnumero",
-		"invalidPhoneText": "Syötä kelvollinen puhelinnumero. +3 alussa. +[CountryCode][Number]",
-		"updateSuccessTitle": "Päivitetty!",
-		"updateSuccessText": "Puhelinnumero päivitetty onnistuneesti.",
-		"updateErrorTitle": "Päivitys epäonnistui",
-		"updateErrorText": "Puhelinnumeron päivittäminen epäonnistui.",
-		"invalidTimeTitle": "Aukioloaikojen ulkopuolella",
-		"invalidTimeText": "Valitsemasi aika on aukioloaikojemme ulkopuolella. Valitse toinen aika.",
-		"goHome": "Palaa etusivulle",
-		"payNow": "Maksa nyt (valinnainen)"
-	},
+		},
+		"alerts": {
+			"incompleteTitle": "Puuttuvat tiedot",
+			"incompleteText": "Täytä kaikki vaaditut kentät ennen jatkamista.",
+			"tableTitle": "Pöytä vaaditaan",
+			"tableText": "Valitse tai syötä pöytänumero ennen jatkamista.",
+			"bookingSuccessTitle": "Varaus vahvistettu!",
+			"bookingSuccessText": "Kiitos! Pöytäsi on nyt varattu.",
+			"bookingErrorTitle": "Varaus epäonnistui",
+			"bookingErrorText": "Virhe varauksen luomisessa.",
+			"paymentSuccessTitle": "Maksu suoritettu!",
+			"paymentSuccessText": "Vahvistussähköposti lähetettiin osoitteeseen",
+			"invalidPhoneTitle": "Virheellinen puhelinnumero",
+			"invalidPhoneText": "Syötä kelvollinen puhelinnumero. +3 alussa. +[CountryCode][Number]",
+			"updateSuccessTitle": "Päivitetty!",
+			"updateSuccessText": "Puhelinnumero päivitetty onnistuneesti.",
+			"updateErrorTitle": "Päivitys epäonnistui",
+			"updateErrorText": "Puhelinnumeron päivittäminen epäonnistui.",
+			"invalidTimeTitle": "Aukioloaikojen ulkopuolella",
+			"invalidTimeText": "Valitsemasi aika on aukioloaikojemme ulkopuolella. Valitse toinen aika.",
+			"goHome": "Palaa etusivulle",
+			"payNow": "Maksa nyt (valinnainen)"
+			},
 	"contact": {
 		"heroTitle": "Ole yhteydessä meihin!",
 		"heroText": "Onko sinulla kysyttävää tai haluatko vain tervehtiä? Ota rohkeasti yhteyttä, kuulemme mielellämme sinusta!",
@@ -228,7 +239,6 @@
 		"submitButton": "Luo tapahtuma",
 		"updateButton": "Päivitä",
 		"editButton": "Muokkaa",
-		"deleteButton": "poista",
 		"existingEvents": "Olemassa olevat tapahtumat"
 	},
 	"about": {
@@ -354,5 +364,5 @@
 		"noUpcoming": "Ei tulevia varauksia.",
 		"bookingHistory": "Varaushistoria",
 		"noHistory": "Ei varaushistoriaa."
-	}
+		}
 }

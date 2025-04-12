@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import API from '../api/axios'
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import Swal from 'sweetalert2';
+import Swal from '../utils/swalWithFont';
 import { useTranslation } from 'react-i18next';
 import { isValidPhoneNumber } from 'libphonenumber-js';
 

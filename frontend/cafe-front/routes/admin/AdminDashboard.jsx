@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import API from '../../api/axios';
 import { useNavigate } from 'react-router-dom';
 import AdminNavbar from '../../components/admin/AdminNavbar';
-import Swal from 'sweetalert2';
+import Swal from '../../utils/swalWithFont';
 import CircularProgress from '@mui/material/CircularProgress';
+import { useTranslation } from 'react-i18next';
 
 const AdminDashboard = () => {
+    const { t } = useTranslation();
     const [upcomingBookings, setUpcomingBookings] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -16,10 +18,16 @@ const AdminDashboard = () => {
     const [tables, setTables] = useState([]); // Available tables
     const navigate = useNavigate();
 
+
     useEffect(() => {
         const fetchAdminData = async () => {
             try {
-                const bookingsResponse = await API.get('/admin/upcoming-bookings');
+                let bookingsResponse;
+                if (filterBy === 'past') {
+                    bookingsResponse = await API.get('/admin/past-bookings');
+                } else {
+                    bookingsResponse = await API.get('/admin/upcoming-bookings');
+                }
                 setUpcomingBookings(bookingsResponse.data);
                 const tablesResponse = await API.get('/admin/tables');
                 setTables(tablesResponse.data);
@@ -32,7 +40,7 @@ const AdminDashboard = () => {
             }
         };
         fetchAdminData();
-    }, [navigate]);
+    }, [navigate, filterBy]);
 
     const formatTime = (timeString) => {
         const date = new Date(timeString);
@@ -58,14 +66,14 @@ const AdminDashboard = () => {
     const handleDelete = async (id) => {
         try {
             const result = await Swal.fire({
-                title: 'Are you sure?',
-                text: 'This booking will be permanently deleted.',
+                title: t('adminDashboard.deleteConfirm.title'),
+                text: t('adminDashboard.deleteConfirm.text'),
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#d33',
                 cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Yes, delete it!',
-                cancelButtonText: 'Cancel'
+                confirmButtonText: t('adminDashboard.deleteConfirm.confirmButton'),
+                cancelButtonText: t('adminDashboard.deleteConfirm.cancelButton')
             });
 
             if (!result.isConfirmed) return;
@@ -75,8 +83,8 @@ const AdminDashboard = () => {
 
             await Swal.fire({
                 icon: 'success',
-                title: 'Deleted!',
-                text: 'The booking has been deleted.',
+                title: t('adminDashboard.deleteSuccess.title'),
+                text: t('adminDashboard.deleteSuccess.text'),
                 timer: 1500,
                 showConfirmButton: false
             });
@@ -85,8 +93,8 @@ const AdminDashboard = () => {
 
             await Swal.fire({
                 icon: 'error',
-                title: 'Delete Failed',
-                text: 'Something went wrong while deleting the booking.'
+                title: t('adminDashboard.deleteError.title'),
+                text: t('adminDashboard.deleteError.text')
             });
         }
     };
@@ -134,11 +142,13 @@ const AdminDashboard = () => {
             <AdminNavbar />
             <div className="admin-section-wrapper">
 
-                <h1 className="admin-section-title">Admin Dashboard</h1>
+                <h1 className="admin-section-title">
+                    {t(`adminDashboard.pageTitle.${filterBy === 'past' ? 'past' : 'upcoming'}`)}
+                </h1>
                 <div className="flex flex-wrap gap-4 mb-6 pt-5">
                     <input
                         type="text"
-                        placeholder="Search by user, phone, table, or game"
+                        placeholder={t('adminDashboard.searchPlaceholder')}
                         className="border px-4 py-2 rounded-md"
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
@@ -155,9 +165,9 @@ const AdminDashboard = () => {
                         onChange={(e) => setSelectedTable(e.target.value)}
                         className="border px-4 py-2 rounded-md w-48"
                     >
-                        <option value="" className='text-center'>All Tables</option>
+                        <option value="" className='text-center'>{t('adminDashboard.tableFilter.allTables')}</option>
                         {tables.map(table => (
-                            <option key={table._id} value={table.number}>Table {table.number}</option>
+                            <option key={table._id} value={table.number}>{t('adminDashboard.tableFilter.table')} {table.number}</option>
                         ))}
                     </select>
                     <select
@@ -165,9 +175,10 @@ const AdminDashboard = () => {
                         onChange={(e) => setFilterBy(e.target.value)}
                         className="border px-4 py-2 rounded-md w-48"
                     >
-                        <option className='text-center' value="all">All Upcoming</option>
-                        <option className='text-center' value="today">Today</option>
-                        <option className='text-center' value="thisWeek">This Week</option>
+                        <option className='text-center' value="all">{t('adminDashboard.filter.all')}</option>
+                        <option className='text-center' value="today">{t('adminDashboard.filter.today')}</option>
+                        <option className='text-center' value="thisWeek">{t('adminDashboard.filter.thisWeek')}</option>
+                        <option className='text-center' value="past">{t('adminDashboard.filter.past')}</option>
                     </select>
 
 
@@ -177,8 +188,8 @@ const AdminDashboard = () => {
                     <table className="table-auto w-full border border-gray-300 shadow-sm rounded-md">
                         <thead className="bg-gray-100 text-center">
                             <tr>
-                                {['Date', 'Start Time', 'End Time', 'Table', 'Game', 'User', 'Phone', 'Players', 'Payment Status', '', ''].map((header, index) => (
-                                    <th key={index} className="px-4 py-2 border">{header}</th>
+                            {["date", "startTime", "endTime", "table", "game", "user", "phone", "players", "paymentStatus", "edit", "delete"].map((key, idx) => (
+                                    <th key={idx} className="px-4 py-2 border">{t(`adminDashboard.tableHeader.${key}`)}</th>
                                 ))}
                             </tr>
                         </thead>
@@ -188,32 +199,33 @@ const AdminDashboard = () => {
                                     <td className="admin-section-td">{new Date(booking.date).toLocaleDateString()}</td>
                                     <td className="admin-section-td">{formatTime(booking.startTime)}</td>
                                     <td className="admin-section-td">{formatTime(booking.endTime)}</td>
-                                    <td className="admin-section-td">{booking.tableId?.number || 'No Table Assigned'}</td>
+                                    <td className="admin-section-td">{booking.tableId?.number || t('adminDashboard.noTableAssigned')}</td>
                                     <td className="admin-section-td">{booking.game || '-'}</td>
                                     <td className="admin-section-td">
-                                        {booking.userId ? (
-                                            <a href={`/admin/users/${booking.userId._id}`} className="text-blue-600 hover:underline">
-                                                {booking.userId.name}
-                                            </a>
-                                        ) : booking.contactName || 'Guest'}
+                                        {booking.userId?.name || booking.contactName || t('adminDashboard.guest')}
+                                        {booking.userId?.name && booking.contactName && booking.contactName !== booking.userId.name && (
+                                            <> (for {booking.contactName})</>
+                                        )}
                                     </td>
-                                    <td className="admin-section-td">{booking.userId?.phone || booking.contactPhone || 'No Phone'}</td>
+                                    <td className="admin-section-td">{booking.userId?.phone || booking.contactPhone || t('adminDashboard.noPhone')}</td>
                                     <td className="admin-section-td">{booking.players}</td>
                                     <td className={`admin-section-td ${booking.paymentId?.status === 'completed' ? 'text-green-600' : 'text-gray-500 '}`}>
                                         {booking.paymentId ? (
                                             <>
-                                                <span className="font-semibold">{booking.paymentId.status.toUpperCase()}</span>
+                                                <span className="font-semibold uppercase">
+                                                    {t(`adminDashboard.paymentStatus.${booking.paymentId.status}`)}
+                                                </span>
                                                 <br />
                                                 <small>{booking.paymentId.paymentMethod} - ${booking.paymentId.amount}</small>
                                             </>
-                                        ) : 'No Payment'}
+                                        ) : t('adminDashboard.noPayment')}
                                     </td>
                                     <td className="admin-section-td">
                                         <button
                                             onClick={() => handleEdit(booking._id)}
                                             className="admin-button-edit"
                                         >
-                                            Edit
+                                            {t('adminDashboard.tableHeader.edit')}
                                         </button>
                                     </td>
                                     <td className="px-4 py-2 border">
@@ -221,7 +233,7 @@ const AdminDashboard = () => {
                                             onClick={() => handleDelete(booking._id)}
                                             className="admin-button-cancle-delete"
                                         >
-                                            Delete
+                                            {t('adminDashboard.tableHeader.delete')}
                                         </button>
                                     </td>
                                 </tr>

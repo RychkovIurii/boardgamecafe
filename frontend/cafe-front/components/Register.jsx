@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import API from '../api/axios';
 import { useTranslation } from 'react-i18next';
 import './Style/RegisterStyles.css';
-import Swal from 'sweetalert2';
+import Swal from '../utils/swalWithFont';
 import { isValidPhoneNumber } from 'libphonenumber-js';
 
 const Register = ({ onToggleForm }) => {
