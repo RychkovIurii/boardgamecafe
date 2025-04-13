@@ -11,7 +11,9 @@ import {
   Button,
   Typography,
   Box,
-  StepContent
+  StepContent,
+  FormHelperText,
+  Slider
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import dayjs from 'dayjs';
@@ -23,7 +25,7 @@ import { isValidPhoneNumber } from 'libphonenumber-js';
 import floorplan from '../src/assets/elements/floorplan.png';
 
 const nameRegex = new RegExp(/^[\p{Letter}\s\-.']+$/u)
-const duraOpt = ["60", "90", "120", "150", "180", "210", "240", "270", "300", "330", "360", "390", "420", "450", "480", "510", "540", "570", "600"]
+const duraOpt = Array.from({ length: (600 - 60) / 30 + 1 }, (_, i) => (60 + i * 30).toString());
 
 dayjs.extend(isSameOrAfter);
 
@@ -33,6 +35,7 @@ dayjs.extend(isSameOrAfter);
 function StepOne({ inputs, handleChange, handleTimeChange }) {
   const { t } = useTranslation();
   const [value, setValue] = React.useState(dayjs('2022-04-17T16:00'));
+  const durationError = inputs.duration && !duraOpt.includes(inputs.duration.toString());
 
   return (
     <>
@@ -123,18 +126,23 @@ function StepOne({ inputs, handleChange, handleTimeChange }) {
 
       <div className='formItem'>
         <label>{t(`bookingForm.step1Duration`)} </label>
-        <input
-          className='formInput'
-          type='number'
-          name='duration'
-          value={inputs.duration || ""}
-          onChange={handleChange}
-          min="60"
+        <Slider
+          name="duration"
           step={30}
-          max="600"
-          placeholder={t(`bookingForm.step1DurationI`)}
-          required
+          min={60}
+          max={600}
+          marks
+          value={parseInt(inputs.duration) || 60}
+          onChange={(e, newVal) =>
+            handleChange({ target: { name: 'duration', value: newVal.toString() } })
+          }
+          valueLabelDisplay="auto"
         />
+        <FormHelperText>
+          {durationError
+            ? t('alerts.durationError')
+            : `${t('bookingForm.step1DurationI')} (${inputs.duration || 60} min)`}
+        </FormHelperText>
 
       </div>
       {/* </Box> */}

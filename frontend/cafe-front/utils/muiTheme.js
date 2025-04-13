@@ -11,6 +11,20 @@ const theme = createTheme({
       contrastText: '#ffffff'
     }
   },
+  components: {
+    MuiSlider: {
+      styleOverrides: {
+        root: {
+          color: '#8d5929'
+        },
+        thumb: {
+          '&:hover': {
+            boxShadow: '0 0 0 8px rgba(6, 95, 70, 0.16)'
+          }
+        }
+      }
+    }
+}
 });
   
 export default theme;
