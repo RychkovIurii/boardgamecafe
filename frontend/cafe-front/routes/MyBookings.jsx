@@ -278,7 +278,7 @@ const MyBookings = () => {
     if (loading) {
         return (
             <div style={{ display: 'flex', justifyContent: 'center', padding: '4rem' }}>
-                <CircularProgress size="4rem" thickness={5} color="inherit" />
+                <CircularProgress size="4rem" thickness={5} />
             </div>
         );
     };
