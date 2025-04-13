@@ -1,4 +1,4 @@
-import { useContext, useLayoutEffect , useEffect } from 'react';
+import { useContext, useLayoutEffect , useEffect , useState , useRef } from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import axios from 'axios';
@@ -28,8 +28,12 @@ import EditHours from '../routes/admin/EditHours';
 import EditBooking from '../routes/admin/EditBooking';
 
 import './App.css';
+import CircularProgress from '@mui/material/CircularProgress';
+import Swal from '../utils/swalWithFont';
 
 const Wrapper = ({ children }) => {
+	const [backendReady, setBackendReady] = useState(false);
+	const retries = useRef(0);
 	const location = useLocation();
 
 	useLayoutEffect(() => {
@@ -41,12 +45,58 @@ const Wrapper = ({ children }) => {
 		const wakeBackend = async () => {
 			try {
 				await axios.get(`${import.meta.env.VITE_API_URL}/health`); // or /hours
+				setBackendReady(true);
 			} catch (err) {
-				console.warn("Backend wake-up failed", err);
+				if (retries.current < 10) {
+					retries.current++;
+					console.warn("Backend wake-up attempt failed, retrying...", retries);
+					setTimeout(wakeBackend, 3000); // retry after 3 seconds
+					return;
+				}
+				console.warn("Backend wake-up failed after 10 attempts", err);
+				// Show SweetAlert confirmation prompt
+				Swal.fire({
+					title: 'Backend is not responding',
+					text: 'Do you want to continue without the backend?',
+					icon: 'warning',
+					showCancelButton: true,
+					confirmButtonText: 'Yes, Proceed',
+					cancelButtonText: 'Retry',
+				}).then((result) => {
+					if (result.isConfirmed) {
+						setBackendReady(true); // Force proceed without backend
+					} else {
+						// Optionally, refresh or handle retry
+						window.location.reload();
+					}
+				});
 			}
 		};
 		wakeBackend();
 	}, []);
+
+	if (!backendReady) {
+		return (
+			<div style={{
+				display: 'flex',
+				justifyContent: 'center',
+				alignItems: 'center',
+				height: '100vh',
+				position: 'fixed',
+				top: 0,
+				left: 0,
+				right: 0,
+				bottom: 0,
+				backgroundColor: 'rgba(0, 0, 0, 0.5)',
+				zIndex: 1000,
+				color: 'white',
+				flexDirection: 'column'
+			  }}>
+				<CircularProgress size={60} />
+				<p style={{marginTop: '1rem'}}>Waking up server...</p>
+			</div>
+		);
+	}
 	return <>{children}</>;
 };
 
