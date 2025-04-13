@@ -49,7 +49,6 @@ const Wrapper = ({ children }) => {
 			} catch (err) {
 				if (retries.current < 10) {
 					retries.current++;
-					console.warn("Backend wake-up attempt failed, retrying...", retries);
 					setTimeout(wakeBackend, 3000); // retry after 3 seconds
 					return;
 				}
@@ -93,7 +92,15 @@ const Wrapper = ({ children }) => {
 				flexDirection: 'column'
 			  }}>
 				<CircularProgress size={60} />
-				<p style={{marginTop: '1rem'}}>Waking up server...</p>
+				<p style={{ marginTop: '1rem', fontSize: '1.1rem', lineHeight: '1.6' }}>
+					Waking up our server...<br />
+					<br />
+					We're using a free hosting provider.<br />
+					Because of that, the backend sleeps when inactive.<br />
+					<br />
+					It might take up to <strong>20 seconds</strong> to fully start for the first time.<br />
+					Thanks for your patience!
+				</p>
 			</div>
 		);
 	}
