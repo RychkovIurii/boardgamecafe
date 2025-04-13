@@ -92,14 +92,14 @@ const Wrapper = ({ children }) => {
 				flexDirection: 'column'
 			  }}>
 				<CircularProgress size={60} />
-				<p style={{ marginTop: '1rem', fontSize: '1.1rem', lineHeight: '1.6' }}>
+				<p style={{ marginTop: '2rem', fontSize: '1.1rem', lineHeight: '1.6' }}>
 					Waking up our server...<br />
 					<br />
 					We're using a free hosting provider.<br />
 					Because of that, the backend sleeps when inactive.<br />
 					<br />
 					It might take up to <strong>20 seconds</strong> to fully start for the first time.<br />
-					Thanks for your patience!
+					Thank you for your patience!
 				</p>
 			</div>
 		);
