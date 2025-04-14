@@ -366,7 +366,7 @@ const MyBookings = () => {
                                             <input type="text" name="contactPhone" value={editedBooking.contactPhone} onChange={handleChange} className="border p-1 rounded" />
                                         </div>
                                         <div className="flex gap-2 justify-center">
-                                            <button onClick={() => handleSave(booking._id)} className="bg-blue-600 text-white px-4 py-2 rounded-md mt-2">{t('myBookings.saveButton')}</button>
+                                            <button onClick={() => handleSave(booking._id)} className="bg-green-800 text-white px-4 py-2 rounded-md mt-2">{t('myBookings.saveButton')}</button>
                                             <button onClick={handleCancel} className="bg-gray-500 text-white px-4 py-2 rounded-md mt-2">{t('myBookings.cancelButton')}</button>
                                         </div>
                                     </>

@@ -109,7 +109,7 @@ const EditHours = () => {
             <input type="time" name="closeTime" value={specialForm.closeTime} onChange={handleSpecialChange} className="border px-4 py-2 rounded" />
             <input type="text" name="reason" placeholder="Reason (e.g. Christmas)" value={specialForm.reason} onChange={handleSpecialChange} className="border px-4 py-2 rounded" />
             <div className="flex gap-4 justify-center mt-4">
-              <button type="submit" className="bg-blue-600 text-white w-20 py-1 rounded hover:bg-blue-500 text-center">
+              <button type="submit" className="bg-green-800 text-white w-20 py-1 rounded hover:bg-green-500 text-center">
                 {selectedSpecialId ? 'Update' : 'Add'}
               </button>
               <button
@@ -192,7 +192,7 @@ const EditHours = () => {
             <div className="flex gap-4 justify-center mt-4">
               <button
                 type="submit"
-                className="bg-blue-600 text-white w-20 py-1 rounded hover:bg-blue-500 text-center"
+                className="bg-green-800 text-white w-20 py-1 rounded hover:bg-green-500 text-center"
               >
                 {selectedWorkingId ? 'Update' : 'Add'}
               </button>

@@ -173,7 +173,7 @@ const ManageMenuItems = () => {
                         </div>
                     ))}
                     <div className="flex gap-4 pt-2 justify-center">
-                        <button type="submit" className="bg-blue-600 text-white px-6 py-2 rounded">
+                        <button type="submit" className="bg-green-800 text-white px-6 py-2 rounded">
                             {selectedMenuItemId ? 'Update Menu' : 'Add Menu'}
                         </button>
                         {selectedMenuItemId && (
