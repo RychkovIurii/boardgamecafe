@@ -319,7 +319,10 @@
 		"deletedTitle": "Deleted!",
 		"deletedText": "The booking has been deleted.",
 		"deleteFailedTitle": "Delete Failed",
-		"deleteFailedText": "Something went wrong while deleting the booking."
+		"deleteFailedText": "Something went wrong while deleting the booking.",
+		"workingHours": "Working hours",
+		"specialHours": "Special hours",
+		"closedDay": "Closed on this day"
 	},
 	"aboutIntro": {
 		"intro1": "Since 2021, Café Boardgame with its 500 games, has been a welcoming spot for board game and role-playing game lovers.",

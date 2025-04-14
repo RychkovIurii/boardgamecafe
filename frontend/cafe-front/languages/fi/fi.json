@@ -319,7 +319,10 @@
 		"deletedTitle": "Poistettu!",
 		"deletedText": "Varaus on poistettu.",
 		"deleteFailedTitle": "Poisto epäonnistui",
-		"deleteFailedText": "Jokin meni pieleen varauksen poistossa."
+		"deleteFailedText": "Jokin meni pieleen varauksen poistossa.",
+        "workingHours": "Aukioloajat",
+		"specialHours": "Erityiset aukioloajat",
+		"closedDay": "Suljettu"
 	},
 	"aboutIntro": {
 		"intro1": "Vuonna 2021 perustettu Café Boardgame ja sen yli 500 pelin pelikirjasto on viihtyisä paikka lautapelien ja roolipelien ystäville.",

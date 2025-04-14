@@ -33,7 +33,7 @@ dayjs.extend(isSameOrAfter);
 /**
  StepOne, StepTwo, and StepThree are separated for clarity.
  You can define them inline, in separate files, or as your project needs.*/
-function StepOne({ inputs, handleChange, handleTimeChange, nameError, phoneError, playersError }) {
+function StepOne({ inputs, handleChange, handleTimeChange, nameError, phoneError, playersError, getHoursForSelectedDate }) {
   const { t } = useTranslation();
   const [value, setValue] = React.useState(dayjs('2022-04-17T16:00'));
   const durationError = inputs.duration && !duraOpt.includes(inputs.duration.toString());
@@ -131,6 +131,19 @@ function StepOne({ inputs, handleChange, handleTimeChange, nameError, phoneError
           onChange={handleChange}
           required
         />
+        {(() => {
+            const hours = getHoursForSelectedDate();
+            if (!hours) return null;
+            if (hours.type === 'closed') {
+                return <div style={{ color: 'red', fontSize: '0.9rem', marginTop: '6px', marginBottom: '2px' }}>{t('bookingForm.closedDay')}</div>;
+            }
+            return (
+                <div style={{ fontSize: '0.9rem', marginTop: '6px', marginBottom: '2px', color: '#065f46' }}>
+                {hours.type === 'special' ? t('bookingForm.specialHours') : t('bookingForm.workingHours')}:
+                <strong> {hours.open} - {hours.close}</strong>
+                </div>
+            );
+            })()}
       </div>
 
       <div className='formItem'>
@@ -357,6 +370,26 @@ export default function BookingForm() {
       });
     }
   }
+
+  const getHoursForSelectedDate = () => {
+    if (!inputs.date) return null;
+  
+    const selectedDay = dayjs(inputs.date);
+    const special = specialHours.find(s => dayjs(s.date).isSame(selectedDay, 'day'));
+  
+    if (special && special.openTime && special.closeTime) {
+      return { type: 'special', open: special.openTime, close: special.closeTime };
+    }
+  
+    const dayName = selectedDay.format('dddd'); // e.g., 'Friday'
+    const regular = workingHours.find(w => w.day === dayName);
+  
+    if (regular && regular.openTime && regular.closeTime) {
+      return { type: 'regular', open: regular.openTime, close: regular.closeTime };
+    }
+  
+    return { type: 'closed' };
+  };
 
   const isWithinWorkingHours = () => {
     if (!inputs.date || !inputs.startTime) return false;
@@ -608,7 +641,7 @@ export default function BookingForm() {
   const renderStepContent = (stepIndex) => {
     switch (stepIndex) {
       case 0:
-        return <StepOne inputs={inputs} handleChange={handleChange} handleTimeChange={handleTimeChange} nameError={nameError} phoneError={phoneError} playersError={playersError} />;
+        return <StepOne inputs={inputs} handleChange={handleChange} handleTimeChange={handleTimeChange} nameError={nameError} phoneError={phoneError} playersError={playersError} getHoursForSelectedDate={getHoursForSelectedDate} />;
       case 1:
         return <StepTwo inputs={inputs} handleChange={handleChange} tables={filteredTables} setInputs={setInputs} />;
       case 2:
