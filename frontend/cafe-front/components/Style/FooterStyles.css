@@ -49,8 +49,6 @@
     justify-content: space-between;
 }
 .top p {
-    font-family: "Fontdiner Swanky", serif;
-    color: #333;
     font-size: 1.0rem;
 }
 .social-links {
@@ -58,7 +56,6 @@
     flex-direction: row;
 }
 .top i {
-    color: #333;
     font-size: 2rem;
     margin-left: 1rem;
 }
@@ -74,23 +71,20 @@
     flex-direction: column;
 }
 .bottom h4 {
-    font-family: "Fontdiner Swanky", serif;
-    color: #333;
+    
     font-size: 1.3rem;
     padding: 1rem 0 1rem 0;
 }
 .bottom a {
-    font-family: "Fontdiner Swanky", serif;
+    
     text-decoration: none;
-    color: #333;
     padding-bottom: 0.4rem;
     font-size: 1rem;
 }
 .bottom ul li {
-    font-family: "Fontdiner Swanky", serif;
+    
     font-weight: 200;
     list-style: none;
-    color: #333;
     padding-bottom: 0.4rem;
     font-size: 1rem;
 }
