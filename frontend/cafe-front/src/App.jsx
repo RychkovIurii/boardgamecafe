@@ -18,6 +18,7 @@ import ServiceProduct from '../routes/ServiceProduct';
 import Profile from '../routes/Profile';
 import MyBookings from '../routes/MyBookings';
 import { CheckoutForm, Return } from '../routes/Payment';
+import { colors } from '../components/Style/Colors';
 
 // --- Admin Routes ---
 import AdminDashboard from '../routes/admin/AdminDashboard';
@@ -119,7 +120,7 @@ function App() {
 	const isAdmin = location.pathname.startsWith('/admin');
 
 	return (
-		<div className={isAdmin ? 'admin-app' : 'public-app'}>
+		<div className={isAdmin ? 'admin-app' : 'public-app'} style={{ background: colors.color.background }}>
 			<Wrapper>
 				<Routes>
 					{/* Public routes */}

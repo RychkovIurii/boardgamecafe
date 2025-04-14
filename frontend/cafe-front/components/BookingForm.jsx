@@ -21,6 +21,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { isValidPhoneNumber } from 'libphonenumber-js';
 import floorplan from '../src/assets/elements/floorplan.png';
+import { colors } from '../components/Style/Colors';
 
 const nameRegex = new RegExp(/^[\p{Letter}\s\-.']+$/u)
 const duraOpt = ["60", "90", "120", "150", "180", "210", "240", "270", "300", "330", "360", "390", "420", "450", "480", "510", "540", "570", "600"]

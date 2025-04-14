@@ -10,6 +10,7 @@ import EventsCard from '../components/EventsCard';
 import '../components/Style/EventCard.css'
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
+import { colors } from '../components/Style/Colors';
 
 function Events() {
 	const [events, setEvents] = useState([]);
@@ -89,7 +90,7 @@ function Events() {
 				linkClass="show"
 				url="/cafecon"
 			/>
-			<h1 style={{ margin: '30px' }}>{t('events.upcomingEvents')}</h1>
+			<h1 style={{ margin: '30px' , color: colors.color.fontYellow }}>{t('events.upcomingEvents')}</h1>
 			<div className='cardGen'>
 				{events.map(event => (
 					<EventsCard
