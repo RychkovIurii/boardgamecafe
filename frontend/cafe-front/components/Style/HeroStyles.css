@@ -48,7 +48,6 @@
 .hero-text h1 {
 	font-size: 3.5rem;
 	font-weight: 500;
-	color: white;
 	margin-bottom: 1rem;
 
 }
@@ -56,7 +55,6 @@
 .hero-text-content {
 	font-size: 1.5rem;
 	font-weight: 400;
-	color: white;
 	margin-bottom: 2rem;
 	line-height: 1.5;
 }

@@ -23,6 +23,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { isValidPhoneNumber } from 'libphonenumber-js';
 import floorplan from '../src/assets/elements/floorplan.png';
+import { colors } from '../components/Style/Colors';
 
 const nameRegex = new RegExp(/^[\p{Letter}\s\-.']+$/u)
 const duraOpt = Array.from({ length: (600 - 60) / 30 + 1 }, (_, i) => (60 + i * 30).toString());

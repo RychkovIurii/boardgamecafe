@@ -14,7 +14,6 @@
   text-align: center;
   width: 100%;
   min-height: 100vh;
-  background-color: #F3F4F6;
 }
 
 /* Admin layout font */.admin-app {
@@ -22,7 +21,7 @@
   text-align: center;
   width: 100%;
   min-height: 100vh;
-  background-color: #F3F4F6;}
+}
 
 .App {
   text-align: center;

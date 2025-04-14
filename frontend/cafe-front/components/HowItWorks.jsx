@@ -2,12 +2,13 @@ import React from 'react';
 import { steps } from '../src/assets/assets';
 import { assets } from '../src/assets/assets';
 import { useTranslation } from 'react-i18next';
+import { colors } from '../components/Style/Colors';
 
 const HowItWorks = () => {
     const { t } = useTranslation();
     return (
         <div className="md:py-20 px-8 py-10 max-w-4xl mx-auto">
-            <h2 className="md:pt-5 text-3xl md:text-5xl lg:text-6xl font-medium text-yellow-500 mb-10">
+            <h2 className="md:pt-5 text-3xl md:text-5xl lg:text-6xl font-medium mb-10" style={{ color: colors.color.fontYellow }}>
                 {t(`HowItWorks.title`)}
             </h2>
 
@@ -28,19 +29,19 @@ const HowItWorks = () => {
 
                     {/* Step Content */}
                     <div className="pt-1 pb-10 text-left">
-                        <p className="mb-2 text-xl font-bold text-gray-900">{t(item.label)}</p>
-                        <p className="text-gray-600">{t(item.details.process.step1)}</p>
+                        <p className="mb-2 text-xl font-bold" style={{ color: colors.color.fontBlack }}>{t(item.label)}</p>
+                        <p style={{ color: colors.color.fontSubTitle }}>{t(item.details.process.step1)}</p>
                         {item.details.process.step2 && (
-                            <p className="mt-2 text-gray-600">{t(item.details.process.step2)}</p>
+                            <p className="mt-2" style={{ color: colors.color.fontSubTitle }}>{t(item.details.process.step2)}</p>
                         )}
                         {item.details.process.step3 && (
-                            <p className="mt-2 text-gray-600">{t(item.details.process.step3)}</p>
+                            <p className="mt-2" style={{ color: colors.color.fontSubTitle }}>{t(item.details.process.step3)}</p>
                         )}
 
                         {item.details.marks && (
                             <div className="mt-2">
-                                <p className="mt-2 text-gray-600">{t(item.details.marks.mark1)}</p>
-                                <p className="mt-2 text-gray-600">{t(item.details.marks.mark2)}</p>
+                                <p className="mt-2" style={{ color: colors.color.fontSubTitle }}>{t(item.details.marks.mark1)}</p>
+                                <p className="mt-2" style={{ color: colors.color.fontSubTitle }}>{t(item.details.marks.mark2)}</p>
                             </div>
                         )}
                     </div>
@@ -57,7 +58,7 @@ const HowItWorks = () => {
                     </div>
                 </div>
                 <div className="pt-1">
-                    <p className="mb-2 text-xl font-bold text-gray-900">Your Adventure Awaits!</p>
+                    <p className="mb-2 text-xl font-bold" style={{ color: colors.color.fontBlack }}>Your Adventure Awaits!</p>
                 </div>
             </div>
         </div>
