@@ -9,6 +9,7 @@ import '../components/Style/GameCardStyles.css'
 import Paginate from '../components/Pagination';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
+import { colors } from '../components/Style/Colors';
 
 
 function Games() {
@@ -91,7 +92,7 @@ function Games() {
                 linkClass="show"
                 url="/bookings"
             />
-            <h1 style={{ margin: '30px' }}>{t("gamesPage.collectionHeader")}</h1>
+            <h1 style={{ margin: '30px' , color: colors.color.fontYellow  }}>{t("gamesPage.collectionHeader")}</h1>
 
             <input
             className='searchbar'
