@@ -21,6 +21,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { isValidPhoneNumber } from 'libphonenumber-js';
 import floorplan from '../src/assets/elements/floorplan.png';
+import { colors } from '../components/Style/Colors';
 
 const nameRegex = new RegExp(/^[\p{Letter}\s\-.']+$/u)
 const duraOpt = ["60", "90", "120", "150", "180", "210", "240", "270", "300", "330", "360", "390", "420", "450", "480", "510", "540", "570", "600"]
@@ -37,7 +38,7 @@ function StepOne({ inputs, handleChange, handleTimeChange }) {
   return (
     <>
       {/* <Box sx={{ fontFamily: "Fontdiner Swanky" }}> */}
-      <Typography variant="h6" sx={{ fontFamily: "Fontdiner Swanky" }} gutterBottom>
+      <Typography variant="h6" sx={{color: colors.color.fontTitle}} gutterBottom>
         {t(`bookingForm.step1`)}
       </Typography>
       <div className='formItem'>
@@ -129,7 +130,7 @@ function StepTwo({ inputs, handleChange, tables, setInputs }) {
   const { t } = useTranslation();
 return (
 	<Box>
-		<Typography variant="h6" sx={{ fontFamily: "Fontdiner Swanky" }} gutterBottom>
+		<Typography variant="h6" sx={{ color: colors.color.fontTitle}} gutterBottom>
 			{t(`bookingForm.step2`)}
 		</Typography>
 		<div className='smallerText'>
@@ -185,7 +186,7 @@ function StepThree({ inputs, handleChange, handleSubmit }) {
   const { t } = useTranslation();
   return (
     <Box sx={{ fontFamily: "Fontdiner Swanky" }}>
-      <Typography sx={{ fontFamily: "Fontdiner Swanky" }} variant="h6" gutterBottom>
+      <Typography sx={{color: colors.color.fontTitle }} variant="h6" gutterBottom>
         {t(`bookingForm.step3`)}
       </Typography>
       <Typography sx={{ fontFamily: "Fontdiner Swanky" }} variant="body1" gutterBottom>
