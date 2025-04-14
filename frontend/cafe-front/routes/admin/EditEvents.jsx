@@ -131,7 +131,7 @@ const EditEvents = () => {
                     <div className="flex gap-4 pt-2 justify-center">
                         <button
                             type="submit"
-                            className="bg-blue-600 text-white px-6 py-2 rounded"
+                            className="bg-green-800 text-white px-6 py-2 rounded"
                         >
                             {selectedEventId ? t('editEvents.updateButton') : t('editEvents.submitButton')}
                         </button>

@@ -110,7 +110,7 @@ const EditTables = () => {
                             Available
                         </label>
 
-                        <button type="submit" className="bg-blue-600 text-white px-6 py-2 rounded">
+                        <button type="submit" className="bg-green-800 text-white px-6 py-2 rounded">
                             {selectedTableId ? 'Update Table' : 'Add Table'}
                         </button>
                         {selectedTableId && (

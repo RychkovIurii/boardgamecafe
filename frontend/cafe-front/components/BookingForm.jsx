@@ -11,7 +11,9 @@ import {
   Button,
   Typography,
   Box,
-  StepContent
+  StepContent,
+  FormHelperText,
+  Slider
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import dayjs from 'dayjs';
@@ -23,17 +25,80 @@ import { isValidPhoneNumber } from 'libphonenumber-js';
 import floorplan from '../src/assets/elements/floorplan.png';
 import { colors } from '../components/Style/Colors';
 
-const nameRegex = new RegExp(/^[\p{Letter}\s\-.']+$/u)
-const duraOpt = ["60", "90", "120", "150", "180", "210", "240", "270", "300", "330", "360", "390", "420", "450", "480", "510", "540", "570", "600"]
+const nameRegex = new RegExp(/^[\p{Letter}][\p{Letter}\s\-.']*$/u);
+const duraOpt = Array.from({ length: (600 - 60) / 30 + 1 }, (_, i) => (60 + i * 30).toString());
+const durationMarks = duraOpt.map((min) => {
+    const minutes = parseInt(min, 10);
+    const hours = minutes / 60;
+    return {
+      value: minutes,
+      /* label: hours % 1 === 0 ? `${hours}h` : `${Math.floor(hours)}h ${minutes % 60}m`, */
+    };
+  });
 
 dayjs.extend(isSameOrAfter);
+
+function formatDuration(minutes) {
+    const m = parseInt(minutes, 10);
+    const hours = Math.floor(m / 60);
+    const remaining = m % 60;
+  
+    if (hours && remaining) return `${hours}h ${remaining}min`;
+    if (hours) return `${hours}h`;
+    return `${remaining}min`;
+  }
+
+  function isTimeTooLate(inputs, workingHours, specialHours) {
+    if (!inputs.date || !inputs.startTime) return false;
+  
+    const selectedStart = dayjs(`${inputs.date}T${inputs.startTime.format('HH:mm')}`);
+    const minDuration = 60;
+  
+    const special = specialHours.find(s => dayjs(s.date).isSame(dayjs(inputs.date), 'day'));
+    let openTime, closeTime;
+
+    if (special && special.openTime && special.closeTime) {
+        openTime = dayjs(`${special.date}T${special.openTime}`);
+        closeTime = dayjs(`${special.date}T${special.closeTime}`);
+    } else {
+        const dayName = dayjs(inputs.date).format('dddd');
+        const workingDay = workingHours.find(w => w.day === dayName);
+        if (!workingDay || !workingDay.openTime || !workingDay.closeTime) return false;
+
+        openTime = dayjs(`${inputs.date}T${workingDay.openTime}`);
+        closeTime = dayjs(`${inputs.date}T${workingDay.closeTime}`);
+    }
+
+    if (closeTime.isBefore(openTime)) {
+        closeTime = closeTime.add(1, 'day'); // handle past-midnight closing
+    }
+
+    const timeBeforeOpen = selectedStart.isBefore(openTime);
+    const timeTooLate = closeTime.diff(selectedStart, 'minute') < minDuration;
+
+    return timeBeforeOpen || timeTooLate;
+  }
 
 /**
  StepOne, StepTwo, and StepThree are separated for clarity.
  You can define them inline, in separate files, or as your project needs.*/
-function StepOne({ inputs, handleChange, handleTimeChange, nameError }) {
+function StepOne({ 
+    inputs,
+    handleChange,
+    handleTimeChange,
+    nameError,
+    phoneError,
+    playersError,
+    getHoursForSelectedDate,
+    getMaxDuration,
+    workingHours,
+    specialHours,
+    timeTooLate,
+    isClosedDay
+}) {
   const { t } = useTranslation();
   const [value, setValue] = React.useState(dayjs('2022-04-17T16:00'));
+  const durationError = inputs.duration && !duraOpt.includes(inputs.duration.toString());
 
   return (
     <>
@@ -49,6 +114,27 @@ function StepOne({ inputs, handleChange, handleTimeChange, nameError }) {
           type='text'
           name="contactName"
           value={inputs.contactName || ""}
+          maxLength={30}
+          onKeyDown={(e) => {
+            const allowedKeys = [
+              'Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'
+            ];
+            const isLetter = /^[\p{L}]$/u.test(e.key);
+            const isSpecialChar = ['-', '.', "'", ' '].includes(e.key);
+            const cursorPos = e.currentTarget.selectionStart;
+            const value = e.currentTarget.value;
+          
+            // First character must be a letter
+            if (cursorPos === 0 && !isLetter && !allowedKeys.includes(e.key)) {
+              e.preventDefault();
+              return;
+            }
+          
+            // After first character, allow letters, allowed keys, and special chars
+            if (!isLetter && !isSpecialChar && !allowedKeys.includes(e.key)) {
+              e.preventDefault();
+            }
+          }}
           onChange={handleChange}
           required
         />
@@ -62,9 +148,33 @@ function StepOne({ inputs, handleChange, handleTimeChange, nameError }) {
           type='tel'
           name="contactPhone"
           value={inputs.contactPhone || ""}
+          maxLength={15}
+          onKeyDown={(e) => {
+            const allowedKeys = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'];
+            const isDigit = /^[0-9]$/.test(e.key);
+            const isPlus = e.key === '+';
+            const currentValue = e.currentTarget.value;
+            const cursorPos = e.currentTarget.selectionStart;
+        
+            /* // Block digit as first char (must start with +)
+            if (isDigit && currentValue.length === 0) {
+              e.preventDefault();
+            } */
+        
+            // Allow only one + at the beginning
+            if (isPlus && (cursorPos !== 0 || currentValue.includes('+'))) {
+              e.preventDefault();
+            }
+        
+            // Block everything else that's not a number or allowed key
+            if (!isDigit && !isPlus && !allowedKeys.includes(e.key)) {
+              e.preventDefault();
+            }
+          }}
           onChange={handleChange}
           required
         />
+        {phoneError && <span style={{ color: 'red', fontSize: '0.8rem' }}>{phoneError}</span>}
       </div>
       <div className='formItem'>
         <label>{t(`bookingForm.step1People`)} </label>
@@ -75,12 +185,21 @@ function StepOne({ inputs, handleChange, handleTimeChange, nameError }) {
           min={1}
           max={10}
           value={inputs.players || ""}
-          onChange={(e) => { handleChange(e) }
-
-          }
+          onKeyDown={(e) => {
+            if (['e', 'E', '+', '-', '.'].includes(e.key)) {
+              e.preventDefault();
+            }
+          }}
+          onChange={(e) => {
+            const value = e.target.value;
+            if (value.length <= 2) {
+              handleChange(e); // keep logic in sync
+            }
+          }}
           placeholder={t(`bookingForm.step1Number`)}
           required
         />
+        {playersError && <span style={{ color: 'red', fontSize: '0.8rem' }}>{playersError}</span>}
       </div>
       <Typography variant="body2" sx={{ fontFamily: "Fontdiner Swanky", paddingTop: 1 }} gutterBottom>
       {t(`bookingForm.step1Text`)}
@@ -98,6 +217,19 @@ function StepOne({ inputs, handleChange, handleTimeChange, nameError }) {
           onChange={handleChange}
           required
         />
+        {(() => {
+            const hours = getHoursForSelectedDate();
+            if (!hours) return null;
+            if (hours.type === 'closed') {
+                return <div style={{ color: 'red', fontSize: '0.9rem', marginTop: '6px', marginBottom: '2px' }}>{t('bookingForm.closedDay')}</div>;
+            }
+            return (
+                <div style={{ fontSize: '0.9rem', marginTop: '6px', marginBottom: '2px', color: '#065f46' }}>
+                {hours.type === 'special' ? t('bookingForm.specialHours') : t('bookingForm.workingHours')}:
+                <strong> {hours.open} - {hours.close}</strong>
+                </div>
+            );
+            })()}
       </div>
 
       <div className='formItem'>
@@ -125,26 +257,48 @@ function StepOne({ inputs, handleChange, handleTimeChange, nameError }) {
 
       <div className='formItem'>
         <label>{t(`bookingForm.step1Duration`)} </label>
-        <input
-          className='formInput'
-          type='number'
-          name='duration'
-          value={inputs.duration || ""}
-          onChange={handleChange}
-          min="60"
+        <Slider
+          name="duration"
           step={30}
-          max="600"
-          placeholder={t(`bookingForm.step1DurationI`)}
-          required
+          min={60}
+          max={getMaxDuration()}
+          marks={durationMarks}
+          value={parseInt(inputs.duration) || 60}
+          onChange={(e, newVal) =>
+            handleChange({ target: { name: 'duration', value: newVal.toString() } })
+          }
+          valueLabelDisplay="auto"
+          disabled={isClosedDay || timeTooLate}
+          valueLabelFormat={(val) => {
+            const h = Math.floor(val / 60);
+            const m = val % 60;
+            return m === 0 ? `${h}h` : `${h}h ${m}m`;
+          }}
         />
-
+        <FormHelperText sx={{ fontFamily: "Fontdiner Swanky" }}>
+            {durationError ? (
+                t('alerts.durationError')
+            ) : (
+                <>
+                {t('bookingForm.step1DurationI')}{' '}
+                <span style={{ color: '#065f46', fontWeight: 600 }}>
+                    {formatDuration(inputs.duration || 60)}
+                </span>
+                </>
+            )}
+        </FormHelperText>
+        {timeTooLate && (
+        <div style={{ color: 'red', fontSize: '0.85rem', marginTop: '6px' }}>
+            {t('bookingForm.timeTooLate')}
+        </div>
+        )}
       </div>
       {/* </Box> */}
     </>
   );
 }
 
-function StepTwo({ inputs, handleChange, tables, setInputs }) {
+function StepTwo({ inputs, handleChange, tables, setInputs, tableError, setTableError }) {
   const { t } = useTranslation();
   return (
     <Box>
@@ -160,9 +314,20 @@ function StepTwo({ inputs, handleChange, tables, setInputs }) {
         name='tableNumber'
         value={inputs.tableNumber || ""}
         placeholder={t(`bookingForm.step2TableNum`)}
-        onChange={handleChange}
+        onKeyDown={(e) => {
+            if (['e', 'E', '+', '-', '.'].includes(e.key)) {
+              e.preventDefault();
+            }
+          }}
+          onChange={(e) => {
+            const value = e.target.value;
+            if (value.length <= 2) {
+              handleChange(e); // keep logic in sync
+            }
+          }}
         required
       />
+        {tableError && <span style={{ color: 'red', fontSize: '0.8rem' }}>{tableError}</span>}
       <div className='tables'>
         <div className='tablesChild'>
           <div className='lefties'>{t(`bookingForm.step2Suggested`)}</div>
@@ -170,7 +335,10 @@ function StepTwo({ inputs, handleChange, tables, setInputs }) {
           {tables.suggested && tables.suggested.map((table) => (
             <div key={table.number}
               className='table'
-              onClick={() => setInputs({ ...inputs, tableNumber: table.number })}>
+              onClick={() => {
+                setInputs(prev => ({ ...prev, tableNumber: table.number }));
+                setTableError('');
+              }}>
               {table.number}
             </div>
           ))}
@@ -182,7 +350,10 @@ function StepTwo({ inputs, handleChange, tables, setInputs }) {
           {tables.alsoAvailable && tables.alsoAvailable.map((table) => (
             <div key={table.number}
               className='table'
-              onClick={() => setInputs({ ...inputs, tableNumber: table.number })}>
+              onClick={() => {
+                setInputs(prev => ({ ...prev, tableNumber: table.number }));
+                setTableError('');
+              }}>
               {table.number}
             </div>
           ))}
@@ -195,6 +366,7 @@ function StepTwo({ inputs, handleChange, tables, setInputs }) {
         type='text'
         name="game"
         value={inputs.game || ""}
+        maxLength={50}
         onChange={handleChange}
       />
       <div className='smallerText'>
@@ -230,10 +402,13 @@ export default function BookingForm() {
   const [workingHours, setWorkingHours] = useState([]);
   const [specialHours, setSpecialHours] = useState([]);
   const [nameError, setNameError] = useState('');
+  const [phoneError, setPhoneError] = useState('');
+  const [playersError, setPlayersError] = useState('');
+  const [tableError, setTableError] = useState('');
   const [inputs, setInputs] = useState({
     date: "",
     startTime: dayjs('2022-04-17T16:00'),
-    duration: "",
+    duration: "120",
     tableNumber: "",
     players: "",
     game: "",
@@ -257,6 +432,15 @@ export default function BookingForm() {
     };
     fetchHours();
   }, []);
+
+  useEffect(() => {
+    if (!inputs.date || !inputs.startTime) return;
+    const newMax = getMaxDuration();
+    const currentDuration = parseInt(inputs.duration, 10);
+    if (currentDuration > newMax) {
+      setInputs(prev => ({ ...prev, duration: newMax.toString() }));
+    }
+  }, [inputs.date, inputs.startTime]);
 
   useEffect(() => {
     if (isAuthenticated && user) {
@@ -317,6 +501,26 @@ export default function BookingForm() {
     }
   }
 
+  const getHoursForSelectedDate = () => {
+    if (!inputs.date) return null;
+  
+    const selectedDay = dayjs(inputs.date);
+    const special = specialHours.find(s => dayjs(s.date).isSame(selectedDay, 'day'));
+  
+    if (special && special.openTime && special.closeTime) {
+      return { type: 'special', open: special.openTime, close: special.closeTime };
+    }
+  
+    const dayName = selectedDay.format('dddd'); // e.g., 'Friday'
+    const regular = workingHours.find(w => w.day === dayName);
+  
+    if (regular && regular.openTime && regular.closeTime) {
+      return { type: 'regular', open: regular.openTime, close: regular.closeTime };
+    }
+  
+    return { type: 'closed' };
+  };
+
   const isWithinWorkingHours = () => {
     if (!inputs.date || !inputs.startTime) return false;
 
@@ -344,6 +548,35 @@ export default function BookingForm() {
 
     return selectedTime.isSameOrAfter(openTime) && selectedTime.isBefore(closeTime);
   };
+
+  function getMaxDuration() {
+    if (!inputs.date || !inputs.startTime) return 600; // default max
+  
+    const selectedStart = dayjs(`${inputs.date}T${inputs.startTime.format('HH:mm')}`);
+    const special = specialHours.find(s => dayjs(s.date).isSame(dayjs(inputs.date), 'day'));
+    let closeTime;
+  
+    if (special && special.closeTime) {
+      closeTime = dayjs(`${special.date}T${special.closeTime}`);
+    } else {
+      const dayName = dayjs(inputs.date).format('dddd');
+      const workingDay = workingHours.find(w => w.day === dayName);
+      if (!workingDay || !workingDay.closeTime) return 600;
+  
+      closeTime = dayjs(`${inputs.date}T${workingDay.closeTime}`);
+      if (closeTime.isBefore(selectedStart)) {
+        closeTime = closeTime.add(1, 'day'); // past-midnight handling
+      }
+    }
+  
+    const diffMinutes = closeTime.diff(selectedStart, 'minute');
+
+    // Cap the available duration to 600 minutes (10 hours)
+    const availableDuration = Math.min(diffMinutes, 600);
+
+    // Return a value rounded down to the nearest 30 minutes (with a minimum of 60)
+    return Math.max(60, Math.floor(availableDuration / 30) * 30);
+  }
 
 
   // Define the labels for each step.
@@ -433,7 +666,7 @@ export default function BookingForm() {
         Swal.fire({
           icon: 'warning',
           title: t('alerts.tableNotAvailableTitle'),
-          text: t('alerts.tableNotAvailableText'),
+          text: t('alerts.tableNotFoundText'),
         });
         return;
       }
@@ -443,23 +676,104 @@ export default function BookingForm() {
 
   // Handle previous step
   const handleBack = () => {
+    if (activeStep === 1) {
+        setTableError('');
+        setInputs(prev => ({ ...prev, tableNumber: "" }));
+      }
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
+
   };
 
   const handleTimeChange = (value) => {
-    setInputs({ ...inputs, startTime: value });
+    const updatedInputs = { ...inputs, startTime: value };
+    const newMax = getMaxDuration(updatedInputs);
+    const currentDuration = parseInt(inputs.duration, 10);
+  
+    setInputs((prev) => ({
+      ...prev,
+      startTime: value,
+      duration: currentDuration > newMax ? newMax.toString() : prev.duration,
+    }));
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
   
     if (name === 'contactName') {
-      if (!nameRegex.test(value)) {
+        const trimmed = value.trim();
+      if (!nameRegex.test(trimmed) && trimmed.length > 0) {
         setNameError('Name can only contain letters, spaces, hyphens, apostrophes, and dots.');
       } else {
         setNameError('');
       }
     }
+
+    if (name === 'contactPhone') {
+        const trimmed = value.trim();
+      
+        if (trimmed.length < 10) {
+          setPhoneError('');
+        } else if (!isValidPhoneNumber(trimmed)) {
+          setPhoneError('Invalid phone format. Format: +358505662613');
+        } else {
+          setPhoneError('');
+        }
+      }
+
+    if (name === 'players') {
+        const trimmed = value.trim();
+        if (trimmed.length < 1) {
+            setPlayersError('');
+        } else {
+            const number = parseInt(value, 10);
+            if (isNaN(number) || number < 1 || number > 10) {
+                setPlayersError(t('bookingForm.availabilityPeople'));
+            } else {
+                setPlayersError('');
+            }
+        }
+    }
+
+    if (name === 'tableNumber') {
+        const trimmed = value.trim();
+        if (trimmed.length < 1) {
+            setTableError('');
+        } else {
+            const number = parseInt(value, 10);
+            const allAvailableTables = [
+            ...(filteredTables.suggested || []),
+            ...(filteredTables.alsoAvailable || [])
+            ];
+        
+            const exists = allAvailableTables.some((table) => table.number === number);
+        
+            if (!exists) {
+            setTableError(t('alerts.tableNotFoundText'));
+            } else {
+            setTableError('');
+            }
+        }
+      }
+      if (name === 'date') {
+        const updatedInputs = { ...inputs, date: value };
+        const newMax = getMaxDuration(updatedInputs);
+        const currentDuration = parseInt(inputs.duration, 10);
+      
+        const hours = getHoursForSelectedDate(updatedInputs);
+        const isClosed = hours?.type === 'closed';
+      
+        setInputs((prev) => ({
+          ...prev,
+          [name]: value,
+          duration: isClosed
+            ? ""                          // if closed: blank the slider
+            : currentDuration > newMax
+              ? newMax.toString()         // if too long: reduce to max
+              : prev.duration             // else: keep it
+        }));
+      
+        return;
+      }
   
     setInputs((prev) => ({ ...prev, [name]: value }));
   };
@@ -505,7 +819,7 @@ export default function BookingForm() {
       const createdBookingId = response.data._id;
       setInputs({
         date: "",
-        startTime: "",
+        startTime: dayjs('2022-04-17T16:00'),
         duration: "",
         tableNumber: "",
         players: "",
@@ -546,13 +860,29 @@ export default function BookingForm() {
     }
   }
 
+  const timeTooLate = isTimeTooLate(inputs, workingHours, specialHours);
+  const hours = getHoursForSelectedDate();
+  const isClosedDay = hours?.type === 'closed';
+
   // Renders the content for each step
   const renderStepContent = (stepIndex) => {
     switch (stepIndex) {
       case 0:
-        return <StepOne inputs={inputs} handleChange={handleChange} handleTimeChange={handleTimeChange} nameError={nameError} />;
+        return <StepOne 
+            inputs={inputs}
+            handleChange={handleChange}
+            handleTimeChange={handleTimeChange}
+            nameError={nameError}
+            phoneError={phoneError}
+            playersError={playersError}
+            getHoursForSelectedDate={getHoursForSelectedDate}
+            getMaxDuration={getMaxDuration}
+            workingHours={workingHours}
+            specialHours={specialHours}
+            timeTooLate={timeTooLate}
+            isClosedDay={isClosedDay} />;
       case 1:
-        return <StepTwo inputs={inputs} handleChange={handleChange} tables={filteredTables} setInputs={setInputs} />;
+        return <StepTwo inputs={inputs} handleChange={handleChange} tables={filteredTables} setInputs={setInputs} tableError={tableError} setTableError={setTableError}/>;
       case 2:
         return <StepThree inputs={inputs} handleChange={handleChange} handleSubmit={handleSubmit} />;
       default:
@@ -588,7 +918,7 @@ export default function BookingForm() {
                           {t('bookingForm.submit')}
                         </Button>
                       ) : (
-                        <Button onClick={handleNext} variant="contained" color="primary" >
+                        <Button onClick={handleNext} variant="contained" color="primary" disabled={!!phoneError || !!nameError || !!playersError || !!tableError || timeTooLate || isClosedDay} >
                           {t('bookingForm.next')}
                         </Button>
                       )}

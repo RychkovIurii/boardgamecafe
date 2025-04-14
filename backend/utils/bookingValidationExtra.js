@@ -16,7 +16,7 @@ exports.suggestedTablesValidation = [
 	query('duration')
 		.trim()
 		.notEmpty().withMessage('Duration is required')
-		.isInt({ min: 1, max: 240 }).withMessage('Duration must be between 1 and 240 minutes'),
+		.isInt({ min: 60, max: 600 }).withMessage('Duration must be between 60 and 600 minutes'),
 ];
 
 exports.deleteBookingValidation = [
