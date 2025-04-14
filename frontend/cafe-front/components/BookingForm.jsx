@@ -25,7 +25,7 @@ import { isValidPhoneNumber } from 'libphonenumber-js';
 import floorplan from '../src/assets/elements/floorplan.png';
 import { colors } from '../components/Style/Colors';
 
-const nameRegex = new RegExp(/^[\p{Letter}\s\-.']+$/u)
+const nameRegex = new RegExp(/^[\p{Letter}][\p{Letter}\s\-.']*$/u);
 const duraOpt = Array.from({ length: (600 - 60) / 30 + 1 }, (_, i) => (60 + i * 30).toString());
 
 dayjs.extend(isSameOrAfter);
@@ -78,9 +78,24 @@ function StepOne({ inputs, handleChange, handleTimeChange, nameError, phoneError
           value={inputs.contactPhone || ""}
           maxLength={15}
           onKeyDown={(e) => {
-            const allowedKeys = ['+', 'Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'];
-            const isNumber = /^\d$/.test(e.key);
-            if (!isNumber && !allowedKeys.includes(e.key)) {
+            const allowedKeys = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'];
+            const isDigit = /^[0-9]$/.test(e.key);
+            const isPlus = e.key === '+';
+            const currentValue = e.currentTarget.value;
+            const cursorPos = e.currentTarget.selectionStart;
+        
+            /* // Block digit as first char (must start with +)
+            if (isDigit && currentValue.length === 0) {
+              e.preventDefault();
+            } */
+        
+            // Allow only one + at the beginning
+            if (isPlus && (cursorPos !== 0 || currentValue.includes('+'))) {
+              e.preventDefault();
+            }
+        
+            // Block everything else that's not a number or allowed key
+            if (!isDigit && !isPlus && !allowedKeys.includes(e.key)) {
               e.preventDefault();
             }
           }}
@@ -108,8 +123,7 @@ function StepOne({ inputs, handleChange, handleTimeChange, nameError, phoneError
             if (value.length <= 2) {
               handleChange(e); // keep logic in sync
             }
-          }
-          }
+          }}
           placeholder={t(`bookingForm.step1Number`)}
           required
         />
@@ -195,7 +209,7 @@ function StepOne({ inputs, handleChange, handleTimeChange, nameError, phoneError
   );
 }
 
-function StepTwo({ inputs, handleChange, tables, setInputs }) {
+function StepTwo({ inputs, handleChange, tables, setInputs, tableError, setTableError }) {
   const { t } = useTranslation();
   return (
     <Box>
@@ -211,9 +225,20 @@ function StepTwo({ inputs, handleChange, tables, setInputs }) {
         name='tableNumber'
         value={inputs.tableNumber || ""}
         placeholder={t(`bookingForm.step2TableNum`)}
-        onChange={handleChange}
+        onKeyDown={(e) => {
+            if (['e', 'E', '+', '-', '.'].includes(e.key)) {
+              e.preventDefault();
+            }
+          }}
+          onChange={(e) => {
+            const value = e.target.value;
+            if (value.length <= 2) {
+              handleChange(e); // keep logic in sync
+            }
+          }}
         required
       />
+        {tableError && <span style={{ color: 'red', fontSize: '0.8rem' }}>{tableError}</span>}
       <div className='tables'>
         <div className='tablesChild'>
           <div className='lefties'>{t(`bookingForm.step2Suggested`)}</div>
@@ -221,7 +246,10 @@ function StepTwo({ inputs, handleChange, tables, setInputs }) {
           {tables.suggested && tables.suggested.map((table) => (
             <div key={table.number}
               className='table'
-              onClick={() => setInputs({ ...inputs, tableNumber: table.number })}>
+              onClick={() => {
+                setInputs(prev => ({ ...prev, tableNumber: table.number }));
+                setTableError('');
+              }}>
               {table.number}
             </div>
           ))}
@@ -233,7 +261,10 @@ function StepTwo({ inputs, handleChange, tables, setInputs }) {
           {tables.alsoAvailable && tables.alsoAvailable.map((table) => (
             <div key={table.number}
               className='table'
-              onClick={() => setInputs({ ...inputs, tableNumber: table.number })}>
+              onClick={() => {
+                setInputs(prev => ({ ...prev, tableNumber: table.number }));
+                setTableError('');
+              }}>
               {table.number}
             </div>
           ))}
@@ -284,6 +315,7 @@ export default function BookingForm() {
   const [nameError, setNameError] = useState('');
   const [phoneError, setPhoneError] = useState('');
   const [playersError, setPlayersError] = useState('');
+  const [tableError, setTableError] = useState('');
   const [inputs, setInputs] = useState({
     date: "",
     startTime: dayjs('2022-04-17T16:00'),
@@ -507,7 +539,7 @@ export default function BookingForm() {
         Swal.fire({
           icon: 'warning',
           title: t('alerts.tableNotAvailableTitle'),
-          text: t('alerts.tableNotAvailableText'),
+          text: t('alerts.tableNotFoundText'),
         });
         return;
       }
@@ -517,7 +549,12 @@ export default function BookingForm() {
 
   // Handle previous step
   const handleBack = () => {
+    if (activeStep === 1) {
+        setTableError('');
+        setInputs(prev => ({ ...prev, tableNumber: "" }));
+      }
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
+
   };
 
   const handleTimeChange = (value) => {
@@ -528,7 +565,8 @@ export default function BookingForm() {
     const { name, value } = e.target;
   
     if (name === 'contactName') {
-      if (!nameRegex.test(value)) {
+        const trimmed = value.trim();
+      if (!nameRegex.test(trimmed)) {
         setNameError('Name can only contain letters, spaces, hyphens, apostrophes, and dots.');
       } else {
         setNameError('');
@@ -536,8 +574,12 @@ export default function BookingForm() {
     }
 
     if (name === 'contactPhone') {
-        if (!isValidPhoneNumber(value)) {
-          setPhoneError('Format: +358505662613');
+        const trimmed = value.trim();
+      
+        if (trimmed.length < 10) {
+          setPhoneError('');
+        } else if (!isValidPhoneNumber(trimmed)) {
+          setPhoneError('Invalid phone format. Format: +358505662613');
         } else {
           setPhoneError('');
         }
@@ -546,11 +588,32 @@ export default function BookingForm() {
     if (name === 'players') {
     const number = parseInt(value, 10);
         if (isNaN(number) || number < 1 || number > 10) {
-            setPlayersError('Players must be a number between 1 and 10.');
+            setPlayersError(t('bookingForm.availabilityPeople'));
         } else {
             setPlayersError('');
         }
     }
+
+    if (name === 'tableNumber') {
+        const trimmed = value.trim();
+        if (trimmed.length < 1) {
+            setTableError('');
+        } else {
+            const number = parseInt(value, 10);
+            const allAvailableTables = [
+            ...(filteredTables.suggested || []),
+            ...(filteredTables.alsoAvailable || [])
+            ];
+        
+            const exists = allAvailableTables.some((table) => table.number === number);
+        
+            if (!exists) {
+            setTableError(t('alerts.tableNotFoundText'));
+            } else {
+            setTableError('');
+            }
+        }
+      }
   
     setInputs((prev) => ({ ...prev, [name]: value }));
   };
@@ -643,7 +706,7 @@ export default function BookingForm() {
       case 0:
         return <StepOne inputs={inputs} handleChange={handleChange} handleTimeChange={handleTimeChange} nameError={nameError} phoneError={phoneError} playersError={playersError} getHoursForSelectedDate={getHoursForSelectedDate} />;
       case 1:
-        return <StepTwo inputs={inputs} handleChange={handleChange} tables={filteredTables} setInputs={setInputs} />;
+        return <StepTwo inputs={inputs} handleChange={handleChange} tables={filteredTables} setInputs={setInputs} tableError={tableError} setTableError={setTableError}/>;
       case 2:
         return <StepThree inputs={inputs} handleChange={handleChange} handleSubmit={handleSubmit} />;
       default:
@@ -679,7 +742,7 @@ export default function BookingForm() {
                           {t('bookingForm.submit')}
                         </Button>
                       ) : (
-                        <Button onClick={handleNext} variant="contained" color="primary" disabled={!!phoneError || !!nameError || !!playersError} >
+                        <Button onClick={handleNext} variant="contained" color="primary" disabled={!!phoneError || !!nameError || !!playersError || !!tableError} >
                           {t('bookingForm.next')}
                         </Button>
                       )}
