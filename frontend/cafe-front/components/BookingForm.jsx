@@ -27,8 +27,26 @@ import { colors } from '../components/Style/Colors';
 
 const nameRegex = new RegExp(/^[\p{Letter}][\p{Letter}\s\-.']*$/u);
 const duraOpt = Array.from({ length: (600 - 60) / 30 + 1 }, (_, i) => (60 + i * 30).toString());
+const durationMarks = duraOpt.map((min) => {
+    const minutes = parseInt(min, 10);
+    const hours = minutes / 60;
+    return {
+      value: minutes,
+      /* label: hours % 1 === 0 ? `${hours}h` : `${Math.floor(hours)}h ${minutes % 60}m`, */
+    };
+  });
 
 dayjs.extend(isSameOrAfter);
+
+function formatDuration(minutes) {
+    const m = parseInt(minutes, 10);
+    const hours = Math.floor(m / 60);
+    const remaining = m % 60;
+  
+    if (hours && remaining) return `${hours}h ${remaining}min`;
+    if (hours) return `${hours}h`;
+    return `${remaining}min`;
+  }
 
 /**
  StepOne, StepTwo, and StepThree are separated for clarity.
@@ -55,11 +73,21 @@ function StepOne({ inputs, handleChange, handleTimeChange, nameError, phoneError
           maxLength={30}
           onKeyDown={(e) => {
             const allowedKeys = [
-              'Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab',
-              '-', '.', "'", ' '
+              'Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'
             ];
-            const isLetter = /^[\p{L}]$/u.test(e.key); // supports letters from all alphabets
-            if (!isLetter && !allowedKeys.includes(e.key)) {
+            const isLetter = /^[\p{L}]$/u.test(e.key);
+            const isSpecialChar = ['-', '.', "'", ' '].includes(e.key);
+            const cursorPos = e.currentTarget.selectionStart;
+            const value = e.currentTarget.value;
+          
+            // First character must be a letter
+            if (cursorPos === 0 && !isLetter && !allowedKeys.includes(e.key)) {
+              e.preventDefault();
+              return;
+            }
+          
+            // After first character, allow letters, allowed keys, and special chars
+            if (!isLetter && !isSpecialChar && !allowedKeys.includes(e.key)) {
               e.preventDefault();
             }
           }}
@@ -190,17 +218,22 @@ function StepOne({ inputs, handleChange, handleTimeChange, nameError, phoneError
           step={30}
           min={60}
           max={600}
-          marks
+          marks={durationMarks}
           value={parseInt(inputs.duration) || 60}
           onChange={(e, newVal) =>
             handleChange({ target: { name: 'duration', value: newVal.toString() } })
           }
           valueLabelDisplay="auto"
+          valueLabelFormat={(val) => {
+            const h = Math.floor(val / 60);
+            const m = val % 60;
+            return m === 0 ? `${h}h` : `${h}h ${m}m`;
+          }}
         />
         <FormHelperText>
           {durationError
             ? t('alerts.durationError')
-            : `${t('bookingForm.step1DurationI')} (${inputs.duration || 60} min)`}
+            : `${t('bookingForm.step1DurationI')} (${formatDuration(inputs.duration || 60)})`}
         </FormHelperText>
 
       </div>
@@ -319,7 +352,7 @@ export default function BookingForm() {
   const [inputs, setInputs] = useState({
     date: "",
     startTime: dayjs('2022-04-17T16:00'),
-    duration: "60",
+    duration: "120",
     tableNumber: "",
     players: "",
     game: "",
@@ -566,7 +599,7 @@ export default function BookingForm() {
   
     if (name === 'contactName') {
         const trimmed = value.trim();
-      if (!nameRegex.test(trimmed)) {
+      if (!nameRegex.test(trimmed) && trimmed.length > 0) {
         setNameError('Name can only contain letters, spaces, hyphens, apostrophes, and dots.');
       } else {
         setNameError('');
@@ -586,11 +619,16 @@ export default function BookingForm() {
       }
 
     if (name === 'players') {
-    const number = parseInt(value, 10);
-        if (isNaN(number) || number < 1 || number > 10) {
-            setPlayersError(t('bookingForm.availabilityPeople'));
-        } else {
+        const trimmed = value.trim();
+        if (trimmed.length < 1) {
             setPlayersError('');
+        } else {
+            const number = parseInt(value, 10);
+            if (isNaN(number) || number < 1 || number > 10) {
+                setPlayersError(t('bookingForm.availabilityPeople'));
+            } else {
+                setPlayersError('');
+            }
         }
     }
 
