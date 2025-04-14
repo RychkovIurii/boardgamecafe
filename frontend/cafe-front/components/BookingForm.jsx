@@ -570,7 +570,12 @@ export default function BookingForm() {
     }
   
     const diffMinutes = closeTime.diff(selectedStart, 'minute');
-    return Math.max(60, Math.floor(diffMinutes / 30) * 30); // round down to nearest 30
+
+    // Cap the available duration to 600 minutes (10 hours)
+    const availableDuration = Math.min(diffMinutes, 600);
+
+    // Return a value rounded down to the nearest 30 minutes (with a minimum of 60)
+    return Math.max(60, Math.floor(availableDuration / 30) * 30);
   }
 
 
@@ -814,7 +819,7 @@ export default function BookingForm() {
       const createdBookingId = response.data._id;
       setInputs({
         date: "",
-        startTime: "",
+        startTime: dayjs('2022-04-17T16:00'),
         duration: "",
         tableNumber: "",
         players: "",

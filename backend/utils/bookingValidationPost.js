@@ -12,7 +12,7 @@ exports.createBookingValidation = [
 
 	body('duration')
 		.notEmpty().withMessage('Duration is required')
-		.isInt({ min: 30, max: 360 }).withMessage('Duration must be between 30 and 360 minutes'),
+		.isInt({ min: 60, max: 600 }).withMessage('Duration must be between 60 and 600 minutes'),
 
 	body('tableNumber')
 		.notEmpty().withMessage('Table number is required')
