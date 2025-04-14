@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom'
 import { aboutMenu } from '../src/assets/assets';
 import Title from './Title';
 import { useTranslation } from 'react-i18next';
+//import { fonts } from '../components/Style/Fonts';
+import { colors } from '../components/Style/Colors';
 
 
 const About = () => {
@@ -13,8 +15,12 @@ const About = () => {
         <div>
             <div className='bg-gray-100 pt-10 pb-10'>
                 <div className='pt-20'>
-                    <h1 className='text-3xl md:text-5xl font-black text-yellow-500 '>{t(`about.title`)}</h1>
-                    <p className='pt-5 m-3 sm:pt-10 text-xl md:text-2xl font-semibold font-fontdiner text-gray-700'>{t(`about.aboutP`)}</p>
+                    <h1 className='text-3xl md:text-5xl font-black '
+                    style={{ color: colors.color.fontYellow }}>
+                        {t(`about.title`)}</h1>
+                    <p className='pt-5 m-3 sm:pt-10 text-xl md:text-2xl font-semibold font-fontdiner '
+                    style={{ color: colors.color.fontSubTitle }}
+                        >{t(`about.aboutP`)}</p>
                 </div>
 
                 <AboutGalleryIntro />
