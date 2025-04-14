@@ -1,4 +1,6 @@
 export const fonts = {
-    akward: "Fontdiner Swanky",
-    normal: "Space Grotesk"
+    font:{
+        akward: 'Fontdiner Swanky',
+        normal: 'Space Grotesk',
+    }
 }
