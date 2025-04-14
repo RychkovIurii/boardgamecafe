@@ -277,6 +277,7 @@
 		"step1Time": "Aloitusaika:",
 		"step1Duration": "Kesto:",
 		"step1DurationI": "Valittu:",
+        "timeTooLate": "Valittu aika ei ole saatavilla. Valitse toinen aika.",
 		"step2": "Vaihe 2: Valinnaiset pyynnöt",
 		"step2Text": "Huomioithan: pöydän valinta on pakollista, kun taas pelin valinta on vapaaehtoista. Kahvila pidättää oikeuden vaihtaa pöytiä tarpeen mukaan.",
 		"step2Table": "Pöytä:",

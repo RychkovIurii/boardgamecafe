@@ -48,10 +48,54 @@ function formatDuration(minutes) {
     return `${remaining}min`;
   }
 
+  function isTimeTooLate(inputs, workingHours, specialHours) {
+    if (!inputs.date || !inputs.startTime) return false;
+  
+    const selectedStart = dayjs(`${inputs.date}T${inputs.startTime.format('HH:mm')}`);
+    const minDuration = 60;
+  
+    const special = specialHours.find(s => dayjs(s.date).isSame(dayjs(inputs.date), 'day'));
+    let openTime, closeTime;
+
+    if (special && special.openTime && special.closeTime) {
+        openTime = dayjs(`${special.date}T${special.openTime}`);
+        closeTime = dayjs(`${special.date}T${special.closeTime}`);
+    } else {
+        const dayName = dayjs(inputs.date).format('dddd');
+        const workingDay = workingHours.find(w => w.day === dayName);
+        if (!workingDay || !workingDay.openTime || !workingDay.closeTime) return false;
+
+        openTime = dayjs(`${inputs.date}T${workingDay.openTime}`);
+        closeTime = dayjs(`${inputs.date}T${workingDay.closeTime}`);
+    }
+
+    if (closeTime.isBefore(openTime)) {
+        closeTime = closeTime.add(1, 'day'); // handle past-midnight closing
+    }
+
+    const timeBeforeOpen = selectedStart.isBefore(openTime);
+    const timeTooLate = closeTime.diff(selectedStart, 'minute') < minDuration;
+
+    return timeBeforeOpen || timeTooLate;
+  }
+
 /**
  StepOne, StepTwo, and StepThree are separated for clarity.
  You can define them inline, in separate files, or as your project needs.*/
-function StepOne({ inputs, handleChange, handleTimeChange, nameError, phoneError, playersError, getHoursForSelectedDate }) {
+function StepOne({ 
+    inputs,
+    handleChange,
+    handleTimeChange,
+    nameError,
+    phoneError,
+    playersError,
+    getHoursForSelectedDate,
+    getMaxDuration,
+    workingHours,
+    specialHours,
+    timeTooLate,
+    isClosedDay
+}) {
   const { t } = useTranslation();
   const [value, setValue] = React.useState(dayjs('2022-04-17T16:00'));
   const durationError = inputs.duration && !duraOpt.includes(inputs.duration.toString());
@@ -217,13 +261,14 @@ function StepOne({ inputs, handleChange, handleTimeChange, nameError, phoneError
           name="duration"
           step={30}
           min={60}
-          max={600}
+          max={getMaxDuration()}
           marks={durationMarks}
           value={parseInt(inputs.duration) || 60}
           onChange={(e, newVal) =>
             handleChange({ target: { name: 'duration', value: newVal.toString() } })
           }
           valueLabelDisplay="auto"
+          disabled={isClosedDay || timeTooLate}
           valueLabelFormat={(val) => {
             const h = Math.floor(val / 60);
             const m = val % 60;
@@ -242,7 +287,11 @@ function StepOne({ inputs, handleChange, handleTimeChange, nameError, phoneError
                 </>
             )}
         </FormHelperText>
-
+        {timeTooLate && (
+        <div style={{ color: 'red', fontSize: '0.85rem', marginTop: '6px' }}>
+            {t('bookingForm.timeTooLate')}
+        </div>
+        )}
       </div>
       {/* </Box> */}
     </>
@@ -385,6 +434,15 @@ export default function BookingForm() {
   }, []);
 
   useEffect(() => {
+    if (!inputs.date || !inputs.startTime) return;
+    const newMax = getMaxDuration();
+    const currentDuration = parseInt(inputs.duration, 10);
+    if (currentDuration > newMax) {
+      setInputs(prev => ({ ...prev, duration: newMax.toString() }));
+    }
+  }, [inputs.date, inputs.startTime]);
+
+  useEffect(() => {
     if (isAuthenticated && user) {
       setInputs(prev => ({
         ...prev,
@@ -490,6 +548,30 @@ export default function BookingForm() {
 
     return selectedTime.isSameOrAfter(openTime) && selectedTime.isBefore(closeTime);
   };
+
+  function getMaxDuration() {
+    if (!inputs.date || !inputs.startTime) return 600; // default max
+  
+    const selectedStart = dayjs(`${inputs.date}T${inputs.startTime.format('HH:mm')}`);
+    const special = specialHours.find(s => dayjs(s.date).isSame(dayjs(inputs.date), 'day'));
+    let closeTime;
+  
+    if (special && special.closeTime) {
+      closeTime = dayjs(`${special.date}T${special.closeTime}`);
+    } else {
+      const dayName = dayjs(inputs.date).format('dddd');
+      const workingDay = workingHours.find(w => w.day === dayName);
+      if (!workingDay || !workingDay.closeTime) return 600;
+  
+      closeTime = dayjs(`${inputs.date}T${workingDay.closeTime}`);
+      if (closeTime.isBefore(selectedStart)) {
+        closeTime = closeTime.add(1, 'day'); // past-midnight handling
+      }
+    }
+  
+    const diffMinutes = closeTime.diff(selectedStart, 'minute');
+    return Math.max(60, Math.floor(diffMinutes / 30) * 30); // round down to nearest 30
+  }
 
 
   // Define the labels for each step.
@@ -598,7 +680,15 @@ export default function BookingForm() {
   };
 
   const handleTimeChange = (value) => {
-    setInputs({ ...inputs, startTime: value });
+    const updatedInputs = { ...inputs, startTime: value };
+    const newMax = getMaxDuration(updatedInputs);
+    const currentDuration = parseInt(inputs.duration, 10);
+  
+    setInputs((prev) => ({
+      ...prev,
+      startTime: value,
+      duration: currentDuration > newMax ? newMax.toString() : prev.duration,
+    }));
   };
 
   const handleChange = (e) => {
@@ -658,6 +748,26 @@ export default function BookingForm() {
             setTableError('');
             }
         }
+      }
+      if (name === 'date') {
+        const updatedInputs = { ...inputs, date: value };
+        const newMax = getMaxDuration(updatedInputs);
+        const currentDuration = parseInt(inputs.duration, 10);
+      
+        const hours = getHoursForSelectedDate(updatedInputs);
+        const isClosed = hours?.type === 'closed';
+      
+        setInputs((prev) => ({
+          ...prev,
+          [name]: value,
+          duration: isClosed
+            ? ""                          // if closed: blank the slider
+            : currentDuration > newMax
+              ? newMax.toString()         // if too long: reduce to max
+              : prev.duration             // else: keep it
+        }));
+      
+        return;
       }
   
     setInputs((prev) => ({ ...prev, [name]: value }));
@@ -745,11 +855,27 @@ export default function BookingForm() {
     }
   }
 
+  const timeTooLate = isTimeTooLate(inputs, workingHours, specialHours);
+  const hours = getHoursForSelectedDate();
+  const isClosedDay = hours?.type === 'closed';
+
   // Renders the content for each step
   const renderStepContent = (stepIndex) => {
     switch (stepIndex) {
       case 0:
-        return <StepOne inputs={inputs} handleChange={handleChange} handleTimeChange={handleTimeChange} nameError={nameError} phoneError={phoneError} playersError={playersError} getHoursForSelectedDate={getHoursForSelectedDate} />;
+        return <StepOne 
+            inputs={inputs}
+            handleChange={handleChange}
+            handleTimeChange={handleTimeChange}
+            nameError={nameError}
+            phoneError={phoneError}
+            playersError={playersError}
+            getHoursForSelectedDate={getHoursForSelectedDate}
+            getMaxDuration={getMaxDuration}
+            workingHours={workingHours}
+            specialHours={specialHours}
+            timeTooLate={timeTooLate}
+            isClosedDay={isClosedDay} />;
       case 1:
         return <StepTwo inputs={inputs} handleChange={handleChange} tables={filteredTables} setInputs={setInputs} tableError={tableError} setTableError={setTableError}/>;
       case 2:
@@ -787,7 +913,7 @@ export default function BookingForm() {
                           {t('bookingForm.submit')}
                         </Button>
                       ) : (
-                        <Button onClick={handleNext} variant="contained" color="primary" disabled={!!phoneError || !!nameError || !!playersError || !!tableError} >
+                        <Button onClick={handleNext} variant="contained" color="primary" disabled={!!phoneError || !!nameError || !!playersError || !!tableError || timeTooLate || isClosedDay} >
                           {t('bookingForm.next')}
                         </Button>
                       )}
