@@ -5,6 +5,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { colors } from '../components/Style/Colors';
 
 const ServiceProduct = () => {
     const { serviceId } = useParams();
@@ -56,8 +57,8 @@ const ServiceProduct = () => {
 
                     {/* --------- Service Info --------  */}
                     <div className='flex-1 justify-start text-center'>
-                        <h1 className='font-medium text-2xl mt-2'>{t(serviceData.title)}</h1>
-                        <div className='mt-7 text-gray-700 md:w-4/5 mx-auto'>{t(serviceData.detail)}</div>
+                        <h1 className='font-medium text-2xl mt-2' style={{ color: colors.color.fontBlack }}>{t(serviceData.title)}</h1>
+                        <div className='mt-7 md:w-4/5 mx-auto' style={{ color: colors.color.fontTitle }}>{t(serviceData.detail)}</div>
 
                         {/* Conditional Button */}
                         {serviceData._id === 's-community' ? (
