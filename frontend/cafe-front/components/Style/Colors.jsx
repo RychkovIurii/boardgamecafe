@@ -7,12 +7,12 @@ export const colors = {
         buttonHeroFontcolor: '#333333',
 
         fontTitle: '#4f4f4f',
-        fontSubTitle: '#4f4f4f',
+        fontSubTitle: '#4B5563',
         fontParaghraph: '#767676',
         
         background: '#F3F4F6',
 
-        fontBlack: '#333333',
+        fontBlack: '#111827',
         fontYellow: '#eab308',
         fontBlue: '#blue',
         fontGreen: 'green',
