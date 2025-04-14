@@ -4,6 +4,8 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { assets } from '../src/assets/assets';
 import { useTranslation } from 'react-i18next';
+import { colors } from '../components/Style/Colors';
+//import { fonts } from '../components/Style/Fonts';
 
 function AboutGalleryIntro() {
 
@@ -161,22 +163,22 @@ function AboutGalleryIntro() {
                 }}>
 
                     < div className={clsx('justify-center pr-10 pl-10 mt-12 font-fontdiner', isMobile? 'm-5':'')}>
-                        <p className='pt-2 mr-4 ml-16 font-fontdiner text-gray-800'>
+                        <p className='pt-2 mr-4 ml-16 font-fontdiner' style={{ color: colors.color.fontBlack}} >
 							{t('aboutIntro.intro1')}
                         </p>
-                        <p className='pt-2 mr-4 ml-14 font-fontdiner text-gray-800'>
+                        <p className='pt-2 mr-4 ml-14 font-fontdiner' style={{ color: colors.color.fontBlack}}>
 							{t('aboutIntro.intro2')}
 						</p>
-                        <p className='pt-2 mr-4 ml-14 font-fontdiner text-gray-800'>
+                        <p className='pt-2 mr-4 ml-14 font-fontdiner' style={{ color: colors.color.fontBlack}}>
 							{t('aboutIntro.intro3')}
                         </p>
                     </div>
 
                     <div className={clsx('mb-12', isMobile ? "bg-gray-200 pb-10" : "", "font-fontdiner")}>
-					<h2 className={clsx("sm:text-2xl lg:text-3xl font-bold text-gray-800 mb-4", isMobile ? "bg-gray-200 pt-10" : "pt-3", "font-fontdiner")}>
+					<h2 className={clsx("sm:text-2xl lg:text-3xl font-bold text-gray-800 mb-4", isMobile ? "bg-gray-200 pt-10" : "pt-3", "font-fontdiner")} style={{ color: colors.color.fontBlack }}>
 						{t('aboutIntro.openingTitle')}
 					</h2>
-					<ul className="text-md font-semibold text-gray-800 font-fontdiner">
+					<ul className="text-md font-semibold " style={{ color: colors.color.fontBlack }}>
 						{workingHours.length > 0 ? groupWorkingHours(workingHours).map((group, idx) => (
 							<li key={idx}>
 								{formatDayRange(group)}{' '}
