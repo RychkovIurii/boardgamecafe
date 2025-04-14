@@ -52,13 +52,12 @@
 .hero-text h1 {
 	font-size: 3.5rem;
 	font-weight: 500;
-	color: white;
+	
 }
 
 .hero-text-content {
 	font-size: 2rem;
 	font-weight: 400;
-	color: white;
 	padding:20px 0 30px 0;
 }
 
