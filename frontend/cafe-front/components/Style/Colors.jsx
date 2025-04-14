@@ -24,7 +24,7 @@ export const colors = {
         buttonHover: '##eab308',
 
         isolateForm: '#f3e7e4',
-        CardBgColor: '#f3e7e4',
+        CardBgColor: 'transparent',
 
         footerSocialmedia: '#333333',
         footerTextColor: '#333333',
