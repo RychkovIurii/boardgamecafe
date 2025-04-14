@@ -12,6 +12,20 @@ const theme = createTheme({
     }
   },
   components: {
+    MuiOutlinedInput: {
+        styleOverrides: {
+          root: {
+            backgroundColor: '#fffaf5',
+            '& fieldset': {
+                borderColor: 'transparent'
+              },
+            },
+            input: {
+                fontFamily: `'Fontdiner Swanky', serif`,
+                color: '#5a3825'
+              }
+        }
+    },
     MuiSlider: {
       styleOverrides: {
         root: {
