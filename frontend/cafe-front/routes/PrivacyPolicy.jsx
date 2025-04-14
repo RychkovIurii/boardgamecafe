@@ -10,8 +10,8 @@ function PrivacyPolicy() {
     <>
       <Navbar />
       <div className="max-w-4xl mx-auto bg-white p-8 md:p-12 mt-10 mb-16 rounded-xl shadow-md text-gray-800 font-roboto">
-        <h1 className="text-3xl md:text-4xl font-semibold text-center mb-6 pt-3 pb-3">{t(`privacyPolicy.title`)}</h1>
-        <h2 className="text-xl md:text-2xl font-medium text-center mb-4">{t(`privacyPolicy.statement`)}</h2>
+        <h1 className="text-3xl md:text-4xl font-semibold text-center mb-6 pt-3 pb-3 ">{t(`privacyPolicy.title`)}</h1>
+        <h2 className="text-xl md:text-2xl font-medium text-center mb-4 font-roboto">{t(`privacyPolicy.statement`)}</h2>
         <p className="mb-6 text-left">{t(`privacyPolicy.statementP`)}</p>
 
         <h3 className="text-left text-2xl font-semibold mt-8 mb-2">{t(`privacyPolicy.controller`)}</h3>

@@ -71,6 +71,15 @@ function Navbar() {
     ]
     : [{ name: 'SignIn', path: '/sign-in' }];
 
+  const getUserInitials = () => {
+    if (user?.name) {
+      const names = user.name.trim().split(' ');
+      const initials = names.map(n => n[0].toUpperCase());
+      return initials.slice(0, 2).join('');
+    }
+    return '';
+  };
+
   return (
     <AppBar position="static" color="white" sx={{ minHeight: '50px' }}>
       <Container maxWidth="xl">
@@ -156,13 +165,15 @@ function Navbar() {
               <Button
                 key={page.name}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'black', display: 'block',
-                    mr:
-                       {
-                            md: 2,
-                            lg: 6
-                        },
-                     fontSize: '1rem', fontFamily: 'Fontdiner Swanky', ":hover": { bgcolor: 'white' } }}
+                sx={{
+                  my: 2, color: 'black', display: 'block',
+                  mr:
+                  {
+                    md: 2,
+                    lg: 6
+                  },
+                  fontSize: '1rem', fontFamily: 'Fontdiner Swanky', ":hover": { bgcolor: 'white' }
+                }}
                 component={Link}
                 to={page.path}
               >
@@ -179,7 +190,9 @@ function Navbar() {
             </select>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="BoardGame" />
+                <Avatar alt="BoardGame">
+                  {isAuthenticated && getUserInitials()}
+                </Avatar>
               </IconButton>
             </Tooltip>
             <Menu
