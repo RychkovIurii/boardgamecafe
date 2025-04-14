@@ -33,7 +33,7 @@ dayjs.extend(isSameOrAfter);
 /**
  StepOne, StepTwo, and StepThree are separated for clarity.
  You can define them inline, in separate files, or as your project needs.*/
-function StepOne({ inputs, handleChange, handleTimeChange, nameError }) {
+function StepOne({ inputs, handleChange, handleTimeChange, nameError, phoneError, playersError }) {
   const { t } = useTranslation();
   const [value, setValue] = React.useState(dayjs('2022-04-17T16:00'));
   const durationError = inputs.duration && !duraOpt.includes(inputs.duration.toString());
@@ -52,6 +52,17 @@ function StepOne({ inputs, handleChange, handleTimeChange, nameError }) {
           type='text'
           name="contactName"
           value={inputs.contactName || ""}
+          maxLength={30}
+          onKeyDown={(e) => {
+            const allowedKeys = [
+              'Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab',
+              '-', '.', "'", ' '
+            ];
+            const isLetter = /^[\p{L}]$/u.test(e.key); // supports letters from all alphabets
+            if (!isLetter && !allowedKeys.includes(e.key)) {
+              e.preventDefault();
+            }
+          }}
           onChange={handleChange}
           required
         />
@@ -65,9 +76,18 @@ function StepOne({ inputs, handleChange, handleTimeChange, nameError }) {
           type='tel'
           name="contactPhone"
           value={inputs.contactPhone || ""}
+          maxLength={15}
+          onKeyDown={(e) => {
+            const allowedKeys = ['+', 'Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'];
+            const isNumber = /^\d$/.test(e.key);
+            if (!isNumber && !allowedKeys.includes(e.key)) {
+              e.preventDefault();
+            }
+          }}
           onChange={handleChange}
           required
         />
+        {phoneError && <span style={{ color: 'red', fontSize: '0.8rem' }}>{phoneError}</span>}
       </div>
       <div className='formItem'>
         <label>{t(`bookingForm.step1People`)} </label>
@@ -78,12 +98,22 @@ function StepOne({ inputs, handleChange, handleTimeChange, nameError }) {
           min={1}
           max={10}
           value={inputs.players || ""}
-          onChange={(e) => { handleChange(e) }
-
+          onKeyDown={(e) => {
+            if (['e', 'E', '+', '-', '.'].includes(e.key)) {
+              e.preventDefault();
+            }
+          }}
+          onChange={(e) => {
+            const value = e.target.value;
+            if (value.length <= 2) {
+              handleChange(e); // keep logic in sync
+            }
+          }
           }
           placeholder={t(`bookingForm.step1Number`)}
           required
         />
+        {playersError && <span style={{ color: 'red', fontSize: '0.8rem' }}>{playersError}</span>}
       </div>
       <Typography variant="body2" sx={{ fontFamily: "Fontdiner Swanky", paddingTop: 1 }} gutterBottom>
       {t(`bookingForm.step1Text`)}
@@ -203,6 +233,7 @@ function StepTwo({ inputs, handleChange, tables, setInputs }) {
         type='text'
         name="game"
         value={inputs.game || ""}
+        maxLength={50}
         onChange={handleChange}
       />
       <div className='smallerText'>
@@ -238,10 +269,12 @@ export default function BookingForm() {
   const [workingHours, setWorkingHours] = useState([]);
   const [specialHours, setSpecialHours] = useState([]);
   const [nameError, setNameError] = useState('');
+  const [phoneError, setPhoneError] = useState('');
+  const [playersError, setPlayersError] = useState('');
   const [inputs, setInputs] = useState({
     date: "",
     startTime: dayjs('2022-04-17T16:00'),
-    duration: "",
+    duration: "60",
     tableNumber: "",
     players: "",
     game: "",
@@ -468,6 +501,23 @@ export default function BookingForm() {
         setNameError('');
       }
     }
+
+    if (name === 'contactPhone') {
+        if (!isValidPhoneNumber(value)) {
+          setPhoneError('Format: +358505662613');
+        } else {
+          setPhoneError('');
+        }
+      }
+
+    if (name === 'players') {
+    const number = parseInt(value, 10);
+        if (isNaN(number) || number < 1 || number > 10) {
+            setPlayersError('Players must be a number between 1 and 10.');
+        } else {
+            setPlayersError('');
+        }
+    }
   
     setInputs((prev) => ({ ...prev, [name]: value }));
   };
@@ -558,7 +608,7 @@ export default function BookingForm() {
   const renderStepContent = (stepIndex) => {
     switch (stepIndex) {
       case 0:
-        return <StepOne inputs={inputs} handleChange={handleChange} handleTimeChange={handleTimeChange} nameError={nameError} />;
+        return <StepOne inputs={inputs} handleChange={handleChange} handleTimeChange={handleTimeChange} nameError={nameError} phoneError={phoneError} playersError={playersError} />;
       case 1:
         return <StepTwo inputs={inputs} handleChange={handleChange} tables={filteredTables} setInputs={setInputs} />;
       case 2:
@@ -596,7 +646,7 @@ export default function BookingForm() {
                           {t('bookingForm.submit')}
                         </Button>
                       ) : (
-                        <Button onClick={handleNext} variant="contained" color="primary" >
+                        <Button onClick={handleNext} variant="contained" color="primary" disabled={!!phoneError || !!nameError || !!playersError} >
                           {t('bookingForm.next')}
                         </Button>
                       )}
