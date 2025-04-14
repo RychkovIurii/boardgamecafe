@@ -6,7 +6,7 @@ import "../components/Style/ContactStyles.css";
 import contactImage from '../src/assets/elements/contact.png';
 import { colors } from '../components/Style/Colors';
 import Swal from 'sweetalert2';
-import API from '../api/axios'
+import API from '../api/axios';
 
 
 
@@ -60,15 +60,15 @@ function Contact() {
 
             <div className='contactHeader'>
 
-                <div className="contact-container" style={{ backgroundColor: colors.color.background }}>
+                <div className="contact-container">
                     <div className="contact-card">
                         <img src={contactImage} className="contact-image" alt="Contact" />
                         <div className="contact-info">
-                            <h1>{t(`contact.heroTitle`)}</h1>
-                            <h2>{t(`contact.heroText`)}</h2>
-                            <p>📞 +358 50 566 2613</p>
-                            <p>📧 info@cafeboardgame.fi</p>
-                            <p>📍 Eerikinkatu 14, 00100 Helsinki</p>
+                            <h1 style={{ color: colors.color.fontTitle }}>{t(`contact.heroTitle`)} </h1>
+                            <h2 style={{ color: colors.color.fontParaghraph}}>{t(`contact.heroText`)}</h2>
+                            <p style={{ color: colors.color.fontBlack }}>📞 +358 50 566 2613</p>
+                            <p style={{ color: colors.color.fontBlack }}>📧 info@cafeboardgame.fi</p>
+                            <p style={{ color: colors.color.fontBlack }}>📍 Eerikinkatu 14, 00100 Helsinki</p>
                         </div>
                     </div>
 
@@ -76,10 +76,10 @@ function Contact() {
                         {/*contact form*/}
                         <div className="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
                             <div className="mx-auto max-w-2xl text-center">
-                                <h2 className="text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
+                                <h2 className="text-4xl font-semibold tracking-tight sm:text-5xl">
                                     {t(`contact.formTitle`)}
                                 </h2>
-                                <p className="mt-2 text-lg text-gray-600">
+                                <p className="mt-2 text-lg ">
                                     {t(`contact.formText`)}
                                 </p>
                             </div>
