@@ -276,7 +276,7 @@
 		"step1Date": "Date:",
 		"step1Time": "Start time:",
 		"step1Duration": "Duration:",
-		"step1DurationI": "Duration:",
+		"step1DurationI": "Selected:",
 		"step2": "Step 2: Optional Requests",
 		"step2Text": "Please note: selecting a table is mandatory, while choosing a game is optional. The Cafe reserves the right to change tables as needed.",
 		"step2Table": "Table:",

@@ -230,10 +230,17 @@ function StepOne({ inputs, handleChange, handleTimeChange, nameError, phoneError
             return m === 0 ? `${h}h` : `${h}h ${m}m`;
           }}
         />
-        <FormHelperText>
-          {durationError
-            ? t('alerts.durationError')
-            : `${t('bookingForm.step1DurationI')} (${formatDuration(inputs.duration || 60)})`}
+        <FormHelperText sx={{ fontFamily: "Fontdiner Swanky" }}>
+            {durationError ? (
+                t('alerts.durationError')
+            ) : (
+                <>
+                {t('bookingForm.step1DurationI')}{' '}
+                <span style={{ color: '#065f46', fontWeight: 600 }}>
+                    {formatDuration(inputs.duration || 60)}
+                </span>
+                </>
+            )}
         </FormHelperText>
 
       </div>
