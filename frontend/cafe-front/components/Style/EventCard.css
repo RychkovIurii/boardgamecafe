@@ -8,14 +8,20 @@
 }
 
 .cardBG {
-    background-color: beige;
+    background-color: #FFFFFF;
+    border: 1.5px solid rgb(139, 90, 43);;
     align-items: center;
     width: 260px;
     height: 390px;
     padding: 16px;
     margin: 16px;
     border-radius: 16px;
-    box-shadow: 10px 10px 5px gray;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease-in-out;
+}
+
+.cardBG:hover {
+    transform: translateY(-5px);
 }
 
 .cardContent {
@@ -25,7 +31,7 @@
     justify-content: space-between;
     height: inherit;
     margin-bottom: 20px;
-    padding-bottom: 20px;
+    padding-bottom: 25px;
 }
 
 .eventImg {
@@ -50,11 +56,11 @@ h1 {
 }
 
 .button {
-    align-self:center;
+    align-self: center;
 }
 
 .LearnMore {
-    background-color: brown;
+    background-color: rgb(139, 90, 43);;
     padding: 12px;
     margin: 10px;
     color: antiquewhite;
