@@ -7,6 +7,7 @@ import './Style/FooterStyles.css';
 import Award1 from "../src/assets/icons/Award1.png";
 import Award2 from "../src/assets/icons/Award2.png";
 import footerBg from '../src/assets/elements/footer-background.png';
+import { colors } from '../components/Style/Colors';
 
 export default function Footer() {
     const { t } = useTranslation();
@@ -83,7 +84,7 @@ export default function Footer() {
 		  const { openTime, closeTime } = group[0];
 		  const closed = !openTime || !closeTime;
 		  return (
-			<li key={i}>
+			<li key={i} style={{ color: colors.color.footerTextColor }}>
 			  {formatDayRange(group)} {closed ? t("footer.Closed") : `${openTime} - ${closeTime}`}
 			</li>
 		  );
@@ -95,53 +96,53 @@ export default function Footer() {
                 <div className='footer'>
                     <div className='top'>
                         <Link className="footer-logo" to="/"><img src={logo} width={80} height={80} alt="logo" /></Link>
-                        <p>{t('footer.Created by Varia Students')}</p>
+                        <p style={{ color: colors.color.footerTextColor }}>{t('footer.Created by Varia Students')}</p>
                         <div className='social-links'>
                             <a href='https://discord.gg/wwQGdKVrma'>
-                                <i className='fa-brands fa-discord'></i>
+                                <i className='fa-brands fa-discord'style={{ color: colors.color.footerSocialmedia }}></i>
                             </a>
                             <a href='https://www.facebook.com/CafeBoardgameHelsinki'>
-                                <i className='fa-brands fa-facebook-f'></i>
+                                <i className='fa-brands fa-facebook-f'style={{ color: colors.color.footerSocialmedia }}></i>
                             </a>
                             <a href='https://www.instagram.com/cafeboardgamehki/'>
-                                <i className='fa-brands fa-instagram'></i>
+                                <i className='fa-brands fa-instagram'style={{ color: colors.color.footerSocialmedia }}></i>
                             </a>
                             <a href='https://youtu.be/h6R1rXko73c?si=dq0aTHtJ5yvjcpUg'>
-                                <i className='fa-brands fa-youtube'></i>
+                                <i className='fa-brands fa-youtube'style={{ color: colors.color.footerSocialmedia }}></i>
                             </a>
                             <a href='https://www.tiktok.com/@cafeboardgame?_t=8gVHgyYj0C1&_r=1'>
-                                <i className='fa-brands fa-tiktok'></i>
+                                <i className='fa-brands fa-tiktok'style={{ color: colors.color.footerSocialmedia }}></i>
                             </a>
                         </div>
                     </div>
                     <div className='bottom'>
                         <div>
-                            <h4>{t('footer.About')}</h4> 
-                            <ul className="text-md leading-loose">
-                                <li><Link to='/contact'>{t('footer.Contact')}</Link></li>
-                                <li><Link to='/service'>{t('footer.Services')}</Link></li>
-								<li><Link to='/faq'>{t('footer.How it works')}</Link></li>
-                                <li><Link to='/privacy-policy'>{t('footer.Privacy Policy')}</Link></li>
+                            <h4 style={{ color: colors.color.footerTextColor }}>{t('footer.About')}</h4> 
+                            <ul className="text-md leading-loose" >
+                                <li ><Link to='/contact'style={{ color: colors.color.footerTextColor }}>{t('footer.Contact')}</Link></li>
+                                <li ><Link to='/service'style={{ color: colors.color.footerTextColor }}>{t('footer.Services')}</Link></li>
+								<li ><Link to='/faq'style={{ color: colors.color.footerTextColor }}>{t('footer.How it works')}</Link></li>
+                                <li ><Link to='/privacy-policy'style={{ color: colors.color.footerTextColor }}>{t('footer.Privacy Policy')}</Link></li>
                             </ul>
                         </div>
                         <div>
-                            <h4>{t('footer.Opening hours')}</h4>
+                            <h4 style={{ color: colors.color.footerTextColor }}>{t('footer.Opening hours')}</h4>
                             <ul className="text-md leading-loose">
 								{renderGroupedHours()}
 							</ul>
                         </div>
                         <div>
-                            <h4>{t('footer.Contact')}</h4> 
+                            <h4 style={{ color: colors.color.footerTextColor }}>{t('footer.Contact')}</h4> 
                             <ul className="text-md leading-loose">
-                                <li>+358 50 566 2613</li>
-                                <li>info@cafeboardgame.fi</li>
-                                <li>Eerikinkatu 14</li>
-                                <li>00100 Helsinki</li>
+                                <li style={{ color: colors.color.footerTextColor }}>+358 50 566 2613</li>
+                                <li style={{ color: colors.color.footerTextColor }}>info@cafeboardgame.fi</li>
+                                <li style={{ color: colors.color.footerTextColor }}>Eerikinkatu 14</li>
+                                <li style={{ color: colors.color.footerTextColor }}>00100 Helsinki</li>
                             </ul>
                         </div>
                         <div className="awards-container">
-                            <h4>{t('footer.awards')}</h4>
-                            <div className="awards">
+                            <h4 style={{ color: colors.color.footerTextColor }}>{t('footer.awards')}</h4>
+                            <div className="awards" style={{ color: colors.color.footerTextColor }}>
                                 <div><img src={Award1} height={50} alt="Award1" /></div>
                                 <br></br>
                                 <div><img src={Award2} height={50} alt="Award2" /></div>
