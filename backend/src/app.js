@@ -18,6 +18,10 @@ app.use(
 );
 app.use(express.json());
 
+app.get('/health', (req, res) => { //Only for waking up backend for render
+    res.status(200).send('OK');
+  });
+
 app.use('/', routes);
 app.use(errorHandler);
 

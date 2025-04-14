@@ -3,8 +3,8 @@ const router = express.Router();
 const Event = require('../models/Event');
 const { authenticate, authorizeAdmin } = require('../middleware/auth');
 const {
-	eventCreateValidation,
-	eventUpdateValidation
+    eventCreateValidation,
+    eventUpdateValidation
 } = require('../utils/eventValidation');
 const validateInputs = require('../middleware/validateInputs');
 
@@ -13,6 +13,17 @@ router.get('/', async (req, res) => {
     try {
         const currentDate = new Date();
         const events = await Event.find({ date: { $gte: currentDate } }).sort({ date: 1 });
+        res.json(events);
+    } catch (error) {
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
+// Get past events (admin only)
+router.get('/past', authenticate, authorizeAdmin, async (req, res) => {
+    try {
+        const currentDate = new Date();
+        const events = await Event.find({ date: { $lt: currentDate } }).sort({ date: -1 });
         res.json(events);
     } catch (error) {
         res.status(500).json({ message: 'Server error' });
@@ -58,6 +69,20 @@ router.put('/:id', authenticate, authorizeAdmin, eventUpdateValidation, validate
     } catch (error) {
         res.status(400).json({ message: 'Invalid event data' });
     }
+
+    router.delete('/:id', authenticate, authorizeAdmin, eventUpdateValidation, validateInputs, async (req, res) => {
+        try {
+            const event = await Event.findById(req.params.id);
+            if (!event) {
+                return res.status(404).json({ message: 'Event not found' });
+            }
+            await event.deleteOne({ _id: req.params.id });
+            res.json({ message: 'Event deleted successfully' });
+
+        } catch (error) {
+            res.status(500).json({ message: 'Server error' });
+        }
+    })
 });
 
 module.exports = router;

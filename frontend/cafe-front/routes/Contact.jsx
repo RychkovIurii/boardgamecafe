@@ -4,12 +4,9 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import "../components/Style/ContactStyles.css";
 import contactImage from '../src/assets/elements/contact.png';
+import Swal from '../utils/swalWithFont';
+import API from '../api/axios'
 import { colors } from '../components/Style/Colors';
-import Swal from 'sweetalert2';
-import API from '../api/axios';
-
-
-
 
 function Contact() {
     const { t } = useTranslation();
@@ -84,8 +81,8 @@ function Contact() {
                                 </p>
                             </div>
                             <form onSubmit={handleSubmit} action="#" method="POST" className="mx-auto mt-16 max-w-xl sm:mt-20">
-                                <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
-                                    <div>
+                                <div className="flex flex-col gap-y-6 md:flex-row md:gap-x-8">
+									<div className="w-full md:w-1/2">
                                         <label htmlFor="first-name" className="block text-sm font-semibold text-gray-900">
                                             {t(`contact.firstnameLable`)}
                                         </label>
@@ -96,11 +93,12 @@ function Contact() {
                                             value={formData.firstName}
                                             onChange={handleChange}
                                             autoComplete="given-name"
+                                            required
                                             className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 outline-gray-300 placeholder-gray-400 focus:outline-2 focus:outline-indigo-600"
                                         />
                                     </div>
 
-                                    <div>
+                                    <div className="w-full md:w-1/2">
                                         <label htmlFor="last-name" className="block text-sm font-semibold text-gray-900">
                                             {t(`contact.lastnameLable`)}
                                         </label>
@@ -111,11 +109,14 @@ function Contact() {
                                             value={formData.lastName}
                                             onChange={handleChange}
                                             autoComplete="family-name"
+                                            required
                                             className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 outline-gray-300 placeholder-gray-400 focus:outline-2 focus:outline-indigo-600"
                                         />
                                     </div>
+									</div>
 
-                                    <div className="sm:col-span-2">
+                                    <div className="mt-6">
+									<div className="mb-6">
                                         <label htmlFor="email" className="block text-sm font-semibold text-gray-900">
                                             {t(`contact.emailLable`)}
                                         </label>
@@ -126,11 +127,12 @@ function Contact() {
                                             value={formData.email}
                                             onChange={handleChange}
                                             autoComplete="email"
+                                            required
                                             className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 outline-gray-300 placeholder-gray-400 focus:outline-2 focus:outline-indigo-600"
                                         />
                                     </div>
 
-                                    <div className="sm:col-span-2">
+                                    <div>
                                         <label htmlFor="message" className="block text-sm font-semibold text-gray-900">
                                             {t(`contact.messageLable`)}
                                         </label>
@@ -140,6 +142,7 @@ function Contact() {
                                             value={formData.message}
                                             onChange={handleChange}
                                             rows="4"
+                                            required
                                             className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 outline-gray-300 placeholder-gray-400 focus:outline-2 focus:outline-indigo-600"
                                         ></textarea>
                                     </div>

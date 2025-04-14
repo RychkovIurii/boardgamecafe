@@ -13,7 +13,7 @@ const About = () => {
 	const { t } = useTranslation();
     return (
         <div>
-            <div className='bg-gray-100 pt-10 pb-10'>
+            <div className='bg-gray-100 pt-10 pb-10 px-4 sm:px-8'>
                 <div className='pt-20'>
                     <h1 className='text-3xl md:text-5xl font-black '
                     style={{ color: colors.color.fontYellow }}>
@@ -36,7 +36,7 @@ const About = () => {
                     {aboutMenu.map((item, index) => (
                         <div
                             key={index}
-                            onClick={() => { if (item.link) navigate(item.link); window.scrollTo(0, 0); }}
+                            onClick={() => { if (item.link) navigate(item.link); }}
                             className="relative cursor-pointer h-[250px] flex flex-col justify-end text-center bg-cover bg-center hover:scale-105 transition-transform duration-300"
                         >
                             <div className='relative'>
@@ -46,7 +46,7 @@ const About = () => {
                             </div>
                             {/* 텍스트 */}
                             <div className=" text-gray-600">
-                                <p className="text-2xl font-bold pt-3 bg-slate-100 p-1 inline-block">{t(item.title)}</p>
+                                <p className="text-2xl font-bold pt-3 bg-slate-100 inline-block">{t(item.title)}</p>
                             </div>
                         </div>
                     ))}

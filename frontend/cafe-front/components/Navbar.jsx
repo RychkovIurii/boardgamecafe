@@ -63,36 +63,45 @@ function Navbar() {
   if (isCheckingAuth) return null; // or loading spinner
 
   const settings = isAuthenticated
-  ? [
+    ? [
       { name: 'Profile', path: '/profile' },
       { name: 'My bookings', path: '/account' },
       ...(user?.role === 'admin' ? [{ name: 'AdminDashboard', path: '/admin' }] : []),
       { name: 'Logout', action: handleLogout }
     ]
-  : [{ name: 'SignIn', path: '/sign-in' }];
+    : [{ name: 'SignIn', path: '/sign-in' }];
+
+  const getUserInitials = () => {
+    if (user?.name) {
+      const names = user.name.trim().split(' ');
+      const initials = names.map(n => n[0].toUpperCase());
+      return initials.slice(0, 2).join('');
+    }
+    return '';
+  };
 
   return (
-    <AppBar position="static" color="white">
+    <AppBar position="static" color="white" sx={{ minHeight: '50px' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          
-			<Link to="/" style={{ textDecoration: 'none' }}>
-				<Typography
-					variant="h6"
-					noWrap
-					sx={{
-					mr: 2,
-					display: { xs: 'none', md: 'flex' },
-					fontFamily: "Fontdiner Swanky",
-					fontWeight: 700,
-					letterSpacing: '.3rem',
-					color: 'black',
-					textDecoration: 'none',
-					}}
-				>
-					<img src={cafeLogo} alt="Cafe Boardgame Logo" style={{ paddingBottom: '1rem' }} />
-				</Typography>
-			</Link>
+
+          <Link to="/" style={{ textDecoration: 'none' }}>
+            <Typography
+              variant="h7"
+              noWrap
+              sx={{
+                mr: 2,
+                display: { xs: 'none', md: 'flex' },
+                fontFamily: "Fontdiner Swanky",
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'black',
+                textDecoration: 'none',
+              }}
+            >
+              <img src={cafeLogo} alt="Cafe Boardgame Logo" className="max-w-[90px]" />
+            </Typography>
+          </Link>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -125,7 +134,7 @@ function Navbar() {
             >
               {pages.map((page) => (
                 <MenuItem key={page.name} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">
+                  <Typography textAlign="center" sx={{ fontFamily: 'Fontdiner Swanky' }}>
                     <Link to={page.path}>{t(`navbar.${page.name}`)}</Link>
                   </Typography>
                 </MenuItem>
@@ -138,16 +147,16 @@ function Navbar() {
             component={Link}
             to="/"
             sx={{
-				mr: 1,
-				display: { xs: 'flex', md: 'none' },
-				flexGrow: 1,
-				fontFamily: 'Fontdiner Swanky',
-				fontWeight: 400,
-				letterSpacing: '.1rem',
-				fontSize: '1rem',
-				color: 'black',
-				textDecoration: 'none',
-			  }}
+              mr: 1,
+              display: { xs: 'flex', md: 'none' },
+              flexGrow: 1,
+              fontFamily: 'Fontdiner Swanky',
+              fontWeight: 400,
+              letterSpacing: '.1rem',
+              fontSize: '1rem',
+              color: 'black',
+              textDecoration: 'none',
+            }}
           >
             BOARDGAME
           </Typography>
@@ -156,7 +165,15 @@ function Navbar() {
               <Button
                 key={page.name}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'black', display: 'block', mr: 6, fontFamily: 'Fontdiner Swanky', ":hover": { bgcolor: 'white' } }}
+                sx={{
+                  my: 2, color: 'black', display: 'block',
+                  mr:
+                  {
+                    md: 2,
+                    lg: 6
+                  },
+                  fontSize: '1rem', fontFamily: 'Fontdiner Swanky', ":hover": { bgcolor: 'white' }
+                }}
                 component={Link}
                 to={page.path}
               >
@@ -173,7 +190,9 @@ function Navbar() {
             </select>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="BoardGame" />
+                <Avatar alt="BoardGame">
+                  {isAuthenticated && getUserInitials()}
+                </Avatar>
               </IconButton>
             </Tooltip>
             <Menu

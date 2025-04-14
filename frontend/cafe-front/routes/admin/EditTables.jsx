@@ -72,54 +72,106 @@ const EditTables = () => {
     return (
         <div>
             <AdminNavbar />
-            <h1 style={{ marginTop: '30px' }}>Manage Tables</h1>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="number"
-                    name="number"
-                    placeholder="Table Number"
-                    value={newTable.number}
-                    onChange={handleChange}
-                    required
-                />
-                <input
-                    type="number"
-                    name="capacity"
-                    placeholder="Capacity"
-                    value={newTable.capacity}
-                    onChange={handleChange}
-                    required
-                />
-                <input
-                    type="text"
-                    name="location"
-                    placeholder="Location"
-                    value={newTable.location}
-                    onChange={handleChange}
-                    required
-                />
-                <label>
+            <div className="admin-section-wrapper">
+                <h1 className="admin-section-title">Manage Tables</h1>
+                <form onSubmit={handleSubmit} className="flex flex-col gap-4 mt-5">
                     <input
-                        type="checkbox"
-                        name="availability"
-                        checked={newTable.availability}
-                        onChange={(e) => setNewTable({ ...newTable, availability: e.target.checked })}
+                        type="number"
+                        name="number"
+                        placeholder="Table Number"
+                        value={newTable.number}
+                        onChange={handleChange}
+                        required
                     />
-                    Available
-                </label>
-                <button type="submit">{selectedTableId ? 'Update Table' : 'Add Table'}</button>
-            </form>
-            <h2 style={{ marginTop: '30px' }}>Existing Tables</h2>
-            <ul className='edits_close'>
-                {tables.map(table => (
-                    <li className='items' key={table._id}>
-                        <div className='descr_type'>Table {table.number} - Capacity: {table.capacity} - Location: {table.location} - {table.availability ? 'Available' : 'Unavailable'}</div>
-                        <button className='edit_but' onClick={() => handleEdit(table)}>Edit</button>
-                        <button className='del_but' onClick={() => handleDelete(table._id)}>Delete</button>
-                    </li>
-                ))}
-            </ul>
+                    <input
+                        type="number"
+                        name="capacity"
+                        placeholder="Capacity"
+                        value={newTable.capacity}
+                        onChange={handleChange}
+                        required
+                    />
+                    <input
+                        type="text"
+                        name="location"
+                        placeholder="Location"
+                        value={newTable.location}
+                        onChange={handleChange}
+                        required
+                    />
+                    <div className="flex gap-4 pt-2 justify-center">
+                        <label className="flex items-center gap-2">
+                            <input
+                                type="checkbox"
+                                name="availability"
+                                checked={newTable.availability}
+                                onChange={(e) => setNewTable({ ...newTable, availability: e.target.checked })}
+                            />
+                            Available
+                        </label>
+
+                        <button type="submit" className="bg-blue-600 text-white px-6 py-2 rounded">
+                            {selectedTableId ? 'Update Table' : 'Add Table'}
+                        </button>
+                        {selectedTableId && (
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    setNewTable({ number: '', capacity: '', location: '', availability: true });
+                                    setSelectedTableId(null);
+                                }}
+                                className="admin-button-cancle-delete"
+                            >
+                                Cancel
+                            </button>
+                        )}
+                    </div>
+                </form>
+
+                <h2 className='md:px-10 md:pt-10 md:mt-10 md:pb-5 pt-10 pb-5 text-2xl md:text-3xl font-medium text-gray-800'>Existing Tables</h2>
+                <div className="overflow-x-auto sm:mt-6 mt-3 w-[800px] mx-auto">
+                    <table className="table-auto w-full border border-gray-300 shadow-sm rounded-md">
+                        <thead className="bg-gray-100 text-center">
+                            <tr>
+                                <th className="admin-section-td">Table Number</th>
+                                <th className="admin-section-td">Capacity</th>
+                                <th className="admin-section-td">Location</th>
+                                <th className="admin-section-td">Status</th>
+                                <th className="admin-section-td"></th>
+                                <th className="admin-section-td"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {tables.map((table) => (
+                                <tr key={table._id} className="text-center hover:bg-gray-50">
+                                    <td className="admin-section-td">{table.number}</td>
+                                    <td className="admin-section-td">{table.capacity}</td>
+                                    <td className="admin-section-td">{table.location}</td>
+                                    <td className="admin-section-td">{table.availability ? 'Available' : 'Unavailable'}</td>
+                                    <td className="admin-section-td">
+                                        <button
+                                            onClick={() => handleEdit(table)}
+                                            className="admin-button-edit"
+                                        >
+                                            Edit
+                                        </button>
+                                    </td>
+                                    <td className="px-4 py-2 border">
+                                        <button
+                                            onClick={() => handleDelete(table._id)}
+                                            className="admin-button-cancle-delete"
+                                        >
+                                            Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
+
     );
 };
 

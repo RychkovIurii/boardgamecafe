@@ -103,77 +103,132 @@ const ManageMenuItems = () => {
         }
     };
 
-	return (
-		<div>
-			<AdminNavbar />
-			<h1 style={{ marginTop: '30px' }}>Manage Menu Items</h1>
-			<form onSubmit={selectedMenuItemId ? handleUpdateMenuItem : handleAddMenuItem}>
-				<input
-					type="text"
-					name="menuType"
-					placeholder="Menu Type"
-					value={newMenuItem.menuType}
-					onChange={handleChange}
-					required
-				/>
-				<input
-					type="text"
-					name="image"
-					placeholder="Image Path"
-					value={newMenuItem.image}
-					onChange={handleChange}
-					required
-				/>
-				<textarea
-					name="description"
-					placeholder="Description"
-					value={newMenuItem.details.description}
-					onChange={(e) => setNewMenuItem({
-						...newMenuItem,
-						details: { ...newMenuItem.details, description: e.target.value }
-					})}
-				/>
-				{newMenuItem.details.pricing.map((pricingItem, index) => (
-					<div key={index}>
-						<input
-							type="text"
-							name="item"
-							placeholder="Item"
-							value={pricingItem.item}
-							onChange={(e) => handleDetailsChange(e, index)}
-							required
-						/>
-						<input
-							type="text"
-							name="options"
-							placeholder="Options (comma separated)"
-							value={pricingItem.options.join(', ')}
-							onChange={(e) => handleDetailsChange(e, index)}
-						/>
-						<input
-							type="text"
-							name="price"
-							placeholder="Price"
-							value={pricingItem.price}
-							onChange={(e) => handleDetailsChange(e, index)}
-							required
-						/>
-					</div>
-				))}
-				<button type="submit">{selectedMenuItemId ? 'Update Menu Item' : 'Add Menu Item'}</button>
-			</form>
-			<h2 style={{ marginTop: '30px' }}>Existing Menu Items</h2>
-			<ul className='edits'>
-				{menuItems.map(item => (
-					<li  className='items' key={item._id}>
-						<div className='descr_type'>{item.menuType} - {item.details.description}</div>
-						<button className='edit_but' onClick={() => handleEditMenuItem(item)}>Edit</button>
-						<button className='del_but' onClick={() => handleDeleteMenuItem(item._id)}>Delete</button>
-					</li>
-				))}
-			</ul>
-		</div>
-	);
+    return (
+        <div>
+            <AdminNavbar />
+            <div className="admin-section-wrapper">
+                <h1 className="admin-section-title">Manage Menu Items</h1>
+                <form
+                    onSubmit={selectedMenuItemId ? handleUpdateMenuItem : handleAddMenuItem}
+                    className="flex flex-col gap-4 bg-white p-6 rounded shadow mt-5"
+                >
+                    <input
+                        type="text"
+                        name="menuType"
+                        placeholder="Menu Type"
+                        value={newMenuItem.menuType}
+                        onChange={handleChange}
+                        required
+                        className="border px-4 py-2 rounded-md"
+                    />
+                    <input
+                        type="text"
+                        name="image"
+                        placeholder="Image Path"
+                        value={newMenuItem.image}
+                        onChange={handleChange}
+                        required
+                        className="border px-4 py-2 rounded-md"
+                    />
+                    <textarea
+                        name="description"
+                        placeholder="Description"
+                        value={newMenuItem.details.description}
+                        onChange={(e) =>
+                            setNewMenuItem({
+                                ...newMenuItem,
+                                details: { ...newMenuItem.details, description: e.target.value }
+                            })
+                        }
+                        className="border px-4 py-2 rounded-md min-h-[100px]"
+                    />
+                    {newMenuItem.details.pricing.map((pricingItem, index) => (
+                        <div key={index} className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <input
+                                type="text"
+                                name="item"
+                                placeholder="Item"
+                                value={pricingItem.item}
+                                onChange={(e) => handleDetailsChange(e, index)}
+                                className="border px-4 py-2 rounded-md"
+                                required
+                            />
+                            <input
+                                type="text"
+                                name="options"
+                                placeholder="Options (comma separated)"
+                                value={pricingItem.options.join(', ')}
+                                onChange={(e) => handleDetailsChange(e, index)}
+                                className="border px-4 py-2 rounded-md"
+                            />
+                            <input
+                                type="text"
+                                name="price"
+                                placeholder="Price"
+                                value={pricingItem.price}
+                                onChange={(e) => handleDetailsChange(e, index)}
+                                className="border px-4 py-2 rounded-md"
+                                required
+                            />
+                        </div>
+                    ))}
+                    <div className="flex gap-4 pt-2 justify-center">
+                        <button type="submit" className="bg-blue-600 text-white px-6 py-2 rounded">
+                            {selectedMenuItemId ? 'Update Menu' : 'Add Menu'}
+                        </button>
+                        {selectedMenuItemId && (
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    setNewMenuItem({
+                                        menuType: '',
+                                        image: '',
+                                        details: {
+                                            description: '',
+                                            pricing: [{ item: '', options: [], price: '' }]
+                                        }
+                                    });
+                                    setSelectedMenuItemId(null);
+                                }}
+                                className="admin-button-cancle-delete"
+                            >
+                                Cancel
+                            </button>
+                        )}
+                    </div>
+                </form>
+
+                <section className='w-[800px] mx-auto'>
+                    <h2 className='md:px-10 md:pt-10 md:mt-10 md:pb-5 pt-10 pb-5 text-2xl md:text-3xl font-medium text-gray-800'>Existing Menu Items</h2>
+                    <ul className="space-y-4">
+                        {menuItems.map(item => (
+                            <li key={item._id} className="border p-4 rounded shadow">
+                                <div className="font-medium text-lg mb-2 text-start">
+                                    <p className='font-semibold'>{item.menuType}</p>
+                                    <p>{item.details.description}</p>
+                                </div>
+                                <div className="flex gap-2 justify-center pt-2">
+                                    <button
+                                        onClick={() => handleEditMenuItem(item)}
+                                        className="admin-button-edit"
+                                    >
+                                        Edit
+                                    </button>
+                                    <button
+                                        onClick={() => handleDeleteMenuItem(item._id)}
+                                        className="admin-button-cancle-delete"
+                                    >
+                                        Delete
+                                    </button>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                </section>
+
+            </div>
+        </div>
+    );
 };
 
 export default ManageMenuItems;

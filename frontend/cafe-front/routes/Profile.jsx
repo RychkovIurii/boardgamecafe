@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import API from '../api/axios'
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import Swal from 'sweetalert2';
+import Swal from '../utils/swalWithFont';
 import { useTranslation } from 'react-i18next';
 import { isValidPhoneNumber } from 'libphonenumber-js';
 
@@ -67,8 +67,8 @@ const Profile = () => {
     return (
         <>
             <Navbar />
-            <div className="py-20 max-w-4xl mx-auto">
-                <h1 className="text-outline text-3xl md:text-4xl lg:text-5xl font-medium text-yellow-500 mt-5 mb-10">{t('profile.pageTitle')}</h1>
+            <div className="md:py-20 py-10 max-w-4xl mx-auto">
+                <h2 className="md:pt-5 text-3xl md:text-5xl font-medium text-yellow-500 mb-10">{t('profile.pageTitle')}</h2>
                 <div className='flex flex-col gap-2 mt-5 '>
 
                     <p className='font-medium text-2xl text-neutral-800 mt-4'>{userData.name}</p>

@@ -9,8 +9,8 @@ function ServiceCard() {
 
     const { t } = useTranslation();
     return (
-        <div className="py-20 max-w-4xl mx-auto">
-            <h2 className="text-outline text-3xl md:text-5xl lg:text-6xl font-medium  mb-7" style={{ color: colors.color.fontYellow }}>
+        <div className="md:py-20 py-10 max-w-4xl mx-auto px-8">
+            <h2 className="md:pt-5 text-3xl md:text-5xl lg:text-6xl font-medium mb-7" style={{ color: colors.color.fontYellow }}>
                 {t(`service.Title`)}
             </h2>
             <p className='w-5/6 m-auto sm:text-sm md:text-base ' style={{ color: colors.color.fontSubTitle }}>
@@ -38,7 +38,7 @@ function ServiceCard() {
             <button onClick={() => {
                 navigate(`/contact`); scroll(0, 0)
             }}
-            className=" w-[180px] p-3 m-2 text-[antiquewhite] rounded-lg mt-[50px]" style={{ backgroundColor: colors.color.buttonMainColor }}>{t(`service.button`)}</button>
+            className='bg-amber-200 text-gray-600 text-2xl px-12 py-3 rounded-full mt-10'>{t(`service.button`)}</button>
 
 
         </div>

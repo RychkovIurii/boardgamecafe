@@ -55,7 +55,28 @@ function Events() {
 		  </div>
 		);
 	  }
-	if (error) return <div>Error loading events: {error}</div>;
+      if (error) {
+        return (
+          <>
+            <Navbar />
+            <div style={{
+              padding: '2rem',
+              textAlign: 'center',
+            }}>
+              <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>
+                 Our backend isn’t running right now.
+              </h2>
+              <p>
+                Please contact us.
+              </p>
+              <p style={{ marginTop: '1rem', fontSize: '0.9rem', color: '#991b1b' }}>
+                Error: {error.message || error.toString()}
+              </p>
+            </div>
+            <Footer />
+          </>
+        );
+      }
 
 	return (
 		<>

@@ -17,9 +17,8 @@ exports.menuItemValidation = [
 
 	body('details')
 		.optional()
-		.trim()
-		.escape()
-		.isLength({ max: 1000 }),
+		.isObject().withMessage('Details must be an object'),
+
 ];
 
 exports.menuItemIdValidation = [

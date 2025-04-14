@@ -22,8 +22,10 @@
     justify-content: center;
 	padding: 4rem 2rem;
 	width: 100%;
+    max-height: fit-content;
 	max-width: 1200px;
 	margin: 0 auto;
+    padding-right: 3vw;
 }
 .footer-logo {
     display: flex;
@@ -36,12 +38,13 @@
     padding-right: 40px;
 }
 .footer-logo img {
-	padding-right: 10px;
+	padding-right: 1rem;
 	width: 150px;
 	filter: brightness(0) saturate(100%) invert(18%) sepia(4%) saturate(0%) hue-rotate(178deg) brightness(90%) contrast(95%);
 
 }
 .top {
+    padding-top: 2vh;
     margin: 0;
     display: flex;
     flex-direction: row;
@@ -91,6 +94,7 @@
 .awards img {
     display: flex;
     flex-direction: row;
+    width: 8vw;
     max-width: 100px;
 }
 

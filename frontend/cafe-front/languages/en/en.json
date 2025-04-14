@@ -24,16 +24,16 @@
 	"footer": {
 		"Created by Varia Students": "© 2025 Created by Varia Students. All rights reserved.",
 		"Contact": "Contact",
-        "About": "About",
-        "Others": "Others",
-        "Call us": "Call us",
-        "Email us": "Email us",
-        "How it works": "How it works",
-        "Staff": "Staff",
-        "Services": "Services",
-        "Privacy Policy": "Privacy Policy",
-        "License": "License",
-        "Terms of Service": "Terms of Service",
+		"About": "About",
+		"Others": "Others",
+		"Call us": "Call us",
+		"Email us": "Email us",
+		"How it works": "How it works",
+		"Staff": "Staff",
+		"Services": "Services",
+		"Privacy Policy": "Privacy Policy",
+		"License": "License",
+		"Terms of Service": "Terms of Service",
 		"Opening hours": "Opening hours",
 		"Monday": "Monday",
 		"Tuesday": "Tuesday",
@@ -88,7 +88,7 @@
 			"phone": "Please enter a valid phone number in the format: +[CountryCode][Number].",
 			"email": "Please enter a valid email address.",
 			"password": "Password must be at least 6 characters long."
-			}
+		}
 	},
 	"home": {
 		"steps": {
@@ -146,9 +146,15 @@
 		"invalidTimeText": "The day or time you've selected is outside our working hours. Please choose another time.",
 		"paymentSuccessTitle": "Payment Complete!",
 		"paymentSuccessText": "A confirmation email was sent to",
+		"paymentErrorTitle": "Something went wrong",
+		"paymentErrorText": "We couldn’t confirm your payment. Please try again or contact us.",
+		"paymentProcessing": "Processing your payment...",
+		"paymentProcessingText": "This may take a few seconds. Please don’t close this page.",
+		"emailErrorTitle": "Email Error",
+		"emailErrorText": "Failed to send the email. Please try again later.",
 		"goHome": "Go to Home",
 		"payNow": "Pay Now (Optional)"
-		},
+	},
 	"contact": {
 		"heroTitle": "Get in Touch!",
 		"heroText": "Have a question or just want to say hi? Feel free to reach out we’d love to hear from you!",
@@ -175,7 +181,8 @@
 			"- Customer relationship management",
 			"- Processing of pre-determined purchases",
 			"- Informing about services",
-			"- Common information channels"],
+			"- Common information channels"
+		],
 		"recordedData": "4. Personal Data Recorded",
 		"recordedDataP": "The customer register contains:",
 		"dataList": [
@@ -184,7 +191,8 @@
 			"- Email",
 			"- Phone Number",
 			"- Customer Information",
-			"- Purchased products/services"],
+			"- Purchased products/services"
+		],
 		"rights": "5. Data Subject's Rights",
 		"rightsP": "Customers have the right to access, rectify, delete, and object to their data processing.",
 		"sources": "6. Data Sources",
@@ -198,7 +206,7 @@
 		"transfer": "10. Data Transfers Outside the EU",
 		"transferP": "No data is transferred outside the EU or EEA.",
 		"decisionMaking": "11. Automated Decision Making",
-		"decisionMakingP": "No automatic decision-making or profiling is done."	
+		"decisionMakingP": "No automatic decision-making or profiling is done."
 	},
 	"admin_navbar": {
 		"Games": "Games",
@@ -212,9 +220,9 @@
 		"UserView": "User View"
 	},
 	"service": {
-		"Title": "Find our service",
+		"Title": "Find our services",
 		"serviceP": "Our goal is to make Helsinki the heart of gaming culture and to provide an accessible meeting place for everyone interested in games. Cafe Boardgame is a four-story gaming culture hub, combining a restaurant, café, bar, events, training, and meeting services.",
-		"button": "contact us"
+		"button": "Contact Us"
 	},
 	"menu": {
 		"title": "Find Our Menu",
@@ -235,14 +243,18 @@
 		"datePlaceholder": "Enter event date",
 		"imagePlaceholder": "Enter event image URL",
 		"submitButton": "Create Event",
-		"updateButton": "Update Event",
+		"updateButton": "Update",
 		"editButton": "Edit",
-		"existingEvents": "Existing Events"
+		"deleteButton": "Delete",
+		"existingEvents": "Existing Events",
+		"includePastLabel": "Show:",
+		"onlyUpcoming": "Upcoming Events",
+		"allEvents": "Past Events"
 	},
 	"about": {
 		"title": "ABOUT CAFÉ BOARDGAME",
 		"aboutP": "Welcome to Café Boardgame, the heart of gaming culture in Helsinki!",
-		"GalleryIntroTitle1": "Expore more",
+		"GalleryIntroTitle1": "Find out more",
 		"GalleryIntroTitle2": "about Café Boardgame"
 	},
 	"gamesPage": {
@@ -258,7 +270,7 @@
 		"step1Phone": "Phone:",
 		"step1People": "People*:",
 		"step1Number": "Number of Players:",
-		"step1Text": "(If your group has more than 8 people, please contact us directly for your booking)",
+		"step1Text": "*If your group has more than 8 people, please contact us directly for your booking",
 		"step1Date": "Date:",
 		"step1Time": "Start time:",
 		"step1Duration": "Duration:",
@@ -310,9 +322,9 @@
 		"deleteFailedText": "Something went wrong while deleting the booking."
 	},
 	"aboutIntro": {
-		"intro1": "Founded in 2021, with over 500 games Café Boardgame has been a welcoming spot for board games and role-playing games lovers.",
+		"intro1": "Since 2021, Café Boardgame with its 500 games, has been a welcoming spot for board game and role-playing game lovers.",
 		"intro2": "Our friendly staff are always here to help you pick a game, explain the rules, or guide you through gameplay.",
-		"intro3": "At Café Boardgame, you can enjoy great food, drinks, and games in a fun and relaxing space with friends, family, or colleagues.",
+		"intro3": "At Café Boardgame, you can enjoy great food, drinks, and games in a fun and relaxing environment with friends, family, or colleagues.",
 		"openingTitle": "Opening Hours",
 		"monThu": "Monday - Thursday 16:00 - 24:00",
 		"friday": "Friday 16:00 - 02:00",
@@ -362,5 +374,58 @@
 		"noUpcoming": "No upcoming bookings.",
 		"bookingHistory": "Booking History",
 		"noHistory": "No booking history"
+	},
+	"adminDashboard": {
+		"pageTitle": {
+			"upcoming": "Admin Dashboard",
+			"past": "Past Bookings"
+		},
+		"searchPlaceholder": "Search by user, phone, table, or game",
+		"filter": {
+			"all": "All Upcoming",
+			"today": "Today",
+			"thisWeek": "This Week",
+			"past": "Past"
+		},
+		"tableHeader": {
+			"date": "Date",
+			"startTime": "Start Time",
+			"endTime": "End Time",
+			"table": "Table",
+			"game": "Game",
+			"user": "User",
+			"phone": "Phone",
+			"players": "Players",
+			"paymentStatus": "Payment Status",
+			"edit": "Edit",
+			"delete": "Delete"
+		},
+		"tableFilter": {
+			"allTables": "All Tables",
+			"table": "Table"
+		},
+		"noTableAssigned": "No Table Assigned",
+		"noPhone": "No Phone",
+		"guest": "Guest",
+		"noPayment": "No Payment",
+		"paymentStatus": {
+			"completed": "Completed",
+			"pending": "Pending",
+			"failed": "Failed"
+		},
+		"deleteConfirm": {
+			"title": "Are you sure?",
+			"text": "This booking will be permanently deleted.",
+			"confirmButton": "Yes, delete it!",
+			"cancelButton": "Cancel"
+		},
+		"deleteSuccess": {
+			"title": "Deleted!",
+			"text": "The booking has been deleted."
+		},
+		"deleteError": {
+			"title": "Delete Failed",
+			"text": "Something went wrong while deleting the booking."
+		}
 	}
 }

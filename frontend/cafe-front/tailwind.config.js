@@ -1,6 +1,5 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  mode: 'jit',
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
@@ -10,18 +9,15 @@ export default {
   theme: {
     extend: {
       colors: {
-        'primary': '#566FFF',
+        primary: '#566FFF',
         brown: '#8B4513',  // Brown 색상
-        gold: '#FFD700',   // Gold 색상}
-        beige: '#DBD3D1',
-        fontGray: '#8B4513'
       },
       fontFamily: {
-        'fontdiner': ['Fontdiner Swanky', 'serif'],
-        'example': ['Space Grotesk', 'sans-serif']
+        fontdiner: ['Fontdiner Swanky', 'serif'],
+        inter: ['Inter', 'sans-serif'],
+        roboto: ['Roboto', 'sans-serif'],
       }
-    },
-    plugins: [],
-  }
-
+    }
+  },
+  plugins: [],
 }

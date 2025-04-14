@@ -1,12 +1,32 @@
-* {
+*{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-.App {
-	text-align: center;
-	width: 100%;
-	min-height: 100vh;
-	background-color: #F3F4F6;
+.swal-custom-font {
+    font-family: "Fontdiner Swanky", serif !important;
   }
+
+/* Public layout font */
+.public-app {
+  font-family: "Fontdiner Swanky", serif;
+  text-align: center;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Admin layout font */.admin-app {
+  font-family: "Roboto", sans-serif;
+  text-align: center;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.App {
+  text-align: center;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #F3F4F6;
+}
+
