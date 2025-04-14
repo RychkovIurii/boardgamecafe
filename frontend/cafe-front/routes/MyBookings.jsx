@@ -245,8 +245,6 @@ const MyBookings = () => {
                 text: t('bookingForm.deleteConfirmText'),
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
                 confirmButtonText: t('bookingForm.deleteConfirmButton'),
                 cancelButtonText: t('bookingForm.cancelButtonText')
             });
@@ -280,7 +278,7 @@ const MyBookings = () => {
     if (loading) {
         return (
             <div style={{ display: 'flex', justifyContent: 'center', padding: '4rem' }}>
-                <CircularProgress size="4rem" thickness={5} color="inherit" />
+                <CircularProgress size="4rem" thickness={5} />
             </div>
         );
     };

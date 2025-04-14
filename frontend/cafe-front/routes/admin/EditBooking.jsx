@@ -107,7 +107,7 @@ const EditBooking = () => {
     if (loading || !booking) {
         return (
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '60vh' }}>
-                <CircularProgress size="4rem" thickness={5} color="inherit" />
+                <CircularProgress size="4rem" thickness={5} />
             </div>
         );
     }

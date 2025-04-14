@@ -40,7 +40,7 @@ const About = () => {
                             </div>
                             {/* 텍스트 */}
                             <div className=" text-gray-600">
-                                <p className="text-2xl font-bold pt-3 bg-slate-100 p-1 inline-block">{t(item.title)}</p>
+                                <p className="text-2xl font-bold pt-3 bg-slate-100 inline-block">{t(item.title)}</p>
                             </div>
                         </div>
                     ))}

@@ -53,7 +53,7 @@ const AdminDashboard = () => {
     if (loading) {
         return (
             <div className="flex justify-center items-center h-[60vh]">
-                <CircularProgress size="3rem" thickness={5} color="inherit" />
+                <CircularProgress size="3rem" thickness={5} />
             </div>
         );
     }
@@ -70,8 +70,6 @@ const AdminDashboard = () => {
                 text: t('adminDashboard.deleteConfirm.text'),
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
                 confirmButtonText: t('adminDashboard.deleteConfirm.confirmButton'),
                 cancelButtonText: t('adminDashboard.deleteConfirm.cancelButton')
             });

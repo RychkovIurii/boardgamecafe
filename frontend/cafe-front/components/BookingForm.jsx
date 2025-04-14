@@ -30,7 +30,7 @@ dayjs.extend(isSameOrAfter);
 /**
  StepOne, StepTwo, and StepThree are separated for clarity.
  You can define them inline, in separate files, or as your project needs.*/
-function StepOne({ inputs, handleChange, handleTimeChange }) {
+function StepOne({ inputs, handleChange, handleTimeChange, nameError }) {
   const { t } = useTranslation();
   const [value, setValue] = React.useState(dayjs('2022-04-17T16:00'));
 
@@ -51,6 +51,7 @@ function StepOne({ inputs, handleChange, handleTimeChange }) {
           onChange={handleChange}
           required
         />
+        {nameError && <span style={{ color: 'red', fontSize: '0.8rem' }}>{nameError}</span>}
       </div>
       <div className='formItem'>
         <label>{t(`bookingForm.step1Phone`)}</label>
@@ -227,6 +228,7 @@ export default function BookingForm() {
   const { t } = useTranslation();
   const [workingHours, setWorkingHours] = useState([]);
   const [specialHours, setSpecialHours] = useState([]);
+  const [nameError, setNameError] = useState('');
   const [inputs, setInputs] = useState({
     date: "",
     startTime: dayjs('2022-04-17T16:00'),
@@ -448,8 +450,18 @@ export default function BookingForm() {
   };
 
   const handleChange = (e) => {
-    setInputs({ ...inputs, [e.target.name]: e.target.value })
-  }
+    const { name, value } = e.target;
+  
+    if (name === 'contactName') {
+      if (!nameRegex.test(value)) {
+        setNameError('Name can only contain letters, spaces, hyphens, apostrophes, and dots.');
+      } else {
+        setNameError('');
+      }
+    }
+  
+    setInputs((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -537,7 +549,7 @@ export default function BookingForm() {
   const renderStepContent = (stepIndex) => {
     switch (stepIndex) {
       case 0:
-        return <StepOne inputs={inputs} handleChange={handleChange} handleTimeChange={handleTimeChange} />;
+        return <StepOne inputs={inputs} handleChange={handleChange} handleTimeChange={handleTimeChange} nameError={nameError} />;
       case 1:
         return <StepTwo inputs={inputs} handleChange={handleChange} tables={filteredTables} setInputs={setInputs} />;
       case 2:

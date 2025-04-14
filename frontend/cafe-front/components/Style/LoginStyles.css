@@ -40,7 +40,7 @@
 }
 
 .input-group input:focus {
-    border-color: #007BFF;
+    border-color: #065f46;
 }
 
 /* Submit button */
@@ -59,7 +59,7 @@
 
 .submit-button:hover {
 
-	background-color: #007BFF;
+	background-color: #065f46;
 	transform: scale(1.05);
 }
 
@@ -73,13 +73,13 @@
 .secondary-button {
     background: none;
     border: none;
-    color: #007BFF;
+    color: #374151;
     font-size: 1rem;
     cursor: pointer;
     transition: color 0.3s;
 }
 
 .secondary-button:hover {
-    color: #0056b3;
+    color: #065f46;
     text-decoration: underline;
 }
