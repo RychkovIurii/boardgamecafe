@@ -17,6 +17,8 @@ import ServiceProduct from '../routes/ServiceProduct';
 import Profile from '../routes/Profile';
 import MyBookings from '../routes/MyBookings';
 import { CheckoutForm, Return } from '../routes/Payment';
+import { colors } from '../components/Style/Colors';
+import { fonts } from '../components/Style/Fonts';
 
 // --- Admin Routes ---
 import AdminDashboard from '../routes/admin/AdminDashboard';
@@ -36,7 +38,7 @@ const AdminRoute = ({ element }) => {
 
 function App() {
 	return (
-	  <div className="App">
+	  <div className="App" style={{ background: colors.color.background, fontFamily: fonts.font.akward }}>
 		<Routes>
 		  {/* Public routes */}
 		  <Route path='/' element={<Home />} />
