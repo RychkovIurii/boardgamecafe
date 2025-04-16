@@ -38,7 +38,7 @@ function ServiceCard() {
             <button onClick={() => {
                 navigate(`/contact`); scroll(0, 0)
             }}
-            className='bg-amber-200 text-gray-600 text-2xl px-12 py-3 rounded-full mt-10'>{t(`service.button`)}</button>
+            className='bg-brown text-white text-2xl px-12 py-3 rounded-full mt-10'>{t(`service.button`)}</button>
 
 
         </div>

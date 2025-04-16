@@ -41,7 +41,7 @@ const About = () => {
                         >
                             <div className='relative'>
                                 <img src={item.img} alt={t(item.title)} />
-                                <div className='absolute inset-0 bg-black bg-opacity-70 rounded-3xl flex items-center justify-center text-white cursor-pointer opacity-0 hover:opacity-100 transition-opacity duration-300 '>
+                                <div className="absolute inset-0 bg-black bg-opacity-70 rounded-3xl flex items-center justify-center text-white cursor-pointer opacity-0 hover:opacity-100 transition duration-300 ease-in-out p-2">
                                     <p className='text-base'>{t(item.text)}</p></div>
                             </div>
                             {/* 텍스트 */}

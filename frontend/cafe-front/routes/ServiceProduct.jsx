@@ -12,7 +12,7 @@ const ServiceProduct = () => {
     const [serviceData, setServiceData] = useState(null);
     const [image, setImage] = useState('');
     const navigate = useNavigate();
-	const { t } = useTranslation();
+    const { t } = useTranslation();
 
     // Fetch service data when component loads
     const fetchServiceData = async () => {
@@ -69,7 +69,7 @@ const ServiceProduct = () => {
                                 Join Discord
                             </button>
                         ) : (
-                            <button onClick={() => { navigate(`/contact`); scrollTo(0, 0) }} className='bg-amber-200 text-gray-700 text-2xl px-12 py-3 rounded-full mt-10'>
+                            <button onClick={() => { navigate(`/contact`); scrollTo(0, 0) }} className='bg-brown text-white text-2xl px-12 py-3 rounded-full mt-10'>
                                 {t(`service.button`)}
                             </button>
                         )}
