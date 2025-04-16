@@ -32,7 +32,8 @@
 .imgClass {
 	width: 100%;
 	height: 100%;
-	object-fit: cover
+	object-fit: cover;
+	filter: brightness(75%);
 }
 
 .hero-text {
@@ -111,32 +112,32 @@
 
 @media screen and (orientation: landscape) and (max-height: 640px) {
 	.hero-text h1 {
-        margin-top: 1rem;
+		margin-top: 1rem;
 		font-size: 2rem;
 	}
 
 	.hero-text-content {
 		font-size: 1.2rem;
-        margin-bottom: 0.5rem;
+		margin-bottom: 0.5rem;
 	}
-    .hero-text .show {
-        font-size: 1.2rem;
-        padding: 5px 10px;
-    }
+	.hero-text .show {
+		font-size: 1.2rem;
+		padding: 5px 10px;
+	}
 }
 
 @media screen and (orientation: landscape) and (max-height: 480px) {
-    .hero-text h1 {
-        margin-top: 1rem;
-        font-size: 1.5rem;
-    }
+	.hero-text h1 {
+		margin-top: 1rem;
+		font-size: 1.5rem;
+	}
 
-    .hero-text-content {
-        font-size: 1rem;
-        margin-bottom: 0.5rem;
-    }
-    .hero-text .show {
-        font-size: 1.2rem;
-        padding: 5px 10px;
-    }
+	.hero-text-content {
+		font-size: 1rem;
+		margin-bottom: 0.5rem;
+	}
+	.hero-text .show {
+		font-size: 1.2rem;
+		padding: 5px 10px;
+	}
 }
