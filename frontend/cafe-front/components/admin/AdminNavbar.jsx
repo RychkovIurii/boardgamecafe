@@ -47,6 +47,15 @@ function AdminNavbar() {
     ]
     : [{ name: 'Sign In', path: '/sign-in' }];
 
+    const getUserInitials = () => {
+        if (user?.name) {
+          const names = user.name.trim().split(' ');
+          const initials = names.map(n => n[0].toUpperCase());
+          return initials.slice(0, 2).join('');
+        }
+        return '';
+      };
+
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -173,7 +182,24 @@ function AdminNavbar() {
             </select>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="BoardGame" />
+              <Avatar
+                  alt="BoardGame"
+                  sx={{
+                    bgcolor: !isAuthenticated
+                      ? 'lightgray'
+                      : user?.role === 'admin'
+                        ? '#8d5929'
+                        : '#065f46',
+                    color: 'white',
+                    fontWeight: 'bold',
+                    width: 40,
+                    height: 40,
+                    fontSize: '0.9rem',
+                    border: user?.role === 'admin' ? '2px solid gold' : 'none',
+                  }}
+                >
+                  {isAuthenticated && (user?.role === 'admin' ? 'AD' : getUserInitials())}
+                </Avatar>
               </IconButton>
             </Tooltip>
             <Menu
