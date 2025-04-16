@@ -25,7 +25,7 @@ const MenuIcon = ({ activeId, setActiveId }) => {
         <div id="menuType" className="flex flex-col items-center gap-5 md:py-16 py-5 text-gray-800">
              <h2 className="pt-10 text-3xl md:text-5xl lg:text-6xl font-medium mb-7" style={{ color: colors.color.fontYellow }}>{t("menu.title")}</h2>
             <p className="px-4 text-xl md:text-2xl font-semibold" style={{ color: colors.color.fontSubTitle }}>{t("menu.subtitle")}</p>
-            <div className="flex flex-col md:flex-row flex-wrap justify-center items-center gap-4 pt-2 md:gap-6 md:pt-7">
+            <div className="flex flex-row flex-wrap justify-center items-center gap-4 pt-2 md:gap-6 md:pt-7">
                 {menuData.map((item, index) => (
                     <div
                         key={index}
