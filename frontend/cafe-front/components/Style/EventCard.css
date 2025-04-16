@@ -28,10 +28,8 @@
     display: flex;
     flex-direction: column;
     align-content: space-between;
-    justify-content: space-between;
-    height: inherit;
-    margin-bottom: 20px;
-    padding-bottom: 25px;
+    justify-content: flex-start;
+    height: 100%;
 }
 
 .eventImg {
@@ -39,15 +37,24 @@
     height: 100px;
     object-fit: cover;
     border-radius: 5px;
+    margin-bottom: 12px;
+    margin-top: 4px;
 }
 
-.descr {
+.eventDate {
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+  }
+
+  .descr {
+    flex-grow: 0;
+    overflow-y: auto;
     max-height: 125px;
-    overflow: scroll;
     font-size: small;
-    text-align: justify;
-    padding: 8px;
-}
+    text-align: center;
+    white-space: pre-line;  /* preserve newlines */
+    margin-bottom: 10px;    /* space before button */
+  }
 
 h1 {
     font-size: larger;
@@ -56,13 +63,13 @@ h1 {
 }
 
 .button {
-    align-self: center;
-}
+    margin-top: auto;       /* takes up any leftover space, pushing itself down */
+    text-align: center;     /* center the button horizontally */
+  }
 
 .LearnMore {
-    background-color: rgb(139, 90, 43);;
+    background-color: rgb(139, 90, 43);
     padding: 12px;
-    margin: 10px;
     color: antiquewhite;
     border-radius: 8px;
 }

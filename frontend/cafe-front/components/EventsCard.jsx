@@ -32,9 +32,9 @@ export default function EventsCard(props) {
                 <h1>{props.eventTitle}</h1>
                 <img className='eventImg' src={props.image}></img>
                 {/* <CountdownTimer targetDate={props.eventDate}/> */}
-                <div>
+                <div className="eventDate">
                     {props.eventDate}
-                </div>
+                    </div>
                 <div className='descr'>
                     {props.eventDescription}
                 </div>
@@ -50,7 +50,7 @@ export default function EventsCard(props) {
                             <Typography id="modal-modal-title" variant="h6" component="h2">
                                 {props.eventTitle}
                             </Typography>
-                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                            <Typography id="modal-modal-description" sx={{ mt: 2, whiteSpace: 'pre-line' }}>
                                 {props.eventDescription}
                             </Typography>
                         </Box>
