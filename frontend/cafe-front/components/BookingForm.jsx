@@ -714,7 +714,7 @@ export default function BookingForm() {
         if (trimmed.length < 10) {
           setPhoneError('');
         } else if (!isValidPhoneNumber(trimmed)) {
-          setPhoneError('Invalid phone format. Format: +358505662613');
+          setPhoneError('Check your phone. Format: +358505662613');
         } else {
           setPhoneError('');
         }
