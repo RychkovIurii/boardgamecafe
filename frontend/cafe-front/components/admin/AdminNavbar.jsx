@@ -47,14 +47,14 @@ function AdminNavbar() {
     ]
     : [{ name: 'Sign In', path: '/sign-in' }];
 
-  const getUserInitials = () => {
-    if (user?.name) {
-      const names = user.name.trim().split(' ');
-      const initials = names.map(n => n[0].toUpperCase());
-      return initials.slice(0, 2).join('');
-    }
-    return '';
-  };
+    const getUserInitials = () => {
+        if (user?.name) {
+          const names = user.name.trim().split(' ');
+          const initials = names.map(n => n[0].toUpperCase());
+          return initials.slice(0, 2).join('');
+        }
+        return '';
+      };
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -182,7 +182,7 @@ function AdminNavbar() {
             </select>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar
+              <Avatar
                   alt="BoardGame"
                   sx={{
                     bgcolor: !isAuthenticated

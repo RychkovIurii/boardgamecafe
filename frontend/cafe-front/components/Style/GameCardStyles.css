@@ -34,8 +34,9 @@
     align-content: center;
 }
 .gameTit {
-    max-height: 150px;
-    overflow: scroll;
+    white-space: nowrap;        /* Keeps the text in a single line */
+    overflow: hidden;           /* Hides text overflow */
+    text-overflow: ellipsis;    /* Displays an ellipsis for truncated text */
     text-align: center;
     padding: 8px;
     font-size: 0.8vw;

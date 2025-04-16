@@ -63,6 +63,7 @@ const EditEvents = () => {
             image: event.image
         });
         setSelectedEventId(event._id);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     const handleDelete = async (id) => {

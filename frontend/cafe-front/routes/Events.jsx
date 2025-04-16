@@ -11,6 +11,7 @@ import '../components/Style/EventCard.css'
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
 import { colors } from '../components/Style/Colors';
+import Swal from '../utils/swalWithFont';
 
 function Events() {
 	const [events, setEvents] = useState([]);
@@ -18,6 +19,20 @@ function Events() {
 	const [error, setError] = useState(null);
 	const [nextCafeconDate, setNextCafeconDate] = useState(null);
 	const { t } = useTranslation();
+	const googleFormUrl = null;
+
+	const handleCafeconClick = () => {
+		if (googleFormUrl) {
+		  window.location.href = googleFormUrl;
+		} else {
+		  Swal.fire({
+			icon: 'warning',
+			title: t('alerts.noCafeConRegistration'),
+			text: t('alerts.noCafeConRegistrationText'),
+			confirmButtonText: t('alerts.goBack'),
+		  });
+		}
+	};
 
 	useEffect(() => {
 		const fetchEvents = async () => {
@@ -86,9 +101,10 @@ function Events() {
 				heroImage={heroImage}
 				title="CafeCon Café Boardgame"
 				text={nextCafeconDate ? <CountdownTimer targetDate={nextCafeconDate} /> : 'No upcoming CafeCon events'}
-				linkText={t('Learn More')}
+				linkText={t('Registration Form')}
 				linkClass="show"
-				url="/cafecon"
+				onClick={handleCafeconClick}
+				url="#"
 			/>
 			<h1 style={{ margin: '30px' , color: colors.color.fontYellow }}>{t('events.upcomingEvents')}</h1>
 			<div className='cardGen'>

@@ -40,10 +40,11 @@ const Login = ({ onToggleForm, onForgotPassword }) => {
 				}
 			});
 		} catch (error) {
+			const message = error.response?.data?.message || t("login.errorMessage");
 			await Swal.fire({
 				icon: 'error',
 				title: t("login.errorTitle"),
-				text: t("login.errorMessage"),
+				text: message,
 				confirmButtonText: t("login.confirmButton")
 			});
 		}

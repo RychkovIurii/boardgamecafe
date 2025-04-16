@@ -1,10 +1,11 @@
-import React from 'react'
-import { useState } from 'react'
-import CountdownTimer from './CountdownTimer'
+import React from 'react';
+import { useState } from 'react';
+import CountdownTimer from './CountdownTimer';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import '../components/Style/EventCard.css'
+import '../components/Style/EventCard.css';
+import { useTranslation } from 'react-i18next';
 
 
 const style = {
@@ -23,6 +24,7 @@ export default function EventsCard(props) {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const { t } = useTranslation();
 
     return (
         <div className='cardBG'>
@@ -37,7 +39,7 @@ export default function EventsCard(props) {
                     {props.eventDescription}
                 </div>
                 <div className='button'>
-                    <button className='LearnMore' type='button' title='Learn more' onClick={handleOpen}>Learn more...</button>
+                    <button className='LearnMore' type='button' title='Learn more' onClick={handleOpen}>{t('hero.Learn More')}</button>
                     <Modal
                         open={open}
                         onClose={handleClose}

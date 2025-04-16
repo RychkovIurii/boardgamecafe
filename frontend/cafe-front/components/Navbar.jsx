@@ -190,7 +190,7 @@ function Navbar() {
             </select>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar
+              <Avatar
                   alt="BoardGame"
                   sx={{
                     bgcolor: !isAuthenticated

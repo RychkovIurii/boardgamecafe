@@ -74,10 +74,11 @@ const Register = ({ onToggleForm }) => {
 			});
 			onToggleForm();
 		} catch (error) {
+			const message = error.response?.data?.message || t("register.errorMessage");
 			await Swal.fire({
 				icon: 'error',
 				title: t("register.errorTitle"),
-				text: t("register.errorMessage"),
+				text: message,
 				confirmButtonText: t("register.confirmButton")
 			});
 		}
