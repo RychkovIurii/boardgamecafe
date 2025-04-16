@@ -87,6 +87,7 @@ const ManageMenuItems = () => {
         };
         setSelectedMenuItemId(item._id);
         setNewMenuItem(normalized);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     const handleUpdateMenuItem = async (e) => {

@@ -55,6 +55,7 @@ const EditTables = () => {
     const handleEdit = (table) => {
         setNewTable(table);
         setSelectedTableId(table._id);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     const handleDelete = async (id) => {
