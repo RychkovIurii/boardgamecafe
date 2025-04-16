@@ -26,7 +26,7 @@ const MenuAccordions = ({ activeId, setActiveId }) => {
 	}, [activeId]); // Scroll when activeId changes
 
     return (
-        <div ref={sectionRef} className="w-full flex justify-center md:min-h-screen px-8">
+        <div ref={sectionRef} className="w-full flex justify-center mb-10 pb-5 px-8">
             <div className="w-[900px] h-max shadow-lg border-4 border-yellow-500 rounded-xl overflow-hidden bg-white">
                 {/* Header Section */}
                 {/* <div className="flex flex-wrap justify-center px-6 py-5 gap-5 bg-yellow-900">
