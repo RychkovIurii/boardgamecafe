@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import './Style/BookingFormStyles.css';
+import './Style/TableClicker.css';
 import Swal from '../utils/swalWithFont';
 import API from '../api/axios';
 import {
@@ -28,73 +29,73 @@ import { colors } from '../components/Style/Colors';
 const nameRegex = new RegExp(/^[\p{Letter}][\p{Letter}\s\-.']*$/u);
 const duraOpt = Array.from({ length: (600 - 60) / 30 + 1 }, (_, i) => (60 + i * 30).toString());
 const durationMarks = duraOpt.map((min) => {
-    const minutes = parseInt(min, 10);
-    const hours = minutes / 60;
-    return {
-      value: minutes,
-      /* label: hours % 1 === 0 ? `${hours}h` : `${Math.floor(hours)}h ${minutes % 60}m`, */
-    };
-  });
+  const minutes = parseInt(min, 10);
+  const hours = minutes / 60;
+  return {
+    value: minutes,
+    /* label: hours % 1 === 0 ? `${hours}h` : `${Math.floor(hours)}h ${minutes % 60}m`, */
+  };
+});
 
 dayjs.extend(isSameOrAfter);
 
 function formatDuration(minutes) {
-    const m = parseInt(minutes, 10);
-    const hours = Math.floor(m / 60);
-    const remaining = m % 60;
-  
-    if (hours && remaining) return `${hours}h ${remaining}min`;
-    if (hours) return `${hours}h`;
-    return `${remaining}min`;
+  const m = parseInt(minutes, 10);
+  const hours = Math.floor(m / 60);
+  const remaining = m % 60;
+
+  if (hours && remaining) return `${hours}h ${remaining}min`;
+  if (hours) return `${hours}h`;
+  return `${remaining}min`;
+}
+
+function isTimeTooLate(inputs, workingHours, specialHours) {
+  if (!inputs.date || !inputs.startTime) return false;
+
+  const selectedStart = dayjs(`${inputs.date}T${inputs.startTime.format('HH:mm')}`);
+  const minDuration = 60;
+
+  const special = specialHours.find(s => dayjs(s.date).isSame(dayjs(inputs.date), 'day'));
+  let openTime, closeTime;
+
+  if (special && special.openTime && special.closeTime) {
+    openTime = dayjs(`${special.date}T${special.openTime}`);
+    closeTime = dayjs(`${special.date}T${special.closeTime}`);
+  } else {
+    const dayName = dayjs(inputs.date).format('dddd');
+    const workingDay = workingHours.find(w => w.day === dayName);
+    if (!workingDay || !workingDay.openTime || !workingDay.closeTime) return false;
+
+    openTime = dayjs(`${inputs.date}T${workingDay.openTime}`);
+    closeTime = dayjs(`${inputs.date}T${workingDay.closeTime}`);
   }
 
-  function isTimeTooLate(inputs, workingHours, specialHours) {
-    if (!inputs.date || !inputs.startTime) return false;
-  
-    const selectedStart = dayjs(`${inputs.date}T${inputs.startTime.format('HH:mm')}`);
-    const minDuration = 60;
-  
-    const special = specialHours.find(s => dayjs(s.date).isSame(dayjs(inputs.date), 'day'));
-    let openTime, closeTime;
-
-    if (special && special.openTime && special.closeTime) {
-        openTime = dayjs(`${special.date}T${special.openTime}`);
-        closeTime = dayjs(`${special.date}T${special.closeTime}`);
-    } else {
-        const dayName = dayjs(inputs.date).format('dddd');
-        const workingDay = workingHours.find(w => w.day === dayName);
-        if (!workingDay || !workingDay.openTime || !workingDay.closeTime) return false;
-
-        openTime = dayjs(`${inputs.date}T${workingDay.openTime}`);
-        closeTime = dayjs(`${inputs.date}T${workingDay.closeTime}`);
-    }
-
-    if (closeTime.isBefore(openTime)) {
-        closeTime = closeTime.add(1, 'day'); // handle past-midnight closing
-    }
-
-    const timeBeforeOpen = selectedStart.isBefore(openTime);
-    const timeTooLate = closeTime.diff(selectedStart, 'minute') < minDuration;
-
-    return timeBeforeOpen || timeTooLate;
+  if (closeTime.isBefore(openTime)) {
+    closeTime = closeTime.add(1, 'day'); // handle past-midnight closing
   }
+
+  const timeBeforeOpen = selectedStart.isBefore(openTime);
+  const timeTooLate = closeTime.diff(selectedStart, 'minute') < minDuration;
+
+  return timeBeforeOpen || timeTooLate;
+}
 
 /**
  StepOne, StepTwo, and StepThree are separated for clarity.
  You can define them inline, in separate files, or as your project needs.*/
-function StepOne({ 
-    inputs,
-    handleChange,
-    handleTimeChange,
-    nameError,
-    phoneError,
-    playersError,
-    getHoursForSelectedDate,
-    getMaxDuration,
-    workingHours,
-    specialHours,
-    timeTooLate,
-    isClosedDay
+function StepOne({
+  inputs,
+  handleChange,
+  handleTimeChange,
+  nameError,
+  phoneError,
+  playersError,
+  getHoursForSelectedDate,
+  getMaxDuration,
+  workingHours,
+  specialHours,
+  timeTooLate,
+  isClosedDay
 }) {
   const { t } = useTranslation();
   const [value, setValue] = React.useState(dayjs('2022-04-17T16:00'));
@@ -123,13 +124,13 @@ function StepOne({
             const isSpecialChar = ['-', '.', "'", ' '].includes(e.key);
             const cursorPos = e.currentTarget.selectionStart;
             const value = e.currentTarget.value;
-          
+
             // First character must be a letter
             if (cursorPos === 0 && !isLetter && !allowedKeys.includes(e.key)) {
               e.preventDefault();
               return;
             }
-          
+
             // After first character, allow letters, allowed keys, and special chars
             if (!isLetter && !isSpecialChar && !allowedKeys.includes(e.key)) {
               e.preventDefault();
@@ -155,17 +156,17 @@ function StepOne({
             const isPlus = e.key === '+';
             const currentValue = e.currentTarget.value;
             const cursorPos = e.currentTarget.selectionStart;
-        
+
             /* // Block digit as first char (must start with +)
             if (isDigit && currentValue.length === 0) {
               e.preventDefault();
             } */
-        
+
             // Allow only one + at the beginning
             if (isPlus && (cursorPos !== 0 || currentValue.includes('+'))) {
               e.preventDefault();
             }
-        
+
             // Block everything else that's not a number or allowed key
             if (!isDigit && !isPlus && !allowedKeys.includes(e.key)) {
               e.preventDefault();
@@ -202,9 +203,9 @@ function StepOne({
         {playersError && <span style={{ color: 'red', fontSize: '0.8rem' }}>{playersError}</span>}
       </div>
       <Typography variant="body2" sx={{ fontFamily: "Fontdiner Swanky", paddingTop: 1 }} gutterBottom>
-      {t(`bookingForm.step1Text`)}
-        </Typography>
-      
+        {t(`bookingForm.step1Text`)}
+      </Typography>
+
       <div className='formItem'>
         <label>{t(`bookingForm.step1Date`)} </label>
         <input
@@ -218,18 +219,18 @@ function StepOne({
           required
         />
         {(() => {
-            const hours = getHoursForSelectedDate();
-            if (!hours) return null;
-            if (hours.type === 'closed') {
-                return <div style={{ color: 'red', fontSize: '0.9rem', marginTop: '6px', marginBottom: '2px' }}>{t('bookingForm.closedDay')}</div>;
-            }
-            return (
-                <div style={{ fontSize: '0.9rem', marginTop: '6px', marginBottom: '2px', color: '#065f46' }}>
-                {hours.type === 'special' ? t('bookingForm.specialHours') : t('bookingForm.workingHours')}:
-                <strong> {hours.open} - {hours.close}</strong>
-                </div>
-            );
-            })()}
+          const hours = getHoursForSelectedDate();
+          if (!hours) return null;
+          if (hours.type === 'closed') {
+            return <div style={{ color: 'red', fontSize: '0.9rem', marginTop: '6px', marginBottom: '2px' }}>{t('bookingForm.closedDay')}</div>;
+          }
+          return (
+            <div style={{ fontSize: '0.9rem', marginTop: '6px', marginBottom: '2px', color: '#065f46' }}>
+              {hours.type === 'special' ? t('bookingForm.specialHours') : t('bookingForm.workingHours')}:
+              <strong> {hours.open} - {hours.close}</strong>
+            </div>
+          );
+        })()}
       </div>
 
       <div className='formItem'>
@@ -276,21 +277,21 @@ function StepOne({
           }}
         />
         <FormHelperText sx={{ fontFamily: "Fontdiner Swanky" }}>
-            {durationError ? (
-                t('alerts.durationError')
-            ) : (
-                <>
-                {t('bookingForm.step1DurationI')}{' '}
-                <span style={{ color: '#065f46', fontWeight: 600 }}>
-                    {formatDuration(inputs.duration || 60)}
-                </span>
-                </>
-            )}
+          {durationError ? (
+            t('alerts.durationError')
+          ) : (
+            <>
+              {t('bookingForm.step1DurationI')}{' '}
+              <span style={{ color: '#065f46', fontWeight: 600 }}>
+                {formatDuration(inputs.duration || 60)}
+              </span>
+            </>
+          )}
         </FormHelperText>
         {timeTooLate && (
-        <div style={{ color: 'red', fontSize: '0.85rem', marginTop: '6px' }}>
+          <div style={{ color: 'red', fontSize: '0.85rem', marginTop: '6px' }}>
             {t('bookingForm.timeTooLate')}
-        </div>
+          </div>
         )}
       </div>
       {/* </Box> */}
@@ -315,48 +316,48 @@ function StepTwo({ inputs, handleChange, tables, setInputs, tableError, setTable
         value={inputs.tableNumber || ""}
         placeholder={t(`bookingForm.step2TableNum`)}
         onKeyDown={(e) => {
-            if (['e', 'E', '+', '-', '.'].includes(e.key)) {
-              e.preventDefault();
-            }
-          }}
-          onChange={(e) => {
-            const value = e.target.value;
-            if (value.length <= 2) {
-              handleChange(e); // keep logic in sync
-            }
-          }}
+          if (['e', 'E', '+', '-', '.'].includes(e.key)) {
+            e.preventDefault();
+          }
+        }}
+        onChange={(e) => {
+          const value = e.target.value;
+          if (value.length <= 2) {
+            handleChange(e); // keep logic in sync
+          }
+        }}
         required
       />
-        {tableError && <span style={{ color: 'red', fontSize: '0.8rem' }}>{tableError}</span>}
+      {tableError && <span style={{ color: 'red', fontSize: '0.8rem' }}>{tableError}</span>}
       <div className='tables'>
         <div className='tablesChild'>
           <div className='lefties'>{t(`bookingForm.step2Suggested`)}</div>
           <div className='suggestedTableTokens'>
-          {tables.suggested && tables.suggested.map((table) => (
-            <div key={table.number}
-              className='table'
-              onClick={() => {
-                setInputs(prev => ({ ...prev, tableNumber: table.number }));
-                setTableError('');
-              }}>
-              {table.number}
-            </div>
-          ))}
-        </div>
+            {tables.suggested && tables.suggested.map((table) => (
+              <div key={table.number}
+                className='table'
+                onClick={() => {
+                  setInputs(prev => ({ ...prev, tableNumber: table.number }));
+                  setTableError('');
+                }}>
+                {table.number}
+              </div>
+            ))}
+          </div>
         </div>
         <div className='tablesChild'>
           <div className='lefties'>{t(`bookingForm.step2AlsoAvailable`)}</div>
           <div className='suggestedTableTokens'>
-          {tables.alsoAvailable && tables.alsoAvailable.map((table) => (
-            <div key={table.number}
-              className='table'
-              onClick={() => {
-                setInputs(prev => ({ ...prev, tableNumber: table.number }));
-                setTableError('');
-              }}>
-              {table.number}
-            </div>
-          ))}
+            {tables.alsoAvailable && tables.alsoAvailable.map((table) => (
+              <div key={table.number}
+                className='table'
+                onClick={() => {
+                  setInputs(prev => ({ ...prev, tableNumber: table.number }));
+                  setTableError('');
+                }}>
+                {table.number}
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -503,21 +504,21 @@ export default function BookingForm() {
 
   const getHoursForSelectedDate = () => {
     if (!inputs.date) return null;
-  
+
     const selectedDay = dayjs(inputs.date);
     const special = specialHours.find(s => dayjs(s.date).isSame(selectedDay, 'day'));
-  
+
     if (special && special.openTime && special.closeTime) {
       return { type: 'special', open: special.openTime, close: special.closeTime };
     }
-  
+
     const dayName = selectedDay.format('dddd'); // e.g., 'Friday'
     const regular = workingHours.find(w => w.day === dayName);
-  
+
     if (regular && regular.openTime && regular.closeTime) {
       return { type: 'regular', open: regular.openTime, close: regular.closeTime };
     }
-  
+
     return { type: 'closed' };
   };
 
@@ -551,24 +552,24 @@ export default function BookingForm() {
 
   function getMaxDuration() {
     if (!inputs.date || !inputs.startTime) return 600; // default max
-  
+
     const selectedStart = dayjs(`${inputs.date}T${inputs.startTime.format('HH:mm')}`);
     const special = specialHours.find(s => dayjs(s.date).isSame(dayjs(inputs.date), 'day'));
     let closeTime;
-  
+
     if (special && special.closeTime) {
       closeTime = dayjs(`${special.date}T${special.closeTime}`);
     } else {
       const dayName = dayjs(inputs.date).format('dddd');
       const workingDay = workingHours.find(w => w.day === dayName);
       if (!workingDay || !workingDay.closeTime) return 600;
-  
+
       closeTime = dayjs(`${inputs.date}T${workingDay.closeTime}`);
       if (closeTime.isBefore(selectedStart)) {
         closeTime = closeTime.add(1, 'day'); // past-midnight handling
       }
     }
-  
+
     const diffMinutes = closeTime.diff(selectedStart, 'minute');
 
     // Cap the available duration to 600 minutes (10 hours)
@@ -677,9 +678,9 @@ export default function BookingForm() {
   // Handle previous step
   const handleBack = () => {
     if (activeStep === 1) {
-        setTableError('');
-        setInputs(prev => ({ ...prev, tableNumber: "" }));
-      }
+      setTableError('');
+      setInputs(prev => ({ ...prev, tableNumber: "" }));
+    }
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
 
   };
@@ -688,7 +689,7 @@ export default function BookingForm() {
     const updatedInputs = { ...inputs, startTime: value };
     const newMax = getMaxDuration(updatedInputs);
     const currentDuration = parseInt(inputs.duration, 10);
-  
+
     setInputs((prev) => ({
       ...prev,
       startTime: value,
@@ -698,9 +699,9 @@ export default function BookingForm() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-  
+
     if (name === 'contactName') {
-        const trimmed = value.trim();
+      const trimmed = value.trim();
       if (!nameRegex.test(trimmed) && trimmed.length > 0) {
         setNameError('Name can only contain letters, spaces, hyphens, apostrophes, and dots.');
       } else {
@@ -709,72 +710,72 @@ export default function BookingForm() {
     }
 
     if (name === 'contactPhone') {
-        const trimmed = value.trim();
-      
-        if (trimmed.length < 10) {
-          setPhoneError('');
-        } else if (!isValidPhoneNumber(trimmed)) {
-          setPhoneError('Check your phone. Format: +358505662613');
-        } else {
-          setPhoneError('');
-        }
+      const trimmed = value.trim();
+
+      if (trimmed.length < 10) {
+        setPhoneError('');
+      } else if (!isValidPhoneNumber(trimmed)) {
+        setPhoneError('Check your phone. Format: +358505662613');
+      } else {
+        setPhoneError('');
       }
+    }
 
     if (name === 'players') {
-        const trimmed = value.trim();
-        if (trimmed.length < 1) {
-            setPlayersError('');
+      const trimmed = value.trim();
+      if (trimmed.length < 1) {
+        setPlayersError('');
+      } else {
+        const number = parseInt(value, 10);
+        if (isNaN(number) || number < 1 || number > 10) {
+          setPlayersError(t('bookingForm.availabilityPeople'));
         } else {
-            const number = parseInt(value, 10);
-            if (isNaN(number) || number < 1 || number > 10) {
-                setPlayersError(t('bookingForm.availabilityPeople'));
-            } else {
-                setPlayersError('');
-            }
+          setPlayersError('');
         }
+      }
     }
 
     if (name === 'tableNumber') {
-        const trimmed = value.trim();
-        if (trimmed.length < 1) {
-            setTableError('');
+      const trimmed = value.trim();
+      if (trimmed.length < 1) {
+        setTableError('');
+      } else {
+        const number = parseInt(value, 10);
+        const allAvailableTables = [
+          ...(filteredTables.suggested || []),
+          ...(filteredTables.alsoAvailable || [])
+        ];
+
+        const exists = allAvailableTables.some((table) => table.number === number);
+
+        if (!exists) {
+          setTableError(t('alerts.tableNotFoundText'));
         } else {
-            const number = parseInt(value, 10);
-            const allAvailableTables = [
-            ...(filteredTables.suggested || []),
-            ...(filteredTables.alsoAvailable || [])
-            ];
-        
-            const exists = allAvailableTables.some((table) => table.number === number);
-        
-            if (!exists) {
-            setTableError(t('alerts.tableNotFoundText'));
-            } else {
-            setTableError('');
-            }
+          setTableError('');
         }
       }
-      if (name === 'date') {
-        const updatedInputs = { ...inputs, date: value };
-        const newMax = getMaxDuration(updatedInputs);
-        const currentDuration = parseInt(inputs.duration, 10);
-      
-        const hours = getHoursForSelectedDate(updatedInputs);
-        const isClosed = hours?.type === 'closed';
-      
-        setInputs((prev) => ({
-          ...prev,
-          [name]: value,
-          duration: isClosed
-            ? ""                          // if closed: blank the slider
-            : currentDuration > newMax
-              ? newMax.toString()         // if too long: reduce to max
-              : prev.duration             // else: keep it
-        }));
-      
-        return;
-      }
-  
+    }
+    if (name === 'date') {
+      const updatedInputs = { ...inputs, date: value };
+      const newMax = getMaxDuration(updatedInputs);
+      const currentDuration = parseInt(inputs.duration, 10);
+
+      const hours = getHoursForSelectedDate(updatedInputs);
+      const isClosed = hours?.type === 'closed';
+
+      setInputs((prev) => ({
+        ...prev,
+        [name]: value,
+        duration: isClosed
+          ? ""                          // if closed: blank the slider
+          : currentDuration > newMax
+            ? newMax.toString()         // if too long: reduce to max
+            : prev.duration             // else: keep it
+      }));
+
+      return;
+    }
+
     setInputs((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -868,21 +869,21 @@ export default function BookingForm() {
   const renderStepContent = (stepIndex) => {
     switch (stepIndex) {
       case 0:
-        return <StepOne 
-            inputs={inputs}
-            handleChange={handleChange}
-            handleTimeChange={handleTimeChange}
-            nameError={nameError}
-            phoneError={phoneError}
-            playersError={playersError}
-            getHoursForSelectedDate={getHoursForSelectedDate}
-            getMaxDuration={getMaxDuration}
-            workingHours={workingHours}
-            specialHours={specialHours}
-            timeTooLate={timeTooLate}
-            isClosedDay={isClosedDay} />;
+        return <StepOne
+          inputs={inputs}
+          handleChange={handleChange}
+          handleTimeChange={handleTimeChange}
+          nameError={nameError}
+          phoneError={phoneError}
+          playersError={playersError}
+          getHoursForSelectedDate={getHoursForSelectedDate}
+          getMaxDuration={getMaxDuration}
+          workingHours={workingHours}
+          specialHours={specialHours}
+          timeTooLate={timeTooLate}
+          isClosedDay={isClosedDay} />;
       case 1:
-        return <StepTwo inputs={inputs} handleChange={handleChange} tables={filteredTables} setInputs={setInputs} tableError={tableError} setTableError={setTableError}/>;
+        return <StepTwo inputs={inputs} handleChange={handleChange} tables={filteredTables} setInputs={setInputs} tableError={tableError} setTableError={setTableError} />;
       case 2:
         return <StepThree inputs={inputs} handleChange={handleChange} handleSubmit={handleSubmit} />;
       default:
@@ -893,9 +894,37 @@ export default function BookingForm() {
   return (
     <>
       <div className='backgroundBooking'>
-        <img className="floorplann" src={floorplan} alt="floorplan" />
+        <div className='contain'>
+          <div className='table1'>1</div>
+          <div className='table2'>2</div>
+          <div className='table3'>3</div>
+          <div className='table4'>4</div>
+          <div className='table5'>5</div>
+          <div className='table6'>6</div>
+          <div className='table7'>7</div>
+          <div className='table8'>8</div>
+          <div className='table9'>9</div>
+          <div className='table10'>10</div>
+          <div className='table11'>11</div>
+          <div className='table12'>12</div>
+          <div className='table13'>13</div>
+          <div className='table14'>14</div>
+          <div className='table15'>15</div>
+          <div className='table16'>16</div>
+          <div className='table17'>17</div>
+          <div className='table18'>18</div>
+          <div className='table19'>19</div>
+          <div className='table20'>20</div>
+          <div className='table21'>21</div>
+          <div className='table22'>22</div>
+          <div className='table23'>23</div>
+          <div className='table24'>24</div>
+          <div className='table25'>25</div>
+          <div className='table26'>26</div>
+          <div className='table27'>27</div>
+          <img className="floorplann" src={floorplan} alt="floorplan" />
+        </div>
         <div className='stepperStyle'>
-
           <Box className='stepperStyle2' sx={{ width: '100%', maxWidth: '700px', margin: '0 auto', fontFamily: "Fontdiner Swanky", px: 2 }} >
             {error && <p style={{ color: "red" }}>{error}</p>}
             {success && <p style={{ color: "green" }}>Booking created successfully!</p>}
