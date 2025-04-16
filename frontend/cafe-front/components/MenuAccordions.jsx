@@ -27,17 +27,17 @@ const MenuAccordions = ({ activeId, setActiveId }) => {
 
     return (
         <div ref={sectionRef} className="w-full flex flex-col justify-center px-8">
-            <div className="flex flex-col w-[900px] shadow-lg border-4 border-yellow-500 rounded-xl overflow-hidden bg-white mx-auto">
+            <div className="flex flex-col w-[900px] shadow-lg border-4 border-yellow-500 rounded-xl overflow-hidden bg-white mx-auto font-roboto mb-5">
 
                 {/* Details Section */}
                 {menuData.map((item, index) => (
                     (activeId === null || activeId === index) && (
                         <div key={index} className="px-6 py-5 bg-yellow-900 border-yellow-600">
 
-                            <h3 className="text-2xl font-bold text-yellow-500 mb-4 pt-2 text-center">
+                            <h2 className="text-2xl font-bold text-yellow-500 mb-4 pt-2 text-center">
                                 {item.menuType}
-                            </h3>
-                            <p className="mb-6 text-white leading-relaxed">{item.details.description}</p>
+                            </h2>
+                            <p className="mb-6 text-white">{item.details.description}</p>
                             {item.details.pricing && (
                                 <ul className="space-y-4">
                                     {item.details.pricing.map((pricingItem, pricingIndex) => (
