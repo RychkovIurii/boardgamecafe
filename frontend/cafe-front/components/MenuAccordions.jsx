@@ -49,7 +49,7 @@ const MenuAccordions = ({ activeId, setActiveId }) => {
                     activeId === index && (
                         <div key={index} className="px-6 py-5 bg-yellow-900  border-yellow-600">
                             {/* Description */}
-                            <p className="mb-6  text-white leading-relaxed">{item.details.description}</p>
+                            <p className="mb-6  text-white leading-relaxed" style={{ whiteSpace: 'pre-line' }}>{item.details.description}</p>
 
                             {/* Pricing or Other Items */}
                             {item.details.pricing && (
