@@ -7,7 +7,7 @@ import { colors } from '../components/Style/Colors';
 
 function Hero(props) {
   const { t } = useTranslation();
-  const { cName, heroImage, title, text, url, linkClass, linkText } = props;
+  const { cName, heroImage, title, text, url, linkClass, linkText, onClick } = props;
 
   return (
     <div className={cName}>
@@ -20,12 +20,21 @@ function Hero(props) {
               {typeof text === 'string' ? t(`hero.${text}`) : text}
             </div>
           )}
-          <div className='p-5'>   {linkText && url && (
-            <Link to={url} className={linkClass}>
-              {t(`hero.${linkText}`)}
-            </Link>
-          )}</div>
-
+          <div className="p-5">
+            {linkText && (
+              onClick ? (
+                <button onClick={onClick} className={linkClass}>
+                  {t(`hero.${linkText}`)}
+                </button>
+              ) : (
+                url && (
+                  <Link to={url} className={linkClass}>
+                    {t(`hero.${linkText}`)}
+                  </Link>
+                )
+              )
+            )}
+          </div>
         </div>
       )}
     </div>
