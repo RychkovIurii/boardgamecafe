@@ -64,7 +64,8 @@ const ServiceProduct = () => {
                         {serviceData._id === 's-community' ? (
                             <button
                                 onClick={() => window.open("https://discord.com/invite/wwQGdKVrma", "_blank")}
-                                className='bg-blue-500 text-white text-2xl px-12 py-3 rounded-full mt-10'
+                                className='text-white text-2xl px-12 py-3 rounded-full mt-10'
+                                style={{ backgroundColor: '#5865f2'}}
                             >
                                 Join Discord
                             </button>
