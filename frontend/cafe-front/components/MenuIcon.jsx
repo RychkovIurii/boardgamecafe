@@ -13,13 +13,20 @@ const MenuIcon = ({ activeId, setActiveId }) => {
             try {
                 const response = await API.get('/prices');
                 setMenuData(response.data);
+                // Find index for "Gaming Fee" and set as active by default if not already set
+                const gamingFeeIndex = response.data.findIndex(
+                    (item) => item.menuType === 'Gaming Fee'
+                );
+                if (gamingFeeIndex !== -1 && activeId === null) {
+                    setActiveId(gamingFeeIndex);
+                }
             } catch (error) {
                 console.error('Error fetching menu data:', error);
             }
         };
 
         fetchMenuData();
-    }, []);
+    }, [activeId, setActiveId]);
 
     return (
         <div id="menuType" className="flex flex-col items-center gap-5 md:py-16 py-5 text-gray-800">
