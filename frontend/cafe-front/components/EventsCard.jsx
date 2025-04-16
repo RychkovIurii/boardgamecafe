@@ -39,7 +39,7 @@ export default function EventsCard(props) {
                     {props.eventDescription}
                 </div>
                 <div className='button'>
-                    <button className='LearnMore' type='button' title='Learn more' onClick={handleOpen}>{t('Learn More')}</button>
+                    <button className='LearnMore' type='button' title='Learn more' onClick={handleOpen}>{t('hero.Learn More')}</button>
                     <Modal
                         open={open}
                         onClose={handleClose}

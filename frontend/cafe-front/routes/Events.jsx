@@ -101,7 +101,7 @@ function Events() {
 				heroImage={heroImage}
 				title="CafeCon Café Boardgame"
 				text={nextCafeconDate ? <CountdownTimer targetDate={nextCafeconDate} /> : 'No upcoming CafeCon events'}
-				linkText={t('Learn More')}
+				linkText={t('Registration Form')}
 				linkClass="show"
 				onClick={handleCafeconClick}
 				url="#"
