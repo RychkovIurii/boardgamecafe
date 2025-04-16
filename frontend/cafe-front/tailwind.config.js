@@ -10,7 +10,7 @@ export default {
     extend: {
       colors: {
         primary: '#566FFF',
-        brown: '#8B4513',  // Brown 색상
+        brown: '#8d5929',  // Brown 색상
       },
       fontFamily: {
         fontdiner: ['Fontdiner Swanky', 'serif'],

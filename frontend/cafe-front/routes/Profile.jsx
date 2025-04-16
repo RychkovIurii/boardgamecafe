@@ -89,9 +89,15 @@ const Profile = () => {
                             }
                         </div>
 
-
+                        <div className='flex flex-row gap-x-5 mt-7 justify-start items-center'>
+                            <p className='font-medium text-lg'>{t('profile.phoneLabel')}</p>
+                            {
+                                isEdit
+                                    ? <input className='bg-gray-100 max-w-52 text-lg px-2 py-1 rounded' type='text' value={phone} onChange={e => setPhone(e.target.value)} />
+                                    : <p className='text-lg'>{userData.phone}</p>
+                            }
+                        </div>
                     </div>
-
 
 
                     <div className='mt-10 mb-20'>

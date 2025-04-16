@@ -166,7 +166,7 @@ function AboutGalleryIntro() {
                 }}>
 
 					<div className={clsx(
-					'justify-center mt-12 font-fontdiner',
+					'justify-center mt-12 font-lora',
 					isMobile ? 'px-4' : 'px-10'
 					)}>
 						<p className={clsx(

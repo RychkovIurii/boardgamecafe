@@ -366,7 +366,7 @@ const MyBookings = () => {
                                             <input type="text" name="contactPhone" value={editedBooking.contactPhone} onChange={handleChange} className="border p-1 rounded" />
                                         </div>
                                         <div className="flex gap-2 justify-center">
-                                            <button onClick={() => handleSave(booking._id)} className="bg-green-800 text-white px-4 py-2 rounded-md mt-2">{t('myBookings.saveButton')}</button>
+                                            <button onClick={() => handleSave(booking._id)} className="bg-emerald-800 text-white px-4 py-2 rounded-md mt-2">{t('myBookings.saveButton')}</button>
                                             <button onClick={handleCancel} className="bg-gray-500 text-white px-4 py-2 rounded-md mt-2">{t('myBookings.cancelButton')}</button>
                                         </div>
                                     </>
@@ -386,7 +386,7 @@ const MyBookings = () => {
                                         <p>{t('myBookings.tableNumberLabel')} {booking.tableId?.number || 'N/A'}</p>
                                         <p>{t('myBookings.contactLabel')} {booking.contactName}<br /> ({booking.contactPhone})</p>
                                         <div className="mt-3 flex gap-2 justify-center">
-                                            <button onClick={() => handleEdit(booking)} className="bg-green-800 w-20 text-white px-1 py-2 rounded-md">{t('myBookings.editButton')}</button>
+                                            <button onClick={() => handleEdit(booking)} className="bg-emerald-800 w-20 text-white px-1 py-2 rounded-md">{t('myBookings.editButton')}</button>
                                             <button onClick={() => handleDelete(booking._id)} className="bg-gray-700 w-20 text-white px-1 py-2 rounded-md">{t('myBookings.deleteButton')}</button>
                                         </div>
                                     </>
