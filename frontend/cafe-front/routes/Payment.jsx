@@ -90,7 +90,7 @@ export const Return = () => {
         Swal.fire({
           icon: 'success',
           title: t('alerts.paymentSuccessTitle'),
-          text: `${t('alerts.paymentSuccessText')} ${customerEmail}.`,
+          text: `${t('alerts.paymentSuccessText')} ${customerEmail}`,
           confirmButtonText: t('alerts.goHome')
         }).then(() => {
           navigate('/');

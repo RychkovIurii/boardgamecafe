@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import API from '../../api/axios';
 import AdminNavbar from '../../components/admin/AdminNavbar';
-import '../../components/Style/AdminStyles.css'
+import '../../components/Style/AdminStyles.css';
 
 const ManageMenuItems = () => {
     const [menuItems, setMenuItems] = useState([]);
@@ -19,7 +19,17 @@ const ManageMenuItems = () => {
         const fetchMenuItems = async () => {
             try {
                 const response = await API.get('/prices');
-                setMenuItems(response.data);
+                const normalized = response.data.map(item => ({
+                    ...item,
+                    details: {
+                        ...item.details,
+                        pricing: item.details.pricing.map(p => ({
+                            ...p,
+                            options: Array.isArray(p.options) ? p.options : []
+                        }))
+                    }
+                }));
+                setMenuItems(normalized);
             } catch (error) {
                 console.error('Error fetching menu items:', error);
             }
@@ -30,23 +40,27 @@ const ManageMenuItems = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setNewMenuItem({
-            ...newMenuItem,
+        setNewMenuItem(prev => ({
+            ...prev,
             [name]: value
-        });
+        }));
     };
 
     const handleDetailsChange = (e, index) => {
         const { name, value } = e.target;
         const updatedPricing = [...newMenuItem.details.pricing];
-        updatedPricing[index][name] = value;
-        setNewMenuItem({
-            ...newMenuItem,
+        updatedPricing[index][name] =
+            name === 'options'
+                ? value.split(',').map(opt => opt.trim())
+                : value;
+
+        setNewMenuItem(prev => ({
+            ...prev,
             details: {
-                ...newMenuItem.details,
+                ...prev.details,
                 pricing: updatedPricing
             }
-        });
+        }));
     };
 
     const handleAddMenuItem = async (e) => {
@@ -54,46 +68,40 @@ const ManageMenuItems = () => {
         try {
             const response = await API.post('/prices', newMenuItem);
             setMenuItems([...menuItems, response.data]);
-            setNewMenuItem({
-                menuType: '',
-                image: '',
-                details: {
-                    description: '',
-                    pricing: [{ item: '', options: [], price: '' }]
-                }
-            });
+            resetForm();
         } catch (error) {
             console.error('Error adding menu item:', error);
         }
     };
 
     const handleEditMenuItem = (item) => {
+        const normalized = {
+            ...item,
+            details: {
+                ...item.details,
+                pricing: item.details.pricing.map(p => ({
+                    ...p,
+                    options: Array.isArray(p.options) ? p.options : []
+                }))
+            }
+        };
         setSelectedMenuItemId(item._id);
-        setNewMenuItem(item);
+        setNewMenuItem(normalized);
     };
 
     const handleUpdateMenuItem = async (e) => {
         e.preventDefault();
         try {
             const response = await API.put(`/prices/${selectedMenuItemId}`, newMenuItem);
-            setMenuItems(menuItems.map(item => (item._id === selectedMenuItemId ? response.data : item)));
-            setSelectedMenuItemId(null);
-            setNewMenuItem({
-                menuType: '',
-                image: '',
-                details: {
-                    description: '',
-                    pricing: [{ item: '', options: [], price: '' }]
-                }
-            });
+            setMenuItems(menuItems.map(item => item._id === selectedMenuItemId ? response.data : item));
+            resetForm();
         } catch (error) {
             console.error('Error updating menu item:', error);
         }
     };
 
     const handleDeleteMenuItem = async (id) => {
-        const confirmDelete = window.confirm('Are you sure you want to delete this menu item?');
-        if (confirmDelete) {
+        if (window.confirm('Are you sure you want to delete this menu item?')) {
             try {
                 await API.delete(`/prices/${id}`);
                 setMenuItems(menuItems.filter(item => item._id !== id));
@@ -101,6 +109,18 @@ const ManageMenuItems = () => {
                 console.error('Error deleting menu item:', error);
             }
         }
+    };
+
+    const resetForm = () => {
+        setNewMenuItem({
+            menuType: '',
+            image: '',
+            details: {
+                description: '',
+                pricing: [{ item: '', options: [], price: '' }]
+            }
+        });
+        setSelectedMenuItemId(null);
     };
 
     return (
@@ -134,12 +154,10 @@ const ManageMenuItems = () => {
                         name="description"
                         placeholder="Description"
                         value={newMenuItem.details.description}
-                        onChange={(e) =>
-                            setNewMenuItem({
-                                ...newMenuItem,
-                                details: { ...newMenuItem.details, description: e.target.value }
-                            })
-                        }
+                        onChange={(e) => setNewMenuItem(prev => ({
+                            ...prev,
+                            details: { ...prev.details, description: e.target.value }
+                        }))}
                         className="border px-4 py-2 rounded-md min-h-[100px]"
                     />
                     {newMenuItem.details.pricing.map((pricingItem, index) => (
@@ -153,14 +171,17 @@ const ManageMenuItems = () => {
                                 className="border px-4 py-2 rounded-md"
                                 required
                             />
-                            <input
-                                type="text"
-                                name="options"
-                                placeholder="Options (comma separated)"
-                                value={pricingItem.options.join(', ')}
-                                onChange={(e) => handleDetailsChange(e, index)}
-                                className="border px-4 py-2 rounded-md"
-                            />
+                            <div>
+                                <label className="text-sm text-gray-600">Options (e.g. Small, Medium, Large)</label>
+                                <input
+                                    type="text"
+                                    name="options"
+                                    placeholder="Comma-separated options"
+                                    value={Array.isArray(pricingItem.options) ? pricingItem.options.join(', ') : ''}
+                                    onChange={(e) => handleDetailsChange(e, index)}
+                                    className="border px-4 py-2 rounded-md"
+                                />
+                            </div>
                             <input
                                 type="text"
                                 name="price"
@@ -179,17 +200,7 @@ const ManageMenuItems = () => {
                         {selectedMenuItemId && (
                             <button
                                 type="button"
-                                onClick={() => {
-                                    setNewMenuItem({
-                                        menuType: '',
-                                        image: '',
-                                        details: {
-                                            description: '',
-                                            pricing: [{ item: '', options: [], price: '' }]
-                                        }
-                                    });
-                                    setSelectedMenuItemId(null);
-                                }}
+                                onClick={resetForm}
                                 className="admin-button-cancle-delete"
                             >
                                 Cancel

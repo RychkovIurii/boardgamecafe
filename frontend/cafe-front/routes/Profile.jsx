@@ -74,16 +74,18 @@ const Profile = () => {
                     <p className='font-medium text-2xl text-neutral-800 mt-4'>{userData.name}</p>
                     <hr className='bg-zinc-400 h-[2px] border-none w-1/2 mx-auto ' />
 
-                    <div>
-                        <div className='flex flex-row gap-y-1 mt-7 text-neutral-700 justify-center'>
-                            <p className='font-medium text-lg justify-center'>{t('profile.emailLabel')}</p>
-                            <p className='pl-5 text-blue-500 text-lg justify-center'>{userData.email}</p> </div>
-                        <div className='flex flex-row gap-y-1 mt-7 text-neutral-700 justify-center'>
-                            <p className='font-medium text-lg '>{t('profile.phoneLabel')}</p>
+                    <div className="max-w-2xl mx-auto" >
+                        <div className='flex flex-row gap-x-5 mt-7 justify-start items-center'>
+                            <p className='font-medium text-lg'>{t('profile.emailLabel')}</p>
+                            <p className='text-lg'>{userData.email}</p>
+                        </div>
+
+                        <div className='flex flex-row gap-x-5 mt-7 justify-start items-center'>
+                            <p className='font-medium text-lg'>{t('profile.phoneLabel')}</p>
                             {
                                 isEdit
-                                    ? < input className=' pl-10 bg-gray-100 max-w-52 text-lg' type='text' value={phone} onChange={e => setPhone(e.target.value)} />
-                                    : <p className=' pl-10 text-blue-500 text-lg'>{userData.phone}</p>
+                                ? <input className='bg-gray-100 max-w-52 text-lg px-2 py-1 rounded' type='text' value={phone} onChange={e => setPhone(e.target.value)} />
+                                : <p className='text-lg'>{userData.phone}</p>
                             }
                         </div>
 
@@ -94,8 +96,8 @@ const Profile = () => {
 
                     <div className='mt-10 mb-20'>
                         {isEdit
-                            ? <button onClick={handleUpdate} className='border border-primary px-8 py-2 rounded-full hover:bg-primary hover:text-white transition-all' >{t('profile.saveButton')}</button>
-                            : <button className='border bg-amber-200 text-gray-800 px-8 py-2 rounded-full hover:bg-primary  hover:text-white transition-all' onClick={() => setIsEdit(true)}>{t('profile.editButton')}</button>}
+                            ? <button onClick={handleUpdate} className='border bg-green-800 text-white  px-8 py-2 rounded-full  transition-all' >{t('profile.saveButton')}</button>
+                            : <button className='border bg-green-800 text-white px-8 py-2 rounded-full  transition-all' onClick={() => setIsEdit(true)}>{t('profile.editButton')}</button>}
 
 
                     </div>
