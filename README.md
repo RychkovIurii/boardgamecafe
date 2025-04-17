@@ -2,7 +2,10 @@
 
 A full-stack web application for managing a real-life board game café — supporting table reservations, game selections, event browsing, Stripe payments, and a powerful admin panel (CMS).
 
-![Home](screenshots/home.png)
+<div style="display: flex; justify-content: center; gap: 10px;">
+    <img src="screenshots/homeEN.png" alt="HomeEN" style="width: 45%; height: auto;">
+    <img src="screenshots/homeFI.png" alt="HomeFI" style="width: 45%; height: auto;">
+</div>
 
 ---
 
@@ -15,7 +18,9 @@ A full-stack web application for managing a real-life board game café — suppo
 5. [Setup Instructions](#setup-instructions)  
 6. [Folder Structure](#folder-structure)  
 7. [Team Contributions](#team-contributions)  
-8. [Planned Features](#planned-features)
+8. [Planned Features](#planned-features)  
+9. [Testing](#testing)  
+10. [UX & UI Highlights](#ux--ui-highlights)  
 
 ---
 
@@ -28,7 +33,9 @@ The platform is used by a real café and allows users to:
 - Reserve tables and optionally select board games
 - View pricing, menu, and upcoming events
 - Complete payment through **Stripe Embedded Checkout**
-- Admins can manage ALL content via an internal CMS-style panel
+- Admins can manage ALL content via an internal CMS-style panel  
+- Pulls live game collection from **BoardGameGeek** profile  
+- Basic backend unit tests using **Jest** were implemented early to validate booking time overlaps, working hours logic, and input validation
 
 ---
 
@@ -36,44 +43,71 @@ The platform is used by a real café and allows users to:
 
 **Frontend**
 - React (Vite)
-- Tailwind CSS + MUI
+- Tailwind CSS
+- MUI components
 - i18next (multilingual support)
 - SweetAlert2
+- Day.js
+- libphonenumber-js (phone validation)
+- BoardGameGeek XML API (game collection sync)
 
 **Backend**
 - Node.js + Express
 - MongoDB + Mongoose
-- Stripe API
+- Stripe API (payments)
 - JWT for authentication
-- Moment-Timezone
+- express-validator (input validation)
+- Moment-Timezone for timezone handling
+- Nodemailer (contact form emails)
+- bcryptjs (password hashing)
 
 ---
 
 ## Features
 
+- Seed scripts for database initialization (users, tables, menu items)
+
 ### User
-- ✅ Table reservation form (with availability filtering)
-- ✅ Optional game request
-- ✅ Email + phone contact
-- ✅ Multi-step booking flow
-- ✅ Stripe embedded checkout
-- ✅ View past bookings (for authenticated users)
-- ✅ Multilingual: English + Finnish
+- Table reservation form (with availability filtering)
+- Optional game request
+- Email + phone contact
+- Multi-step booking flow
+- Stripe embedded checkout
+- View and edit past bookings (for authenticated users)
+- Game collection fetched from BoardGameGeek
+- Client-side + server-side validation for all forms
+- Multilingual: English + Finnish
 
 ### Admin
-- ✅ Dashboard with upcoming bookings
-- ✅ CMS-style editors for:
-  - Tables
-  - Pricing
-  - Events
-  - Working hours + special holiday overrides
-- ✅ See and track payment statuses
+- Dashboard with upcoming and past bookings
+- View and manage all bookings (search, filter, edit, delete)
+- Manage content via CMS-style editors:
+  - Tables: Add/edit/delete tables with capacity
+  - Pricing: Add/edit/delete prices
+  - Menu: Add food & drinks with dynamic pricing
+  - Events: Create and manage public events
+  - Working Hours: Define weekly schedule
+  - Special Days: Override opening hours for holidays or events
+- See and track payment statuses
 
 ---
 
 ## Screenshots
 
-![Menu](screenshots/menu.png)
+### Desktop View
+
+<div style="display: flex; justify-content: center; gap: 10px;">
+    <img src="screenshots/menu.png" alt="Menu Screenshot" style="width: 45%; height: auto;">
+    <img src="screenshots/admin.png" alt="Admin Panel Screenshot" style="width: 45%; height: auto;">
+</div>
+
+### Responsive View
+
+<div style="display: flex; justify-content: center; gap: 10px;">
+    <img src="screenshots/howItWorks.png" alt="How It Works Screenshot" style="width: 30%; height: auto;">
+    <img src="screenshots/myBookings.png" alt="My Bookings Screenshot" style="width: 30%; height: auto;">
+    <img src="screenshots/booking.png" alt="Booking Screenshot" style="width: 30%; height: auto;">
+</div>
 
 ---
 
@@ -82,7 +116,7 @@ The platform is used by a real café and allows users to:
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/irychkov/boardgamecafe.git
+git clone https://github.com/RychkovIurii/boardgamecafe
 cd boardgamecafe
 ```
 
@@ -94,7 +128,7 @@ npm install
 touch back.env
 ```
 
-Fill in `.env`:
+Fill in `back.env`:
 
 ```env
 MONGO_URI=your_mongo_uri
@@ -103,6 +137,11 @@ FRONTEND_URL=http://localhost:5173
 PORT=5000
 JWT_SECRET=your_secret
 JWT_REFRESH_SECRET=your_secret
+NODE_ENV=development
+CONTACT_EMAIL=your_email@example.com
+CONTACT_EMAIL_PASS=your_password
+CONTACT_APP_PASS=your_password_for_app_from_google
+STRIPE_SECRET_KEY=your_stripe_secret_key
 ```
 
 Then run:
@@ -136,17 +175,34 @@ npm run dev
 ```plaintext
 boardgamecafe/
 ├── backend/
-│   ├── models/
-│   ├── routes/
-│   ├── utils/
-│   └── server.js
+│   ├── config/                 # DB, seeds and server config
+│   ├── controllers/            # Express route handlers
+│   ├── middleware/             # Auth, validation, and error handling
+│   ├── models/                 # Mongoose schemas
+│   ├── routes/                 # API endpoints
+│   ├── src/                    # Service logic
+│   ├── tests/                  # Jest test files
+│   ├── utils/                  # Helpers (validators, transformers, etc.)
+│   ├── back.env                # Environment config (not committed)
+│   ├── jest.config.js          # Jest configuration
+│   ├── package.json
+│   └── server.js               # App entry point
+
 ├── frontend/
 │   └── cafe-front/
-│       ├── components/
-│       ├── routes/
-│       ├── context/
-│       └── main.jsx
-└── screenshots/
+│       ├── api/                # Axios config
+│       ├── components/         # React components
+│       ├── context/            # Global state and auth
+│       ├── routes/             # Page-level route components
+│       ├── src/                # Assets, static files, styles
+│       ├── languages/          # i18n translations
+│       ├── utils/              # Test helpers and utility functions
+│       ├── index.html
+│       ├── main.jsx            # Frontend entry point
+│       ├── tailwind.config.js
+│       ├── vite.config.js
+│       ├── package.json
+│       └── .env
 ```
 
 ---
@@ -154,35 +210,94 @@ boardgamecafe/
 ## Team Contributions
 
 ### [@Sephrodite](https://github.com/Sephrodite)
-- Created booking form using MUI
-- Fetcher for games
-- Brought real café customer insights
-- Helped shape user flow and usability
+- Built the foundation of the **BookingForm** using MUI Stepper, inputs, and validations
+- Implemented inline validations, duration limits, min/max players
+- Styled the booking UI across form steps with mobile responsiveness
+- Connected form with backend and added time-picker handling
+- Created the **game fetcher** using BoardGameGeek XML API
+- Added game filters, search bar, pagination, and styling updates
+- Enhanced UI with footer, floorplan layout, modal for events, and table selector
+- Conducted extensive **manual testing** throughout dev
+- Contributed to **merging, bug fixes, and collaboration across branches**
+- Brought real café insights to help design booking flow & UX
+
 
 ### [@Nasrin-MT](https://github.com/Nasrin-MT)
-- Designed static pages (Contact, About, etc.)
-- Built style guide and UI with Figma
-- Translated content to Finnish (i18n)
+- Designed and implemented static pages: Contact, About, Privacy Policy, How It Works
+- Built the color palette, font selection, and UI guide using **Figma**
+- Implemented centralized **color theme logic**, enabling full site-wide color updates from a single config file
+- Applied consistent color and typography styles across the app using Tailwind and MUI overrides
+- Styled BookingForm, Menu, GameCards, Hero, Footer, and navigation elements
+- Contributed heavily to responsive styling and layout polishing
+- Managed **i18n translation updates** across pages and languages (EN/FI)
+- Linked all content-rich pages (policy, contact, footer, event hero, gallery, etc.)
+- Implemented visual consistency and accessibility improvements
+- Reviewed and merged PRs related to styles, translations, and public UI sections
+
 
 ### [@Jina-Eunjin](https://github.com/Jina-Eunjin)
-- Designed services, pricing, and menu components
-- Styled with Tailwind CSS
-- Currently developing profile and my-bookings page (backend + frontend)
+- Designed and implemented service, pricing, and menu components
+- Developed the **User Profile** and **My Bookings** pages (backend + frontend)
+- Implemented functionality to edit and delete user bookings
+- Styled key sections using **Tailwind CSS**, including admin pages, dashboard, forms, and hero sections
+- Standardized responsive layouts and class naming conventions across components
+- Worked on **admin dashboard UX**, layout updates, and booking status features
+- Refined i18n logic for dynamic button text and multi-language support
+- Added avatar initials display, profile styling, and dashboard UI tweaks
+- Implemented **email integration** via contact form backend
+- Contributed regularly to merging branches, fixing style bugs, and improving frontend logic across the app
+
 
 ### [@RychkovIurii](https://github.com/RychkovIurii)
-- Developed the full backend (Express, MongoDB)
-- Integrated payment
-- Built admin panel logic and interface
-- Connected booking logic with payment and availability filtering
+- Architected and implemented the **backend** using Node.js, Express, MongoDB, and Mongoose
+- Designed modular REST APIs for bookings, users, payments, tables, events, working hours, and menus
+- Implemented **JWT authentication**, **role-based access**, and **secure routes**
+- Built comprehensive **admin CMS**, including dashboards and editors (tables, pricing, menu, events, hours)
+- Integrated **Stripe payments** with embedded checkout, payment tracking, and confirmation emails
+- Wrote custom **validation middleware** with `express-validator`, and custom utils for overlaps, time, hours
+- Developed a **multi-step booking form**: real-time validation, availability logic, table suggestion, and feedback
+- Created seed scripts for DB: users, tables, games, pricing, events — and helper tools for testing
+- Added **Forgot Password**, profile edit, multilingual errors, and alerts (SweetAlert2 + i18n)
+- Implemented Jest tests for booking overlaps, working hours, and validation early in development
+- Maintained responsive UI logic, merged branches, authored detailed commits, and led cross-feature coordination
+- Deployed full-stack app to **Render**, ensured token-based auth compatibility with platform limitations
+- Managed project roadmap, internal design decisions, and GitHub pull request workflows
+
 
 ---
 
 ## Planned Features
 
-- Email confirmations for bookings
-- Booking reminders
-- Booking edits from profile
+- Email reminders for bookings
 - Public event calendar
-- Validations
-- Publish on Render
+- Booking analytics (e.g. most used tables, top games)
+- Deployment on CDN for media hosting
 
+---
+
+## 🧪 Testing
+
+- Backend unit tests using **Jest** (early phase)
+- Covered modules:
+  - Booking time overlap logic
+  - Working hours and holiday overrides
+  - Input validation middleware
+- Client-side and server-side validations for robust form processing
+- Goal: catch issues early and prevent invalid data
+
+---
+
+## 🎨 UX & UI Highlights
+
+- **Booking Form**
+  - MUI Stepper with clear progress indication
+  - Inline field validation with error messages
+  - Real-time seat suggestion based on group size and capacity
+  - Duration selector (slider)
+  - Time picker for accurate booking time
+  - Fully responsive layout, optimized for mobile
+
+- **Form Validation**
+  - Frontend: regex + `libphonenumber-js` + translated alerts
+  - Backend: express-validator + centralized error middleware
+  - Consistency and security on both layers
