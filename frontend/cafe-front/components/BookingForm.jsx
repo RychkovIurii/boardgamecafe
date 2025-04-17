@@ -406,6 +406,7 @@ export default function BookingForm() {
   const [phoneError, setPhoneError] = useState('');
   const [playersError, setPlayersError] = useState('');
   const [tableError, setTableError] = useState('');
+  const [selectedTable, setselectedTable] = useState(0);
   const [inputs, setInputs] = useState({
     date: "",
     startTime: dayjs('2022-04-17T16:00'),
@@ -891,37 +892,44 @@ export default function BookingForm() {
     }
   };
 
+  const selectTable = (number) => {
+    setselectedTable(number)
+    setInputs(prev => ({ ...prev, tableNumber: number }))
+    console.log(selectedTable)
+
+  }
+
   return (
     <>
       <div className='backgroundBooking'>
         <div className='contain'>
-          <div className='table1'>1</div>
-          <div className='table2'>2</div>
-          <div className='table3'>3</div>
-          <div className='table4'>4</div>
-          <div className='table5'>5</div>
-          <div className='table6'>6</div>
-          <div className='table7'>7</div>
-          <div className='table8'>8</div>
-          <div className='table9'>9</div>
-          <div className='table10'>10</div>
-          <div className='table11'>11</div>
-          <div className='table12'>12</div>
-          <div className='table13'>13</div>
-          <div className='table14'>14</div>
-          <div className='table15'>15</div>
-          <div className='table16'>16</div>
-          <div className='table17'>17</div>
-          <div className='table18'>18</div>
-          <div className='table19'>19</div>
-          <div className='table20'>20</div>
-          <div className='table21'>21</div>
-          <div className='table22'>22</div>
-          <div className='table23'>23</div>
-          <div className='table24'>24</div>
-          <div className='table25'>25</div>
-          <div className='table26'>26</div>
-          <div className='table27'>27</div>
+          <div className={selectedTable == 1 ? 'table1 activeTable':'table1'}  onClick={() => selectTable(1)}>1</div>
+          <div className={selectedTable == 2 ? 'table2 activeTable':'table2'} onClick={() => selectTable(2)}>2</div>
+          <div className={selectedTable == 3 ? 'table3 activeTable':'table3'} onClick={() => selectTable(3)}>3</div>
+          <div className={selectedTable == 4 ? 'table4 activeTable':'table4'} onClick={() => selectTable(4)}>4</div>
+          <div className={selectedTable == 5 ? 'table5 activeTable':'table5'} onClick={() => selectTable(5)}>5</div>
+          <div className={selectedTable == 6 ? 'table6 activeTable':'table6'} onClick={() => selectTable(6)}>6</div>
+          <div className={selectedTable == 7 ? 'table7 activeTable':'table7'} onClick={() => selectTable(7)}>7</div>
+          <div className={selectedTable == 8 ? 'table8 activeTable':'table8'} onClick={() => selectTable(8)}>8</div>
+          <div className={selectedTable == 9 ? 'table9 activeTable':'table9'} onClick={() => selectTable(9)}>9</div>
+          <div className={selectedTable == 10 ? 'table10 activeTable':'table10'} onClick={() => selectTable(10)}>10</div>
+          <div className={selectedTable == 11 ? 'table11 activeTable':'table11'} onClick={() => selectTable(11)}>11</div>
+          <div className={selectedTable == 12 ? 'table12 activeTable':'table12'} onClick={() => selectTable(12)}>12</div>
+          <div className={selectedTable == 13 ? 'table13 activeTable':'table13'} onClick={() => selectTable(13)}>13</div>
+          <div className={selectedTable == 14 ? 'table14 activeTable':'table14'} onClick={() => selectTable(14)}>14</div>
+          <div className={selectedTable == 15 ? 'table15 activeTable':'table15'} onClick={() => selectTable(15)}>15</div>
+          <div className={selectedTable == 16 ? 'table16 activeTable':'table16'} onClick={() => selectTable(16)}>16</div>
+          <div className={selectedTable == 17 ? 'table17 activeTable':'table17'} onClick={() => selectTable(17)}>17</div>
+          <div className={selectedTable == 18 ? 'table18 activeTable':'table18'} onClick={() => selectTable(18)}>18</div>
+          <div className={selectedTable == 19 ? 'table19 activeTable':'table19'} onClick={() => selectTable(19)}>19</div>
+          <div className={selectedTable == 20 ? 'table20 activeTable':'table20'} onClick={() => selectTable(20)}>20</div>
+          <div className={selectedTable == 21 ? 'table21 activeTable':'table21'} onClick={() => selectTable(21)}>21</div>
+          <div className={selectedTable == 22 ? 'table22 activeTable':'table22'} onClick={() => selectTable(22)}>22</div>
+          <div className={selectedTable == 23 ? 'table23 activeTable':'table23'} onClick={() => selectTable(23)}>23</div>
+          <div className={selectedTable == 24 ? 'table24 activeTable':'table24'} onClick={() => selectTable(24)}>24</div>
+          <div className={selectedTable == 25 ? 'table25 activeTable':'table25'} onClick={() => selectTable(25)}>25</div>
+          <div className={selectedTable == 26 ? 'table26 activeTable':'table26'} onClick={() => selectTable(26)}>26</div>
+          <div className={selectedTable == 27 ? 'table27 activeTable':'table27'} onClick={() => selectTable(27)}>27</div>
           <img className="floorplann" src={floorplan} alt="floorplan" />
         </div>
         <div className='stepperStyle'>
