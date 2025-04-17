@@ -263,6 +263,14 @@ boardgamecafe/
 - Deployed full-stack app to **Render**, ensured token-based auth compatibility with platform limitations
 - Managed project roadmap, internal design decisions, and GitHub pull request workflows
 
+### [@mochoteimoso](https://github.com/mochoteimoso) — 💬 Big thanks!
+- Edited and improved **English and Finnish text** content across the app
+- Helped refine language tone, clarity, and overall readability
+- Reviewed i18n translation files and improved multilingual consistency
+
+### [@ThomasHillebrink](https://github.com/ThomasHillebrink)
+- Added **Jest testing** examples for frontend components (e.g., Events page)
+- Provided helpful suggestions and ideas to improve the **UI and UX**
 
 ---
 
