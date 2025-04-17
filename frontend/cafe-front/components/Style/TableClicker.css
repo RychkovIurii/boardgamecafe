@@ -1,5 +1,9 @@
+.activeTable {
+    background-color: #065f46!important;
+}
+
 .table1 {
-    background-color: #d4d4d4;;
+    background-color: #d4d4d4;
     color: black;
     width: 1.7vw;
     height: 1.7vw;
@@ -9,6 +13,7 @@
     position: absolute;
     top: 25.1vw;
     left: 63.5vw;
+    cursor: pointer;
 }
 
 .table2 {
@@ -22,6 +27,7 @@
     position: absolute;
     top: 20.7vw;
     left: 63.4vw;
+    cursor: pointer;
 }
 
 .table3 {
@@ -35,6 +41,7 @@
     position: absolute;
     top: 21vw;
     left: 70.3vw;
+    cursor: pointer;
 }
 
 .table4 {
@@ -48,6 +55,7 @@
     position: absolute;
     top: 20.8vw;
     left: 75.2vw;
+    cursor: pointer;
 }
 
 .table5 {
@@ -61,6 +69,7 @@
     position: absolute;
     top: 20.85vw;
     left: 79.8vw;
+    cursor: pointer;
 }
 
 .table6 {
@@ -74,6 +83,7 @@
     position: absolute;
     top: 20.85vw;
     left: 84.15vw;
+    cursor: pointer;
 }
 
 .table7 {
@@ -87,6 +97,7 @@
     position: absolute;
     top: 22.7vw;
     left: 90.81vw;
+    cursor: pointer;
 }
 
 .table8 {
@@ -100,6 +111,7 @@
     position: absolute;
     top: 30.97vw;
     left: 88.28vw;
+    cursor: pointer;
 }
 
 .table9 {
@@ -113,6 +125,7 @@
     position: absolute;
     top: 37.98vw;
     left: 88.88vw;
+    cursor: pointer;
 }
 
 .table10 {
@@ -126,6 +139,7 @@
     position: absolute;
     top: 38.1vw;
     left: 77.49vw;
+    cursor: pointer;
 }
 
 .table11 {
@@ -139,6 +153,7 @@
     position: absolute;
     top: 38.1vw;
     left: 63vw;
+    cursor: pointer;
 }
 
 .table12 {
@@ -152,6 +167,7 @@
     position: absolute;
     top: 14.8vw;
     left: 14vw;
+    cursor: pointer;
 }
 
 .table13 {
@@ -165,6 +181,7 @@
     position: absolute;
     top: 2.6vw;
     left: 17.1vw;
+    cursor: pointer;
 }
 
 .table14 {
@@ -178,6 +195,7 @@
     position: absolute;
     top: 2.6vw;
     left: 23.9vw;
+    cursor: pointer;
 }
 
 .table15 {
@@ -191,6 +209,7 @@
     position: absolute;
     top: 2.45vw;
     left: 30.7vw;
+    cursor: pointer;
 }
 
 .table16 {
@@ -204,6 +223,7 @@
     position: absolute;
     top: 2.5vw;
     left: 37.5vw;
+    cursor: pointer;
 }
 
 .table17 {
@@ -217,6 +237,7 @@
     position: absolute;
     top: 3.75vw;
     left: 49vw;
+    cursor: pointer;
 }
 
 .table18 {
@@ -230,6 +251,7 @@
     position: absolute;
     top: 1.8vw;
     left: 73.5vw;
+    cursor: pointer;
 }
 
 .table19 {
@@ -243,6 +265,7 @@
     position: absolute;
     top: 3.3vw;
     left: 80.05vw;
+    cursor: pointer;
 }
 
 .table20 {
@@ -256,6 +279,7 @@
     position: absolute;
     top: 9.35vw;
     left: 79.9vw;
+    cursor: pointer;
 }
 
 .table21 {
@@ -269,6 +293,7 @@
     position: absolute;
     top: 15.5vw;
     left: 79.9vw;
+    cursor: pointer;
 }
 
 .table22 {
@@ -282,6 +307,7 @@
     position: absolute;
     top: 17.3vw;
     left: 71.05vw;
+    cursor: pointer;
 }
 
 .table23 {
@@ -295,6 +321,7 @@
     position: absolute;
     top: 10.5vw;
     left: 70.7vw;
+    cursor: pointer;
 }
 
 .table24 {
@@ -308,6 +335,7 @@
     position: absolute;
     top: 43.2vw;
     left: 75.6vw;
+    cursor: pointer;
 }
 
 .table25 {
@@ -321,6 +349,7 @@
     position: absolute;
     top: 43.05vw;
     left: 83.6vw;
+    cursor: pointer;
 }
 
 
@@ -335,6 +364,7 @@
     position: absolute;
     top: 49.5vw;
     left: 83.3vw;
+    cursor: pointer;
 }
 
 
@@ -349,4 +379,5 @@
     position: absolute;
     top: 49.5vw;
     left: 75.1vw;
+    cursor: pointer;
 }
