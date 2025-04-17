@@ -98,7 +98,7 @@ The platform is used by a real café and allows users to:
 
 <div style="display: flex; justify-content: center; gap: 10px;">
     <img src="screenshots/menu.png" alt="Menu Screenshot" style="width: 45%; height: auto;">
-    <img src="screenshots/admin.png" alt="Admin Panel Screenshot" style="width: 45%; height: auto;">
+    <img src="screenshots/Admin.png" alt="Admin Panel Screenshot" style="width: 45%; height: auto;">
 </div>
 
 ### Responsive View
