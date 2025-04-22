@@ -73,7 +73,7 @@ The platform is used by a real café and allows users to:
 - Email + phone contact
 - Multi-step booking flow
 - Stripe embedded checkout
-- View and edit past bookings (for authenticated users)
+- Manage upcoming bookings and view past booking history on the My Bookings page (for authenticated users)
 - Game collection fetched from BoardGameGeek
 - Client-side + server-side validation for all forms
 - Multilingual: English + Finnish
@@ -212,6 +212,7 @@ boardgamecafe/
 ### [@Sephrodite](https://github.com/Sephrodite)
 - Built the foundation of the **BookingForm** using MUI Stepper, inputs, and validations
 - Implemented inline validations, duration limits, min/max players
+- Implemented interactive table selector on the café floorplan map
 - Styled the booking UI across form steps with mobile responsiveness
 - Connected form with backend and added time-picker handling
 - Created the **game fetcher** using BoardGameGeek XML API
@@ -236,7 +237,7 @@ boardgamecafe/
 
 
 ### [@Jina-Eunjin](https://github.com/Jina-Eunjin)
-- Designed and implemented service, pricing, and menu components
+- Designed and implemented the Service, Pricing, About, and How It Works pages developing custom components for each page
 - Developed the **User Profile** and **My Bookings** pages (backend + frontend)
 - Implemented functionality to edit and delete user bookings
 - Styled key sections using **Tailwind CSS**, including admin pages, dashboard, forms, and hero sections
