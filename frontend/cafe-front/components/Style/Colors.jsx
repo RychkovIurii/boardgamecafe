@@ -21,7 +21,7 @@ export const colors = {
         buttonOk:'green',
         buttonRed:'red',
         buttonMainColor: '#333333',
-        buttonHover: '##eab308',
+        buttonHover: '#eab308',
 
         isolateForm: '#f3e7e4',
         CardBgColor: 'transparent',

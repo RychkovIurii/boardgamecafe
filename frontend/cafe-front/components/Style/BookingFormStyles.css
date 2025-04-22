@@ -1,10 +1,16 @@
 .backgroundBooking {
     display: inline-block;
+    content-visibility: auto;
 }
 
 .floorplann {
     float: right;
     z-index: -5;
+}
+
+.contain{
+    width: inherit;
+    height: inherit;
 }
 
 .stepperStyle {
