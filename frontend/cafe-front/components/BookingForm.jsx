@@ -895,8 +895,6 @@ export default function BookingForm() {
   const selectTable = (number) => {
     setselectedTable(number)
     setInputs(prev => ({ ...prev, tableNumber: number }))
-    console.log(selectedTable)
-
   }
 
   return (
