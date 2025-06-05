@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import API from '../../api/axios';
 import { useNavigate } from 'react-router-dom';
 import AdminNavbar from '../../components/admin/AdminNavbar';
 import Swal from '../../utils/swalWithFont';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useTranslation } from 'react-i18next';
+import { DayPilot, DayPilotCalendar, DayPilotNavigator } from "@daypilot/daypilot-lite-react";
 
 const AdminDashboard = () => {
     const { t } = useTranslation();
@@ -16,8 +17,12 @@ const AdminDashboard = () => {
     const [selectedDate, setSelectedDate] = useState(''); // Date selection
     const [selectedTable, setSelectedTable] = useState(''); // Table selection
     const [tables, setTables] = useState([]); // Available tables
-    const navigate = useNavigate();
 
+    const [columns, setColumns] = useState([]);
+    const [bookings, setBookings] = useState([]);
+    const [startDate, setStartDate] = useState(new Date().toJSON().slice(0, 10)); // For the calender feature, sets the startdate as today
+    const navigate = useNavigate();
+    const calendarRef = useRef(null);
 
     useEffect(() => {
         const fetchAdminData = async () => {
@@ -29,8 +34,30 @@ const AdminDashboard = () => {
                     bookingsResponse = await API.get('/admin/upcoming-bookings');
                 }
                 setUpcomingBookings(bookingsResponse.data);
+                console.log("bookingsResponse.data", bookingsResponse.data)
+
+                const bookingsDay = bookingsResponse.data.map(item => {
+                    const originalStart = new Date(item.startTime);
+                    const originalEnd = new Date(item.endTime);
+                    const plusTwoHoursStart = new Date(originalStart.getTime() + 3 * 60 * 60 * 1000);
+                    const plusTwoHoursEnd = new Date(originalEnd.getTime() + 3 * 60 * 60 * 1000);
+                    return {
+                        id: item._id,
+                        name: item.number,
+                        text: item.contactName,
+                        start: plusTwoHoursStart.toISOString(),
+                        end: plusTwoHoursEnd.toISOString(),
+                        resource: item.tableId._id,
+                    };
+                })
+
+                setBookings(bookingsDay)
                 const tablesResponse = await API.get('/admin/tables');
-                setTables(tablesResponse.data);
+                const tableColumns = tablesResponse.data.map(item => ({
+                    id: item._id,
+                    name: item.number
+                }))
+                setColumns(tableColumns)
             } catch (error) {
                 console.error('Error fetching admin data:', error);
                 setError('Failed to load data');
@@ -41,6 +68,14 @@ const AdminDashboard = () => {
         };
         fetchAdminData();
     }, [navigate, filterBy]);
+
+    const [config, setConfig] = useState({
+        viewType: "Resources",
+        startDate: new Date,
+        showCurrentTime: true,
+        locale: "fi-fi",
+        autoRefreshInterval: 60
+    });
 
     const formatTime = (timeString) => {
         const date = new Date(timeString);
@@ -62,6 +97,50 @@ const AdminDashboard = () => {
     const handleEdit = (id) => {
         navigate(`/admin/edit-booking/${id}`);
     };
+
+
+    const onMove = (args) => {
+
+        const newStartTime = new Date(args.newStart.getTime() - 3 * 60 * 60 * 1000);
+        const newEndTime = new Date(args.newEnd.getTime() - 3 * 60 * 60 * 1000);
+
+        const bookingFil = upcomingBookings.filter(booking => { return booking._id === args.e.data.id })
+
+        const updateBooking = {
+            startTime: newStartTime.toISOString(),
+            endTime: newEndTime.toISOString(),
+            tableId: args.newResource
+        };
+
+        console.log("updateBooking", updateBooking)
+
+        const updatedBooking = { ...bookingFil[0], ...updateBooking }
+        console.log(updatedBooking)
+        handleUpdate(updatedBooking)
+    }
+
+    
+    const handleUpdate = async (updatedBooking) => {
+        console.log(updatedBooking)
+        const id = updatedBooking._id
+        try {
+            await API.put(`/admin/bookings/${id}`, updatedBooking);
+            await Swal.fire({
+                icon: 'success',
+                title: 'Booking Updated',
+                text: 'The booking has been successfully updated.',
+                confirmButtonText: 'OK'
+            });
+            navigate('/admin');
+        } catch (error) {
+            console.log(error)
+            await Swal.fire({
+                icon: 'error',
+                title: 'Update Failed',
+                text: 'Something went wrong while updating the booking.',
+            });
+        }
+    }
 
     const handleDelete = async (id) => {
         try {
@@ -133,8 +212,6 @@ const AdminDashboard = () => {
         return matchesSearch && matchesDate && matchesTable && matchesFilter;
     });
 
-
-
     return (
         <div>
             <AdminNavbar />
@@ -181,12 +258,32 @@ const AdminDashboard = () => {
 
 
                 </div>
+                <div style={{ display: "inline-flex" }}>
+                    <DayPilotNavigator
+                        selectMode={"Day"}
+                        showMonths={2}
+                        skipMonths={2}
+                        selectionDay={startDate}
+                        startDate={startDate}
+                        ref={calendarRef}
+                        onTimeRangeSelected={args => setStartDate(args.day)}
+                    />
+
+                    <DayPilotCalendar
+                        viewType={"Resources"}
+                        {...config}
+                        startDate={startDate}
+                        columns={columns}
+                        events={bookings}
+                        onEventMoved={args => onMove(args)}
+                    />
+                </div>
 
                 <div className="overflow-x-auto">
                     <table className="table-auto w-full border border-gray-300 shadow-sm rounded-md">
                         <thead className="bg-gray-100 text-center">
                             <tr>
-                            {["date", "startTime", "endTime", "table", "game", "user", "phone", "players", "paymentStatus", "edit", "delete"].map((key, idx) => (
+                                {["date", "startTime", "endTime", "table", "game", "user", "phone", "players", "paymentStatus", "edit", "delete"].map((key, idx) => (
                                     <th key={idx} className="px-4 py-2 border">{t(`adminDashboard.tableHeader.${key}`)}</th>
                                 ))}
                             </tr>
@@ -239,6 +336,7 @@ const AdminDashboard = () => {
                         </tbody>
                     </table>
                 </div>
+
             </div>
         </div>
 
