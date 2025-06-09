@@ -6,6 +6,7 @@ import Swal from '../../utils/swalWithFont';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useTranslation } from 'react-i18next';
 import { DayPilot, DayPilotCalendar, DayPilotNavigator } from "@daypilot/daypilot-lite-react";
+import { getTodayDate } from '@mui/x-date-pickers/internals';
 
 const AdminDashboard = () => {
     const { t } = useTranslation();
@@ -100,10 +101,8 @@ const AdminDashboard = () => {
 
 
     const onMove = (args) => {
-
         const newStartTime = new Date(args.newStart.getTime() - 3 * 60 * 60 * 1000);
         const newEndTime = new Date(args.newEnd.getTime() - 3 * 60 * 60 * 1000);
-
         const bookingFil = upcomingBookings.filter(booking => { return booking._id === args.e.data.id })
 
         const updateBooking = {
@@ -111,15 +110,17 @@ const AdminDashboard = () => {
             endTime: newEndTime.toISOString(),
             tableId: args.newResource
         };
-
-        console.log("updateBooking", updateBooking)
-
         const updatedBooking = { ...bookingFil[0], ...updateBooking }
-        console.log(updatedBooking)
         handleUpdate(updatedBooking)
     }
 
-    
+    const timeSetter = (args) => {
+        const start = new DayPilot.Duration("2025-06-05T19:00:00", "2025-06-06T03:30:00").hours()
+        args.header.time = "14:00"
+        args.duration.hours = start
+    }
+
+
     const handleUpdate = async (updatedBooking) => {
         console.log(updatedBooking)
         const id = updatedBooking._id
@@ -276,6 +277,7 @@ const AdminDashboard = () => {
                         columns={columns}
                         events={bookings}
                         onEventMoved={args => onMove(args)}
+                        onBeforeTimeHeaderRender={args => timeSetter(args)}
                     />
                 </div>
 
