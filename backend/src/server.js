@@ -9,6 +9,7 @@ const startServer = async () => {
 
     app.listen(PORT, () => {
       console.log(`Server running on http://localhost:${PORT}`);
+      console.log("JWT_SECRET: ", process.env.JWT_SECRET)
     });
   } catch (error) {
     console.error('Failed to start server:', error);
