@@ -39,3 +39,4 @@ temp
 *.tmp
 *.cache
 .cache
+frontend/cafe-front/routes/admin/DayOverview.jsx
