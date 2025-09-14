@@ -7,6 +7,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { useTranslation } from 'react-i18next';
 import { DayPilot, DayPilotCalendar, DayPilotNavigator } from "@daypilot/daypilot-lite-react";
 import { getTodayDate } from '@mui/x-date-pickers/internals';
+import AdminCalendar from './AdminCalendar';
 
 const AdminDashboard = () => {
     const { t } = useTranslation();
@@ -54,6 +55,8 @@ const AdminDashboard = () => {
 
                 setBookings(bookingsDay)
                 const tablesResponse = await API.get('/admin/tables');
+                console.log(tablesResponse.data)
+                setTables(tablesResponse.data)
                 const tableColumns = tablesResponse.data.map(item => ({
                     id: item._id,
                     name: item.number
@@ -75,7 +78,7 @@ const AdminDashboard = () => {
         startDate: new Date,
         showCurrentTime: true,
         locale: "fi-fi",
-        autoRefreshInterval: 60
+        autoRefreshInterval: 60,
     });
 
     const formatTime = (timeString) => {
@@ -221,6 +224,7 @@ const AdminDashboard = () => {
                 <h1 className="admin-section-title">
                     {t(`adminDashboard.pageTitle.${filterBy === 'past' ? 'past' : 'upcoming'}`)}
                 </h1>
+                <AdminCalendar/>
                 <div className="flex flex-wrap gap-4 mb-6 pt-5">
                     <input
                         type="text"
@@ -229,6 +233,7 @@ const AdminDashboard = () => {
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                     />
+
                     <input
                         type="date"
                         className="border px-4 py-2 rounded-md"
@@ -259,7 +264,7 @@ const AdminDashboard = () => {
 
 
                 </div>
-                <div style={{ display: "inline-flex" }}>
+                {/* <div style={{ display: "inline-flex" }}>
                     <DayPilotNavigator
                         selectMode={"Day"}
                         showMonths={2}
@@ -279,7 +284,7 @@ const AdminDashboard = () => {
                         onEventMoved={args => onMove(args)}
                         onBeforeTimeHeaderRender={args => timeSetter(args)}
                     />
-                </div>
+                </div> */}
 
                 <div className="overflow-x-auto">
                     <table className="table-auto w-full border border-gray-300 shadow-sm rounded-md">

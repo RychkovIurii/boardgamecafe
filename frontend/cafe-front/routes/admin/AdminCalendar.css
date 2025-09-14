@@ -1,0 +1,240 @@
+/* ReservationScheduler.css
+   Light mode by default; dark-mode overrides via prefers-color-scheme. */
+
+:root {
+  --row-height: 24px; /* must match ROW_HEIGHT in JSX (44) */
+}
+
+/* --- App Shell ------------------------------------------------------------ */
+.scheduler-root {
+  --bg: #F3F4F6;
+  --panel: #ffffff;
+  --muted: #e5e7eb;
+  --text: #0f172a;
+  --subtle-text: #475569;
+  --accent: #0ea5e9; /* sky-500 */
+  --accent-2: #7c3aed; /* violet-600 */
+  --danger: #b91c1c;
+  --row-stripe-1: #ffffff;
+  --row-stripe-2: #f9fafb;
+  --grid-line: rgba(15, 23, 42, 0.08);
+  --grid-line-strong: rgba(15, 23, 42, 0.15);
+
+  color: var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+    Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  background: var(--bg);
+  min-height: 100vh;
+  padding: 16px;
+}
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.toolbar .left > * {
+  margin-right: 8px;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 75px 1fr;
+  gap: 0;
+  border: 1px solid var(--muted);
+  border-radius: 10px;
+  overflow: scroll;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  max-width: 1600px; /* center the scheduler */
+  margin: 0 auto;
+}
+.left-col {
+  background: #fafafa;
+  max-width: 75px;
+  position: sticky;
+  left: 0;
+  z-index: 2;
+}
+.right-col {
+  position: relative;
+  background: #ffffff;
+  border-left: 1px solid var(--muted);
+  max-height: 560px;
+}
+.table-label {
+  height: var(--row-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid var(--muted);
+  color: #111827;
+  max-width: 75px;
+}
+.table-label.header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 7;
+  background: #f3f4f6;
+  font-weight: 600;
+}
+
+/* --- Timeline ------------------------------------------------------------- */
+.hours {
+  position: sticky;
+  top: 0;
+  height: 24px; /* align with vline top */
+  background: #f3f4f6;
+  border-bottom: 1px solid var(--muted);
+  z-index: 6;
+}
+.hour {
+  position: absolute;
+  top: 10px;
+  transform: translateX(-50%);
+  font-size: 12px;
+  color: var(--subtle-text);
+}
+.grid {
+  position: relative;
+}
+.vline {
+  position: absolute;
+  top: 44px; /* below hour header */
+  bottom: 0;
+  width: 1px;
+  background: var(--grid-line);
+}
+.vline-hour-half {
+  background: var(--grid-line-strong);
+}
+.row {
+  position: absolute;
+  left: 0;
+  right: 0;
+  background: var(--row-stripe-1);
+  border-bottom: 1px solid var(--muted);
+}
+.row-alt {
+  background: var(--row-stripe-2);
+}
+
+/* --- Booking bar ---------------------------------------------------------- */
+.booking {
+  position: absolute;
+  height: calc(var(--row-height) - 12px);
+  border-radius: 8px;
+  background: linear-gradient(180deg, #e0f2fe, #dbeafe);
+  border: 1px solid #93c5fd;
+  display: flex;
+  align-items: center;
+  user-select: none;
+  cursor: grab;
+  box-shadow: 0 4px 10px rgba(2, 6, 23, 0.08);
+}
+.booking:hover {
+  border-color: var(--accent);
+}
+.booking.selected {
+  outline: 2px solid var(--accent-2);
+}
+.booking .label {
+  padding: 0 8px;
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.grip {
+  width: 8px;
+  align-self: stretch;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(14, 165, 233, 0.35),
+    rgba(14, 165, 233, 0.35) 2px,
+    transparent 2px,
+    transparent 4px
+  );
+  cursor: ew-resize;
+}
+.grip.left {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+.grip.right {
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+/* --- Form (centered, responsive widths) ---------------------------------- */
+.form {
+  margin: 6px auto;
+  background: var(--panel);
+  border: 1px solid var(--muted);
+  border-radius: 10px;
+  padding: 12px;
+  max-width: 960px;
+}
+.form form {
+  display: grid;
+  gap: 8px;
+  margin: 20px auto;
+}
+.formRow {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+.formItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.formItem label {
+  white-space: nowrap;
+  color: var(--subtle-text);
+}
+.form input {
+  background: #ffffff;
+  color: var(--text);
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 8px 10px;
+  flex: 1;
+  min-width: 0;
+}
+.form input[type="time"] {
+  max-width: 10ch;
+}
+.form input[name="duration"] {
+  max-width: 10ch;
+}
+.form input[type="date"] {
+  max-width: 16ch;
+}
+.form input[name="tableNumber"],
+.form input[name="players"] {
+  max-width: 10ch;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+button {
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+  color: var(--text);
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+button.primary {
+  border-color: #7dd3fc;
+  background: #e0f2fe;
+}
+button.danger {
+  border-color: #fecaca;
+  background: #fee2e2;
+  color: #7f1d1d;
+}
