@@ -2,11 +2,15 @@ SHELL := /bin/bash
 PROJECT ?= cafeboardgame
 COMPOSE := docker compose -p $(PROJECT)
 
-.PHONY: default up down stop restart fclean re prune logs logs-backend logs-frontend shell-backend shell-frontend help
+.PHONY: default up detached down stop restart fclean re prune logs logs-backend logs-frontend shell-backend shell-frontend help
 
 default: up
 
 up:
+	if [ ! -d mongo/db_mounted ]; then mkdir -p mongo/db_mounted; fi
+	$(COMPOSE) up --build
+
+detached:
 	if [ ! -d mongo/db_mounted ]; then mkdir -p mongo/db_mounted; fi
 	$(COMPOSE) up --build -d
 
@@ -49,6 +53,7 @@ shell-frontend:
 help:
 	@echo "Usage:"
 	@echo "  make / make up           # Build images and start the stack in the background"
+	@echo "  make detached            # Build images and start the stack in detached mode"
 	@echo "  make down                # Stop and remove containers"
 	@echo "  make stop                # Stop services without removing them"
 	@echo "  make restart             # Restart all services"
