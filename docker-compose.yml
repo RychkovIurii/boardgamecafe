@@ -1,0 +1,64 @@
+services:
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./db_mounted:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - cafe-network
+
+  seed:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: "no"
+    env_file:
+      - ./docker.env
+    entrypoint: ["/bin/sh", "-c", "npm run seed && npm run seedMenu"]
+    depends_on:
+      mongo:
+        condition: service_healthy
+    networks:
+      - cafe-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file:
+      - ./docker.env
+    ports:
+      - "5000:5000"
+    depends_on:
+      seed:
+        condition: service_completed_successfully
+      mongo:
+        condition: service_healthy
+    networks:
+      - cafe-network
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/cafe-front/Dockerfile
+    restart: unless-stopped
+    env_file:
+      - ./docker.env
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+    networks:
+      - cafe-network
+
+networks:
+  cafe-network:
+    driver: bridge
