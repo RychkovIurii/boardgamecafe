@@ -13,15 +13,12 @@ describe("Events Component", () => {
   });
 
   it("displays a loading state initially", async () => {
-    // Simulate an empty data response
     API.get.mockResolvedValueOnce({ data: [] });
 
-    customRender(<Events />);
+    customRender(<Events />, { authProps: { skipAuthCheck: true } });
 
-    // Check if it sees "Loading events..." on the page
-    expect(screen.getByText(/Loading events.../i)).toBeInTheDocument();
+    expect(screen.getByRole("progressbar")).toBeInTheDocument();
 
-    // Wait for fetch to complete
     await waitFor(() => expect(API.get).toHaveBeenCalledWith("/events"));
   });
 
@@ -47,7 +44,7 @@ describe("Events Component", () => {
     // Resolve the GET request with mockData
     API.get.mockResolvedValueOnce({ data: mockData });
 
-    customRender(<Events />);
+    customRender(<Events />, { authProps: { skipAuthCheck: true } });
 
     // Using findByText ensures the component has time to fetch & render
     const event1Title = await screen.findByText("Event 1");
@@ -61,11 +58,10 @@ describe("Events Component", () => {
     // Simulate an API error
     API.get.mockRejectedValueOnce(new Error("Network Error"));
 
-    customRender(<Events />);
+    customRender(<Events />, { authProps: { skipAuthCheck: true } });
 
-    const errorMessage = await screen.findByText(
-      /Error loading events: Network Error/i
-    );
-    expect(errorMessage).toBeInTheDocument();
+    const heading = await screen.findByText(/Our backend isn.?t running right now\./i);
+    expect(heading).toBeInTheDocument();
+    expect(screen.getByText(/Error: Network Error/i)).toBeInTheDocument();
   });
 });

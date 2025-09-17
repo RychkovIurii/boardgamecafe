@@ -15,6 +15,16 @@ describe('validateBooking', () => {
         jest.clearAllMocks();
     });
 
+    test('rejects empty date', async () => {
+        const date = "";
+        const startTime = "18:00";
+        const duration = 60;
+
+        const result = await validateBooking(date, startTime, duration);
+        expect(result.isValid).toBe(false);
+        expect(result.message).toBe("Invalid date format.");
+    });
+
     test('rejects empty start time', async () => {
         const date = "2030-03-21";
         const startTime = "";

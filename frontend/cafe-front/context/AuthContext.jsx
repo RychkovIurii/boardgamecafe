@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 export const AuthContext = createContext();
 
-const AuthProvider = ({ children }) => {
+const AuthProvider = ({ children, skipAuthCheck = false }) => {
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 	const [isCheckingAuth, setIsCheckingAuth] = useState(true);
 	const [user, setUser] = useState(null);
@@ -36,6 +36,11 @@ const AuthProvider = ({ children }) => {
 	}, []);
   
 	useEffect(() => {
+		if (skipAuthCheck) {
+				setIsCheckingAuth(false);
+				return;
+		}
+
 		let isMounted = true;
 		const checkAuth = async () => {
 			try {
@@ -44,13 +49,13 @@ const AuthProvider = ({ children }) => {
 				console.error('Auth check error:', err);
 			} finally {
 				if (isMounted) setIsCheckingAuth(false);
-			}
-		};
-		checkAuth();
-		return () => {
-			isMounted = false;
-		};
-	}, [fetchUserProfile]);
+		}
+	};
+	checkAuth();
+	return () => {
+		isMounted = false;
+	};
+	}, [fetchUserProfile, skipAuthCheck]);
   
 	const login = async () => {
 		await fetchUserProfile();
@@ -92,11 +97,11 @@ const AuthProvider = ({ children }) => {
 	  } */
 	};
 
-    return (
-        <AuthContext.Provider value={{ isAuthenticated, login, logout, isCheckingAuth, user }}>
-            {children}
-        </AuthContext.Provider>
-    );
+	return (
+		<AuthContext.Provider value={{ isAuthenticated, login, logout, isCheckingAuth, user }}>
+			{children}
+		</AuthContext.Provider>
+	);
 };
 
 export default AuthProvider;
