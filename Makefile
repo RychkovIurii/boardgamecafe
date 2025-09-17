@@ -20,7 +20,8 @@ down:
 stop:
 	$(COMPOSE) stop
 
-restart: stop up
+restart:
+	$(COMPOSE) restart
 
 fclean:
 	$(COMPOSE) down -v --remove-orphans || true
