@@ -1,8 +1,15 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const fs = require('fs');
+const path = require('path');
 const MenuItem = require('../models/MenuItem');
 
-dotenv.config({ path: './back.env' });
+const envPath = path.resolve(__dirname, '..', 'back.env');
+if (fs.existsSync(envPath)) {
+	dotenv.config({ path: envPath });
+} else {
+	dotenv.config();
+}
 
 const connectDB = async () => {
     try {
@@ -18,19 +25,20 @@ const importMenuData = async () => {
     try {
         await connectDB();
 
-        await MenuItem.deleteMany();
+        const existingCount = await MenuItem.estimatedDocumentCount();
+        if (existingCount > 0) {
+		console.log('Menu already seeded, skipping import.');
+		return;
+	}
 
-        const { menuData } = await import('../../frontend/cafe-front/src/assets/menuData.js');
-
-		await MenuItem.insertMany(menuData);
+        const menuData = require('./menuData');
+	await MenuItem.insertMany(menuData);
 
         console.log('Menu Data Imported!');
-        process.exit();
     } catch (error) {
         console.error('Error seeding the database:', error.message);
-        process.exit(1);
     } finally {
-        mongoose.disconnect();
+        await mongoose.disconnect();
         console.log('Database disconnected.');
     }
 };
