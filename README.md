@@ -195,7 +195,7 @@ On first boot the `seed` service runs automatically and populates MongoDB (core 
 
 Shut everything down with `docker compose down` (add `-v` to also remove the Mongo data volume).
 
-- MongoDB data persists in `./db_mounted`. Delete the folder if you want a fresh database.
+- MongoDB data persists in `./mongo/db_mounted`. Delete the folder if you want a fresh database.
 - All services run on the shared `cafe-network`, so they can reach each other using service names (e.g., `mongodb://mongo:27017`).
 
 #### Makefile shortcuts
@@ -251,7 +251,9 @@ boardgamecafe/
 ├── docker.env                  # Environment shared by Docker Compose
 ├── docker-compose.yml
 ├── .dockerignore
-├── db_mounted/                 # MongoDB data (gitignored)
+├── mongo/
+│   ├── Dockerfile             # Mongo image definition
+│   └── db_mounted/            # MongoDB data (gitignored)
 ```
 
 ---

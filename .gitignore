@@ -20,7 +20,7 @@ dist-ssr
 *.local
 backend/*.env
 frontend/cafe-front/*.env
-db_mounted/
+mongo/db_mounted/
 
 # Editor directories and files
 .vscode/*

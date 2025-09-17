@@ -1,13 +1,15 @@
 services:
   mongo:
-    image: mongo:8
+    build:
+      context: ./mongo
+      dockerfile: Dockerfile
     restart: unless-stopped
     labels:
       - project=cafeboardgame
     ports:
       - "27017:27017"
     volumes:
-      - ./db_mounted:/data/db
+      - ./mongo/db_mounted:/data/db
     healthcheck:
       test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping')"]
       interval: 10s
@@ -20,7 +22,7 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-      labels:
+    labels:
       - project=cafeboardgame
     restart: "no"
     env_file:
@@ -36,7 +38,7 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-      labels:
+    labels:
       - project=cafeboardgame
     restart: unless-stopped
     env_file:
@@ -55,7 +57,7 @@ services:
     build:
       context: .
       dockerfile: frontend/cafe-front/Dockerfile
-      labels:
+    labels:
       - project=cafeboardgame
     restart: unless-stopped
     env_file:
