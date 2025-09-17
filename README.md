@@ -207,7 +207,8 @@ The project root includes a `Makefile` wired to the Compose commands:
 - `make stop` / `make restart` – pause or restart running containers
 - `make logs` (or `logs-backend`, `logs-frontend`) – tail service logs
 - `make shell-backend` / `make shell-frontend` – open a shell inside a running container
-- `make fclean` – tear everything down, remove volumes, and recreate `db_mounted`
+- `make fclean` – tear everything down, remove volumes, and prune Docker artifacts labelled `project=cafeboardgame`
+- `make prune` – run the Docker prune step without stopping containers first
 - `make re` – equivalent to `make fclean` followed by `make up`
 
 ## Folder Structure

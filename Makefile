@@ -1,7 +1,8 @@
 SHELL := /bin/bash
-COMPOSE := docker compose
+PROJECT ?= cafeboardgame
+COMPOSE := docker compose -p $(PROJECT)
 
-.PHONY: default up down stop restart fclean re logs logs-backend logs-frontend shell-backend shell-frontend
+.PHONY: default up down stop restart fclean re prune logs logs-backend logs-frontend shell-backend shell-frontend
 
 default: up
 
@@ -19,9 +20,13 @@ restart: stop up
 
 fclean:
 	$(COMPOSE) down -v --remove-orphans || true
-	rm -rf db_mounted
+	docker system prune -a -f --volumes --filter "label=project=$(PROJECT)"
+	sudo rm -rf db_mounted
 
 re: fclean up
+
+prune:
+	docker system prune -a -f --volumes --filter "label=project=$(PROJECT)"
 
 logs:
 	$(COMPOSE) logs -f
