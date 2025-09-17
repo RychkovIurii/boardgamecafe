@@ -26,7 +26,11 @@ restart:
 fclean:
 	$(COMPOSE) down -v --remove-orphans || true
 	docker system prune -a -f --volumes --filter "label=project=$(PROJECT)"
-	sudo rm -rf mongo/db_mounted
+	@read -p "Remove mongo/db_mounted data directory? [y/N] " response; \
+	case "$$response" in \
+		y|Y|yes|YES) sudo rm -rf mongo/db_mounted && echo "Mongo data directory removed." ;; \
+		*) echo "Mongo data directory preserved." ;; \
+	esac
 
 re: fclean up
 
@@ -64,7 +68,7 @@ help:
 	@echo "  make shell-backend       # Open an interactive shell in the backend container"
 	@echo "  make shell-frontend      # Open an interactive shell in the frontend container"
 	@echo "  make prune               # Prune Docker resources tagged project=$(PROJECT)"
-	@echo "  make fclean              # Tear down stack, prune labeled resources, clear mongo/db_mounted"
+	@echo "  make fclean              # Tear down stack, prune labeled resources, optionally clear mongo/db_mounted"
 	@echo "  make re                  # Equivalent to make fclean && make up"
 	@echo "  make help                # Show this help message"
 
