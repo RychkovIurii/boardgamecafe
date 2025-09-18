@@ -1,32 +1,13 @@
 const Tokens = require('csrf');
 const crypto = require('crypto');
 
+const tokens = new Tokens();
+
 // Use a strong key from environment variables in production!
-const CSRF_ENC_KEY = process.env.CSRF_ENC_KEY || 'replace_this_with_32_byte_strong_key!';
+const RAW_CSRF_KEY = process.env.CSRF_ENC_KEY || 'replace_this_with_32_byte_strong_key!';
+const CSRF_ENC_KEY = crypto.createHash('sha256').update(RAW_CSRF_KEY, 'utf8').digest().slice(0, 32);
 
-function encrypt(text) {
-  const iv = crypto.randomBytes(16);
-  const cipher = crypto.createCipheriv('aes-256-ctr', Buffer.from(CSRF_ENC_KEY, 'utf-8'), iv);
-  const encrypted = Buffer.concat([cipher.update(text, 'utf8'), cipher.final()]);
-  // Prepend IV for decryption
-  return iv.toString('hex') + ':' + encrypted.toString('hex');
-}
-
-function decrypt(encrypted) {
-  try {
-    const parts = encrypted.split(':');
-    if (parts.length !== 2) return null;
-    const iv = Buffer.from(parts[0], 'hex');
-    const encryptedText = Buffer.from(parts[1], 'hex');
-    const decipher = crypto.createDecipheriv('aes-256-ctr', Buffer.from(CSRF_ENC_KEY, 'utf-8'), iv);
-    const decrypted = Buffer.concat([decipher.update(encryptedText), decipher.final()]);
-    return decrypted.toString('utf8');
-  } catch (e) {
-    return null;
-  }
-}
 const isProduction = process.env.NODE_ENV === 'production';
-
 const CSRF_PUBLIC_COOKIE = 'XSRF-TOKEN';
 const CSRF_SECRET_COOKIE = 'XSRF-SECRET';
 const PROTECTED_METHODS = ['POST', 'PUT', 'PATCH', 'DELETE'];
@@ -38,21 +19,57 @@ const cookieOptions = (httpOnly) => ({
   path: '/',
 });
 
-const csrfExcludedPaths = [
+const csrfExcludedPaths = new Set([
   '/health',
   '/users/login',
   '/users/register',
   '/users/forgot-password',
-];
+]);
+
+function encrypt(text) {
+  const iv = crypto.randomBytes(16);
+  const cipher = crypto.createCipheriv('aes-256-ctr', CSRF_ENC_KEY, iv);
+  const encrypted = Buffer.concat([cipher.update(text, 'utf8'), cipher.final()]);
+
+  return `${iv.toString('hex')}:${encrypted.toString('hex')}`;
+}
+
+function decrypt(encrypted) {
+  try {
+    const [ivHex, encryptedHex] = encrypted.split(':');
+    if (!ivHex || !encryptedHex) {
+      return null;
+    }
+
+    const iv = Buffer.from(ivHex, 'hex');
+    const encryptedText = Buffer.from(encryptedHex, 'hex');
+    const decipher = crypto.createDecipheriv('aes-256-ctr', CSRF_ENC_KEY, iv);
+    const decrypted = Buffer.concat([decipher.update(encryptedText), decipher.final()]);
+
+    return decrypted.toString('utf8');
+  } catch (error) {
+    return null;
+  }
+}
+
+const normalizePath = (path) => {
+  if (path.length > 1 && path.endsWith('/')) {
+    return path.replace(/\/+$/, '');
+  }
+  return path;
+};
 
 const shouldSkipCsrf = (req) => {
-  if (csrfExcludedPaths.some((path) => req.path.startsWith(path))) {
+  const normalizedPath = normalizePath(req.path);
+  if (csrfExcludedPaths.has(normalizedPath)) {
     return true;
   }
 
-  const authHeader = req.headers.authorization || '';
-  if (authHeader.toLowerCase().startsWith('bearer ')) {
-    return true;
+  if (process.env.USE_COOKIE_AUTH !== 'true') {
+    const authHeader = (req.headers.authorization || '').toLowerCase();
+    if (authHeader.startsWith('bearer ')) {
+      return true;
+    }
   }
 
   return false;
@@ -61,25 +78,20 @@ const shouldSkipCsrf = (req) => {
 const issueCsrfToken = (req, res) => {
   let secret;
   const encSecret = req.cookies[CSRF_SECRET_COOKIE];
+
   if (encSecret) {
     secret = decrypt(encSecret);
   }
-
 
   if (!secret) {
     secret = tokens.secretSync();
   }
 
-  // Store encrypted secret in cookie
-  res.cookie(CSRF_SECRET_COOKIE, encrypt(secret), {
-    ...cookieOptions(true),
-  });
+  res.cookie(CSRF_SECRET_COOKIE, encrypt(secret), cookieOptions(true));
 
   const token = tokens.create(secret);
 
-  res.cookie(CSRF_PUBLIC_COOKIE, token, {
-    ...cookieOptions(false),
-  });
+  res.cookie(CSRF_PUBLIC_COOKIE, token, cookieOptions(false));
 
   return token;
 };
