@@ -40,6 +40,11 @@ const sendContactFormEmail = async (req, res) => {
 
 const sendPaymentConfirmationEmail = async (req, res) => {
     const { email } = req.body;
+
+    if (typeof email !== "string") {
+        res.status(400).json({ message: 'Invalid email format.' });
+        return;
+    }
   
     try {
         let userName = "Customer";
