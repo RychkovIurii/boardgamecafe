@@ -30,6 +30,9 @@ jobs:
       - name: Run tests
         run: npm test -- --ci --runInBand
 
+      - name: Set up .env
+        run: cp back.env.example back.env
+
       - name: Run backend server
         working-directory: backend
         run: |
