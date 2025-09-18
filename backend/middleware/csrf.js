@@ -87,7 +87,15 @@ const issueCsrfToken = (req, res) => {
     secret = tokens.secretSync();
   }
 
-  res.cookie(CSRF_SECRET_COOKIE, encrypt(secret), cookieOptions(true, true));
+  res.cookie(
+    CSRF_SECRET_COOKIE,
+    encrypt(secret),
+    {
+      ...cookieOptions(true, true),
+      httpOnly: true,
+      secure: true,
+    },
+  );
 
   const token = tokens.create(secret);
 

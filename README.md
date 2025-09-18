@@ -134,6 +134,8 @@ Fill in `back.env`:
 MONGO_URI=your_mongo_uri
 STRIPE_SECRET_KEY=your_stripe_secret
 FRONTEND_URL=http://localhost:5173
+USE_COOKIE_AUTH=true
+CSRF_ENC_KEY=generate_a_strong_secret
 PORT=5000
 JWT_SECRET=your_secret
 JWT_REFRESH_SECRET=your_secret
@@ -142,6 +144,12 @@ CONTACT_EMAIL=your_email@example.com
 CONTACT_EMAIL_PASS=your_password
 CONTACT_APP_PASS=your_password_for_app_from_google
 ```
+
+> **Cookie auth toggle:** Leave `USE_COOKIE_AUTH=true` in production so JWTs are delivered via HTTP-only cookies with CSRF protection. Switch it to `false` (and update the frontend variable) only for local development or the Render demo where header-based auth is required.
+>
+> The encrypted CSRF secret cookie is always sent with `secure: true`. When cookie auth is enabled, serve the backend over HTTPS (or through a local TLS proxy) or the browser will drop the secret cookie and CSRF validation will fail.
+>
+> Generate `CSRF_ENC_KEY` as a strong random string (≥32 bytes). For example: `openssl rand -base64 32`.
 
 Then run:
 
@@ -162,6 +170,7 @@ Fill in `.env`:
 ```env
 VITE_APP_STRIPE_PUBLIC_KEY=your_stripe_public_key
 VITE_API_URL=http://localhost:5000
+VITE_USE_COOKIE_AUTH=true
 ```
 
 Then run:
@@ -183,6 +192,7 @@ Docker and Docker Compose provide an easy way to boot the whole stack without in
    ```
    - For Docker Compose, the backend defaults to `mongodb://mongo:27017/cafeboardgame`.
    - Update `docker.env` whenever you need to change API URLs, Stripe keys, or other shared settings.
+   - Keep `USE_COOKIE_AUTH` / `VITE_USE_COOKIE_AUTH` aligned. When they stay `true`, run the stack behind HTTPS so the secure CSRF secret cookie is preserved.
 3. From the project root run:
    ```bash
    docker compose up --build
