@@ -30,6 +30,24 @@ jobs:
       - name: Run tests
         run: npm test -- --ci --runInBand
 
+      - name: Run backend server
+        working-directory: backend
+        run: |
+          PORT=5173 npm run start > server.log 2>&1 &
+          echo "Server PID: $SERVER_PID"
+          for i in {1..15}; do
+            if curl -s http://localhost:5173/health > /dev/null; then
+              echo "Server is up!"
+              break
+            fi
+            sleep 2
+          done
+          if ! curl -f http://localhost:5173/health > /dev/null; then
+            echo "Server failed to start:"
+            cat server.log
+            exit 1
+          fi
+
       # -------------------------------
       # 📝 Comment in PR on failure
       # -------------------------------
