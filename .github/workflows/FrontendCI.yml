@@ -45,7 +45,7 @@ jobs:
               return;
             }
             const body = [
-              '**Backend CI** failed.',
+              '**Frontend CI** failed.',
               `Commit: \`${process.env.GITHUB_SHA.slice(0,7)}\``,
               `Logs: ${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`
             ].join('\n');
