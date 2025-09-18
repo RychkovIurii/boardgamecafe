@@ -1,7 +1,7 @@
 const { body, param } = require('express-validator');
 const mongoose = require('mongoose');
 
-exports.eventCreateValidation = [
+const eventCreateValidation = [
 	body('title')
 		.trim()
 		.escape()
@@ -26,9 +26,15 @@ exports.eventCreateValidation = [
 		.isLength({ max: 300 })
 ];
 
-exports.eventUpdateValidation = [
+const eventIdValidation = [
 	param('id')
 		.custom(value => mongoose.Types.ObjectId.isValid(value))
-		.withMessage('Invalid event ID'),
-	...exports.eventCreateValidation // same fields as create
+		.withMessage('Invalid event ID')
+];
+
+exports.eventCreateValidation = eventCreateValidation;
+exports.eventIdValidation = eventIdValidation;
+exports.eventUpdateValidation = [
+	...eventIdValidation,
+	...eventCreateValidation
 ];

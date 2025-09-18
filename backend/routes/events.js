@@ -1,10 +1,12 @@
 const express = require('express');
 const rateLimit = require('express-rate-limit');
+const { Types: { ObjectId } } = require('mongoose');
 const router = express.Router();
 const Event = require('../models/Event');
 const { authenticate, authorizeAdmin } = require('../middleware/auth');
 const {
     eventCreateValidation,
+    eventIdValidation,
     eventUpdateValidation
 } = require('../utils/eventValidation');
 const validateInputs = require('../middleware/validateInputs');
@@ -58,8 +60,9 @@ router.post('/', authenticate, authorizeAdmin, eventCreateValidation, validateIn
 // Update existing event (admin only)
 router.put('/:id', authenticate, authorizeAdmin, eventUpdateValidation, validateInputs, async (req, res) => {
     try {
-        const updatedEvent = await Event.findByIdAndUpdate(
-            req.params.id,
+        const eventId = new ObjectId(req.params.id);
+        const updatedEvent = await Event.findOneAndUpdate(
+            { _id: { $eq: eventId } },
             {
                 title: req.body.title,
                 description: req.body.description,
@@ -77,20 +80,30 @@ router.put('/:id', authenticate, authorizeAdmin, eventUpdateValidation, validate
     } catch (error) {
         res.status(400).json({ message: 'Invalid event data' });
     }
+});
 
-    router.delete('/:id', deleteLimiter, authenticate, authorizeAdmin, eventUpdateValidation, validateInputs, async (req, res) => {
+// Delete event (admin only)
+router.delete(
+    '/:id',
+    deleteLimiter,
+    authenticate,
+    authorizeAdmin,
+    eventIdValidation,
+    validateInputs,
+    async (req, res) => {
         try {
-            const event = await Event.findById(req.params.id);
-            if (!event) {
+            const eventId = new ObjectId(req.params.id);
+            const deletedEvent = await Event.findOneAndDelete({ _id: { $eq: eventId } });
+
+            if (!deletedEvent) {
                 return res.status(404).json({ message: 'Event not found' });
             }
-            await event.deleteOne({ _id: req.params.id });
-            res.json({ message: 'Event deleted successfully' });
 
+            res.json({ message: 'Event deleted successfully' });
         } catch (error) {
             res.status(500).json({ message: 'Server error' });
         }
-    })
-});
+    }
+);
 
 module.exports = router;
