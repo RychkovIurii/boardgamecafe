@@ -12,28 +12,41 @@ const AuthProvider = ({ children, skipAuthCheck = false }) => {
 	const [user, setUser] = useState(null);
 	const navigate = useNavigate();
 	const { t } = useTranslation();
+	const useCookieAuth = import.meta.env.VITE_USE_COOKIE_AUTH === 'true';
   
 	// Fetch the user profile using the provided token.
 	const fetchUserProfile = useCallback(async () => {
-		const token = localStorage.getItem('accessToken');
-		if (!token) {
-			setIsAuthenticated(false);
-			setUser(null);
+		if (!useCookieAuth) {
+			const token = window.localStorage.getItem('accessToken');
+			if (!token) {
+				setIsAuthenticated(false);
+				setUser(null);
+				return;
+			}
+			try {
+				const response = await API.get('/users/profile', {
+					headers: {
+					  Authorization: `Bearer ${token}`
+					}
+				  });
+				setUser(response.data);
+				setIsAuthenticated(true);
+			} catch (error) {
+				setUser(null);
+				setIsAuthenticated(false);
+			}
 			return;
 		}
+
 		try {
-			const response = await API.get('/users/profile', {
-				headers: {
-				  Authorization: `Bearer ${token}`
-				}
-			  });
+			const response = await API.get('/users/profile');
 			setUser(response.data);
 			setIsAuthenticated(true);
 		} catch (error) {
 			setUser(null);
 			setIsAuthenticated(false);
 		}
-	}, []);
+	}, [useCookieAuth]);
   
 	useEffect(() => {
 		if (skipAuthCheck) {
@@ -63,38 +76,38 @@ const AuthProvider = ({ children, skipAuthCheck = false }) => {
   
 	// Logout: call API to logout, clear local storage, update state, and notify the user.
 	const logout = async () => {
-		localStorage.removeItem('accessToken');
-		setUser(null);
-		setIsAuthenticated(false);
-		await Swal.fire({
-			icon: 'success',
-			title: t('logout.successTitle'),
-			text: t('logout.successMessage'),
-			confirmButtonText: t('logout.confirmButton'),
-		  });
-		navigate('/');
-	  /* try { //for cookie-based authentication.
-		await API.post('/users/logout');
-		setUser(null);
-		setIsAuthenticated(false);
-		await Swal.fire({
-		  icon: 'success',
-		  title: t('logout.successTitle'),
-		  text: t('logout.successMessage'),
-		  confirmButtonText: t('logout.confirmButton'),
-		});
-		navigate('/');
-	  } catch (error) {
-		console.error('Error logging out:', error);
-		await Swal.fire({
-		  icon: 'error',
-		  title: t('logout.errorTitle') || 'Logout Failed',
-		  text:
-			t('logout.errorMessage') ||
-			'An error occurred during logout. Please try again.',
-		  confirmButtonText: t('logout.confirmButton') || 'OK',
-		});
-	  } */
+		const showSuccess = async () => {
+			setUser(null);
+			setIsAuthenticated(false);
+			await Swal.fire({
+			  icon: 'success',
+			  title: t('logout.successTitle'),
+			  text: t('logout.successMessage'),
+			  confirmButtonText: t('logout.confirmButton'),
+			});
+			navigate('/');
+		};
+
+		if (!useCookieAuth) {
+			window.localStorage.removeItem('accessToken');
+			await showSuccess();
+			return;
+		}
+
+		try {
+			await API.post('/users/logout');
+			await showSuccess();
+		} catch (error) {
+			console.error('Error logging out:', error);
+			await Swal.fire({
+			  icon: 'error',
+			  title: t('logout.errorTitle') || 'Logout Failed',
+			  text:
+				t('logout.errorMessage') ||
+				'An error occurred during logout. Please try again.',
+			  confirmButtonText: t('logout.confirmButton') || 'OK',
+			});
+		}
 	};
 
 	return (

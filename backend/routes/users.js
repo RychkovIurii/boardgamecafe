@@ -17,12 +17,14 @@ router.post('/register', registerValidation, validateInputs, registerUser);
 
 // Logout route
 router.post('/logout', (req, res) => {
-	res.clearCookie('accessToken', {
-	  path: '/',
-	  sameSite: 'Strict',
-	  secure: true,
-	  httpOnly: true
-	});
+	if (process.env.USE_COOKIE_AUTH === 'true') {
+	  res.clearCookie('accessToken', {
+		path: '/',
+		sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Strict',
+		secure: process.env.NODE_ENV === 'production',
+		httpOnly: true,
+	  });
+	}
 	res.json({ message: 'User logged out' });
   });
 

@@ -1,4 +1,5 @@
 const express = require('express');
+const rateLimit = require('express-rate-limit');
 const router = express.Router();
 const Event = require('../models/Event');
 const { authenticate, authorizeAdmin } = require('../middleware/auth');
@@ -7,6 +8,13 @@ const {
     eventUpdateValidation
 } = require('../utils/eventValidation');
 const validateInputs = require('../middleware/validateInputs');
+
+const deleteLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 10,
+    standardHeaders: true,
+    legacyHeaders: false
+});
 
 // Get all events
 router.get('/', async (req, res) => {
@@ -70,7 +78,7 @@ router.put('/:id', authenticate, authorizeAdmin, eventUpdateValidation, validate
         res.status(400).json({ message: 'Invalid event data' });
     }
 
-    router.delete('/:id', authenticate, authorizeAdmin, eventUpdateValidation, validateInputs, async (req, res) => {
+    router.delete('/:id', deleteLimiter, authenticate, authorizeAdmin, eventUpdateValidation, validateInputs, async (req, res) => {
         try {
             const event = await Event.findById(req.params.id);
             if (!event) {
