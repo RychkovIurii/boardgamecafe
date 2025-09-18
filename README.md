@@ -125,7 +125,7 @@ cd boardgamecafe
 ```bash
 cd backend
 npm install
-touch back.env
+cp back.env.example back.env
 ```
 
 Fill in `back.env`:
@@ -141,7 +141,6 @@ NODE_ENV=development
 CONTACT_EMAIL=your_email@example.com
 CONTACT_EMAIL_PASS=your_password
 CONTACT_APP_PASS=your_password_for_app_from_google
-STRIPE_SECRET_KEY=your_stripe_secret_key
 ```
 
 Then run:
@@ -155,7 +154,7 @@ npm run dev
 ```bash
 cd frontend/cafe-front
 npm install
-touch .env
+cp .env.example .env
 ```
 
 Fill in `.env`:
@@ -170,6 +169,48 @@ Then run:
 ```bash
 npm run dev
 ```
+
+### 4. Run with Docker Compose
+
+Docker and Docker Compose provide an easy way to boot the whole stack without installing Node locally.
+
+1. Install Docker (Desktop or Engine).
+2. Update the provided env samples if needed:
+   ```bash
+   cp backend/back.env.example backend/back.env
+   cp frontend/cafe-front/.env.example frontend/cafe-front/.env
+   # docker.env is used directly by compose; edit it with your local secrets
+   ```
+   - For Docker Compose, the backend defaults to `mongodb://mongo:27017/cafeboardgame`.
+   - Update `docker.env` whenever you need to change API URLs, Stripe keys, or other shared settings.
+3. From the project root run:
+   ```bash
+   docker compose up --build
+   ```
+4. Visit the app:
+   - Frontend: <http://localhost:5173>
+   - Backend API: <http://localhost:5000>
+
+On first boot the `seed` service runs automatically and populates MongoDB (core data + menu items) if it is empty. Subsequent runs detect existing data and skip reseeding.
+
+Shut everything down with `docker compose down` (add `-v` to also remove the Mongo data volume).
+
+- MongoDB data persists in `./mongo/db_mounted`. Delete the folder if you want a fresh database.
+- All services run on the shared `cafe-network`, so they can reach each other using service names (e.g., `mongodb://mongo:27017`).
+
+#### Makefile shortcuts
+
+The project root includes a `Makefile` wired to the Compose commands:
+
+- `make` / `make up` – build images and start everything in the background
+- `make down` – stop and remove the stack
+- `make stop` / `make restart` – pause or restart running containers
+- `make logs` (or `logs-backend`, `logs-frontend`) – tail service logs
+- `make shell-backend` / `make shell-frontend` – open a shell inside a running container
+- `make fclean` – tear everything down, remove volumes, and prune Docker artifacts labelled `project=cafeboardgame`
+- `make prune` – run the Docker prune step without stopping containers first
+- `make re` – equivalent to `make fclean` followed by `make up`
+
 ## Folder Structure
 
 ```plaintext
@@ -184,6 +225,8 @@ boardgamecafe/
 │   ├── tests/                  # Jest test files
 │   ├── utils/                  # Helpers (validators, transformers, etc.)
 │   ├── back.env                # Environment config (not committed)
+│   ├── back.env.example        # Sample variables
+│   ├── Dockerfile              # Backend container image
 │   ├── jest.config.js          # Jest configuration
 │   ├── package.json
 │   └── server.js               # App entry point
@@ -202,7 +245,15 @@ boardgamecafe/
 │       ├── tailwind.config.js
 │       ├── vite.config.js
 │       ├── package.json
-│       └── .env
+│       ├── Dockerfile
+│       ├── .env
+│       └── .env.example
+├── docker.env                  # Environment shared by Docker Compose
+├── docker-compose.yml
+├── .dockerignore
+├── mongo/
+│   ├── Dockerfile             # Mongo image definition
+│   └── db_mounted/            # MongoDB data (gitignored)
 ```
 
 ---

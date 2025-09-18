@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const fs = require('fs');
+const path = require('path');
 const User = require('../models/User');
 const Game = require('../models/Game');
 const Booking = require('../models/Booking');
@@ -9,7 +11,12 @@ const Event = require('../models/Event');
 const { WorkingHours, SpecialHours } = require('../models/WorkingHours');
 const moment = require('moment-timezone');
 
-dotenv.config({ path: './back.env' });
+const envPath = path.resolve(__dirname, '..', 'back.env');
+if (fs.existsSync(envPath)) {
+	dotenv.config({ path: envPath });
+} else {
+	dotenv.config();
+}
 
 const connectDB = async () => {
     try {
@@ -154,6 +161,16 @@ const importData = async () => {
     try {
         await connectDB();
 
+        const [userCount, tableCount] = await Promise.all([
+			User.estimatedDocumentCount(),
+			Table.estimatedDocumentCount(),
+		]);
+
+		if (userCount > 0 || tableCount > 0) {
+			console.log('Seed data detected, skipping import.');
+			return;
+		}
+
         await User.deleteMany();
         await Game.deleteMany();
         await Booking.deleteMany();
@@ -200,14 +217,11 @@ const importData = async () => {
 		await WorkingHours.insertMany(workingHoursData);
 		await SpecialHours.insertMany(specialHoursData);
 		
-
         console.log('Data Imported!');
-        process.exit();
     } catch (error) {
         console.error('Error seeding the database:', error.message);
-        process.exit(1);
     } finally {
-        mongoose.disconnect();
+        await mongoose.disconnect();
         console.log('Database disconnected.');
     }
 };

@@ -10,3 +10,5 @@ if (typeof global.TextEncoder === "undefined") {
 if (typeof global.TextDecoder === "undefined") {
   global.TextDecoder = TextDecoder;
 }
+
+process.env.VITE_API_URL = process.env.VITE_API_URL || "http://localhost";

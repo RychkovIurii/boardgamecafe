@@ -22,24 +22,24 @@ afterAll(async () => {
 });
 
 describe('POST /bookings', () => {
-    test("rejects booking starting after 23:30", async () => {
-		const response = await request(app)
-			.post("/bookings")
-			.send({
-				date: "2025-03-21",
-				startTime: "23:35", // Now correctly rejected
-				duration: 60,
-				tableNumber: "20",
-				players: 4,
-				game: "679b55131b5b9256a1458cf1",
-				userId: "679b55131b5b9256a1458ced",
-				contactName: "John Doe",
-				contactPhone: "+358466554400",
-			});
-	
-		expect(response.status).toBe(400);
-		expect(response.body.message).toBe(
-			"Last booking shift is at 23:30. Please choose an earlier start time."
-		);
-	});
+    test('rejects booking with invalid minute increments', async () => {
+                const response = await request(app)
+                        .post("/bookings")
+                        .send({
+                                date: "2030-03-21",
+                                startTime: "23:35", // Now correctly rejected
+                                duration: 60,
+                                tableNumber: "20",
+                                players: 4,
+                                game: "679b55131b5b9256a1458cf1",
+                                userId: "679b55131b5b9256a1458ced",
+                                contactName: "John Doe",
+                                contactPhone: "+358466554400",
+                        });
+
+                expect(response.status).toBe(400);
+                expect(response.body.message).toBe(
+                        'Start time must be on the hour or half-hour (e.g. 14:00 or 14:30).'
+                );
+        });
 });
