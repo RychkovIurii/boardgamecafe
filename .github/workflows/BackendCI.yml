@@ -40,8 +40,11 @@ jobs:
         run: npm test -- --ci --runInBand
 
       - name: Run backend server
+        env:
+          PORT: 5000
+          MONGO_URI: mongodb://127.0.0.1:27017/cafeboardgame
         run: |
-          PORT=5000 npm run start > server.log 2>&1 &
+          npm run start > server.log 2>&1 &
           SERVER_PID=$!
           echo "Server PID: $SERVER_PID"
           for i in {1..15}; do
