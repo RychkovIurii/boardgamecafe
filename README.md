@@ -134,6 +134,7 @@ Fill in `back.env`:
 MONGO_URI=your_mongo_uri
 STRIPE_SECRET_KEY=your_stripe_secret
 FRONTEND_URL=http://localhost:5173
+USE_COOKIE_AUTH=true
 PORT=5000
 JWT_SECRET=your_secret
 JWT_REFRESH_SECRET=your_secret
@@ -142,6 +143,8 @@ CONTACT_EMAIL=your_email@example.com
 CONTACT_EMAIL_PASS=your_password
 CONTACT_APP_PASS=your_password_for_app_from_google
 ```
+
+> **Cookie auth toggle:** Keep `USE_COOKIE_AUTH=true` in production so JWTs are delivered via HTTP-only cookies with CSRF protection. Only switch it to `false` (and update the frontend accordingly) for local development or the Render-hosted demo where header-based auth is required.
 
 Then run:
 
@@ -162,6 +165,7 @@ Fill in `.env`:
 ```env
 VITE_APP_STRIPE_PUBLIC_KEY=your_stripe_public_key
 VITE_API_URL=http://localhost:5000
+VITE_USE_COOKIE_AUTH=true
 ```
 
 Then run:
@@ -183,6 +187,7 @@ Docker and Docker Compose provide an easy way to boot the whole stack without in
    ```
    - For Docker Compose, the backend defaults to `mongodb://mongo:27017/cafeboardgame`.
    - Update `docker.env` whenever you need to change API URLs, Stripe keys, or other shared settings.
+   - Match `USE_COOKIE_AUTH` / `VITE_USE_COOKIE_AUTH` between backend and frontend; leave them `true` for production and only set them to `false` when running locally or on Render.
 3. From the project root run:
    ```bash
    docker compose up --build
