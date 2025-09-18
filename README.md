@@ -1,3 +1,6 @@
+[![Backend CI](https://github.com/RychkovIurii/boardgamecafe/actions/workflows/BackendCI.yml/badge.svg?branch=main)](https://github.com/RychkovIurii/boardgamecafe/actions/workflows/BackendCI.yml)
+[![Frontend CI](https://github.com/RychkovIurii/boardgamecafe/actions/workflows/FrontendCI.yml/badge.svg?branch=main)](https://github.com/RychkovIurii/boardgamecafe/actions/workflows/FrontendCI.yml)
+
 # BoardGameCafe
 
 A full-stack web application for managing a real-life board game café — supporting table reservations, game selections, event browsing, Stripe payments, and a powerful admin panel (CMS).
