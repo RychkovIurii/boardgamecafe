@@ -12,10 +12,10 @@ const CSRF_PUBLIC_COOKIE = 'XSRF-TOKEN';
 const CSRF_SECRET_COOKIE = 'XSRF-SECRET';
 const PROTECTED_METHODS = ['POST', 'PUT', 'PATCH', 'DELETE'];
 
-const cookieOptions = (httpOnly) => ({
+const cookieOptions = (httpOnly, forceSecure = false) => ({
   httpOnly,
   sameSite: isProduction ? 'None' : 'Strict',
-  secure: isProduction,
+  secure: forceSecure ? true : isProduction,
   path: '/',
 });
 
@@ -87,7 +87,7 @@ const issueCsrfToken = (req, res) => {
     secret = tokens.secretSync();
   }
 
-  res.cookie(CSRF_SECRET_COOKIE, encrypt(secret), cookieOptions(true));
+  res.cookie(CSRF_SECRET_COOKIE, encrypt(secret), cookieOptions(true, true));
 
   const token = tokens.create(secret);
 
