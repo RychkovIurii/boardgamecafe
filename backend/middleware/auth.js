@@ -6,19 +6,22 @@ Middleware for Authentication and Authorization.
 */
 const authenticate = async (req, res, next) => {
 
-/* 	// For cookie-based authentication
-    const token = req.cookies?.accessToken;
+    const useCookieAuth = process.env.USE_COOKIE_AUTH === 'true';
+    let token;
 
-    if (!token) {
-        return res.status(401).json({ message: 'No token, authorization denied' });
-    } */
-
-	// For token-based authentication
+    if (useCookieAuth) {
+        token = req.cookies?.accessToken;
+    } else {
 	const authHeader = req.headers.authorization;
 	if (!authHeader || !authHeader.startsWith('Bearer ')) {
 		return res.status(401).json({ message: 'No token, authorization denied' });
 	}
-	const token = authHeader.split(' ')[1];
+	token = authHeader.split(' ')[1];
+    }
+
+    if (!token) {
+        return res.status(401).json({ message: 'No token, authorization denied' });
+    }
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);

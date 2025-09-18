@@ -10,6 +10,7 @@ const Login = ({ onToggleForm, onForgotPassword }) => {
 	const { t } = useTranslation();
 	const { login } = useContext(AuthContext); // Access the login function
 	const navigate = useNavigate();
+	const useCookieAuth = import.meta.env.VITE_USE_COOKIE_AUTH === 'true';
 	const [formData, setFormData] = useState({
 		email: '',
 		password: ''
@@ -23,10 +24,11 @@ const Login = ({ onToggleForm, onForgotPassword }) => {
 		e.preventDefault();
 		try {
 			const response = await API.post('/users/login', formData);
-			/* const { role } = response.data; */ //For cookie-based authentication.
 			const { token, role } = response.data;
-			localStorage.setItem('accessToken', token);
-			login(role);
+			if (!useCookieAuth && token) {
+				window.localStorage.setItem('accessToken', token);
+			}
+			await login();
 			await Swal.fire({
 				icon: 'success',
 				title: t("login.successTitle"),

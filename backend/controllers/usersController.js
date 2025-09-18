@@ -18,16 +18,20 @@ const loginUser = async (req, res) => {
         }
 
         const token = generateToken(user);
-        /* res.cookie('accessToken', token, { //For cookie-based authentication. On render we can't.
-            httpOnly: true, 
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Strict',
+        const useCookieAuth = process.env.USE_COOKIE_AUTH === 'true';
+
+        if (useCookieAuth) {
+		res.cookie('accessToken', token, {
+			httpOnly: true,
+			secure: process.env.NODE_ENV === 'production',
+			sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Strict',
 			path: '/',
-			maxAge: 3600000
-        }); 
-		res.status(200).json({ message: 'Login successful', role: user.role });
-		*/
-		res.status(200).json({ //For token-based authentication.
+			maxAge: 3600000,
+		});
+		return res.status(200).json({ message: 'Login successful', role: user.role });
+	}
+
+		res.status(200).json({
 			message: 'Login successful',
 			token,
 			role: user.role
