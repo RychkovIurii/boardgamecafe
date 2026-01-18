@@ -6,8 +6,8 @@ services:
     restart: unless-stopped
     labels:
       - project=cafeboardgame
-    ports:
-      - "27017:27017"
+    expose:
+      - "27017"
     volumes:
       - ./mongo/db_mounted:/data/db
     healthcheck:
@@ -43,8 +43,8 @@ services:
     restart: unless-stopped
     env_file:
       - ./docker.env
-    ports:
-      - "5000:5000"
+    expose:
+      - "5000"
     depends_on:
       seed:
         condition: service_completed_successfully
@@ -62,10 +62,27 @@ services:
     restart: unless-stopped
     env_file:
       - ./docker.env
-    ports:
-      - "5173:80"
+    expose:
+      - "80"
     depends_on:
       - backend
+    networks:
+      - cafe-network
+
+  nginx:
+    image: nginx:1.29-alpine
+    labels:
+      - project=cafeboardgame
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./nginx/certs:/etc/nginx/certs:ro
+    depends_on:
+      - backend
+      - frontend
     networks:
       - cafe-network
 
